@@ -442,8 +442,8 @@
         <entry key="E:/Deckbuilder testen/java_backend" value="PREVIEW" />
         <entry key="$PROJECT_DIR$" value="RE_IMPORT" />
         <entry key="$PROJECT_DIR$/../java_backend" value="PREVIEW" />
-        <entry key="E:/Jetbrain PHPstorm oef/2018-Group-28/java_backend" value="PREVIEW" />
-        <entry key="E:/Jetbrain PHPstorm oef/Project Howeststone/2018-Group-28-master-7a2f8c3aeae15151c7f538ebf5617f7c12a8ca1b/2018-Group-28/java_backend" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../2018-Group-28/java_backend" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../Project Howeststone/2018-Group-28-master-7a2f8c3aeae15151c7f538ebf5617f7c12a8ca1b/2018-Group-28/java_backend" value="PREVIEW" />
         <entry key="E:/Testit/java_backend" value="PREVIEW" />
         <entry key="E:/allboe/java_backend" value="PREVIEW" />
         <entry key="E:/backend/2018-Group-28-128-deckbuilder-javascript-send-newly-made-deck-to-backend-in-json-format/java_backend" value="PREVIEW" />
@@ -474,9 +474,9 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
-    <option name="x" value="783" />
-    <option name="y" value="13" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="81" />
+    <option name="y" value="2" />
     <option name="width" value="974" />
     <option name="height" value="1047" />
   </component>
@@ -571,6 +571,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
