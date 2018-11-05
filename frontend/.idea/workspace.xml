@@ -1,0 +1,616 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="6e152500-d38d-4fe5-90a8-3f96368a7e16" name="Default" comment="" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
+      <file leaf-file-name="test.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/test.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="315">
+              <caret line="15" column="47" lean-forward="true" selection-start-line="15" selection-start-column="44" selection-end-line="15" selection-end-column="47" />
+              <folding>
+                <element signature="n#style#0;n#canvas#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="blockPatterns.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/assets/js/blockPatterns.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="714">
+              <caret line="34" column="2" lean-forward="false" selection-start-line="34" selection-start-column="2" selection-end-line="34" selection-end-column="2" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="script.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/assets/js/script.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="5626">
+              <caret line="556" column="9" lean-forward="false" selection-start-line="556" selection-start-column="9" selection-end-line="556" selection-end-column="9" />
+              <folding>
+                <element signature="e#130#260#0" expanded="false" />
+                <element signature="e#277#463#0" expanded="false" />
+                <element signature="e#480#1128#0" expanded="false" />
+                <element signature="e#1146#1597#0" expanded="false" />
+                <element signature="e#1613#1637#0" expanded="false" />
+                <element signature="n#!!block;n#initButtons#0" expanded="false" />
+                <element signature="n#!!block;n#createImageObj#0" expanded="false" />
+                <element signature="n#!!block;n#createGameBoard#0" expanded="false" />
+                <element signature="n#!!block;n#startTheGame#0" expanded="false" />
+                <element signature="n#!!block;n#saveHighscore#0" expanded="false" />
+                <element signature="n#!!block;n#stopInterval#0" expanded="false" />
+                <element signature="n#!!block;n#startInterval#0" expanded="false" />
+                <element signature="n#!!block;n#onMouseMove#0" expanded="false" />
+                <element signature="n#!!block;n#onClick#0" expanded="false" />
+                <element signature="n#!!block;n#onKeyDown#0" expanded="false" />
+                <element signature="n#!!block;n#onKeyUp#0" expanded="false" />
+                <element signature="n#!!block;n#activateButton#0" expanded="false" />
+                <element signature="n#!!block;n#deActivateButton#0" expanded="false" />
+                <element signature="n#!!block;n#logGameBoard#0" expanded="false" />
+                <element signature="n#!!block;n#drawBackgroundStartScreen#0" expanded="false" />
+                <element signature="n#!!block;n#drawRestartStats#0" expanded="false" />
+                <element signature="n#!!block;n#drawRestartButton#0" expanded="false" />
+                <element signature="n#!!block;n#drawRestartPopupPane#0" expanded="false" />
+                <element signature="n#!!block;n#writeGameOver#0" expanded="false" />
+                <element signature="n#!!block;n#drawScore#0" expanded="false" />
+                <element signature="n#!!block;n#drawGameBoard#0" expanded="false" />
+                <element signature="n#!!block;n#drawFallingBlock#0" expanded="false" />
+                <element signature="n#!!block;n#updatePlayScreen#0" expanded="false" />
+                <element signature="n#!!block;n#updateViewScreen#0" expanded="false" />
+                <element signature="n#!!block;n#pauseTheGame#0" expanded="false" />
+                <element signature="n#!!block;n#tryAndRotate#0" expanded="false" />
+                <element signature="n#!!block;n#tryAndGoLeft#0" expanded="false" />
+                <element signature="n#!!block;n#tryAndGoRight#0" expanded="false" />
+                <element signature="n#!!block;n#sonic#0" expanded="false" />
+                <element signature="n#!!block;n#superSonic#0" expanded="false" />
+                <element signature="n#!!block;n#stopSonic#0" expanded="false" />
+                <element signature="n#!!block;n#getNextFallingBlock#0" expanded="false" />
+                <element signature="n#!!block;n#dealWithNextColor#0" expanded="false" />
+                <element signature="n#!!block;n#emptyLine#0" expanded="false" />
+                <element signature="n#!!block;n#dropTopLayers#0" expanded="false" />
+                <element signature="n#!!block;n#checkAndScoreFullRows#0" expanded="false" />
+                <element signature="n#!!block;n#checkCollision#0" expanded="false" />
+                <element signature="n#!!block;n#rotatePattern#0" expanded="false" />
+                <element signature="n#!!block;n#placeBlock#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="screen.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/assets/css/screen.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="42">
+              <caret line="2" column="36" lean-forward="false" selection-start-line="2" selection-start-column="36" selection-end-line="2" selection-end-column="54" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+        <option value="JavaScript File" />
+        <option value="CSS File" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>sonic</find>
+      <find>next</find>
+      <find>preventD</find>
+      <find>lastKe</find>
+      <find>inter</find>
+      <find>start</find>
+      <find>y</find>
+      <find>keyUp</find>
+      <find>gameBoard</find>
+      <find>keyup</find>
+      <find>draw</find>
+      <find>interval</find>
+      <find>15</find>
+      <find>500</find>
+      <find>BEGIN_MO</find>
+      <find>create</find>
+      <find>BLOP</find>
+      <find>hard</find>
+      <find>hardD</find>
+      <find>drawGame</find>
+      <find>canvas.wid</find>
+      <find>drawI</find>
+      <find>blockWi</find>
+      <find>GAME_BO</find>
+      <find>addEvent</find>
+      <find>tile</find>
+      <find>updatePlay</find>
+      <find>updateVie</find>
+      <find>super</find>
+      <find>score</find>
+    </findStrings>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/assets/js/blockLayouts.js" />
+        <option value="$PROJECT_DIR$/assets/js/blockPatterns.js" />
+        <option value="$PROJECT_DIR$/assets/css/screen.css" />
+        <option value="$PROJECT_DIR$/assets/js/script.js" />
+        <option value="$PROJECT_DIR$/test.html" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <annotation-enable>false</annotation-enable>
+    <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
+  </component>
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-8" />
+    <option name="width" value="976" />
+    <option name="height" value="1038" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="singlePlayerTetris" type="b2602c69:ProjectViewProjectNode" />
+              <item name="singlePlayerTetris" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scratches" />
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="settings.editor.selected.configurable" value="Settings.JavaScript" />
+    <property name="JavaScriptPreferStrict" value="true" />
+    <property name="JavaScriptWeakerCompletionTypeGuess" value="true" />
+    <property name="nodejs_interpreter_path" value="C:/Program Files/nodejs/node" />
+    <property name="list.type.of.created.stylesheet" value="CSS" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6e152500-d38d-4fe5-90a8-3f96368a7e16" name="Default" comment="" />
+      <created>1539039646310</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1539039646310</updated>
+      <workItem from="1539039647573" duration="35900000" />
+      <workItem from="1539095075115" duration="1210000" />
+      <workItem from="1539188304419" duration="36765000" />
+      <workItem from="1539330914819" duration="3728000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="77603000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.11666667" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+    </layout>
+    <layout-to-restore>
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+    </layout-to-restore>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <option name="time" value="1" />
+    </breakpoint-manager>
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/test.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="n#style#0;n#canvas#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/js/blockPatterns.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="714">
+          <caret line="34" column="2" lean-forward="false" selection-start-line="34" selection-start-column="2" selection-end-line="34" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/js/script.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3276">
+          <caret line="213" column="20" lean-forward="false" selection-start-line="213" selection-start-column="20" selection-end-line="213" selection-end-column="20" />
+          <folding>
+            <element signature="e#130#260#0" expanded="false" />
+            <element signature="e#277#463#0" expanded="false" />
+            <element signature="e#480#1128#0" expanded="false" />
+            <element signature="e#1146#1597#0" expanded="false" />
+            <element signature="e#1613#1637#0" expanded="false" />
+            <element signature="n#!!block;n#initButtons#0" expanded="false" />
+            <element signature="n#!!block;n#createImageObj#0" expanded="false" />
+            <element signature="n#!!block;n#createGameBoard#0" expanded="false" />
+            <element signature="n#!!block;n#startTheGame#0" expanded="false" />
+            <element signature="n#!!block;n#saveHighscore#0" expanded="false" />
+            <element signature="n#!!block;n#stopInterval#0" expanded="false" />
+            <element signature="n#!!block;n#startInterval#0" expanded="false" />
+            <element signature="n#!!block;n#onMouseMove#0" expanded="false" />
+            <element signature="n#!!block;n#onClick#0" expanded="false" />
+            <element signature="n#!!block;n#onKeyDown#0" expanded="false" />
+            <element signature="n#!!block;n#onKeyUp#0" expanded="false" />
+            <element signature="n#!!block;n#activateButton#0" expanded="false" />
+            <element signature="n#!!block;n#deActivateButton#0" expanded="false" />
+            <element signature="n#!!block;n#logGameBoard#0" expanded="false" />
+            <element signature="n#!!block;n#drawBackgroundStartScreen#0" expanded="false" />
+            <element signature="n#!!block;n#drawRestartStats#0" expanded="false" />
+            <element signature="n#!!block;n#drawRestartButton#0" expanded="false" />
+            <element signature="n#!!block;n#drawRestartPopupPane#0" expanded="false" />
+            <element signature="n#!!block;n#writeGameOver#0" expanded="false" />
+            <element signature="n#!!block;n#drawScore#0" expanded="false" />
+            <element signature="n#!!block;n#drawGameBoard#0" expanded="false" />
+            <element signature="n#!!block;n#drawFallingBlock#0" expanded="false" />
+            <element signature="n#!!block;n#updatePlayScreen#0" expanded="false" />
+            <element signature="n#!!block;n#updateViewScreen#0" expanded="false" />
+            <element signature="n#!!block;n#pauseTheGame#0" expanded="false" />
+            <element signature="n#!!block;n#tryAndRotate#0" expanded="false" />
+            <element signature="n#!!block;n#tryAndGoLeft#0" expanded="false" />
+            <element signature="n#!!block;n#tryAndGoRight#0" expanded="false" />
+            <element signature="n#!!block;n#sonic#0" expanded="false" />
+            <element signature="n#!!block;n#superSonic#0" expanded="false" />
+            <element signature="n#!!block;n#stopSonic#0" expanded="false" />
+            <element signature="n#!!block;n#getNextFallingBlock#0" expanded="false" />
+            <element signature="n#!!block;n#dealWithNextColor#0" expanded="false" />
+            <element signature="n#!!block;n#emptyLine#0" expanded="false" />
+            <element signature="n#!!block;n#dropTopLayers#0" expanded="false" />
+            <element signature="n#!!block;n#checkAndScoreFullRows#0" expanded="false" />
+            <element signature="n#!!block;n#checkCollision#0" expanded="false" />
+            <element signature="n#!!block;n#rotatePattern#0" expanded="false" />
+            <element signature="n#!!block;n#placeBlock#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/css/screen.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="42">
+          <caret line="2" column="36" lean-forward="true" selection-start-line="2" selection-start-column="36" selection-end-line="2" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="588">
+          <caret line="28" column="7" lean-forward="false" selection-start-line="28" selection-start-column="7" selection-end-line="28" selection-end-column="7" />
+          <folding>
+            <element signature="n#style#0;n#canvas#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/js/blockPatterns.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="714">
+          <caret line="34" column="2" lean-forward="false" selection-start-line="34" selection-start-column="2" selection-end-line="34" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/js/script.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1470">
+          <caret line="70" column="23" lean-forward="false" selection-start-line="70" selection-start-column="23" selection-end-line="70" selection-end-column="23" />
+          <folding>
+            <element signature="e#130#260#0" expanded="false" />
+            <element signature="e#277#463#0" expanded="false" />
+            <element signature="e#480#1128#0" expanded="false" />
+            <element signature="e#1146#1597#0" expanded="false" />
+            <element signature="e#1613#1637#0" expanded="false" />
+            <element signature="n#!!block;n#initButtons#0" expanded="false" />
+            <element signature="n#!!block;n#createImageObj#0" expanded="false" />
+            <element signature="n#!!block;n#createGameBoard#0" expanded="false" />
+            <element signature="n#!!block;n#startTheGame#0" expanded="false" />
+            <element signature="n#!!block;n#saveHighscore#0" expanded="false" />
+            <element signature="n#!!block;n#stopInterval#0" expanded="false" />
+            <element signature="n#!!block;n#startInterval#0" expanded="false" />
+            <element signature="n#!!block;n#onMouseMove#0" expanded="false" />
+            <element signature="n#!!block;n#onClick#0" expanded="false" />
+            <element signature="n#!!block;n#onKeyDown#0" expanded="false" />
+            <element signature="n#!!block;n#onKeyUp#0" expanded="false" />
+            <element signature="n#!!block;n#activateButton#0" expanded="false" />
+            <element signature="n#!!block;n#deActivateButton#0" expanded="false" />
+            <element signature="n#!!block;n#logGameBoard#0" expanded="false" />
+            <element signature="n#!!block;n#drawBackgroundStartScreen#0" expanded="false" />
+            <element signature="n#!!block;n#drawRestartStats#0" expanded="false" />
+            <element signature="n#!!block;n#drawRestartButton#0" expanded="false" />
+            <element signature="n#!!block;n#drawRestartPopupPane#0" expanded="false" />
+            <element signature="n#!!block;n#writeGameOver#0" expanded="false" />
+            <element signature="n#!!block;n#drawScore#0" expanded="false" />
+            <element signature="n#!!block;n#drawGameBoard#0" expanded="false" />
+            <element signature="n#!!block;n#drawFallingBlock#0" expanded="false" />
+            <element signature="n#!!block;n#updatePlayScreen#0" expanded="false" />
+            <element signature="n#!!block;n#updateViewScreen#0" expanded="false" />
+            <element signature="n#!!block;n#pauseTheGame#0" expanded="false" />
+            <element signature="n#!!block;n#tryAndRotate#0" expanded="false" />
+            <element signature="n#!!block;n#tryAndGoLeft#0" expanded="false" />
+            <element signature="n#!!block;n#tryAndGoRight#0" expanded="false" />
+            <element signature="n#!!block;n#sonic#0" expanded="false" />
+            <element signature="n#!!block;n#superSonic#0" expanded="false" />
+            <element signature="n#!!block;n#stopSonic#0" expanded="false" />
+            <element signature="n#!!block;n#getNextFallingBlock#0" expanded="false" />
+            <element signature="n#!!block;n#dealWithNextColor#0" expanded="false" />
+            <element signature="n#!!block;n#emptyLine#0" expanded="false" />
+            <element signature="n#!!block;n#dropTopLayers#0" expanded="false" />
+            <element signature="n#!!block;n#checkAndScoreFullRows#0" expanded="false" />
+            <element signature="n#!!block;n#checkCollision#0" expanded="false" />
+            <element signature="n#!!block;n#rotatePattern#0" expanded="false" />
+            <element signature="n#!!block;n#placeBlock#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="n#style#0;n#canvas#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/js/blockPatterns.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="714">
+          <caret line="34" column="2" lean-forward="false" selection-start-line="34" selection-start-column="2" selection-end-line="34" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/js/script.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1470">
+          <caret line="70" column="23" lean-forward="false" selection-start-line="70" selection-start-column="23" selection-end-line="70" selection-end-column="23" />
+          <folding>
+            <element signature="e#130#260#0" expanded="false" />
+            <element signature="e#277#463#0" expanded="false" />
+            <element signature="e#480#1128#0" expanded="false" />
+            <element signature="e#1146#1597#0" expanded="false" />
+            <element signature="e#1613#1637#0" expanded="false" />
+            <element signature="n#!!block;n#initButtons#0" expanded="false" />
+            <element signature="n#!!block;n#createImageObj#0" expanded="false" />
+            <element signature="n#!!block;n#createGameBoard#0" expanded="false" />
+            <element signature="n#!!block;n#startTheGame#0" expanded="false" />
+            <element signature="n#!!block;n#saveHighscore#0" expanded="false" />
+            <element signature="n#!!block;n#stopInterval#0" expanded="false" />
+            <element signature="n#!!block;n#startInterval#0" expanded="false" />
+            <element signature="n#!!block;n#onMouseMove#0" expanded="false" />
+            <element signature="n#!!block;n#onClick#0" expanded="false" />
+            <element signature="n#!!block;n#onKeyDown#0" expanded="false" />
+            <element signature="n#!!block;n#onKeyUp#0" expanded="false" />
+            <element signature="n#!!block;n#activateButton#0" expanded="false" />
+            <element signature="n#!!block;n#deActivateButton#0" expanded="false" />
+            <element signature="n#!!block;n#logGameBoard#0" expanded="false" />
+            <element signature="n#!!block;n#drawBackgroundStartScreen#0" expanded="false" />
+            <element signature="n#!!block;n#drawRestartStats#0" expanded="false" />
+            <element signature="n#!!block;n#drawRestartButton#0" expanded="false" />
+            <element signature="n#!!block;n#drawRestartPopupPane#0" expanded="false" />
+            <element signature="n#!!block;n#writeGameOver#0" expanded="false" />
+            <element signature="n#!!block;n#drawScore#0" expanded="false" />
+            <element signature="n#!!block;n#drawGameBoard#0" expanded="false" />
+            <element signature="n#!!block;n#drawFallingBlock#0" expanded="false" />
+            <element signature="n#!!block;n#updatePlayScreen#0" expanded="false" />
+            <element signature="n#!!block;n#updateViewScreen#0" expanded="false" />
+            <element signature="n#!!block;n#pauseTheGame#0" expanded="false" />
+            <element signature="n#!!block;n#tryAndRotate#0" expanded="false" />
+            <element signature="n#!!block;n#tryAndGoLeft#0" expanded="false" />
+            <element signature="n#!!block;n#tryAndGoRight#0" expanded="false" />
+            <element signature="n#!!block;n#sonic#0" expanded="false" />
+            <element signature="n#!!block;n#superSonic#0" expanded="false" />
+            <element signature="n#!!block;n#stopSonic#0" expanded="false" />
+            <element signature="n#!!block;n#getNextFallingBlock#0" expanded="false" />
+            <element signature="n#!!block;n#dealWithNextColor#0" expanded="false" />
+            <element signature="n#!!block;n#emptyLine#0" expanded="false" />
+            <element signature="n#!!block;n#dropTopLayers#0" expanded="false" />
+            <element signature="n#!!block;n#checkAndScoreFullRows#0" expanded="false" />
+            <element signature="n#!!block;n#checkCollision#0" expanded="false" />
+            <element signature="n#!!block;n#rotatePattern#0" expanded="false" />
+            <element signature="n#!!block;n#placeBlock#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/lib/JavaScriptLanguage.jar!/com/intellij/lang/javascript/index/predefined/DHTML.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="293">
+          <caret line="1212" column="0" lean-forward="false" selection-start-line="1212" selection-start-column="0" selection-end-line="1212" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/css/screen.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="42">
+          <caret line="2" column="36" lean-forward="false" selection-start-line="2" selection-start-column="36" selection-end-line="2" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/js/blockPatterns.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="714">
+          <caret line="34" column="2" lean-forward="false" selection-start-line="34" selection-start-column="2" selection-end-line="34" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/js/script.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5626">
+          <caret line="556" column="9" lean-forward="false" selection-start-line="556" selection-start-column="9" selection-end-line="556" selection-end-column="9" />
+          <folding>
+            <element signature="e#130#260#0" expanded="false" />
+            <element signature="e#277#463#0" expanded="false" />
+            <element signature="e#480#1128#0" expanded="false" />
+            <element signature="e#1146#1597#0" expanded="false" />
+            <element signature="e#1613#1637#0" expanded="false" />
+            <element signature="n#!!block;n#initButtons#0" expanded="false" />
+            <element signature="n#!!block;n#createImageObj#0" expanded="false" />
+            <element signature="n#!!block;n#createGameBoard#0" expanded="false" />
+            <element signature="n#!!block;n#startTheGame#0" expanded="false" />
+            <element signature="n#!!block;n#saveHighscore#0" expanded="false" />
+            <element signature="n#!!block;n#stopInterval#0" expanded="false" />
+            <element signature="n#!!block;n#startInterval#0" expanded="false" />
+            <element signature="n#!!block;n#onMouseMove#0" expanded="false" />
+            <element signature="n#!!block;n#onClick#0" expanded="false" />
+            <element signature="n#!!block;n#onKeyDown#0" expanded="false" />
+            <element signature="n#!!block;n#onKeyUp#0" expanded="false" />
+            <element signature="n#!!block;n#activateButton#0" expanded="false" />
+            <element signature="n#!!block;n#deActivateButton#0" expanded="false" />
+            <element signature="n#!!block;n#logGameBoard#0" expanded="false" />
+            <element signature="n#!!block;n#drawBackgroundStartScreen#0" expanded="false" />
+            <element signature="n#!!block;n#drawRestartStats#0" expanded="false" />
+            <element signature="n#!!block;n#drawRestartButton#0" expanded="false" />
+            <element signature="n#!!block;n#drawRestartPopupPane#0" expanded="false" />
+            <element signature="n#!!block;n#writeGameOver#0" expanded="false" />
+            <element signature="n#!!block;n#drawScore#0" expanded="false" />
+            <element signature="n#!!block;n#drawGameBoard#0" expanded="false" />
+            <element signature="n#!!block;n#drawFallingBlock#0" expanded="false" />
+            <element signature="n#!!block;n#updatePlayScreen#0" expanded="false" />
+            <element signature="n#!!block;n#updateViewScreen#0" expanded="false" />
+            <element signature="n#!!block;n#pauseTheGame#0" expanded="false" />
+            <element signature="n#!!block;n#tryAndRotate#0" expanded="false" />
+            <element signature="n#!!block;n#tryAndGoLeft#0" expanded="false" />
+            <element signature="n#!!block;n#tryAndGoRight#0" expanded="false" />
+            <element signature="n#!!block;n#sonic#0" expanded="false" />
+            <element signature="n#!!block;n#superSonic#0" expanded="false" />
+            <element signature="n#!!block;n#stopSonic#0" expanded="false" />
+            <element signature="n#!!block;n#getNextFallingBlock#0" expanded="false" />
+            <element signature="n#!!block;n#dealWithNextColor#0" expanded="false" />
+            <element signature="n#!!block;n#emptyLine#0" expanded="false" />
+            <element signature="n#!!block;n#dropTopLayers#0" expanded="false" />
+            <element signature="n#!!block;n#checkAndScoreFullRows#0" expanded="false" />
+            <element signature="n#!!block;n#checkCollision#0" expanded="false" />
+            <element signature="n#!!block;n#rotatePattern#0" expanded="false" />
+            <element signature="n#!!block;n#placeBlock#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="15" column="47" lean-forward="true" selection-start-line="15" selection-start-column="44" selection-end-line="15" selection-end-column="47" />
+          <folding>
+            <element signature="n#style#0;n#canvas#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

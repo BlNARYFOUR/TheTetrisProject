@@ -1,0 +1,8 @@
+body{
+
+}
+
+@font-face {
+    font-family: 'Arcade';
+    src: url("../fonts/arcade.ttf") format('truetype');
+}

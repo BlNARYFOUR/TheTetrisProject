@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="author" content="Brend Lambert" />
+    <meta charset="UTF-8">
+
+    <title>BinaryFour's TETRIS</title>
+
+    <link href="assets/css/screen.css" rel="stylesheet">
+</head>
+<body>
+<header>
+    <h1>Tetris by BinaryFour</h1>
+</header>
+
+<canvas id="myCanvas" width="608px" height="576px" style="border:1px solid #d3d3d3;">
+    Your browser does not support the HTML5 canvas tag.
+</canvas>
+
+<!-- This makes the browser load the font -->
+<span style="font-family: Arcade, sans-serif"></span>
+
+<p>Score: <strong id="score"></strong></p>
+<p>Timer: <span id="min">00</span>:<span id="sec">00</span></p>
+
+<script type="module" src="assets/js/blockPatterns.js"></script>
+<script type="module" src="assets/js/script.js"></script>
+
+</body>
+</html>
