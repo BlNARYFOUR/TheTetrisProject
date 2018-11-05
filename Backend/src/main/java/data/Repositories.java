@@ -7,7 +7,7 @@ public class Repositories {
         return instance;
     }
 
-    public Repositories() {
+    private Repositories() {
     }
 
     public LoginRepository getLoginRepository(){

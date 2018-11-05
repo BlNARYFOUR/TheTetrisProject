@@ -7,6 +7,7 @@ import cli.util.CommandLineMenu;
 import data.LoginRepository;
 import data.Repositories;
 import domain.User;
+import util.Hash;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -14,7 +15,9 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
 
 public class CLI {
-
+    private CommandLineMenu loginMenu = new CommandLineMenu();
+    private CommandLineMenu mainMenu = new CommandLineMenu();
+    private CommandLineMenu gameModes = new CommandLineMenu();
     private LoginRepository repo = Repositories.getInstance().getLoginRepository();
 
     public static void main(String[] args) {
@@ -23,26 +26,20 @@ public class CLI {
 
     }
 
-    CommandLineMenu loginMenu = new CommandLineMenu();
-
-    CommandLineMenu mainMenu = new CommandLineMenu();
-
-    CommandLineMenu gamemodes = new CommandLineMenu();
-
-    public CLI(){
+    private CLI(){
         loginMenu.add("Login", this::login);
         loginMenu.add("Register", this::register);
         loginMenu.add("EXIT", this::stop);
 
-        mainMenu.add("Choose_gamemode", this::choose_gamemode);
+        mainMenu.add("Choose_gamemode", this::chooseGameMode);
         mainMenu.add("Clan", this::clan);
         mainMenu.add("Shop", this::shop);
-        mainMenu.add("High_score", this::high_score);
+        mainMenu.add("High_score", this::highScore);
 
-        gamemodes.add("Single player", this::single_player);
-        gamemodes.add("Multi player", this::multi_player);
-        gamemodes.add("Time attack", this::time_attack);
-        gamemodes.add("Last man standing", this::last_man_standing);
+        gameModes.add("Single player", this::singlePlayer);
+        gameModes.add("Multi player", this::multiPlayer);
+        gameModes.add("Time attack", this::timeAttack);
+        gameModes.add("Last man standing", this::lastManStanding);
 
     }
 
@@ -87,12 +84,12 @@ public class CLI {
         String password = in.nextLine();
         repo.getUser(username);
         repo.authenticateUser(username, password);
-        if (repo.getUser(username).getPassword().equals(md5FromString(password))){
+        if (repo.getUser(username).getPassword().equals(Hash.md5HashString(password))){
             mainMenu.run();
         }
     }
 
-    private void high_score() {
+    private void highScore() {
         System.out.println("HIGH SCORE");
     }
 
@@ -104,36 +101,24 @@ public class CLI {
         System.out.println("CLAN");
     }
 
-    private void choose_gamemode() {
+    private void chooseGameMode() {
         System.out.println("GAMEMODES");
-        gamemodes.run();
+        gameModes.run();
     }
 
-    private void last_man_standing() {
+    private void lastManStanding() {
         System.out.println("LAST MAN STANDING");
     }
 
-    private void time_attack() {
+    private void timeAttack() {
         System.out.println("TIME ATTACK");
     }
 
-    private void multi_player() {
+    private void multiPlayer() {
         System.out.println("MULTI PLAYER");
     }
 
-    private void single_player() {
+    private void singlePlayer() {
         System.out.println("SINGLE PLAYER");
     }
-
-    String md5FromString(String x) {
-        MessageDigest m = null;
-        try {
-            m = MessageDigest.getInstance("MD5");
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        m.update(x.getBytes(), 0, x.length());
-        return new BigInteger(1, m.digest()).toString(16);
-    }
-
 }
