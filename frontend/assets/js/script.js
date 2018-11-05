@@ -18,7 +18,12 @@ const SOUNDS = {
     slowHit: createAudioObj("slowHit.mp3"),
     hardHit: createAudioObj("hardHit.mp3"),
     lineScored: createAudioObj("lineScored.mp3"),
-    gameOver: createAudioObj("gameOver.mp3")
+    gameOver: createAudioObj("gameOver.mp3"),
+    music: createAudioObj("music.mp3"),
+    startGame: createAudioObj("start.mp3"),
+    pause: createAudioObj("pause.mp3"),
+    rotate: createAudioObj("rotate.mp3"),
+    select: createAudioObj("select.mp3")
 };
 const IMAGES = {
     backgroundStartScreen: createImageObj("backgroundStartScreen.png"),
@@ -34,37 +39,35 @@ const IMAGES = {
     greenTile: createImageObj("greenTile.png"),
     purpleTile: createImageObj("purpleTile.png")
 };
-const BUTTONS = {
-    playButton: {
-        active: false,
-        width: 6,
-        height: 3,
-        xLeft: 0,
-        yTop: 0,
-        xRight: 0,
-        yBottom: 0,
-        image: IMAGES.button01,
-        action: startTheGame
-    },
+const BUTTONS = {};
 
-    restartButton: {
-        active: false,
-        width: 3,
-        height: 3,
-        xLeft: 0,
-        yTop: 0,
-        xRight: 0,
-        yBottom: 0,
-        image: IMAGES.restartButton,
-        action: startTheGame
-    }
-};
 const FONTS = {
     Arcade: "Arcade"
 };
 
+const KEY_DOWN_FUNC = {
+    "KeyW": tryAndRotate,
+    "ArrowUp": tryAndRotate,
+    "KeyA": tryAndGoLeft,
+    "ArrowLeft": tryAndGoLeft,
+    "KeyD": tryAndGoRight,
+    "ArrowRight": tryAndGoRight,
+    "KeyS": sonic,
+    "ArrowDown": sonic,
+    "KeyN": startTheGame,
+    "KeyP": pauseTheGame,
+    "Space": superSonic,
+    "KeyG": logGameBoard,
+    // TODO KeyM werkt nog niet
+    /*"KeyM": soundSettings*/
+};
+
 const GAME_BOARD_WIDTH = 10;
 const GAME_BOARD_HEIGHT = 18;
+
+const NEXT_BOARD_WIDTH = 7;
+const NEXT_BOARD_HEIGHT = 3.5;
+
 const BEGIN_MOVEMENT_TIME = 750;
 const FAST_MOVEMENT_TIME = 25;
 
@@ -76,6 +79,15 @@ let nextBlockFallBusy;
 let canvas;
 let ctx;
 let tiles;
+
+// TODO TEST
+let canvasNext;
+let ctxNext;
+let tiles2;
+let playingFieldWidth2;
+let playingFieldHeight2;
+let blockWidth2;
+let blockHeight2;
 
 let playingFieldWidth;
 let playingFieldHeight;
@@ -95,23 +107,62 @@ let goingFast;
 let paused;
 
 let score, highscore;
+let amountOfScoredLines, level;
 
-//TODO
+// Bryan added
+let hour = document.getElementById("hour");
 let min = document.getElementById("min")  ;
 let sec = document.getElementById("sec");
 let totalSeconds = 0;
 let timer;
 
-function initButtons() {
-    BUTTONS.playButton.xLeft = blockWidth * (GAME_BOARD_WIDTH - BUTTONS.playButton.width) / 2;
-    BUTTONS.playButton.yTop = blockHeight * (GAME_BOARD_HEIGHT - BUTTONS.playButton.height) / 2;
-    BUTTONS.playButton.xRight = BUTTONS.playButton.xLeft + blockWidth * BUTTONS.playButton.width;
-    BUTTONS.playButton.yBottom = BUTTONS.playButton.yTop + blockHeight * BUTTONS.playButton.height;
 
-    BUTTONS.restartButton.xLeft = blockWidth * (GAME_BOARD_WIDTH - BUTTONS.restartButton.width) / 2;
-    BUTTONS.restartButton.yTop = blockHeight * (GAME_BOARD_HEIGHT - BUTTONS.restartButton.height - 2.5);
-    BUTTONS.restartButton.xRight = BUTTONS.restartButton.xLeft + blockWidth * BUTTONS.restartButton.width;
-    BUTTONS.restartButton.yBottom = BUTTONS.restartButton.yTop + blockHeight * BUTTONS.restartButton.height;
+function Button(width, height, xLeft, yTop, xRight, yBottom, image, action) {
+    this.active = false;
+    this.width = width;
+    this.height = height;
+    this.xLeft = xLeft;
+    this.yTop = yTop;
+    this.xRight = xRight;
+    this.yBottom = yBottom;
+    this.image = image;
+    this.action = action;
+}
+
+function initButtons() {
+    let name;
+    let width;
+    let height;
+    let xLeft;
+    let yTop;
+    let xRight;
+    let yBottom;
+    let image;
+    let action;
+
+    name = "playButton";
+    width = 6;
+    height = 3;
+    xLeft = blockWidth * (GAME_BOARD_WIDTH - width) / 2;
+    yTop = blockHeight * (GAME_BOARD_HEIGHT - height) / 2;
+    xRight = xLeft + blockWidth * width;
+    yBottom = yTop + blockHeight * height;
+    image = IMAGES.button01;
+    action = startTheGame;
+
+    BUTTONS[name] = new Button(width, height, xLeft, yTop, xRight, yBottom, image, action);
+
+    name = "restartButton";
+    width = 3;
+    height = 3;
+    xLeft = blockWidth * (GAME_BOARD_WIDTH - width) / 2;
+    yTop = blockHeight * (GAME_BOARD_HEIGHT - height - 2.5);
+    xRight = xLeft + blockWidth * width;
+    yBottom = yTop + blockHeight * height;
+    image = IMAGES.restartButton;
+    action = startTheGame;
+
+    BUTTONS[name] = new Button(width, height, xLeft, yTop, xRight, yBottom, image, action);
 }
 
 function init() {
@@ -120,9 +171,15 @@ function init() {
     paused = false;
     goingFast = false;
     score = 0;
+    amountOfScoredLines = 0;
+    level = 1;
     highscore = localStorage.getItem('highscore');
 
+    // Bryan added
     showScore();
+
+    document.getElementById("speaker").addEventListener("click", soundSettings);
+    document.getElementById("pause").addEventListener("click", pauseTheGame);
 
     canvas = document.getElementById("myCanvas");
     ctx = canvas.getContext("2d");
@@ -140,8 +197,32 @@ function init() {
      tiles.set(COLORS.GREEN, IMAGES.greenTile);
      tiles.set(COLORS.PURPLE, IMAGES.purpleTile);
 
+     SOUNDS.rotate.volume = 0.3;
+
     blockWidth = playingFieldWidth / GAME_BOARD_WIDTH;
     blockHeight = playingFieldHeight / GAME_BOARD_HEIGHT;
+    console.log(blockWidth);
+
+    //TODO test
+    canvasNext = document.getElementById("next");
+    ctxNext = canvasNext.getContext("2d");
+    ctxNext.fillText("NEXT BLOCK", 5, 10);
+
+    playingFieldWidth2 = canvasNext.width;
+    playingFieldHeight2 = canvasNext.height;
+
+    tiles2 = new Map();
+    tiles2.set(COLORS.TRANSPARENT, IMAGES.backgroundTile);
+    tiles2.set(COLORS.RED, IMAGES.redTile);
+    tiles2.set(COLORS.DARK_BLUE, IMAGES.darkBlueTile);
+    tiles2.set(COLORS.ORANGE, IMAGES.orangeTile);
+    tiles2.set(COLORS.LIGHT_BLUE, IMAGES.lightBlueTile);
+    tiles2.set(COLORS.YELLOW, IMAGES.yellowTile);
+    tiles2.set(COLORS.GREEN, IMAGES.greenTile);
+    tiles2.set(COLORS.PURPLE, IMAGES.purpleTile);
+
+    blockWidth2 = playingFieldWidth2 / NEXT_BOARD_WIDTH;
+    blockHeight2 = playingFieldHeight2 / NEXT_BOARD_HEIGHT;
 
     fallingBlock = {
         color: 0
@@ -152,22 +233,55 @@ function init() {
     canNewGameBegin = true;
     document.addEventListener("click", onClick);
     document.addEventListener("mousemove", onMouseMove);
-
-
 }
 
-// BRYAN
+// Bryan added
+function soundSettings() {
+    if (document.getElementById("speaker").className === "soundON"){
+        SOUNDS.music.muted = true;
+        SOUNDS.rotate.muted = true;
+        SOUNDS.hardHit.muted = true;
+        SOUNDS.slowHit.muted = true;
+        SOUNDS.select.muted = true;
+        SOUNDS.startGame.muted = true;
+        SOUNDS.gameOver.muted = true;
+        SOUNDS.pause.muted = true;
+        SOUNDS.lineScored.muted = true;
+        document.getElementById("speaker").className = "soundOFF";
+        document.getElementById("speaker").innerHTML = '<i class="material-icons">volume_off</i>';
+
+        console.log("set sound off")
+    }else {
+        SOUNDS.music.muted = false;
+        SOUNDS.rotate.muted = false;
+        SOUNDS.hardHit.muted = false;
+        SOUNDS.slowHit.muted = false;
+        SOUNDS.select.muted = false;
+        SOUNDS.startGame.muted = false;
+        SOUNDS.gameOver.muted = false;
+        SOUNDS.pause.muted = false;
+        SOUNDS.lineScored.muted = false;
+
+        document.getElementById("speaker").className = "soundON";
+        document.getElementById("speaker").innerHTML = '<i class="material-icons">volume_up</i>';
+        console.log("set sound on")
+    }
+}
+
+
 
 function setTime() {
     totalSeconds ++;
     sec.innerText = pad(totalSeconds % 60);
     min.innerText = pad(parseInt(totalSeconds / 60));
+    hour.innerText = pad(parseInt((totalSeconds / 60) / 60));
 }
 
 function resetTime() {
     totalSeconds = 0;
     sec.innerText = pad(0);
     min.innerText = pad(0);
+    hour.innerText = pad(0)
 }
 
 function pad(val) {
@@ -180,7 +294,7 @@ function pad(val) {
 }
 
 function showScore() {
-    document.getElementById("score").innerText = score;
+    document.getElementById("points").innerText = score;
 }
 
 function createAudioObj(fileName) {
@@ -209,46 +323,58 @@ function createGameBoard() {
 function startTheGame() {
     if(canNewGameBegin) {
         score = 0;
+        //Bryan added
         showScore();
 
         deActivateButton(BUTTONS.playButton);
         deActivateButton(BUTTONS.restartButton);
+
+        //Bryan added
         timer = setInterval(setTime, 1000);
 
         createGameBoard();
 
         getNextFallingBlock();
-
         fallingBlock = nextFallingBlock;
         getNextFallingBlock();
 
         console.log(fallingBlock);
         console.log(nextFallingBlock);
 
-
         drawGameBoard();
         drawFallingBlock();
+        drawNextFallingBlock();
 
         canNewGameBegin = false;
 
+        normalMovementTime = BEGIN_MOVEMENT_TIME;
         startInterval(normalMovementTime);
 
         document.addEventListener("keydown", onKeyDown);
         document.addEventListener("keyup", onKeyUp);
+
+        startMusic();
     } else {
         console.error("The game is still running...");
     }
+}
+
+function startMusic() {
+    SOUNDS.startGame.play().then(function () {
+        SOUNDS.music.loop = true;
+        SOUNDS.music.volume = 0.2;
+        SOUNDS.music.currentTime = 0;
+        SOUNDS.music.play();
+    })
 }
 
 function stopTheGame() {
     stopInterval();
     document.removeEventListener("keydown", onKeyDown);
     document.removeEventListener("keyup", onKeyUp);
-    SOUNDS.gameOver.play();
-
+    //Bryan added
     timer = clearInterval(timer);
     timer = resetTime();
-
 
     if(highscore < score) {
         highscore = score;
@@ -256,8 +382,27 @@ function stopTheGame() {
 
     saveHighscore();
 
+    endMusic();
+
     drawRestartScreen();
     canNewGameBegin = true;
+}
+
+function stopMainMusicAndPlay(sound) {
+    let fadeAudio = setInterval(function () {
+        console.log(SOUNDS.music.volume);
+
+        if (SOUNDS.music.volume >= 0.1) {
+            SOUNDS.music.volume -= 0.1;
+        } else {
+            clearInterval(fadeAudio);
+            sound.play();
+        }
+    }, 100);
+}
+
+function endMusic() {
+    stopMainMusicAndPlay(SOUNDS.gameOver);
 }
 
 function saveHighscore() {
@@ -296,14 +441,25 @@ function nextBlockFall() {
 
             // animation for scoring is in checkAndScoreFullRows()
             if(scored) {
+                SOUNDS.lineScored.currentTime = 0;
                 SOUNDS.lineScored.play();   //sound for line
             }
             if(currentMovementTime === normalMovementTime) {
                 console.log("slowHitSound");
+                SOUNDS.slowHit.currentTime = 0;
                 SOUNDS.slowHit.play();      //play slowHit
             } else {
                 console.log("hardHitSound");
+                SOUNDS.hardHit.currentTime = 0;
                 SOUNDS.hardHit.play();      //play hardDHit
+            }
+
+            if(10*level <= amountOfScoredLines) {
+                level++;
+                console.log("LEVEL UP: " + level);
+                normalMovementTime /= 1.5;
+                console.log("SPEED: " + normalMovementTime);
+                startInterval(normalMovementTime);
             }
         }
 
@@ -326,7 +482,7 @@ function onMouseMove(e) {
     for(let i=0; i<Object.values(BUTTONS).length; i++) {
         let button = Object.values(BUTTONS)[i];
 
-        if(checkButtonClick(button, mouseX, mouseY) && button.active) {
+        if(checkButtonBounds(button, mouseX, mouseY) && button.active) {
             isHoveringOverButton = true;
         }
     }
@@ -347,8 +503,10 @@ function onClick(e) {
     for(let i=0; i<Object.values(BUTTONS).length; i++) {
         let button = Object.values(BUTTONS)[i];
 
-        if(checkButtonClick(button, mouseX, mouseY) && button.active) {
-            button.action();
+        if(checkButtonBounds(button, mouseX, mouseY) && button.active) {
+            SOUNDS.select.play().then(function () {
+                setTimeout(button.action, 350);
+            });
         }
     }
 }
@@ -364,35 +522,12 @@ function onKeyDown(e) {
 
     console.log(e.code);
 
-    switch (e.code) {
-        case "KeyW":
-        case "ArrowUp":
-            tryAndRotate();
-            break;
-        case "KeyA":
-        case "ArrowLeft":
-            tryAndGoLeft();
-            break;
-        case "KeyD":
-        case "ArrowRight":
-            tryAndGoRight();
-            break;
-        case "KeyS":
-        case "ArrowDown":
-            sonic();
-            break;
-        case "KeyN":
-            startTheGame();
-            break;
-        case "KeyP":
+    if(!paused) {
+        KEY_DOWN_FUNC[e.code]();
+    } else {
+        if(e.code === "KeyP") {
             pauseTheGame();
-            break;
-        case "Space":
-            superSonic();
-            break;
-        case "KeyG":
-            logGameBoard();
-            break;
+        }
     }
 }
 
@@ -407,7 +542,7 @@ function onKeyUp(e) {
 
 
 
-function checkButtonClick(button, mouseX, mouseY) {
+function checkButtonBounds(button, mouseX, mouseY) {
     let isInBounds = false;
 
     if(button.xLeft <= mouseX && mouseX <= button.xRight && button.yTop <= mouseY && mouseY <= button.yBottom) {
@@ -449,6 +584,7 @@ function preLoaderAndDrawBeginScreen() {
 
 function drawBackgroundStartScreen(){
     ctx.drawImage(IMAGES.backgroundStartScreen, 0, 0, playingFieldWidth, playingFieldHeight);
+    ctxNext.drawImage(IMAGES.backgroundStartScreen, 0, 0, playingFieldWidth2, playingFieldHeight2);
 }
 
 function drawPlayGameButton() {
@@ -521,9 +657,29 @@ function drawFallingBlock() {
     }
 }
 
+function drawNextFallingBlock() {
+    ctxNext.clearRect(0, 0, canvasNext.width, canvasNext.height);
+    ctxNext.fillText("NEXT BLOCK", 5, 10);
+    let maxHeight = nextFallingBlock.blockPattern.length;
+    let maxWidth = nextFallingBlock.blockPattern[0].length;
+
+    if (!checkCollision(nextFallingBlock.blockPattern, nextFallingBlock.x, nextFallingBlock.y)) {
+        for (let i = 0; i < maxHeight; i++) {
+            for (let j = 0; j < maxWidth; j++) {
+                if (nextFallingBlock.blockPattern[i][j] !== COLORS.TRANSPARENT)
+                    ctxNext.drawImage(tiles2.get(nextFallingBlock.color), blockWidth2 * (nextFallingBlock.x + j), blockHeight2 * (nextFallingBlock.y + i), blockWidth2, blockHeight2);
+
+            }
+        }
+    }
+}
+
+
+
 function updatePlayScreen() {
     drawGameBoard();
     drawFallingBlock();
+    drawNextFallingBlock();
 }
 
 function updateViewScreen() {
@@ -537,11 +693,15 @@ function pauseTheGame() {
 
     if(paused && !canNewGameBegin) {
         startInterval(normalMovementTime);
+        startMusic();
         console.log("Resumed the game!");
+        //Bryan added
         timer = setInterval(setTime, 1000);
     } else {
         console.log("Paused the game!");
+        //Bryan added
         timer = clearInterval(timer);
+        stopMainMusicAndPlay(SOUNDS.pause);
     }
 
     paused = !paused;
@@ -551,7 +711,10 @@ function tryAndRotate() {
     let tryPattern = rotatePattern(fallingBlock.blockPattern);
     if(!checkCollision(tryPattern, fallingBlock.x, fallingBlock.y)) {
         fallingBlock.blockPattern = tryPattern;
-        updatePlayScreen()
+        updatePlayScreen();
+
+        SOUNDS.rotate.currentTime = 0;
+        SOUNDS.rotate.play();
     }
 }
 
@@ -587,6 +750,7 @@ function superSonic() {
     } while(!placed);
 
     score += levels * SUPER_SONIC_POINTS;
+    //Bryan added
     showScore();
     startInterval(normalMovementTime);
 }
@@ -621,6 +785,8 @@ function dealWithNextColor() {
 
 
 function emptyLine(lineHeight) {
+    gameBoard[lineHeight] = new Array(GAME_BOARD_WIDTH);
+
     for(let j=0; j<GAME_BOARD_WIDTH; j++) {
         gameBoard[lineHeight][j] = 0;
     }
@@ -629,7 +795,7 @@ function emptyLine(lineHeight) {
 function dropTopLayers(lineHeight) {
     console.log("DropTopLayers");
     for(let i=lineHeight; 0<i; i--) {
-        gameBoard[i] = gameBoard[i-1].slice();
+        gameBoard[i] = gameBoard[i-1]; //.slice();
     }
 
     emptyLine(0);
@@ -650,7 +816,6 @@ function checkAndScoreFullRows() {
                 isFullLine = false;
             }
         }
-        showScore();
 
         if(isFullLine) {
             console.log("You scored a line!");
@@ -658,7 +823,10 @@ function checkAndScoreFullRows() {
             //animate
             hasScored = true;
             score += totalLineScore * FULL_LINE_POINTS;
+            //Bryan added
             showScore();
+            amountOfScoredLines++;
+            console.log(amountOfScoredLines);
         }
     }
 
