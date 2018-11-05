@@ -29,6 +29,7 @@ dependencies {
     compile "io.vertx:vertx-lang-js:$vertxVersion"
 
     testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile "io.vertx:vertx-unit:$vertxVersion"
     // https://mvnrepository.com/artifact/mysql/mysql-connector-java
     compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.12'
 }
