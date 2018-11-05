@@ -1,6 +1,7 @@
 package data;
 
 import domain.User;
+import util.Hash;
 import util.LoginExeption;
 
 import java.math.BigInteger;
@@ -25,7 +26,7 @@ public class MySqlLoginRepository implements LoginRepository {
         try (Connection con = MySqlConnection.getConnection();
              PreparedStatement prep = con.prepareStatement(SQL_ADD_USER)){
             prep.setString(1, u.getUsername());
-            prep.setString(2, md5FromString(u.getPassword()));
+            prep.setString(2, Hash.md5HashString(u.getPassword()));
 
             prep.executeUpdate();
             System.out.println("User has been added.");
@@ -41,13 +42,13 @@ public class MySqlLoginRepository implements LoginRepository {
         try (Connection con = MySqlConnection.getConnection();
              PreparedStatement prep = con.prepareStatement(SQL_CONTROL_USER)){
             prep.setString(1, username);
-            prep.setString(2, md5FromString(password));
+            prep.setString(2, Hash.md5HashString(password));
 
             ResultSet rs = prep.executeQuery();
 
             if (rs.next()){
                 user = new User(rs.getString("username"), rs.getString("password"));
-                System.out.println("Login succesfull: " + user.getUsername());
+                System.out.println("Login successful: " + user.getUsername());
             }else {
                 System.out.println("Login failed!");
             }
@@ -95,17 +96,5 @@ public class MySqlLoginRepository implements LoginRepository {
         String username = rs.getString("username");
         String password = rs.getString("password");
         return new User(username, password);
-    }
-
-
-    String md5FromString(String x) {
-        MessageDigest m = null;
-        try {
-            m = MessageDigest.getInstance("MD5");
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        m.update(x.getBytes(), 0, x.length());
-        return new BigInteger(1, m.digest()).toString(16);
     }
 }

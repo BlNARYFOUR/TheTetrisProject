@@ -9,8 +9,6 @@ repositories {
     mavenCentral()
 }
 
-def vertxVersion = '3.5.4'
-
 processResources{
     from "src/main/js"
 }
@@ -23,15 +21,15 @@ sourceSets {
     }
 }
 
-dependencies {
+def vertxVersion = '3.5.4'
 
-    //vertx
+dependencies {
     compile "io.vertx:vertx-core:$vertxVersion"
     compile "io.vertx:vertx-web:$vertxVersion"
     compile "io.vertx:vertx-lang-js:$vertxVersion"
 
-
     testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile "io.vertx:vertx-unit:$vertxVersion"
     // https://mvnrepository.com/artifact/mysql/mysql-connector-java
     compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.12'
 }
