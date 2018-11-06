@@ -1,5 +1,10 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,100);
 
+/*@font-face {
+    font-family: 'Fabian';
+    src: url("../fonts/fonts/fabian/fabian.ttf");
+}*/
+
 body {
     font-family: 'Roboto', sans-serif;
     background-color: white;
@@ -97,18 +102,29 @@ body {
     width: 500px;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 150px;
     padding: 30px;
 }
 
-.mainMenu li, .userInfo li {
-    list-style-type: none;
+.userInfo {
+    margin-top: 50px;
+    margin-bottom: 50px;
 }
 
-.userInfo li {
+.userInfo div {
     display: inline-block;
-    background-color: gray;
+    color: white;
     width: 300px;
+    text-align: center;
+    font-size: 1.5rem;
+    vertical-align: top;
+}
+
+.userInfo-1, .userInfo-2 {
+    margin-right: 80px;
+}
+
+.userInfo-1 {
+    margin-left: 15%;
 }
 
 .logOut {
@@ -117,15 +133,15 @@ body {
 }
 
 .mainMenu li input[type=submit], .logOut-submit {
-    width: 100%;
+    width: 80%;
     margin-left: auto;
     margin-right: auto;
     display: block;
     margin-bottom: 30px;
     position: relative;
     border-radius: 5px;
-    padding-top: 25px;
-    padding-bottom: 25px;
+    padding-top: 15px;
+    padding-bottom: 15px;
 }
 
 .retroBlocks-header {
@@ -136,16 +152,67 @@ body {
 }
 
 .chooseGameMode-submit, .clan-submit, .shop-submit, .highScore-submit, .logOut-submit {
-    border-width: 2px;
+    border: 2px solid #9C35FF;
     color: #000000;
     text-shadow: 0 1px rgba(0, 0, 0, 0.1);
-    background-color: #FFFFFF;
+    background: linear-gradient(to right, #9584FF , #FFA1E2);
 }
 
 .chooseGameMode-submit:hover, .clan-submit:hover, .shop-submit:hover, .highScore-submit:hover, .logOut-submit:hover {
-    border-width: 2px;
+    border: 2px solid #9C35FF;
     color: #000000;
     text-shadow: 0 1px rgba(0,0,0,0.3);
-    background-color: #1B3041;
+    background: linear-gradient(to right, #FFA1E2 , #9584FF);
 }
 
+.material-icons {
+    color: #FF02B4;
+    margin-left: 10px;
+}
+
+.xp {
+    height: 25px;
+    display: block;
+    border-radius: 20px;
+    font-size: 1.2rem;
+    border: 2px solid #FF02B4;
+    background-color: transparent;
+    position: relative;
+}
+
+.xp-value {
+    display: block;
+    border-radius: 20px;
+    background-color: #FF02B4;
+    height: 100%;
+    width: 40%;
+
+}
+
+.xp-text {
+    display: block;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    vertical-align: center;
+}
+
+.cube {
+    width: 10%;
+    margin-right: 10px;
+}
+
+.cp {
+    width: 13%;
+    margin-right: 10px;
+}
+
+.user-avatar {
+
+}
+
+/*------Choose Hero------*/
+
+.chooseHeroTitle {
+    color: white;
+}
