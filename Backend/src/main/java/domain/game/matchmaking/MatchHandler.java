@@ -34,7 +34,7 @@ public class MatchHandler implements Matchmaking {
         if(!matchable.containsKey(modeSearch)) {
             matchable.put(modeSearch, new HashSet<>());
         }
-        
+
         matchable.get(modeSearch).add(user);
     }
 
