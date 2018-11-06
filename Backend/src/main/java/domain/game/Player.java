@@ -1,26 +1,19 @@
 package domain.game;
 
+import domain.User;
+
 public class Player {
-    private int name;
-    private String ID;
+    private User user;
 
-    public Player(int name, String ID) {
-
+    public Player(User user) {
+        setUser(user);
     }
 
-    public int getName() {
-        return name;
+    public User getUser() {
+        return user;
     }
 
-    private void setName(int name) {
-        this.name = name;
-    }
-
-    public String getID() {
-        return ID;
-    }
-
-    private void setID(String ID) {
-        this.ID = ID;
+    private void setUser(User user) {
+        this.user = user;
     }
 }
