@@ -1,4 +1,4 @@
-package server;
+package server.webapi;
 
 import io.vertx.core.Vertx;
 import io.vertx.ext.bridge.PermittedOptions;
