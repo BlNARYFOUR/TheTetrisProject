@@ -1,12 +1,17 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,100);
 
-/*@font-face {
-    font-family: 'Fabian';
-    src: url("../fonts/fonts/fabian/fabian.ttf");
-}*/
+@font-face {
+    font-family: 'fabian';
+    src: url("../fonts/fabian.ttf");
+}
+@font-face {
+    font-family: 'Laser84';
+    src: url("../fonts/Laser84.ttf");
+}
 
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'fabian', sans-serif;
+    font-size: 3 rem;
     background-color: white;
     background-image: url("../../assets/media/retroBackground.png");
     background-repeat: no-repeat;
@@ -115,7 +120,7 @@ body {
     color: white;
     width: 300px;
     text-align: center;
-    font-size: 1.5rem;
+    font-size: 2rem;
     vertical-align: top;
 }
 
@@ -208,7 +213,7 @@ body {
 }
 
 .user-avatar {
-    width: 13%;
+    width: 100px;
 }
 
 /*------Choose Hero------*/
