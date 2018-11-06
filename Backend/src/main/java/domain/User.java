@@ -1,8 +1,15 @@
 package domain;
 
+import domain.game.modes.PlayerMode;
+
+import java.util.Map;
+
 public class User {
     private String username;
     private String password;
+
+    private Map<PlayerMode, Integer> highScores;
+    private int gameRanking;
 
     public User(String username, String password) {
         this.username = username;

@@ -1,4 +1,4 @@
-package domain.gameLogic;
+package domain.game;
 
 public class Player {
     private int name;
