@@ -2,25 +2,22 @@
 
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: #673AB7;
+    background-color: white;
+    background-image: url("../../assets/media/retroBackground.png");
+    background-repeat: no-repeat;
+    height: 100%;
+    background-size: cover;
 }
 
 .login-container {
     margin-left: auto;
     margin-right: auto;
-    margin-top: 150px;
     padding: 40px;
     width: 300px;
     background-color: #F7F7F7;
     border-radius: 2px;
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
     overflow: hidden;
-}
-
-.login-container h1 {
-    font-weight: 100;
-    text-align: center;
-    font-size: 2.3em;
 }
 
 .login-container input[type=submit] {
@@ -63,11 +60,11 @@ body {
     border-radius: 3px;
 }
 
-.login-submit, .register-submit {
+.login-submit, .register-submit  {
     border: 0px;
     color: #fff;
     text-shadow: 0 1px rgba(0, 0, 0, 0.1);
-    background-color: #304E67;
+    background-color: #000000;
 }
 
 .login-submit:hover, .register-submit:hover {
@@ -96,9 +93,59 @@ body {
     font-size: 12px;
 }
 
-/*.dk, .pi, .so {
+.mainMenu {
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 150px;
+    padding: 30px;
+}
+
+.mainMenu li, .userInfo li {
+    list-style-type: none;
+}
+
+.userInfo li {
+    display: inline-block;
+    background-color: gray;
     width: 300px;
-    height: 300px;
-    margin-top: 90px;
-}*/
+}
+
+.logOut {
+    width: 300px;
+    margin-left: auto;
+}
+
+.mainMenu li input[type=submit], .logOut-submit {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    margin-bottom: 30px;
+    position: relative;
+    border-radius: 5px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+
+.retroBlocks-header {
+    margin-bottom: 80px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 390px;
+}
+
+.chooseGameMode-submit, .clan-submit, .shop-submit, .highScore-submit, .logOut-submit {
+    border-width: 2px;
+    color: #000000;
+    text-shadow: 0 1px rgba(0, 0, 0, 0.1);
+    background-color: #FFFFFF;
+}
+
+.chooseGameMode-submit:hover, .clan-submit:hover, .shop-submit:hover, .highScore-submit:hover, .logOut-submit:hover {
+    border-width: 2px;
+    color: #000000;
+    text-shadow: 0 1px rgba(0,0,0,0.3);
+    background-color: #1B3041;
+}
 
