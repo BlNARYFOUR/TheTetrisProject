@@ -4,15 +4,13 @@
 }
 @font-face {
     font-family: 'Laser84';
-    src: url("../fonts/Laser84.ttf");
+    src: url("../fonts/Lazer84.ttf");
 }
 
 body {
     font-family: 'fabian', sans-serif;
-    font-size: 3 rem;
-    background-color: white;
-    background-image: url("../../assets/media/retroBackground.png");
-    background-repeat: no-repeat;
+    font-size: 3rem;
+    background: white url("../media/retroBackground.png") no-repeat;
     height: 100%;
     background-size: cover;
 }

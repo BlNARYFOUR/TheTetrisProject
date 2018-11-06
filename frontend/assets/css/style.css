@@ -122,7 +122,7 @@
     margin-left: auto;
 }
 
-.mainMenu li input[type=submit], .logOut-submit {
+.mainMenu li input[type=submit], .logOut-submit, .back-submit {
     width: 80%;
     margin-left: auto;
     margin-right: auto;
@@ -141,14 +141,14 @@
     width: 390px;
 }
 
-.chooseGameMode-submit, .clan-submit, .shop-submit, .highScore-submit, .logOut-submit {
+.chooseGameMode-submit, .clan-submit, .shop-submit, .highScore-submit, .logOut-submit, .back-submit {
     border: 2px solid #9C35FF;
     color: #000000;
     text-shadow: 0 1px rgba(0, 0, 0, 0.1);
     background: linear-gradient(to right, #9584FF , #FFA1E2);
 }
 
-.chooseGameMode-submit:hover, .clan-submit:hover, .shop-submit:hover, .highScore-submit:hover, .logOut-submit:hover {
+.chooseGameMode-submit:hover, .clan-submit:hover, .shop-submit:hover, .highScore-submit:hover, .logOut-submit:hover, .back-submit:hover {
     border: 2px solid #9C35FF;
     color: #000000;
     text-shadow: 0 1px rgba(0,0,0,0.3);
@@ -221,3 +221,42 @@
     height: 50px;
 }
 
+
+
+
+
+/*----------------- Choose a gamemode -------------------*/
+.title{
+    color: white;
+    margin-left: auto;
+    margin-right: auto;
+    width: 450px;
+}
+
+figcaption{
+    color: white;
+}
+
+.selected{
+    outline: none;
+    border-color: rebeccapurple;
+    box-shadow: 0 0 20px rebeccapurple;
+}
+
+#showAllGamemodes{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    text-align: center;
+    justify-content: space-around;
+}
+
+#showAllGamemodes figure{
+    float: left;
+    width: 40%;
+}
+
+.back {
+    width: 300px;
+    margin-right: auto;
+}
