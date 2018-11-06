@@ -208,11 +208,26 @@ body {
 }
 
 .user-avatar {
-
+    width: 13%;
 }
 
 /*------Choose Hero------*/
 
-.chooseHeroTitle {
-    color: white;
+/*.chooseHeroTitle {*/
+    /*color: white;*/
+/*}*/
+
+.choose-hero {
+    background-color: lightgrey;
+    width: 1200px;
+    height: 400px;
+    margin-left: auto;
+    margin-right: auto;
 }
+
+.hero-donkeykong, .hero-pacman, .hero-pikachu, .hero-sony {
+    background-color: black;
+    width: 200px;
+    height: 50px;
+}
+
