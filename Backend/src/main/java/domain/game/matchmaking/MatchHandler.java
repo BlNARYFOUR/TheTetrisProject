@@ -61,6 +61,10 @@ public class MatchHandler implements Matchmaking {
 
     @Override
     public Set<Match> matchUsers() {
+        /*
+        based on game ranking
+
+         */
         throw new NotImplementedException();
     }
 }
