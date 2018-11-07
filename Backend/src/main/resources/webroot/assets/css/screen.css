@@ -1,7 +1,8 @@
 @font-face {
     font-family: 'Arcade';
-    src: url("../fonts/arcade.ttf") format('truetype');
+    src: url("../fonts/arcade.ttf");
 }
+
 
 body{
     background-color: #023286;
