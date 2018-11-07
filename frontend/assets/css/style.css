@@ -2,6 +2,10 @@
 
 /*LOGINSCHERM:*/
 
+a {
+    text-decoration: none;
+}
+
 .login-container {
     margin-left: auto;
     margin-right: auto;
@@ -207,17 +211,40 @@
     /*color: white;*/
 /*}*/
 
-.choose-hero {
-    background-color: lightgrey;
+.choose-hero-container {
     width: 1200px;
-    height: 400px;
+    height: 380px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.choose-hero {
+    width: 1100px;
+    height: 380px;
     margin-left: auto;
     margin-right: auto;
 }
 
 .hero-donkeykong, .hero-pacman, .hero-pikachu, .hero-sony {
-    background-color: black;
+    background-color: yellow;
     width: 200px;
-    height: 50px;
+    height: 325px;
+    padding: 20px;
+    display: inline-block;
+    opacity: 0.2;
+}
+
+.hero-donkeykong, .hero-pacman, .hero-pikachu {
+    margin-right: 30px;
+}
+
+.choose-hero p {
+    text-align: center;
+}
+
+.donkeyKong {
+    width: 100%;
+    margin-top: 25px;
+    margin-bottom: 35px;
 }
 
