@@ -6,10 +6,13 @@ import data.Repositories;
 import domain.User;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.eventbus.Message;
+import io.vertx.core.http.HttpMethod;
 import io.vertx.core.http.HttpServer;
+import io.vertx.core.http.HttpServerRequest;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.Session;
+import io.vertx.ext.web.handler.BodyHandler;
 import io.vertx.ext.web.handler.CookieHandler;
 import io.vertx.ext.web.handler.SessionHandler;
 import io.vertx.ext.web.handler.StaticHandler;
@@ -44,7 +47,36 @@ public class WebAPI extends AbstractVerticle {
         router.route().handler(sessionHandler);
 
         router.route("/").handler(routes::rootHandler);
+
+        /*
+        router.route("/static").handler(BodyHandler.create());
+        router.post("/static").handler(routingContext -> {
+            System.out.println(routingContext.getBodyAsString());
+
+            try {
+                System.out.println(routingContext.getBodyAsJsonArray().toString());
+            } catch (IOException e) {
+                Logger.error("No valid user registration!");
+            }
+            
+
+            Session session = routingContext.session();
+            try {
+                if (repo.authenticateUser(session.get("username"), session.get("password")) == null) {
+                    HttpServerResponse response = routingContext.response();
+                    response.sendFile("webroot/index.html");
+                } else {
+                    HttpServerResponse response = routingContext.response();
+                    response.headers().add("location", "/static/pages/main_menu.html");
+                    response.setStatusCode(302);
+                }
+            } catch (Exception ex) {
+                HttpServerResponse response = routingContext.response();
+                response.sendFile("webroot/index.html");
+            }
+        });
         router.route("/static/pages/main_menu.html").handler(routes::secureHandler);
+        */
 
         router.route("/static/*").handler(StaticHandler.create());
         router.route("/tetris/events/*").handler(new TetrisSockJSHandler(vertx).create());

@@ -32,10 +32,12 @@ public class Routes {
         Session session = routingContext.session();
         try {
             if (repo.authenticateUser(session.get("username"), session.get("password")) == null) {
-                routingContext.reroute("/static");
+                HttpServerResponse response = routingContext.response();
+                response.headers().add("location", "/static");
+                response.setStatusCode(302).end();
             } else {
-                routingContext.reroute("/static/*");
-            }
+                routingContext.response().sendFile("webroot/pages/main_menu.html");
+        }
         } catch (Exception ex) {
             HttpServerResponse response = routingContext.response();
             response.headers().add("location", "/static");
