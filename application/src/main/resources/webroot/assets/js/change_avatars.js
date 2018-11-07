@@ -7,7 +7,6 @@ let selectedItem;
 let avatars = ["Banana", "Heart", "Standard", "TRex", "Triforce"];
 
 function showAllImagesOfASpecificPage() {
-    console.log(selectedItem);
     document.getElementById("yes").disabled = true;
     document.getElementById("no").disabled = true;
 
@@ -45,8 +44,8 @@ function changeSelected(e) {
         }
         e.target.parentNode.classList.add("selected");
 
+        // Hier wordt de naam van de geselecteerde avatar ingestoken
         selectedItem = e.target.dataset.avatarname;
-        console.log(selectedItem);
 
     }
     e.target.parentNode.classList.add("selected");
@@ -62,7 +61,6 @@ function goBack() {
 }
 
 function saveAvatar() {
-    console.log("disabled back and save");
     document.getElementById("back").disabled = true;
     document.getElementById("save").disabled = true;
     document.getElementById("yes").disabled = false;
@@ -80,8 +78,7 @@ function confirmYes(e) {
 
     location.href="main_menu.html";
     //TODO verander de avatar naar de gekozen avatar
-
-
+    
 }
 
 function confirmNo(e) {
