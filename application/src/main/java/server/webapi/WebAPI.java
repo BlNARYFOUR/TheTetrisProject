@@ -1,12 +1,15 @@
 package server.webapi;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import data.LoginRepository;
+import data.Repositories;
 import domain.User;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.eventbus.Message;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.ext.web.Router;
+import io.vertx.ext.web.Session;
 import io.vertx.ext.web.handler.CookieHandler;
 import io.vertx.ext.web.handler.SessionHandler;
 import io.vertx.ext.web.handler.StaticHandler;
@@ -23,6 +26,8 @@ import java.util.List;
 
 public class WebAPI extends AbstractVerticle {
     private ObjectMapper objectMapper = new ObjectMapper();
+    private LoginRepository repo = Repositories.getInstance().getLoginRepository();
+    private SessionStore store;
 
     @Override
     public void start(){
@@ -33,12 +38,14 @@ public class WebAPI extends AbstractVerticle {
         // We need a cookie handler first
         router.route().handler(CookieHandler.create());
         // Create a clustered session store using defaults
-        SessionStore store = LocalSessionStore.create(vertx);
+         store = LocalSessionStore.create(vertx);
         SessionHandler sessionHandler = SessionHandler.create(store);
         // Make sure all requests are routed through the session handler too
         router.route().handler(sessionHandler);
 
         router.route("/").handler(routes::rootHandler);
+        router.route("/static/pages/main_menu.html").handler(routes::secureHandler);
+
         router.route("/static/*").handler(StaticHandler.create());
         router.route("/tetris/events/*").handler(new TetrisSockJSHandler(vertx).create());
 
@@ -49,17 +56,19 @@ public class WebAPI extends AbstractVerticle {
 
     private void initConsumers() {
         vertx.eventBus().consumer("tetris.events.register.server", this::register);
-    }
+}
 
     private void register(Message<Object> message) {
-        Logger.info("1 received message.body() = " + message.body());
+        String address = message.replyAddress();
+        System.out.println(address);
+        Logger.info("1 received message = " + message);
 
         try {
             User user = objectMapper.readValue(message.body().toString(), User.class);
             user.setPassword(Hash.md5HashString(user.getPassword()));
             System.out.println(user);
 
-            message.reply("SUCCESSFUL");
+            message.reply("");
         } catch (IOException e) {
             Logger.error("No valid user registration!");
             message.reply("INVALID");

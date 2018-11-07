@@ -9,7 +9,8 @@
     <script src="../assets/js/sockjs.min.js"></script>
     <script src="../assets/js/vertx-eventbus.min.js"></script>
 
-    <script>
+
+    <!--script>
         let eb = new EventBus("http://localhost:8081/tetris/events");
         function sendMessage() {
             let request = {
@@ -31,7 +32,7 @@
                 console.log("message: " + JSON.stringify(message.body));
             });
         };
-    </script>
+    </script-->
 </head>
 <body>
 <header class="retroBlocks-header">
@@ -39,7 +40,7 @@
 </header>
 <div class="login-container">
     <br>
-    <form action="javascript:sendMessage()">
+    <form> <!--action="javascript:sendMessage()"-->
         <input id="username" type="text" name="user" placeholder="Username" required="required">
         <input id="password" type="password" name="password" placeholder="Password" required="required">
         <input type="submit" name="register" class="login register-submit" value="register" required="required">

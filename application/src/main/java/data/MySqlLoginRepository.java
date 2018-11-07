@@ -54,7 +54,7 @@ public class MySqlLoginRepository implements LoginRepository {
         }catch (SQLException ex){
             throw new LoginException("Login has been failed!");
         }
-        return null;
+        return user;
     }
 
     @Override

@@ -13,7 +13,7 @@ public class Program {
 
         // ADD user
         User person = new User(0, "Testid", "testid");
-        //repo.addUser(person);
+        repo.addUser(person);
 
         // TRY TO LOGIN
         repo.authenticateUser("bryan", "bryan");
