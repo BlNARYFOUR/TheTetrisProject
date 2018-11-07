@@ -262,12 +262,16 @@ a {
 
 figcaption{
     color: white;
+    font-size: 2rem;
+}
+
+.gamemodes{
+    height: 100px;
 }
 
 .selected{
     outline: none;
-    border-color: rebeccapurple;
-    box-shadow: 0 0 20px rebeccapurple;
+    box-shadow: 0 0 50px 10px rebeccapurple;
 }
 
 #showAllGamemodes{
@@ -276,6 +280,9 @@ figcaption{
     flex-wrap: wrap;
     text-align: center;
     justify-content: space-around;
+
+    margin-top: -62px;
+
 }
 
 #showAllGamemodes figure{

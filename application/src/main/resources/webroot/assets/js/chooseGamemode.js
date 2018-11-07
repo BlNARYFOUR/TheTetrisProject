@@ -14,7 +14,7 @@ function showAllGamemodes() {
     let firstSelected = " selected";
 
     for (let i = 0; i < 4; i++){
-        imgList += "<figure class='selectable" + firstSelected + "'><img data-gameid='" + i + "' src='assets/media/retroBlocks.png'/><figcaption>" + nameGamemode + "</figcaption></figure>";
+        imgList += "<figure class='selectable" + firstSelected + "'><img data-gameid='" + i + "' src='../assets/media/retroBlocks.png' alt='gamemode' title='gamemode' class='gamemodes'/><figcaption>" + nameGamemode + "</figcaption></figure>";
 
         firstSelected = "";
     }
