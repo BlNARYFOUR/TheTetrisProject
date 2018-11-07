@@ -23,6 +23,10 @@ public class User {
         this(-1, username, password);
     }
 
+    public User() {
+        this("TEST", "TESTIE");
+    }
+
     public int getID() {
         return ID;
     }
