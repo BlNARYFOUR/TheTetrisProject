@@ -14,13 +14,8 @@ function showAllGamemodes() {
 
     let firstSelected = " selected";
 
-<<<<<<< HEAD
-    for (let i = 0; i < 4; i++){
-        imgList += "<figure class='selectable" + firstSelected + "'><img data-gameid='" + i + "' src='static/assets/media/retroBlocks.png'/><figcaption>" + nameGamemode + "</figcaption></figure>";
-=======
     for (let i = 0; i < gamemodes.length; i++){
         imgList += "<figure class='selectable" + firstSelected + "'><img data-gamemodename='" + gamemodes[i] + "' src='../assets/media/gamemodes/" + gamemodes[i] + ".png' alt='" + gamemodes[i] + "' title='" + gamemodes[i] + "' class='gamemodes'/></figure>";
->>>>>>> design_gamemodes_page
 
         firstSelected = "";
     }
