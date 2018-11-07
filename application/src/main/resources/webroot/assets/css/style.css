@@ -126,7 +126,7 @@ a {
     margin-left: auto;
 }
 
-.mainMenu li input[type=submit], .logOut-submit, .back-submit {
+.mainMenu li input[type=submit], .logOut-submit, .back-submit, .save-submit {
     width: 80%;
     margin-left: auto;
     margin-right: auto;
@@ -145,14 +145,14 @@ a {
     width: 390px;
 }
 
-.chooseGameMode-submit, .clan-submit, .shop-submit, .highScore-submit, .logOut-submit, .back-submit {
+.chooseGameMode-submit, .clan-submit, .shop-submit, .highScore-submit, .logOut-submit, .back-submit, .save-submit {
     border: 2px solid #9C35FF;
     color: #000000;
     text-shadow: 0 1px rgba(0, 0, 0, 0.1);
     background: linear-gradient(to right, #9584FF , #FFA1E2);
 }
 
-.chooseGameMode-submit:hover, .clan-submit:hover, .shop-submit:hover, .highScore-submit:hover, .logOut-submit:hover, .back-submit:hover {
+.chooseGameMode-submit:hover, .clan-submit:hover, .shop-submit:hover, .highScore-submit:hover, .logOut-submit:hover, .back-submit:hover, .save-submit:hover {
     border: 2px solid #9C35FF;
     color: #000000;
     text-shadow: 0 1px rgba(0,0,0,0.3);
@@ -262,15 +262,19 @@ a {
 
 figcaption{
     color: white;
+    font-size: 2rem;
+}
+
+.gamemodes{
+    height: 100px;
 }
 
 .selected{
     outline: none;
-    border-color: rebeccapurple;
-    box-shadow: 0 0 20px rebeccapurple;
+    box-shadow: 0 0 50px 10px rebeccapurple;
 }
 
-#showAllGamemodes{
+#showAllGamemodes, #showAllAvatars{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -283,7 +287,45 @@ figcaption{
     width: 40%;
 }
 
-.back {
+.back{
     width: 300px;
     margin-right: auto;
 }
+
+
+/*--------------------------Change avatar-----------------------------*/
+.border p {
+    width: 320px;
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+}
+
+#showAllAvatars figure, .avatars{
+    width: 100px;
+    height: 100px;
+}
+
+.border{
+    box-shadow: 0 0 50px 10px rebeccapurple;
+    width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#showAllAvatars figure{
+    margin-top: -10px;
+}
+
+#save, #back{
+    width: 300px;
+}
+
+#button_container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-top: 45px;
+}
+
