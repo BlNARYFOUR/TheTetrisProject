@@ -2,15 +2,9 @@ package data;
 
 import domain.User;
 import util.Hash;
-import util.LoginExeption;
+import util.LoginException;
 
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class MySqlLoginRepository implements LoginRepository {
     private static final String SQL_ADD_USER = "insert into user(username, password)" +
@@ -23,15 +17,18 @@ public class MySqlLoginRepository implements LoginRepository {
 
     @Override
     public void addUser(User u) {
-        try (Connection con = MySqlConnection.getConnection();
-             PreparedStatement prep = con.prepareStatement(SQL_ADD_USER)){
+        try (PreparedStatement prep = MySqlConnection.getConnection().prepareStatement(SQL_ADD_USER, Statement.RETURN_GENERATED_KEYS)){
             prep.setString(1, u.getUsername());
             prep.setString(2, Hash.md5HashString(u.getPassword()));
 
             prep.executeUpdate();
+
+            ResultSet rs = prep.getGeneratedKeys();
+            rs.next();
+            u.setID(rs.getInt(1));
             System.out.println("User has been added.");
         }catch (SQLException ex){
-            throw new LoginExeption("Unable to add user to DB.", ex);
+            throw new LoginException("Unable to add user to DB.", ex);
         }
     }
 
@@ -47,7 +44,7 @@ public class MySqlLoginRepository implements LoginRepository {
             ResultSet rs = prep.executeQuery();
 
             if (rs.next()){
-                user = new User(rs.getString("username"), rs.getString("password"));
+                user = new User(rs.getInt("user_id"), rs.getString("username"), rs.getString("password"));
                 System.out.println("Login successful: " + user.getUsername());
             }else {
                 System.out.println("Login failed!");
@@ -55,7 +52,7 @@ public class MySqlLoginRepository implements LoginRepository {
 
 
         }catch (SQLException ex){
-            throw new LoginExeption("Login has been failed!");
+            throw new LoginException("Login has been failed!");
         }
         return null;
     }
@@ -69,7 +66,7 @@ public class MySqlLoginRepository implements LoginRepository {
             prep.executeUpdate();
             System.out.println("User has been deleted!");
         }catch (SQLException ex){
-            throw new LoginExeption("Can't delete user", ex);
+            throw new LoginException("Can't delete user", ex);
         }
         return null;
     }
@@ -88,13 +85,14 @@ public class MySqlLoginRepository implements LoginRepository {
                 }
             }
         }catch (SQLException ex){
-            throw new LoginExeption("Can't find the username.", ex);
+            throw new LoginException("Can't find the username.", ex);
         }
     }
 
     private User createUser(ResultSet rs) throws SQLException {
+        int ID = rs.getInt("user_id");
         String username = rs.getString("username");
         String password = rs.getString("password");
-        return new User(username, password);
+        return new User(ID, username, password);
     }
 }
