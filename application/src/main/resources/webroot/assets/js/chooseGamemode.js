@@ -9,12 +9,12 @@ function showAllGamemodes() {
 
     let location = document.getElementById("showAllGamemodes");
     let imgList = "";
+    let gamemodes = ["Single Player", "Multi player", "Time Attack", "Last Man Standing"];
 
-    let nameGamemode = "Testid";
     let firstSelected = " selected";
 
-    for (let i = 0; i < 4; i++){
-        imgList += "<figure class='selectable" + firstSelected + "'><img data-gameid='" + i + "' src='../assets/media/retroBlocks.png' alt='gamemode' title='gamemode' class='gamemodes'/><figcaption>" + nameGamemode + "</figcaption></figure>";
+    for (let i = 0; i < gamemodes.length; i++){
+        imgList += "<figure class='selectable" + firstSelected + "'><img data-gameid='" + gamemodes[i] + "' src='../assets/media/retroBlocks.png' alt='" + gamemodes[i] + "' title='" + gamemodes[i] + "' class='gamemodes'/><figcaption>" + gamemodes[i] + "</figcaption></figure>";
 
         firstSelected = "";
     }

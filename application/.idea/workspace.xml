@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="673ae00e-b9df-49c9-aa02-754054735763" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/webroot/assets/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/webroot/assets/css/style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/webroot/assets/js/chooseGamemode.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/webroot/assets/js/chooseGamemode.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/webroot/pages/chooseGamemode.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/webroot/pages/chooseGamemode.html" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -52,20 +48,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="chooseGamemode.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="chooseGamemode.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/resources/webroot/assets/js/chooseGamemode.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="272">
-              <caret line="16" column="183" selection-start-line="16" selection-start-column="174" selection-end-line="16" selection-end-column="183" />
+              <caret line="16" column="215" lean-forward="true" selection-start-line="16" selection-start-column="215" selection-end-line="16" selection-end-column="215" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="style.css" pinned="false" current-in-tab="true">
+      <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/webroot/assets/css/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="649">
-              <caret line="289" column="15" lean-forward="true" selection-start-line="289" selection-start-column="15" selection-end-line="289" selection-end-column="15" />
+            <state relative-caret-position="408">
+              <caret line="274" column="1" lean-forward="true" selection-start-line="274" selection-start-column="1" selection-end-line="274" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -477,8 +473,8 @@
         <option value="$PROJECT_DIR$/src/test/java/MessageHandlerTest.java" />
         <option value="$PROJECT_DIR$/src/main/js/messagehandler.js" />
         <option value="$PROJECT_DIR$/src/main/resources/webroot/pages/chooseGamemode.html" />
-        <option value="$PROJECT_DIR$/src/main/resources/webroot/assets/js/chooseGamemode.js" />
         <option value="$PROJECT_DIR$/src/main/resources/webroot/assets/css/style.css" />
+        <option value="$PROJECT_DIR$/src/main/resources/webroot/assets/js/chooseGamemode.js" />
       </list>
     </option>
   </component>
@@ -732,7 +728,7 @@
       <updated>1541411672310</updated>
       <workItem from="1541411676832" duration="429000" />
       <workItem from="1541414227072" duration="920000" />
-      <workItem from="1541582112489" duration="1762000" />
+      <workItem from="1541582112489" duration="3202000" />
     </task>
     <servers />
   </component>
@@ -748,7 +744,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5885000" />
+    <option name="totallyTimeSpent" value="7325000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="0" width="974" height="1047" extended-state="0" />
@@ -825,6 +821,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1462">
           <caret line="97" lean-forward="true" selection-start-line="97" selection-end-line="97" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2961#2962#0" expanded="true" />
+            <element signature="e#3010#3011#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -891,6 +892,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
           <caret line="86" column="87" selection-start-line="86" selection-start-column="87" selection-end-line="86" selection-end-column="87" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2961#2962#0" expanded="true" />
+            <element signature="e#3010#3011#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -995,6 +1001,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1462">
           <caret line="97" lean-forward="true" selection-start-line="97" selection-end-line="97" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2961#2962#0" expanded="true" />
+            <element signature="e#3010#3011#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1065,6 +1076,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
           <caret line="86" column="87" selection-start-line="86" selection-start-column="87" selection-end-line="86" selection-end-column="87" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2961#2962#0" expanded="true" />
+            <element signature="e#3010#3011#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1134,17 +1150,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/webroot/assets/js/chooseGamemode.js">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/webroot/assets/css/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="183" selection-start-line="16" selection-start-column="174" selection-end-line="16" selection-end-column="183" />
+        <state relative-caret-position="408">
+          <caret line="274" column="1" lean-forward="true" selection-start-line="274" selection-start-column="1" selection-end-line="274" selection-end-column="1" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/webroot/assets/css/style.css">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/webroot/assets/js/chooseGamemode.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="649">
-          <caret line="289" column="15" lean-forward="true" selection-start-line="289" selection-start-column="15" selection-end-line="289" selection-end-column="15" />
+        <state relative-caret-position="272">
+          <caret line="16" column="215" lean-forward="true" selection-start-line="16" selection-start-column="215" selection-end-line="16" selection-end-column="215" />
         </state>
       </provider>
     </entry>
