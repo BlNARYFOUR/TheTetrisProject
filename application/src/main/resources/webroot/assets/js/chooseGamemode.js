@@ -51,6 +51,7 @@ function changeSelected(e) {
     }
     e.target.parentNode.classList.add("selected");
 
+
     if (e.target.tagName === "FIGURE"){
         e.target.parentNode.classList.remove("selected");
     }
