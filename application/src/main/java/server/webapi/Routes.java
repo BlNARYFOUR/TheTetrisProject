@@ -2,6 +2,8 @@ package server.webapi;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import domain.User;
+import io.vertx.core.Vertx;
+import io.vertx.core.eventbus.EventBus;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.Session;
@@ -20,21 +22,5 @@ public class Routes {
             .putHeader("content-type", "text/html")
             .write("<h1>Wrong page amigo...</h1><img src=static/images/facepalm.jpg><p>Goto <a href=static>here</a> instead</p>")
             .end();
-    }
-
-    void registerHandler(RoutingContext routingContext) {
-        Session session = routingContext.session();
-        Logger.info(session.id() + ":\n" + routingContext.getBodyAsJson());
-
-        /*
-        String json = "{ \"username\" : \"test\", \"password\" : \"Azerty123\" }";
-        try {
-
-            User user = objectMapper.readValue(json, User.class);
-            System.out.println(user);
-        } catch (IOException e) {
-            Logger.error("No valid user registration!");
-        }
-        */
     }
 }

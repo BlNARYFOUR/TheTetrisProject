@@ -1,6 +1,9 @@
 package server.webapi;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import domain.User;
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.eventbus.Message;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.ext.web.Router;
@@ -10,9 +13,17 @@ import io.vertx.ext.web.handler.StaticHandler;
 import io.vertx.ext.web.sstore.ClusteredSessionStore;
 import io.vertx.ext.web.sstore.LocalSessionStore;
 import io.vertx.ext.web.sstore.SessionStore;
+import org.pmw.tinylog.Logger;
 import server.webapi.TetrisSockJSHandler;
+import util.Hash;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class WebAPI extends AbstractVerticle {
+    private ObjectMapper objectMapper = new ObjectMapper();
+
     @Override
     public void start(){
         HttpServer server = vertx.createHttpServer();
@@ -31,8 +42,27 @@ public class WebAPI extends AbstractVerticle {
         router.route("/static/*").handler(StaticHandler.create());
         router.route("/tetris/events/*").handler(new TetrisSockJSHandler(vertx).create());
 
-        router.route("/tetris/events/register").handler(routes::registerHandler);
-
         server.requestHandler(router::accept).listen(8081);
+
+        initConsumers();
+    }
+
+    private void initConsumers() {
+        vertx.eventBus().consumer("tetris.events.register.server", this::register);
+    }
+
+    private void register(Message<Object> message) {
+        Logger.info("1 received message.body() = " + message.body());
+
+        try {
+            User user = objectMapper.readValue(message.body().toString(), User.class);
+            user.setPassword(Hash.md5HashString(user.getPassword()));
+            System.out.println(user);
+
+            message.reply("SUCCESSFUL");
+        } catch (IOException e) {
+            Logger.error("No valid user registration!");
+            message.reply("INVALID");
+        }
     }
 }

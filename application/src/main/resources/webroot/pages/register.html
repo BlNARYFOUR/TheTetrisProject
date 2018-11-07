@@ -6,25 +6,29 @@
     <title>Tetris</title>
     <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
 
-    <script>
-        var eb = new EventBus("https://f5112f02.eu.ngrok.io/chatty/events");
-        //var eb = new EventBus("http://localhost:8080/chatty/events");
-        var sendMessage = function (val) {
-            eb.send("chatty.events.message", {user : document.getElementById("userID").value, content : val},
-                function(err, reply) {
-                    console.log("message broadcasted: " + JSON.stringify(reply));
+    <script src="../assets/js/sockjs.min.js"></script>
+    <script src="../assets/js/vertx-eventbus.min.js"></script>
 
+    <script>
+        let eb = new EventBus("http://localhost:8081/tetris/events");
+        function sendMessage() {
+            let request = {
+                "username": document.getElementById("username").value,
+                "password": document.getElementById("password").value
+            };
+
+            eb.send("tetris.events.register.server", request,
+                function(err, reply) {
+                    console.log("Send register request: " + JSON.stringify(reply));
                 });
-        };
+        }
+
         eb.onopen = function() {
-            eb.registerHandler("chatty.events.main", function (error, message) {
+            eb.registerHandler("tetris.events.register.client", function (error, message) {
                 if (error) {
                     console.log("error: " + JSON.stringify(error));
-                };
+                }
                 console.log("message: " + JSON.stringify(message.body));
-                newMessage = document.createElement("li");
-                newMessage.innerHTML = JSON.stringify(message.body);
-                messagelist.prepend(newMessage);
             });
         };
     </script>
@@ -35,10 +39,10 @@
 </header>
 <div class="login-container">
     <br>
-    <form>
-        <input type="text" name="user" placeholder="Username">
-        <input type="password" name="password" placeholder="Password">
-        <input type="submit" name="register" class="login register-submit" value="register">
+    <form action="javascript:sendMessage()">
+        <input id="username" type="text" name="user" placeholder="Username" required="required">
+        <input id="password" type="password" name="password" placeholder="Password" required="required">
+        <input type="submit" name="register" class="login register-submit" value="register" required="required">
     </form>
     <div class="login-help">
         <a href="/static">Login</a>
