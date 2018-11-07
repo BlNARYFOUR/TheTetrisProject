@@ -1,6 +1,6 @@
 package data;
 
-import util.LoginExeption;
+import util.LoginException;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -15,7 +15,7 @@ class MySqlConnection {
         try {
             return DriverManager.getConnection(URL, UID, PWD);
         }catch (SQLException ex){
-            throw new LoginExeption("Cannot connect to DB.");
+            throw new LoginException("Cannot connect to DB.");
         }
     }
 }

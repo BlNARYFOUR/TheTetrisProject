@@ -2,6 +2,7 @@ package server;
 
 import io.vertx.core.Vertx;
 import io.vertx.core.eventbus.EventBus;
+import server.webapi.WebAPI;
 
 public class Tetris {
     public static void main(String[] args) {
