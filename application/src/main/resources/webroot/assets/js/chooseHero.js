@@ -47,7 +47,7 @@ function changeSelected(e) {
     }
     e.target.parentNode.classList.add("selected");
 
-    console.log(e.target.tagName);
+    console.log(e.target.getAttribute("title"));
     if (e.target.tagName === "MAIN" || e.target.tagName === "UL" || e.target.tagName === "LI"){
         e.target.parentNode.classList.remove("selected");
     }

@@ -124,7 +124,7 @@ a {
     margin-left: auto;
 }
 
-.mainMenu li input[type=submit], .logOut-submit {
+.mainMenu li input[type=submit], .logOut-submit, .option-back-submit  {
     width: 80%;
     margin-left: auto;
     margin-right: auto;
@@ -150,7 +150,7 @@ a {
     background: linear-gradient(to right, #9584FF , #FFA1E2);
 }
 
-.chooseGameMode-submit:hover, .clan-submit:hover, .shop-submit:hover, .highScore-submit:hover, .logOut-submit:hover, .back-submit:hover, .playGame-submit:hover {
+.chooseGameMode-submit:hover, .clan-submit:hover, .shop-submit:hover, .highScore-submit:hover, .logOut-submit:hover, .back-submit:hover, .playGame-submit:hover, .option-back-submit:hover, .playFriends-submit:hover, .findOpp-submit:hover {
     border: 2px solid #9C35FF;
     color: #000000;
     text-shadow: 0 1px rgba(0,0,0,0.3);
@@ -204,7 +204,6 @@ a {
 }
 
 /*------Choose Hero------*/
-
 .chooseHeroTitle {
     color: white;
     text-align: center;
@@ -239,7 +238,7 @@ a {
 .choose-hero p {
     font-size: 1.2rem;
     text-align: center;
-    color: #5E43FF;
+    color: yellow;
 }
 
 .donkeykong {
@@ -304,5 +303,60 @@ figcaption{
     width: 300px;
     margin-right: auto;
 }
+/*------Choose Menu------*/
+.choose-menu {
+    color: white;
+    text-align: center;
+}
+
+.choose-menu h1 {
+    font-size: 5.0rem;
+}
+
+.choose-menu p {
+    font-size: 2.5rem;
+}
+
+.choose-option {
+    width: 1200px;
+    height: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: space-around;
+}
+
+.play-friends, .play-opp {
+    width: 400px;
+    height: 200px;
+}
+
+.choose-back {
+    width: 200px;
+    height: 50px;
+    align-self: center;
+}
+
+.playFriends-submit, .findOpp-submit {
+    width: 400px;
+    height: 200px;
+    border: 2px solid #FF02B4;
+    border-radius: 10px;
+    color: #000000;
+    text-shadow: 0 1px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(to right, #FFD82B , #F6FF41);
+    font-size: 1.5rem;
+    opacity: 0.5;
+    /*font-family: 'fabian', sans-serif;*/
+}
+
+.option-back-submit {
+    background: linear-gradient(to right, #FFD82B , #F6FF41);
+    opacity: 0.5;
+    font-size: 1.1rem;
+    border: 2px solid #FF02B4;
+    border-radius: 10px;
+}
+
 
 
