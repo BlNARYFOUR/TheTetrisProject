@@ -280,11 +280,15 @@ figcaption{
     flex-wrap: wrap;
     text-align: center;
     justify-content: space-around;
+
+    margin-top: -62px;
+
 }
 
 #showAllGamemodes figure{
     float: left;
     width: 40%;
+    padding-top: 15px;
 }
 
 .back{
