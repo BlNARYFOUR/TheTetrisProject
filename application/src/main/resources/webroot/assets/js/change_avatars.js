@@ -3,9 +3,11 @@
 document.addEventListener("DOMContentLoaded", showAllImagesOfASpecificPage);
 
 let elementSelectables;
-let selectedItem = null;
+let selectedItem;
+let avatars = ["Banana", "Heart", "Standard", "TRex", "Triforce"];
 
 function showAllImagesOfASpecificPage() {
+    console.log(selectedItem);
     document.getElementById("yes").disabled = true;
     document.getElementById("no").disabled = true;
 
@@ -16,8 +18,8 @@ function showAllImagesOfASpecificPage() {
     let imgList = "";
     let firstSelected = " selected";
 
-    for (let i = 0; i < 4; i++){
-        imgList += "<figure class='selectable" + firstSelected + "'><img data-avatarid='" + i + "' src='../assets/media/retroBlocks.png' class='avatars'/></figure>";
+    for (let i = 0; i < avatars.length; i++){
+        imgList += "<figure id='" + avatars[i] + "' class='selectable" + firstSelected + "'><img data-avatarname='" + avatars[i] + "' src='../assets/media/avatars/Avatar_" + avatars[i] + ".png' class='avatars'/></figure>";
 
         firstSelected = "";
     }
@@ -42,6 +44,9 @@ function changeSelected(e) {
             elementSelectables[i].classList.remove("selected");
         }
         e.target.parentNode.classList.add("selected");
+
+        selectedItem = e.target.dataset.avatarname;
+        console.log(selectedItem);
 
     }
     e.target.parentNode.classList.add("selected");
@@ -72,14 +77,16 @@ function saveAvatar() {
 
 function confirmYes(e) {
     e.preventDefault();
-    console.log("testid");
 
     location.href="main_menu.html";
     //TODO verander de avatar naar de gekozen avatar
 
+
 }
 
-function confirmNo() {
+function confirmNo(e) {
+    e.preventDefault();
+
     document.getElementById("back").disabled = false;
     document.getElementById("save").disabled = false;
     document.getElementById("yes").disabled = true;
@@ -88,7 +95,9 @@ function confirmNo() {
     document.getElementById("confirm").classList.remove("show");
     document.getElementById("confirm").classList.add("hidden");
 
-    //TODO de eerste avatar selecteren
-    //TODO selectedItem terug op null
+    document.getElementById(selectedItem).classList.remove("selected");
+    document.getElementById(avatars[0]).classList.add("selected");
+
+    selectedItem = null;
 
 }
