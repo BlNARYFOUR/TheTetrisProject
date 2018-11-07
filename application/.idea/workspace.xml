@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="673ae00e-b9df-49c9-aa02-754054735763" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/webroot/assets/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/webroot/assets/css/style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/webroot/assets/js/chooseGamemode.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/webroot/assets/js/chooseGamemode.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -14,6 +14,43 @@
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DockManager">
+    <window id="1">
+      <content type="file-editors">
+        <state>
+          <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+            <file leaf-file-name="chooseGamemode.html" pinned="false" current-in-tab="false">
+              <entry file="file://$PROJECT_DIR$/src/main/resources/webroot/pages/chooseGamemode.html">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="272">
+                    <caret line="16" column="6" lean-forward="true" selection-start-line="16" selection-start-column="6" selection-end-line="16" selection-end-column="6" />
+                  </state>
+                </provider>
+              </entry>
+            </file>
+            <file leaf-file-name="main_menu.html" pinned="false" current-in-tab="false">
+              <entry file="file://$PROJECT_DIR$/src/main/resources/webroot/pages/main_menu.html">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="222">
+                    <caret line="23" column="3" selection-start-line="23" selection-start-column="3" selection-end-line="23" selection-end-column="3" />
+                  </state>
+                </provider>
+              </entry>
+            </file>
+            <file leaf-file-name="chooseGamemode.js" pinned="false" current-in-tab="true">
+              <entry file="file://$PROJECT_DIR$/src/main/resources/webroot/assets/js/chooseGamemode.js">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="204">
+                    <caret line="15" column="47" selection-start-line="15" selection-start-column="47" selection-end-line="15" selection-end-column="47" />
+                  </state>
+                </provider>
+              </entry>
+            </file>
+          </leaf>
+        </state>
+      </content>
+    </window>
   </component>
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
@@ -39,29 +76,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="chooseGamemode.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/webroot/pages/chooseGamemode.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="7" lean-forward="true" selection-start-line="8" selection-start-column="7" selection-end-line="8" selection-end-column="7" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="chooseGamemode.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/webroot/assets/js/chooseGamemode.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="16" column="215" lean-forward="true" selection-start-line="16" selection-start-column="215" selection-end-line="16" selection-end-column="215" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
+      <file leaf-file-name="style.css" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/resources/webroot/assets/css/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="274" column="1" lean-forward="true" selection-start-line="274" selection-start-column="1" selection-end-line="274" selection-end-column="1" />
+            <state relative-caret-position="666">
+              <caret line="290" column="22" selection-start-line="290" selection-start-column="22" selection-end-line="290" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -473,8 +492,8 @@
         <option value="$PROJECT_DIR$/src/test/java/MessageHandlerTest.java" />
         <option value="$PROJECT_DIR$/src/main/js/messagehandler.js" />
         <option value="$PROJECT_DIR$/src/main/resources/webroot/pages/chooseGamemode.html" />
-        <option value="$PROJECT_DIR$/src/main/resources/webroot/assets/css/style.css" />
         <option value="$PROJECT_DIR$/src/main/resources/webroot/assets/js/chooseGamemode.js" />
+        <option value="$PROJECT_DIR$/src/main/resources/webroot/assets/css/style.css" />
       </list>
     </option>
   </component>
@@ -494,7 +513,8 @@
     <packageJsonPaths />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-7" />
+    <option name="x" value="908" />
+    <option name="y" value="11" />
     <option name="width" value="974" />
     <option name="height" value="1047" />
   </component>
@@ -503,60 +523,53 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
-              <item name="Backend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="application" type="b2602c69:ProjectViewProjectNode" />
               <item name="application" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
             </path>
             <path>
-              <item name="Backend" type="b2602c69:ProjectViewProjectNode" />
-              <item name="application" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Backend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="application" type="b2602c69:ProjectViewProjectNode" />
               <item name="application" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
             </path>
             <path>
-              <item name="Backend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="application" type="b2602c69:ProjectViewProjectNode" />
               <item name="application" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Backend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="application" type="b2602c69:ProjectViewProjectNode" />
               <item name="application" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="webroot" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Backend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="application" type="b2602c69:ProjectViewProjectNode" />
               <item name="application" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="webroot" type="462c0819:PsiDirectoryNode" />
-              <item name="assets" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Backend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="application" type="b2602c69:ProjectViewProjectNode" />
               <item name="application" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
               <item name="webroot" type="462c0819:PsiDirectoryNode" />
               <item name="assets" type="462c0819:PsiDirectoryNode" />
-              <item name="css" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Backend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="application" type="b2602c69:ProjectViewProjectNode" />
               <item name="application" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
@@ -566,7 +579,28 @@
               <item name="js" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Backend" type="b2602c69:ProjectViewProjectNode" />
+              <item name="application" type="b2602c69:ProjectViewProjectNode" />
+              <item name="application" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="webroot" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
+              <item name="media" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="application" type="b2602c69:ProjectViewProjectNode" />
+              <item name="application" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="webroot" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
+              <item name="media" type="462c0819:PsiDirectoryNode" />
+              <item name="gamemodes" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="application" type="b2602c69:ProjectViewProjectNode" />
               <item name="application" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
@@ -578,9 +612,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="AndroidView" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -593,11 +624,12 @@
     <property name="settings.editor.selected.configurable" value="Settings.JavaScript" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Jetbrain PHPstorm oef\Project II Tetris\groep-16\application\src\main\resources\webroot\assets\media\gamemodes" />
+      <recent name="E:\Intellij\Backend\src\main\java" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\school\2018-2019\Semester_03_2018\Project_II\repo\groep-16\Backend\src\main\resources\pages" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\Intellij\Backend\src\main\java" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -744,42 +776,64 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="7325000" />
+    <option name="totallyTimeSpent" value="9098000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="0" width="974" height="1047" extended-state="0" />
+    <frame x="703" y="90" width="974" height="1047" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="right" id="Palette&#9;" order="9" />
-      <window_info id="Image Layers" order="6" />
-      <window_info anchor="right" id="Capture Analysis" order="4" />
+      <window_info anchor="right" id="Palette" order="17" />
+      <window_info anchor="bottom" id="TODO" order="14" />
+      <window_info anchor="right" id="Palette&#9;" order="11" />
+      <window_info id="Image Layers" order="10" />
+      <window_info anchor="right" id="Capture Analysis" order="15" />
+      <window_info anchor="bottom" id="Event Log" order="15" side_tool="true" />
+      <window_info anchor="right" id="Maven Projects" order="12" />
+      <window_info anchor="bottom" id="Database Changes" order="17" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Run" order="4" weight="0.328877" />
+      <window_info anchor="bottom" id="Version Control" order="18" />
+      <window_info anchor="bottom" id="Terminal" order="16" />
+      <window_info id="Capture Tool" order="11" />
+      <window_info id="Designer" order="13" />
+      <window_info active="true" content_ui="combo" id="Project" order="3" visible="true" weight="0.24947807" />
+      <window_info anchor="right" id="Database" order="14" />
+      <window_info anchor="right" id="Gradle" order="16" />
+      <window_info id="Structure" order="8" side_tool="true" weight="0.25" />
+      <window_info anchor="right" id="Ant Build" order="2" weight="0.25" />
+      <window_info id="UI Designer" order="12" />
+      <window_info anchor="right" id="Theme Preview" order="13" />
+      <window_info anchor="bottom" id="Debug" order="5" weight="0.4" />
+      <window_info id="Favorites" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22546972" />
+      <window_info id="Favorites" order="4" side_tool="true" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="Messages" order="11" weight="0.32909605" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Palette&#9;" order="9" />
       <window_info anchor="right" id="Maven Projects" order="5" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="10" />
-      <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="bottom" id="Terminal" order="8" />
-      <window_info id="Capture Tool" order="5" />
-      <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22546972" />
-      <window_info anchor="bottom" id="Build" order="7" weight="0.75" />
-      <window_info anchor="right" id="Database" order="7" />
-      <window_info anchor="right" id="Gradle" order="6" weight="0.32985386" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info id="UI Designer" order="3" />
-      <window_info anchor="right" id="Theme Preview" order="8" />
-      <window_info id="Favorites" order="4" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="bottom" id="Messages" order="11" weight="0.32909605" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.24966443" />
+      <window_info id="Image Layers" order="6" />
+      <window_info anchor="right" id="Theme Preview" order="8" />
+      <window_info anchor="right" id="Database" order="7" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info anchor="bottom" id="Version Control" order="10" />
+      <window_info anchor="right" id="Capture Analysis" order="4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info id="UI Designer" order="3" />
       <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Build" order="7" weight="0.75" />
+      <window_info anchor="bottom" id="Terminal" order="8" />
+      <window_info anchor="right" id="Gradle" order="6" weight="0.32985386" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info id="Designer" order="2" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -821,16 +875,8 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1462">
           <caret line="97" lean-forward="true" selection-start-line="97" selection-end-line="97" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2961#2962#0" expanded="true" />
-            <element signature="e#3010#3011#0" expanded="true" />
-          </folding>
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Program.java">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/server/WebAPI.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -892,11 +938,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
           <caret line="86" column="87" selection-start-line="86" selection-start-column="87" selection-end-line="86" selection-end-column="87" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2961#2962#0" expanded="true" />
-            <element signature="e#3010#3011#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -960,14 +1001,8 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="68">
           <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/Program.java">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/server/WebAPI.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -1001,11 +1036,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1462">
           <caret line="97" lean-forward="true" selection-start-line="97" selection-end-line="97" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2961#2962#0" expanded="true" />
-            <element signature="e#3010#3011#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1076,11 +1106,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
           <caret line="86" column="87" selection-start-line="86" selection-start-column="87" selection-end-line="86" selection-end-column="87" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#2961#2962#0" expanded="true" />
-            <element signature="e#3010#3011#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1110,9 +1135,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="459">
           <caret line="29" column="1" selection-start-line="29" selection-start-column="1" selection-end-line="29" selection-end-column="1" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1120,9 +1142,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="646">
           <caret line="49" column="31" selection-start-line="49" selection-start-column="31" selection-end-line="49" selection-end-column="31" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1130,9 +1149,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
           <caret line="24" selection-start-line="24" selection-end-line="24" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1143,24 +1159,34 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/webroot/pages/chooseGamemode.html">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/webroot/pages/main_menu.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="7" lean-forward="true" selection-start-line="8" selection-start-column="7" selection-end-line="8" selection-end-column="7" />
+        <state relative-caret-position="222">
+          <caret line="23" column="3" selection-start-line="23" selection-start-column="3" selection-end-line="23" selection-end-column="3" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/webroot/assets/css/style.css">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/webroot/assets/media/gamemodes/multi_player.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/webroot/pages/chooseGamemode.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="274" column="1" lean-forward="true" selection-start-line="274" selection-start-column="1" selection-end-line="274" selection-end-column="1" />
+        <state relative-caret-position="272">
+          <caret line="16" column="6" lean-forward="true" selection-start-line="16" selection-start-column="6" selection-end-line="16" selection-end-column="6" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/webroot/assets/js/chooseGamemode.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="215" lean-forward="true" selection-start-line="16" selection-start-column="215" selection-end-line="16" selection-end-column="215" />
+        <state relative-caret-position="204">
+          <caret line="15" column="47" selection-start-line="15" selection-start-column="47" selection-end-line="15" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/webroot/assets/css/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="666">
+          <caret line="290" column="22" selection-start-line="290" selection-start-column="22" selection-end-line="290" selection-end-column="22" />
         </state>
       </provider>
     </entry>
