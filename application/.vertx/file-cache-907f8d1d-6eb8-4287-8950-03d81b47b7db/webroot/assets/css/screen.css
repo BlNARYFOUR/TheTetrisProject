@@ -1,0 +1,81 @@
+@font-face {
+    font-family: 'Arcade';
+    src: url("../fonts/arcade.ttf");
+}
+
+
+body{
+    background-color: #023286;
+    background: url("../media/backgroundTetris.jpg") no-repeat center center fixed;
+    /*background-image: url("../media/darkbluebackground.jpg");*/
+    /*background-image: url("../media/cubebackground.jpg");*/
+    /*background-image: url("../media/blockbackground.jpg");*/
+    background-size: cover;
+}
+
+header, main{
+    text-align: center;
+}
+
+footer {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: #010220;
+}
+
+header a{
+    color: rgb(255,255,255);
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+header a i.material-icons{
+    font-size: 3rem;
+    text-decoration: none;
+}
+
+
+
+
+
+
+
+
+footer div{
+    display: flex;
+    color: white;
+    font-weight: bolder;
+}
+
+button{
+    background-color: #010220;
+    border: none;
+    color: white;
+}
+
+
+
+.timer,.score, strong, h1{
+    color: white;
+}
+
+.pause, .game{
+    color: #2A679D;
+    font-weight: bold;
+}
+
+.column{
+    float: left;
+    width: 33.33%;
+    text-align: center;
+}
+
+#next{
+    background-color: grey;
+    margin-left: -250px;
+    margin-bottom: 450px;
+}
+
