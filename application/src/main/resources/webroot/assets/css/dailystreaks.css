@@ -1,7 +1,12 @@
-h1{
+#dailystreaks h1{
     border-bottom: 3px solid #FF00B4;
     margin-left: 40px;
     margin-right: 40px;
+    font-size: 3rem;
+}
+
+#dailystreaks p{
+    font-size: 2rem ;
 }
 
 .centerDailyStreak{
@@ -52,6 +57,13 @@ h1{
 .close{
     width: 300px;
     margin: 20px auto 30px;
+}
+
+#doneMark{
+    position: absolute;
+    font-size: 15rem;
+    margin-left: -170px;
+    margin-top: -90px;
 }
 
 /*TODO volgende class en id gewoon toevoegen aan style.*/
