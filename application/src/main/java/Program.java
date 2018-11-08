@@ -1,5 +1,5 @@
 
-import data.LoginRepository;
+import data.loginRepository.LoginRepository;
 import data.Repositories;
 import domain.User;
 

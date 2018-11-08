@@ -4,6 +4,7 @@ import domain.game.modes.GameMode;
 import util.HighScoreException;
 
 import java.util.Map;
+import java.util.Objects;
 
 public class User {
     private int ID;
@@ -88,5 +89,18 @@ public class User {
         return getUsername() + " is logged in (with password: " + getPassword() + " )";
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return ID == user.ID &&
+                Objects.equals(username, user.username) &&
+                Objects.equals(password, user.password);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(ID, username, password);
+    }
 }

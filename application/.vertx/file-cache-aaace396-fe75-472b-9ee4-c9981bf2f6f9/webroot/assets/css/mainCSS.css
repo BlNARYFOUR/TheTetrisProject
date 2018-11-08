@@ -1,0 +1,16 @@
+@font-face {
+    font-family: 'fabian';
+    src: url("../fonts/fabian.ttf");
+}
+@font-face {
+    font-family: 'Laser84';
+    src: url("../fonts/Lazer84.ttf");
+}
+
+body {
+    font-family: 'fabian', sans-serif;
+    font-size: 3rem;
+    background: white url("../media/retroBackground.png") no-repeat;
+    height: 100%;
+    background-size: cover;
+}
