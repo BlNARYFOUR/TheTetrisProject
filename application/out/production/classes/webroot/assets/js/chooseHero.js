@@ -1,23 +1,27 @@
 "use strict";
 
-document.addEventListener("DOMContentLoaded", showAllGamemodes);
+document.addEventListener("DOMContentLoaded", init);
 
 let elementSelectables;
-let selectedGamemode;
 
-function showAllGamemodes() {
+function init() {
     document.getElementById("back").addEventListener("click", goBack);
+    loadHeroes();
 
-    let location = document.getElementById("showAllGamemodes");
+}
+
+function loadHeroes() {
+
+    let location = document.getElementById("choose-hero");
     let imgList = "";
-    let gamemodes = ["single_player", "multi_player", "time_attack", "last_man_standing"];
+    let heroes = ["donkeykong", "donkeykong", "donkeykong", "donkeykong"];
 
     let firstSelected = " selected";
 
-    for (let i = 0; i < gamemodes.length; i++){
-        imgList += "<figure class='selectable" + firstSelected + "'><img data-gamemodename='" + gamemodes[i] + "' src='../assets/media/gamemodes/" + gamemodes[i] + ".png' alt='" + gamemodes[i] + "' title='" + gamemodes[i] + "' class='gamemodes'/></figure>";
+    for (let i = 0; i < heroes.length; i++) {
+                imgList += "<li class='selectable hero-" + heroes[i] + firstSelected + "'><img src= ../assets/media/" + heroes[i] + ".gif class='"+ heroes[i] +"' title='"+ heroes[i] +"' alt='"+ heroes[i] +"'><p>"+ heroes[i] +"</p></li>";
 
-        firstSelected = "";
+                firstSelected = "";
     }
 
     location.innerHTML = imgList;
@@ -40,19 +44,17 @@ function changeSelected(e) {
         }
         e.target.parentNode.classList.add("selected");
 
-        // Hier wordt de naam van de geselecteerde gamemode ingestoken
-        selectedGamemode = e.target.dataset.gamemodename;
-
     }
     e.target.parentNode.classList.add("selected");
 
-
-    if (e.target.tagName === "FIGURE"){
+    console.log(e.target.getAttribute("title"));
+    if (e.target.tagName === "MAIN" || e.target.tagName === "UL" || e.target.tagName === "LI"){
         e.target.parentNode.classList.remove("selected");
     }
 
 }
 
+
 function goBack() {
-    location.href="main_menu.html";
+    location.href = "#"; //Go to gamemode
 }
