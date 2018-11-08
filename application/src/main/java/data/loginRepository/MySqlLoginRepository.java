@@ -19,8 +19,9 @@ public class MySqlLoginRepository implements LoginRepository {
     @Override
     public void addUser(User u) {
         try (PreparedStatement prep = MySqlConnection.getConnection().prepareStatement(SQL_ADD_USER, Statement.RETURN_GENERATED_KEYS)){
+            u.setPassword(Hash.md5HashString(u.getPassword()));
             prep.setString(1, u.getUsername());
-            prep.setString(2, Hash.md5HashString(u.getPassword()));
+            prep.setString(2, u.getPassword());
 
             prep.executeUpdate();
 
@@ -35,12 +36,25 @@ public class MySqlLoginRepository implements LoginRepository {
 
     @Override
     public User authenticateUser(String username, String password) {
+        return authenticateUser(username, password, true);
+    }
+
+    @Override
+    public User authenticateUser(User user) {
+        return this.authenticateUser(user.getUsername(), user.getPassword());
+    }
+
+    @Override
+    public User authenticateUser(String username, String password, boolean hashPass) {
         User user = null;
 
         try (Connection con = MySqlConnection.getConnection();
              PreparedStatement prep = con.prepareStatement(SQL_CONTROL_USER)){
+
+            String pass = hashPass ? Hash.md5HashString(password) : password;
+
             prep.setString(1, username);
-            prep.setString(2, Hash.md5HashString(password));
+            prep.setString(2, pass);
 
             ResultSet rs = prep.executeQuery();
 
@@ -56,11 +70,6 @@ public class MySqlLoginRepository implements LoginRepository {
             throw new LoginException("Login has been failed!");
         }
         return user;
-    }
-
-    @Override
-    public User authenticateUser(User user) {
-        return this.authenticateUser(user.getUsername(), user.getPassword());
     }
 
     @Override
