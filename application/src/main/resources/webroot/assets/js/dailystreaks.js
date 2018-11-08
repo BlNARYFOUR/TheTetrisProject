@@ -26,6 +26,12 @@ function showDailyRewards(e) {
 
             if (rewards[i] === "cubes"){
                 photo = "../assets/media/cube_logo.png";
+            } else if (rewards[i] === "xp"){
+                photo = "../assets/media/retroBlocks.png";
+            } else if (rewards[i] === "scratch card"){
+                photo = "../assets/media/retroBlocks.png";
+            } else if (rewards[i] === "mystery box"){
+                photo = "../assets/media/retroBlocks.png";
             }
 
             if (severalDaysLoggedIn >= i){
@@ -42,9 +48,6 @@ function showDailyRewards(e) {
                     "<figcaption>+ " + amount[i] + " " + rewards[i] + "</figcaption>" +
                     "</figure>";
             }
-            // dit kan later worden verwijdert (de regel hieronder) !!!!!!
-            photo = "../assets/media/retroBlocks.png";
-            //TODO src linken met naam van rewards
         }
 
         location.innerHTML = imgList;
