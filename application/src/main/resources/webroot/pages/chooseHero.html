@@ -3,41 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <title>Choose_hero</title>
-    <link rel="stylesheet" type="text/css" href="static/assets/css/mainCSS.css">
-    <link rel="stylesheet" type="text/css" href="static/assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/mainCSS.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
 </head>
 <body>
 
 <header class="retroBlocks-header">
-    <img src="static/assets/media/retroBlocks.png" alt="retroBlocks" title="retroBlocks">
-    <!--<p class="chooseHeroTitle">Choose a hero</p>-->
+    <img src="../assets/media/retroBlocks.png" alt="retroBlocks" title="retroBlocks">
+    <p class="chooseHeroTitle">Choose a hero</p>
 </header>
 
 
 <main class="choose-hero-container">
-    <div class="choose-hero">
-        <a href="#" class="hero-pacman">
-            <img src="static/assets/media/donkeyKong.gif" class="donkeyKong" alt="donkeyKong" title="donkeyKong">
-            <p>Pac man</p>
-        </a>
-        <a href="#" class="hero-donkeykong">
-            <img src="static/assets/media/donkeyKong.gif" class="donkeyKong" alt="donkeyKong" title="donkeyKong">
-            <p>Donkey Kong</p>
-        </a>
-        <a href="#" class="hero-pikachu">
-            <img src="static/assets/media/donkeyKong.gif" class="donkeyKong" alt="donkeyKong" title="donkeyKong">
-            <p>Pikachu</p>
-        </a>
-        <a href="#" class="hero-sony">
-            <img src="static/assets/media/donkeyKong.gif" class="donkeyKong" alt="donkeyKong" title="donkeyKong">
-            <p>Sony</p>
-        </a>
-    </div>
+    <ul class="choose-hero" id="choose-hero">
+    </ul>
 </main>
 
-<div class="chooseHero-buttons">
 
+<div class="choose-hero-buttons">
+    <div class="back">
+        <input type="submit" value="Back" id="back" class="back-submit">
+    </div>
+
+    <div class="playGame">
+        <input type="submit" value="Play Game" id="playGame" class="playGame-submit">
+    </div>
 </div>
+
+<script type="text/javascript" src="../assets/js/chooseHero.js"></script>
 
 </body>
 </html>
