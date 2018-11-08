@@ -124,7 +124,7 @@ a {
     margin-left: auto;
 }
 
-.mainMenu li input[type=submit], .logOut-submit, .option-back-submit  {
+.mainMenu li input[type=submit], .logOut-submit, .option-back-submit, .back-submit, .save-submit  {
     width: 80%;
     margin-left: auto;
     margin-right: auto;
@@ -143,14 +143,14 @@ a {
     width: 390px;
 }
 
-.chooseGameMode-submit, .clan-submit, .shop-submit, .highScore-submit, .logOut-submit, .back-submit, .save-submit, #no, #yes {
+.chooseGameMode-submit, .clan-submit, .shop-submit, .highScore-submit, .logOut-submit, .back-submit, .save-submit, .playGame-submit, #no, #yes {
     border: 2px solid #9C35FF;
     color: #000000;
     text-shadow: 0 1px rgba(0, 0, 0, 0.1);
     background: linear-gradient(to right, #9584FF , #FFA1E2);
 }
-
-.chooseGameMode-submit:hover, .clan-submit:hover, .shop-submit:hover, .highScore-submit:hover, .logOut-submit:hover, .back-submit:hover, .playGame-submit:hover, .option-back-submit:hover, .playFriends-submit:hover, .findOpp-submit:hover {
+ 
+.chooseGameMode-submit:hover, .clan-submit:hover, .shop-submit:hover, .highScore-submit:hover, .logOut-submit:hover, .back-submit:hover, .playGame-submit:hover, .option-back-submit:hover, .playFriends-submit:hover, .findOpp-submit:hover, .save-submit:hover, #no:hover, #yes:hover {
     border: 2px solid #9C35FF;
     color: #000000;
     text-shadow: 0 1px rgba(0,0,0,0.3);
@@ -419,6 +419,24 @@ h1, p{
     border: 2px solid #9584FF;
     border-radius: 10px;
 }
+
+form input{
+    width: 49.5%;
+    display: inline-block;
+}
+
+.hidden{
+    visibility: hidden;
+    position: absolute;
+}
+
+.show{
+    visibility: visible;
+    position: absolute;
+    left: 50%;
+    margin-left: -250px;
+    width: 500px;
+    background: url("../media/retroBackground.png");
 
 
 
