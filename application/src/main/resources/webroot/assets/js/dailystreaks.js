@@ -75,8 +75,6 @@ function closeDailyStreaks(e) {
     document.getElementById("dailystreaks").classList.remove("showDailyRewards");
     document.getElementById("dailystreaks").classList.add("hiddenDailyRewards");
 
-    main_menu();
-
 }
 
 function enabledButtons() {
@@ -89,10 +87,3 @@ function enabledButtons() {
     document.getElementById("close").disabled = true;
 }
 
-function main_menu() {
-    document.getElementById("chooseGamemode").addEventListener("click", chooseGamemode);
-}
-
-function chooseGamemode() {
-    location.href = "chooseGamemode.html";
-}
