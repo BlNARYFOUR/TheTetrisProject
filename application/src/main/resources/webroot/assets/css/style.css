@@ -430,7 +430,7 @@ form input{
     position: absolute;
 }
 
-.show{
+.show {
     visibility: visible;
     position: absolute;
     left: 50%;
@@ -438,5 +438,5 @@ form input{
     width: 500px;
     background: url("../media/retroBackground.png");
 
-
+}
 
