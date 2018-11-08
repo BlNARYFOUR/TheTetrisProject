@@ -1,0 +1,84 @@
+h1{
+    border-bottom: 3px solid #FF00B4;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+.centerDailyStreak{
+    padding: 70px 0;
+}
+
+#dailystreaks, #dailyRewards{
+    text-align: center;
+}
+
+#dailyRewards{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+#dailyRewards figure{
+    width: 200px;
+    height: 200px;
+    box-shadow: 0 0 50px 10px rebeccapurple;
+}
+
+.rewards{
+    width: 100px;
+    height: 100px;
+    margin-top: -20px;
+}
+
+.showDailyRewards{
+    visibility: visible;
+    position: absolute;
+    left: 25%;
+    margin-left: -100px;
+    width: 1200px;
+    background: url(../media/retroBackground.png);
+}
+
+.showDailyRewards, #dailyRewards figure{
+    border-radius: 5px;
+}
+
+
+#dailyRewards figcaption{
+    font-size: 1.5rem;
+}
+
+.close{
+    width: 300px;
+    margin: 20px auto 30px;
+}
+
+/*TODO volgende class en id gewoon toevoegen aan style.*/
+
+
+
+  .close-submit{
+      border: 2px solid #9C35FF;
+      color: #000000;
+      text-shadow: 0 1px rgba(0, 0, 0, 0.1);
+      background: linear-gradient(to right, #9584FF , #FFA1E2);
+  }
+
+  .close-submit:hover{
+      border: 2px solid #9C35FF;
+      color: #000000;
+      text-shadow: 0 1px rgba(0,0,0,0.3);
+      background: linear-gradient(to right, #FFA1E2 , #9584FF);
+  }
+
+  .close-submit{
+      width: 80%;
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+      border-radius: 5px;
+      padding-top: 15px;
+      padding-bottom: 15px;
+  }
+
