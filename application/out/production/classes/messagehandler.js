@@ -1,7 +1,7 @@
 var eb = vertx.eventBus();
 
-eb.consumer("login.events.message", function(message) {
+eb.consumer("tetris.events.register.server", function(message) {
     console.log(message.body());
     message.reply("OK");
-    eb.publish("login.events.main", message.body());
+    eb.publish("tetris.events.register.client", message.body());
 });
