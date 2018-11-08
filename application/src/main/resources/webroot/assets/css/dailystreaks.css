@@ -30,7 +30,7 @@
     box-shadow: 0 0 50px 10px rebeccapurple;
 }
 
-.rewards{
+.rewards, .prices {
     width: 100px;
     height: 100px;
     margin-top: -20px;
@@ -101,3 +101,57 @@
       padding-bottom: 15px;
   }
 
+
+  /* ----------------------- scratch card ----------------------------*/
+#scratchCard{
+    width: 900px;
+
+}
+
+#scratchCard h1{
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 5px;
+    border-bottom: 3px solid #FF00B4;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+#prices p{
+    text-align: center;
+    margin-left: -20px;
+}
+
+#prices figure img{
+    width: 100px;
+    height: 100px;
+    box-shadow: 0 0 50px 10px rebeccapurple;
+}
+
+#scratch figure img{
+    width: 150px;
+    height: 150px;
+    box-shadow: 0 0 50px 10px rebeccapurple;
+    margin-top: 25px;
+}
+
+#prices{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 150px;
+}
+
+#scratch{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    box-shadow: 0 0 50px 10px rebeccapurple;
+    margin-left: 170px;
+    position: absolute;
+    margin-top: -350px;
+    height: 250px;
+}
+
+/* Test */

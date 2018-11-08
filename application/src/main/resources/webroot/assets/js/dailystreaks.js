@@ -8,13 +8,13 @@ let photo = "../assets/media/retroBlocks.png";
 let days = 7;
 let severalDaysLoggedIn = 3;
 
-let alreadyLoggedIn = true;
+let alreadyLoggedIn = false;
 
 function showDailyRewards(e) {
     e.preventDefault();
 
     if (alreadyLoggedIn === false){
-        disabledButtons();
+        //disabledButtons();
 
         document.getElementById("close").addEventListener("click", closeDailyStreaks);
 
@@ -54,8 +54,11 @@ function showDailyRewards(e) {
 
         alreadyLoggedIn = true;
     }else {
-        closeDailyStreaks(e);
+        //closeDailyStreaks(e);
     }
+
+
+
 
 }
 
@@ -73,7 +76,7 @@ function disabledButtons() {
 function closeDailyStreaks(e) {
     e.preventDefault();
 
-    enabledButtons();
+    //enabledButtons();
 
     document.getElementById("dailystreaks").classList.remove("showDailyRewards");
     document.getElementById("dailystreaks").classList.add("hiddenDailyRewards");
