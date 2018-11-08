@@ -5,6 +5,7 @@ import data.LoginRepository;
 import data.Repositories;
 import domain.User;
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.buffer.Buffer;
 import io.vertx.core.eventbus.Message;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.http.HttpServer;
@@ -21,6 +22,7 @@ import io.vertx.ext.web.sstore.LocalSessionStore;
 import io.vertx.ext.web.sstore.SessionStore;
 import org.pmw.tinylog.Logger;
 import server.webapi.TetrisSockJSHandler;
+import server.webapi.util.FilePath;
 import util.Hash;
 
 import java.io.IOException;
@@ -48,35 +50,11 @@ public class WebAPI extends AbstractVerticle {
 
         router.route("/").handler(routes::rootHandler);
 
-        /*
-        router.route("/static").handler(BodyHandler.create());
-        router.post("/static").handler(routingContext -> {
-            System.out.println(routingContext.getBodyAsString());
+        router.route("/static*").handler(BodyHandler.create());
+        router.post("/static").handler(routes::loginHandler);
+        router.route("/static/index.html").handler(routes::rerouteHandler);
+        router.route("/static"+FilePath.MAIN_MENU_WEB_FILE).handler(routingContext -> routes.secureHandler(routingContext, FilePath.MAIN_MENU_WEB_FILE));
 
-            try {
-                System.out.println(routingContext.getBodyAsJsonArray().toString());
-            } catch (IOException e) {
-                Logger.error("No valid user registration!");
-            }
-            
-
-            Session session = routingContext.session();
-            try {
-                if (repo.authenticateUser(session.get("username"), session.get("password")) == null) {
-                    HttpServerResponse response = routingContext.response();
-                    response.sendFile("webroot/index.html");
-                } else {
-                    HttpServerResponse response = routingContext.response();
-                    response.headers().add("location", "/static/pages/main_menu.html");
-                    response.setStatusCode(302);
-                }
-            } catch (Exception ex) {
-                HttpServerResponse response = routingContext.response();
-                response.sendFile("webroot/index.html");
-            }
-        });
-        router.route("/static/pages/main_menu.html").handler(routes::secureHandler);
-        */
 
         router.route("/static/*").handler(StaticHandler.create());
         router.route("/tetris/events/*").handler(new TetrisSockJSHandler(vertx).create());
@@ -87,7 +65,7 @@ public class WebAPI extends AbstractVerticle {
     }
 
     private void initConsumers() {
-        vertx.eventBus().consumer("tetris.events.register.server", this::register);
+        //vertx.eventBus().consumer("tetris.events.register.server", this::register);
 }
 
     private void register(Message<Object> message) {

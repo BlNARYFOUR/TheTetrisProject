@@ -58,6 +58,11 @@ public class MySqlLoginRepository implements LoginRepository {
     }
 
     @Override
+    public User authenticateUser(User user) {
+        return this.authenticateUser(user.getUsername(), user.getPassword());
+    }
+
+    @Override
     public User deleteUser(String username) {
         try (Connection con = MySqlConnection.getConnection();
              PreparedStatement prep = con.prepareStatement(SQL_DELETE_USER)){

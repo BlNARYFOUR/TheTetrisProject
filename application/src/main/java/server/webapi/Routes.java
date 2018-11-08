@@ -10,6 +10,8 @@ import io.vertx.core.http.HttpServerResponse;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.Session;
 import org.pmw.tinylog.Logger;
+import server.webapi.util.FilePath;
+import util.Hash;
 
 import java.io.IOException;
 
@@ -27,21 +29,66 @@ public class Routes {
             .end();
     }
 
-    void secureHandler(RoutingContext routingContext) {
-        System.out.println("gets here");
+    void loginHandler(RoutingContext routingContext) {
+        try {
+            String body = routingContext.getBodyAsString();
+            System.out.println(routingContext.getBodyAsString());
+            String[] params = body.split("&");
+            String username = params[0].split("=")[1];
+            String password = params[1].split("=")[1];
+
+            User user = new User(username, password);
+
+            Session session = routingContext.session();
+            session.put("username", user.getUsername());
+            session.put("password", user.getPassword());
+
+            user = repo.authenticateUser(user);
+            if (user == null) {
+                HttpServerResponse response = routingContext.response();
+                response.sendFile("webroot/index.html");
+            } else {
+                HttpServerResponse response = routingContext.response();
+                response.headers().add("location", "/static/pages/main_menu.html");
+                response.setStatusCode(302).end();
+            }
+        } catch (Exception ex) {
+            HttpServerResponse response = routingContext.response();
+            response.sendFile("webroot/index.html");
+        }
+    }
+
+    void secureHandler(RoutingContext routingContext, FilePath filePath) {
         Session session = routingContext.session();
         try {
-            if (repo.authenticateUser(session.get("username"), session.get("password")) == null) {
+            User user = repo.authenticateUser(session.get("username"), session.get("password"));
+            if (user == null) {
                 HttpServerResponse response = routingContext.response();
                 response.headers().add("location", "/static");
                 response.setStatusCode(302).end();
             } else {
-                routingContext.response().sendFile("webroot/pages/main_menu.html");
+                routingContext.response().sendFile("webroot"+filePath);
         }
         } catch (Exception ex) {
             HttpServerResponse response = routingContext.response();
             response.headers().add("location", "/static");
             response.setStatusCode(302).end();
         }
+    }
+
+    void rerouteHandler(RoutingContext routingContext) {
+        Session session = routingContext.session();
+
+        User user = repo.authenticateUser(session.get("username"), session.get("password"));
+
+        HttpServerResponse response = routingContext.response();
+
+        if(user == null) {
+            response.headers().add("location", "/static");
+        } else {
+            response.headers().add("location", "/static"+FilePath.MAIN_MENU_WEB_FILE);
+        }
+
+        response.setStatusCode(302).end();
     }
 }
