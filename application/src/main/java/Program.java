@@ -12,12 +12,12 @@ public class Program {
         LoginRepository repo = Repositories.getInstance().getLoginRepository();
 
         // ADD user
-        User person = new User("Testid", "testid");
+        User person = new User(0, "Testid", "testid");
         //repo.addUser(person);
 
         // TRY TO LOGIN
-        //repo.authenticateUser("bryan", "bryan");
-        //repo.authenticateUser("Testid", "testid");
+        repo.authenticateUser("bryan", "bryan");
+        repo.authenticateUser("Testid", "testid");
 
         // DELETE USER
         //repo.deleteUser("bryan");

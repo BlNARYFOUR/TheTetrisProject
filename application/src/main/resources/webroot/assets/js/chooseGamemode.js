@@ -3,18 +3,19 @@
 document.addEventListener("DOMContentLoaded", showAllGamemodes);
 
 let elementSelectables;
+let selectedGamemode;
 
 function showAllGamemodes() {
     document.getElementById("back").addEventListener("click", goBack);
 
     let location = document.getElementById("showAllGamemodes");
     let imgList = "";
+    let gamemodes = ["single_player", "multi_player", "time_attack", "last_man_standing"];
 
-    let nameGamemode = "Testid";
     let firstSelected = " selected";
 
-    for (let i = 0; i < 4; i++){
-        imgList += "<figure class='selectable" + firstSelected + "'><img data-gameid='" + i + "' src='assets/media/retroBlocks.png'/><figcaption>" + nameGamemode + "</figcaption></figure>";
+    for (let i = 0; i < gamemodes.length; i++){
+        imgList += "<figure class='selectable" + firstSelected + "'><img data-gamemodename='" + gamemodes[i] + "' src='../assets/media/gamemodes/" + gamemodes[i] + ".png' alt='" + gamemodes[i] + "' title='" + gamemodes[i] + "' class='gamemodes'/></figure>";
 
         firstSelected = "";
     }
@@ -39,8 +40,12 @@ function changeSelected(e) {
         }
         e.target.parentNode.classList.add("selected");
 
+        // Hier wordt de naam van de geselecteerde gamemode ingestoken
+        selectedGamemode = e.target.dataset.gamemodename;
+
     }
     e.target.parentNode.classList.add("selected");
+
 
     if (e.target.tagName === "FIGURE"){
         e.target.parentNode.classList.remove("selected");
