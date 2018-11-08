@@ -13,7 +13,7 @@ import server.webapi.util.SecureFilePath;
 
 import java.util.Objects;
 
-public class Routes {
+class Routes {
 
     private static ObjectMapper objectMapper = new ObjectMapper();
     private LoginRepository loginRepo = Repositories.getInstance().getLoginRepository();
@@ -52,6 +52,7 @@ public class Routes {
                 }
 
                 HttpServerResponse response = routingContext.response();
+                response.setChunked(true);
                 response.sendFile("webroot/index.html");
             } else {
                 routingContext.getCookie("vertx-web.session").setMaxAge(31536000);  //1 year (60s*60m*24h*356d)
@@ -59,35 +60,39 @@ public class Routes {
                 loggedInRepo.addLoggedUser(session.id(), user);
 
                 HttpServerResponse response = routingContext.response();
+                response.setChunked(true);
                 response.headers().add("location", "/static/pages/main_menu.html");
                 response.setStatusCode(302).end();
             }
         } catch (Exception ex) {
             HttpServerResponse response = routingContext.response();
+            response.setChunked(true);
             response.sendFile("webroot/index.html");
         }
     }
 
-    public void registerHandler(RoutingContext routingContext) {
+    void registerHandler(RoutingContext routingContext) {
         String body = routingContext.getBodyAsString();
         User user = getUserFromBody(body);
 
-        routingContext.response().end("OKE");
+        routingContext.response().setChunked(true).end("OKE");
     }
 
     void secureHandler(RoutingContext routingContext, SecureFilePath filePath) {
         Session session = routingContext.session();
+        HttpServerResponse response = routingContext.response();
+        response.setChunked(true);
+
         try {
+            System.out.println("Here");
             User user = loginRepo.authenticateUser(session.get("username"), session.get("password"));
             if (user == null) {
-                HttpServerResponse response = routingContext.response();
                 response.headers().add("location", "/static");
                 response.setStatusCode(302).end();
             } else {
-                routingContext.response().sendFile("webroot"+filePath);
+                response.sendFile("webroot"+filePath);
         }
         } catch (Exception ex) {
-            HttpServerResponse response = routingContext.response();
             response.headers().add("location", "/static");
             response.setStatusCode(302).end();
         }
@@ -96,6 +101,7 @@ public class Routes {
     void rerouteHandler(RoutingContext routingContext) {
         Session session = routingContext.session();
         HttpServerResponse response = routingContext.response();
+        response.setChunked(true);
 
         try {
             User user = loginRepo.authenticateUser(session.get("username"), session.get("password"));
@@ -115,6 +121,7 @@ public class Routes {
     void rerouteWebrootHandler(RoutingContext routingContext) {
         Session session = routingContext.session();
         HttpServerResponse response = routingContext.response();
+        response.setChunked(true);
 
         try {
             User user = loginRepo.authenticateUser(session.get("username"), session.get("password"));
