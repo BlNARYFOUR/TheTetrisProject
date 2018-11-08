@@ -40,13 +40,19 @@
     visibility: visible;
     position: absolute;
     left: 25%;
-    margin-left: -100px;
-    width: 1200px;
+    margin-left: -200px;
+    width: 1400px;
     background: url(../media/retroBackground.png);
+}
+
+.hiddenDailyRewards{
+    visibility: hidden;
+    position: fixed;
 }
 
 .showDailyRewards, #dailyRewards figure{
     border-radius: 5px;
+    z-index: 10;
 }
 
 
@@ -65,6 +71,7 @@
     margin-left: -170px;
     margin-top: -90px;
 }
+
 
 /*TODO volgende class en id gewoon toevoegen aan style.*/
 
