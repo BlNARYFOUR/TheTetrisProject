@@ -10,29 +10,24 @@
     <script src="../assets/js/vertx-eventbus.min.js"></script>
 
 
-    <!--script>
-        let eb = new EventBus("http://localhost:8081/tetris/events");
-        function sendMessage() {
-            let request = {
-                "username": document.getElementById("username").value,
-                "password": document.getElementById("password").value
-            };
-
-            eb.send("tetris.events.register.server", request,
-                function(err, reply) {
-                    console.log("Send register request: " + JSON.stringify(reply));
-                });
+    <script>
+        document.addEventListener("DOMContentLoaded", init);
+        function init(e) {
+            document.getElementById("register").addEventListener("submit", inspectReq);
         }
 
-        eb.onopen = function() {
-            eb.registerHandler("tetris.events.register.client", function (error, message) {
-                if (error) {
-                    console.log("error: " + JSON.stringify(error));
-                }
-                console.log("message: " + JSON.stringify(message.body));
-            });
-        };
-    </script-->
+        function inspectReq(e) {
+            let pass = document.getElementById("password");
+            let confirmPass = document.getElementById("confirmPass");
+
+            if(pass.value !== confirmPass.value) {
+                e.preventDefault();
+                document.getElementById("error").innerText = "Passwords do not match!";
+                pass.value = "";
+                confirmPass.value = "";
+            }
+        }
+    </script>
 </head>
 <body>
 <header class="retroBlocks-header">
@@ -40,10 +35,12 @@
 </header>
 <div class="login-container">
     <br>
-    <form method="post"> <!--action="javascript:sendMessage()"-->
+    <form id="register" method="post"> <!--action="javascript:sendMessage()"-->
+        <span id="error"></span>
         <input id="username" type="text" name="user" placeholder="Username" required="required">
         <input id="password" type="password" name="password" placeholder="Password" required="required">
-        <input type="submit" name="register" class="login register-submit" value="register" required="required">
+        <input id="confirmPass" type="password" name="confirmPass" placeholder="Confirm password" required="required">
+        <input type="submit" name="register" class="login register-submit" value="register">
     </form>
     <div class="login-help">
         <a href="/static">Login</a>

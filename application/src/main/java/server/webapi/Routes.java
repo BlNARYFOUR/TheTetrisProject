@@ -28,15 +28,18 @@ public class Routes {
             .end();
     }
 
+    User getUserFromBody(String body) {
+        String[] params = body.split("&");
+        String username = params[0].split("=")[1];
+        String password = params[1].split("=")[1];
+
+        return new User(username, password);
+    }
+
     void loginHandler(RoutingContext routingContext) {
         try {
             String body = routingContext.getBodyAsString();
-            System.out.println(routingContext.getBodyAsString());
-            String[] params = body.split("&");
-            String username = params[0].split("=")[1];
-            String password = params[1].split("=")[1];
-
-            User user = new User(username, password);
+            User user = getUserFromBody(body);
 
             Session session = routingContext.session();
             session.put("username", user.getUsername());
@@ -63,6 +66,13 @@ public class Routes {
             HttpServerResponse response = routingContext.response();
             response.sendFile("webroot/index.html");
         }
+    }
+
+    public void registerHandler(RoutingContext routingContext) {
+        String body = routingContext.getBodyAsString();
+        User user = getUserFromBody(body);
+
+        routingContext.response().end("OKE");
     }
 
     void secureHandler(RoutingContext routingContext, SecureFilePath filePath) {

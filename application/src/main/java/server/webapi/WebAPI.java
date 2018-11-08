@@ -42,6 +42,8 @@ public class WebAPI extends AbstractVerticle {
 
         router.route("/static*").handler(BodyHandler.create());
         router.post("/static").handler(routes::loginHandler);
+        router.post("/static/pages/register.html").handler(routes::registerHandler);
+
         router.route("/static").handler(routes::rerouteWebrootHandler);
         router.route("/static/index.html").handler(routes::rerouteHandler);
 
@@ -60,23 +62,8 @@ public class WebAPI extends AbstractVerticle {
     }
 
     private void initConsumers() {
-        //vertx.eventBus().consumer("tetris.events.register.server", this::register);
-    }
-
-    private void register(Message<Object> message) {
-        String address = message.replyAddress();
-        System.out.println(address);
-        Logger.info("1 received message = " + message);
-
-        try {
-            User user = objectMapper.readValue(message.body().toString(), User.class);
-            user.setPassword(Hash.md5HashString(user.getPassword()));
-            System.out.println(user);
-
-            message.reply("");
-        } catch (IOException e) {
-            Logger.error("No valid user registration!");
-            message.reply("INVALID");
-        }
+        /*
+        TODO
+         */
     }
 }
