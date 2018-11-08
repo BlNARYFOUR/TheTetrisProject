@@ -96,12 +96,10 @@ a {
     width: 500px;
     margin-left: auto;
     margin-right: auto;
-    padding: 30px;
 }
 
 .userInfo {
-    margin-top: 50px;
-    margin-bottom: 50px;
+    margin-top: 30px;
 }
 
 .userInfo div {
@@ -126,7 +124,7 @@ a {
     margin-left: auto;
 }
 
-.mainMenu li input[type=submit], .logOut-submit, .back-submit, .save-submit {
+.mainMenu li input[type=submit], .logOut-submit, .option-back-submit, .back-submit, .save-submit  {
     width: 80%;
     margin-left: auto;
     margin-right: auto;
@@ -139,20 +137,20 @@ a {
 }
 
 .retroBlocks-header {
-    margin-bottom: 80px;
+    margin-bottom: 20px;
     margin-left: auto;
     margin-right: auto;
     width: 390px;
 }
 
-.chooseGameMode-submit, .clan-submit, .shop-submit, .highScore-submit, .logOut-submit, .back-submit, .save-submit, #no, #yes {
+.chooseGameMode-submit, .clan-submit, .shop-submit, .highScore-submit, .logOut-submit, .back-submit, .save-submit, .playGame-submit, #no, #yes {
     border: 2px solid #9C35FF;
     color: #000000;
     text-shadow: 0 1px rgba(0, 0, 0, 0.1);
     background: linear-gradient(to right, #9584FF , #FFA1E2);
 }
-
-.chooseGameMode-submit:hover, .clan-submit:hover, .shop-submit:hover, .highScore-submit:hover, .logOut-submit:hover, .back-submit:hover, .save-submit:hover, #no:hover, #yes:hover {
+ 
+.chooseGameMode-submit:hover, .clan-submit:hover, .shop-submit:hover, .highScore-submit:hover, .logOut-submit:hover, .back-submit:hover, .playGame-submit:hover, .option-back-submit:hover, .playFriends-submit:hover, .findOpp-submit:hover, .save-submit:hover, #no:hover, #yes:hover {
     border: 2px solid #9C35FF;
     color: #000000;
     text-shadow: 0 1px rgba(0,0,0,0.3);
@@ -202,54 +200,72 @@ a {
 }
 
 .user-avatar {
-    width: 100px;
+    width: 25%;
 }
 
 /*------Choose Hero------*/
-
-/*.chooseHeroTitle {*/
-    /*color: white;*/
-/*}*/
-
-.choose-hero-container {
-    width: 1200px;
-    height: 380px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.choose-hero {
-    width: 1100px;
-    height: 380px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.hero-donkeykong, .hero-pacman, .hero-pikachu, .hero-sony {
-    background-color: yellow;
-    width: 200px;
-    height: 325px;
-    padding: 20px;
-    display: inline-block;
-    opacity: 0.2;
-}
-
-.hero-donkeykong, .hero-pacman, .hero-pikachu {
-    margin-right: 30px;
-}
-
-.choose-hero p {
+.chooseHeroTitle {
+    color: white;
     text-align: center;
 }
 
-.donkeyKong {
-    width: 100%;
-    margin-top: 25px;
-    margin-bottom: 35px;
+.choose-hero-container {
+    width: 1200px;
+    height: 220px;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
 }
 
+.choose-hero {
+    width: 1200px;
+    height: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    display: inline-flex;
+    justify-content: space-between;
+    list-style-type: none;
+}
 
+.hero-donkeykong, .hero-pacman, .hero-pikachu, .hero-sony {
+    width: 200px;
+    height: 260px;
+    padding: 20px;
+    display: inline-block;
+    text-align: center;
+}
 
+.choose-hero p {
+    font-size: 1.2rem;
+    text-align: center;
+    color: yellow;
+}
+
+.donkeykong {
+    width: 80%;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+.playGame {
+    width: 300px;
+    margin-left: auto;
+}
+
+.choose-hero-buttons {
+    display: flex;
+    margin-top: 130px;
+}
+
+.playGame-submit, .back-submit {
+     width: 80%;
+     margin-left: auto;
+     margin-right: auto;
+     display: block;
+     border-radius: 5px;
+     padding-top: 15px;
+     padding-bottom: 15px;
+ }
 
 
 /*----------------- Choose a gamemode -------------------*/
@@ -349,6 +365,60 @@ form{
 h1, p{
     padding-left: 10px;
 }
+/*------Choose Menu------*/
+.choose-menu {
+    color: white;
+    text-align: center;
+}
+
+.choose-menu h1 {
+    font-size: 5.0rem;
+}
+
+.choose-menu p {
+    font-size: 2.5rem;
+}
+
+.choose-option {
+    width: 1200px;
+    height: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: space-around;
+}
+
+.play-friends, .play-opp {
+    width: 400px;
+    height: 200px;
+}
+
+.choose-back {
+    width: 200px;
+    height: 50px;
+    align-self: center;
+}
+
+.playFriends-submit, .findOpp-submit {
+    width: 400px;
+    height: 200px;
+    border: 2px solid #9584FF;
+    border-radius: 10px;
+    color: #000000;
+    text-shadow: 0 1px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(to right, #9584FF , #FFA1E2);
+    font-size: 1.5rem;
+    opacity: 0.5;
+    /*font-family: 'fabian', sans-serif;*/
+}
+
+.option-back-submit {
+    background: linear-gradient(to right, #9584FF , #FFA1E2);
+    opacity: 0.5;
+    font-size: 1.1rem;
+    border: 2px solid #9584FF;
+    border-radius: 10px;
+}
 
 form input{
     width: 49.5%;
@@ -367,7 +437,6 @@ form input{
     margin-left: -250px;
     width: 500px;
     background: url("../media/retroBackground.png");
-}
 
 
 
