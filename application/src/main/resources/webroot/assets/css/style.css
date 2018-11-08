@@ -340,21 +340,21 @@ figcaption{
 .playFriends-submit, .findOpp-submit {
     width: 400px;
     height: 200px;
-    border: 2px solid #FF02B4;
+    border: 2px solid #9584FF;
     border-radius: 10px;
     color: #000000;
     text-shadow: 0 1px rgba(0, 0, 0, 0.1);
-    background: linear-gradient(to right, #FFD82B , #F6FF41);
+    background: linear-gradient(to right, #9584FF , #FFA1E2);
     font-size: 1.5rem;
     opacity: 0.5;
     /*font-family: 'fabian', sans-serif;*/
 }
 
 .option-back-submit {
-    background: linear-gradient(to right, #FFD82B , #F6FF41);
+    background: linear-gradient(to right, #9584FF , #FFA1E2);
     opacity: 0.5;
     font-size: 1.1rem;
-    border: 2px solid #FF02B4;
+    border: 2px solid #9584FF;
     border-radius: 10px;
 }
 
