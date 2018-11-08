@@ -875,7 +875,7 @@ function rotatePattern(blockPattern) {
 }
 
 function placeBlock(blockPattern, x, y, colorIndex) {
-    console.log("Try placing block");
+    console.log("Try placing BLOCK");
 
     let maxHeight = blockPattern.length;
     let maxWidth = blockPattern[0].length;

@@ -443,11 +443,9 @@ form input{
 
 /*------Multiplayer Field------*/
 .userField {
-    background-color: white;
+    /*background-color: white;*/
     outline: none;
     box-shadow: 0 0 50px 10px rebeccapurple;
-    /*width: 700px;*/
-    height: 576px;
     margin-top: 20px;
     margin-left: 50px;
 }
