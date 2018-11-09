@@ -6,7 +6,7 @@ let rewards = ["", "xp", "scratch_card", "xp", "scratch_card", "xp", "mystery_bo
 let amount = ["", 50, 1, 100, 1, 150, 1, 10];
 let photo = "../assets/media/daily_streaks/retroBlocks.png";
 let days = 7;
-let severalDaysLoggedIn = 6;
+let severalDaysLoggedIn = 2;
 let whitchRewardYouGet;
 
 let alreadyLoggedIn = false;
