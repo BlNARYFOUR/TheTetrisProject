@@ -194,7 +194,7 @@ function drawProgressBar(x, y, radius, startAngle, endAngle, animationDuration) 
     }
 
     function frame() {
-        if (radius - 0.001 <= bufRadius && bufRadius <= radius + 0.001 ) {
+        if (radius - 0.00000001 <= bufRadius && bufRadius <= radius + 0.00000001 ) {
             clearInterval(interval);
             oldRadius = radius;
         } else {
