@@ -62,9 +62,8 @@ public class MatchHandler implements Matchmaking {
 
     @Override
     public Set<Match> matchUsers() {
-        /*
-        todo: based on game ranking
-         */
+        // todo: based on game ranking
+
         Set<Match> matches = new HashSet<>();
 
         for (ModeSearch modeSearch : matchable.keySet()) {
@@ -72,7 +71,7 @@ public class MatchHandler implements Matchmaking {
             boolean oneLeft = false;
             int usersToAdd = Math.round((MAX_USERS_PER_MATCH + 1) / 2);
             for (User user : matchable.get(modeSearch)) {
-                if(matchable.size() == MAX_USERS_PER_MATCH + 1) {
+                if(matchable.get(modeSearch).size() == MAX_USERS_PER_MATCH + 1) {
                     oneLeft = true;
                 }
 
@@ -96,7 +95,7 @@ public class MatchHandler implements Matchmaking {
                         matchTry.getUsers().forEach(u -> {
                             matchable.remove(modeSearch, u);
                         });
-                        
+
                         matchTry = new Match(modeSearch, MAX_USERS_PER_MATCH);
                         usersToAdd = matchable.get(modeSearch).size();
                     }
@@ -109,5 +108,10 @@ public class MatchHandler implements Matchmaking {
         }
 
         return matches;
+    }
+
+    @Override
+    public void resetMatchable() {
+        matchable = new HashMap<>();
     }
 }

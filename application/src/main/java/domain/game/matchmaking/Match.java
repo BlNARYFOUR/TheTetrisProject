@@ -14,6 +14,7 @@ public class Match {
     public Match(ModeSearch modeSearch, int maxUsers) {
         setModeSearch(modeSearch);
         MAX_USERS = maxUsers;
+        users = new HashSet<>();
     }
 
     public ModeSearch getModeSearch() {
