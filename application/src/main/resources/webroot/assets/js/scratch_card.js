@@ -35,7 +35,6 @@ function showScratchCard() {
     let boxesList = "";
 
     for (let k = 0; k < boxes; k++){
-
         priceS = pricesS[Math.floor(Math.random()*pricesS.length)];
         console.log("p " + priceS);
         priceInScratch.push(priceS);
@@ -44,7 +43,7 @@ function showScratchCard() {
             '<canvas class="canvas' + k + '" id="js-canvas' + k + '"></canvas>\n' +
             '<div class="form">\n' +
             '<div id="text_price_' + k + '" class="visible">\n' +
-            '<img src="../assets/media/daily_streaks/' +  pricesS[k] + '.png">\n' +
+            '<img src="../assets/media/daily_streaks/' +  priceS + '.png">\n' +
             '</div>\n' +
             '</div>\n' +
             '</div>';
