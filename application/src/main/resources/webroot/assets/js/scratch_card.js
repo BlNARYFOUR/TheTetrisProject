@@ -14,9 +14,19 @@ function showScratchCard() {
     imgList += "<p>This can be in it</p>";
 
     for (let j = 0; j < pricesS.length; j++){
-        imgList += "<figure id='" + pricesS[j] + "'>" +
-            "<img data-pricesS='" + pricesS[j] + "' src='../assets/media/retroBlocks.png' class='pricesS' />" +
-            "</figure>";
+
+        // TODO TIJDELIJLK
+        if (pricesS[j] === "skin"){
+            imgList += "<figure id='" + pricesS[j] + "'>" +
+                "<img data-pricesS='" + pricesS[j] + "' src='../assets/media/daily_streaks/retroBlocks.png' class='pricesS' />" +
+                "</figure>";
+        } else {
+
+            imgList += "<figure id='" + pricesS[j] + "'>" +
+                "<img data-pricesS='" + pricesS[j] + "' src='../assets/media/daily_streaks/" + pricesS[j] + ".png' class='pricesS' />" +
+                "</figure>";
+        }
+
     }
     location.innerHTML = imgList;
 
@@ -34,7 +44,7 @@ function showScratchCard() {
             '<canvas class="canvas' + k + '" id="js-canvas' + k + '"></canvas>\n' +
             '<div class="form">\n' +
             '<div id="text_price_' + k + '" class="visible">\n' +
-            '<h2>' + priceS + '</h2>\n' +
+            '<img src="../assets/media/daily_streaks/' +  pricesS[k] + '.png">\n' +
             '</div>\n' +
             '</div>\n' +
             '</div>';

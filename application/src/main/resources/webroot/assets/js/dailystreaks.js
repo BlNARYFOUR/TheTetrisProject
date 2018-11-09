@@ -4,9 +4,9 @@ document.addEventListener("DOMContentLoaded", showDailyRewards);
 
 let rewards = ["", "xp", "scratch_card", "xp", "scratch_card", "xp", "mystery_box", "cubes"];
 let amount = ["", 50, 1, 100, 1, 150, 1, 10];
-let photo = "../assets/media/retroBlocks.png";
+let photo = "../assets/media/daily_streaks/retroBlocks.png";
 let days = 7;
-let severalDaysLoggedIn = 3;
+let severalDaysLoggedIn = 2;
 let whitchRewardYouGet;
 
 let alreadyLoggedIn = false;
@@ -25,14 +25,15 @@ function showDailyRewards(e) {
 
         for (let i = 1; i < (days + 1); i++){
 
+            // TODO dit is momenteel totdat ik alle foto's heb dan maak ik 1 path
             if (rewards[i] === "cubes"){
-                photo = "../assets/media/cube_logo.png";
+                photo = "../assets/media/daily_streaks/cubes.png";
             } else if (rewards[i] === "xp"){
-                photo = "../assets/media/retroBlocks.png";
-            } else if (rewards[i] === "scratch card"){
-                photo = "../assets/media/retroBlocks.png";
-            } else if (rewards[i] === "mystery box"){
-                photo = "../assets/media/retroBlocks.png";
+                photo = "../assets/media/daily_streaks/xp.png";
+            } else if (rewards[i] === "scratch_card"){
+                photo = "../assets/media/daily_streaks/retroBlocks.png";
+            } else if (rewards[i] === "mystery_box"){
+                photo = "../assets/media/daily_streaks/retroBlocks.png";
             }
 
             if (severalDaysLoggedIn >= i){
