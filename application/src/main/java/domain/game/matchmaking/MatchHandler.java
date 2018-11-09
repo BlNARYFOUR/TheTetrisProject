@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class MatchHandler implements Matchmaking {
+    private static final int MAX_USERS_PER_MATCH = 5;
     private static MatchHandler instance = new MatchHandler();
     private static Map<ModeSearch, Set<User>> matchable = new HashMap<>();
 
@@ -62,9 +63,17 @@ public class MatchHandler implements Matchmaking {
     @Override
     public Set<Match> matchUsers() {
         /*
-        based on game ranking
-
+        todo: based on game ranking
          */
+        Set<Match> matches = new HashSet<>();
+
+        for (ModeSearch modeSearch : matchable.keySet()) {
+            Match matchTry = new Match(modeSearch, MAX_USERS_PER_MATCH);
+            for (User user : matchable.get(modeSearch)) {
+                matchTry.addUser(user);
+            }
+        }
+
         throw new NotImplementedException();
     }
 }

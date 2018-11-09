@@ -7,12 +7,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Match {
+    private final int MAX_USERS;
     private ModeSearch modeSearch;
     private Set<User> users;
 
-    public Match(ModeSearch modeSearch) {
+    public Match(ModeSearch modeSearch, int maxUsers) {
         setModeSearch(modeSearch);
-
+        MAX_USERS = maxUsers;
     }
 
     public ModeSearch getModeSearch() {
@@ -29,5 +30,14 @@ public class Match {
 
     private void setUsers(Set<User> users) {
         this.users = users;
+    }
+
+    public boolean addUser(User user) {
+        if(MAX_USERS <= users.size()) {
+            return false;
+        } else {
+            users.add(user);
+            return true;
+        }
     }
 }
