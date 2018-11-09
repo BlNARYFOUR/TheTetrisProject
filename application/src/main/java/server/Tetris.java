@@ -13,6 +13,6 @@ public class Tetris {
         EventBus eb = vertx.eventBus();
         vertx.deployVerticle(new WebAPI());
 
-        Logger.info("Succesfully started server");
+        Logger.info("Succesfully started server: localhost:8081/static");
     }
 }
