@@ -74,7 +74,7 @@ function init(e) {
     createText("Hold", SPACE + 1.2 * BLOCK, SPACE_TOP - 5);
     createText("Level", SPACE + 1.1 * BLOCK, SPACE_TOP + 12 * BLOCK);
     createText("Score", SPACE + 1.25 * BLOCK + GAME_BOARD_SPACING + GAME_BOARD_WIDTH * BLOCK, SPACE_TOP + 12 * BLOCK);
-    createText("3898", SPACE + 1.3 * BLOCK + GAME_BOARD_SPACING + GAME_BOARD_WIDTH * BLOCK, SPACE_TOP + 14.2 * BLOCK);
+    //createText("3898", SPACE + 1.3 * BLOCK + GAME_BOARD_SPACING + GAME_BOARD_WIDTH * BLOCK, SPACE_TOP + 14.2 * BLOCK);
     createValue("5", BLOCK * 2.0, SPACE_TOP + 14.5 * BLOCK);
     drawUserField();
 }
@@ -85,7 +85,7 @@ function drawUserField() {
     drawNext();
     drawHero();
     drawCircle(BLOCK * 2.5, SPACE_TOP + 14 * BLOCK,50,0,2*Math.PI);
-    drawCircle(SPACE + 2.0 * BLOCK + GAME_BOARD_SPACING + GAME_BOARD_WIDTH * BLOCK, SPACE_TOP + 14 * BLOCK,50,0,2*Math.PI);
+    //drawCircle(SPACE + 2.0 * BLOCK + GAME_BOARD_SPACING + GAME_BOARD_WIDTH * BLOCK, SPACE_TOP + 14 * BLOCK,50,0,2*Math.PI);
     drawProgressBar(SPACE + 2.0 * BLOCK + GAME_BOARD_SPACING + GAME_BOARD_WIDTH * BLOCK, SPACE_TOP + 14 * BLOCK,10,0, 2*Math.PI, 0.5);
 }
 
@@ -136,6 +136,7 @@ function drawNext() {
 }
 
 function createText(text, x_co, y_co) {
+    ctx.globalAlpha = 1;
     ctx.font = 0.8 * BLOCK + "px fabian, sans-serif";
     ctx.fillStyle = "#9584FF";
     ctx.fillText(text, x_co, y_co);
@@ -167,23 +168,59 @@ function drawCircle(x, y, radius, startAngle, endAngle, counterClockWise) {
 }
 
 function drawProgressBar(x, y, radius, startAngle, endAngle, animationDuration) {
-    let frameRadius = (radius - oldRadius) / (animationDuration * 25);
+    if(50 < radius) {
+        radius = 50;
+    }
+    let frameRadius = (radius - oldRadius) / (animationDuration / 0.01);
     let bufRadius = oldRadius;
-    let interval = setInterval(frame, 40);
+    let interval = setInterval(frame, 10);
+
+    let color = {
+        R: 255,
+        G: 0,
+        B: 0
+    };
+    let colorChange = 0;
+
+    if(50 <= radius && oldRadius < 50) {
+        colorChange += Math.floor(256 / (animationDuration / 0.01));
+    } else if(50 <= oldRadius && radius < 50) {
+        color = {
+            R: 0,
+            G: 255,
+            B: 0
+        };
+        colorChange -= Math.floor(256 / (animationDuration / 0.01));
+    }
 
     function frame() {
-        if (radius - 0.5 <= bufRadius && bufRadius <= radius + 0.5 ) {
+        if (radius - 0.001 <= bufRadius && bufRadius <= radius + 0.001 ) {
             clearInterval(interval);
             oldRadius = radius;
         } else {
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(x, y, 50, startAngle, endAngle);
+            ctx.clip();
+            ctx.clearRect(x-50,y-50,50*2,50*2);
+            ctx.restore();
+
+            drawCircle(x, y,50,0,2*Math.PI);
+
             bufRadius += frameRadius;
             ctx.beginPath();
             ctx.arc(x, y, bufRadius, startAngle, endAngle);
-            ctx.fillStyle = "red";
-            ctx.globalAlpha = 0.35;
+
+            color.R -= colorChange;
+            color.G += colorChange;
+            ctx.fillStyle = "rgb(" + color.R + "," + color.G + "," + color.B + ")";
+
+            ctx.globalAlpha = 0.5;
             ctx.fill();
-            ctx.stroke();
+            ctx.globalAlpha = 1;
         }
+
+        createText("3898", x-0.7*BLOCK, y+0.2*BLOCK);
     }
 }
 
