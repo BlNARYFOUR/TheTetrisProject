@@ -78,7 +78,11 @@ public class MatchHandler implements Matchmaking {
 
                 if(!matchTry.addUser(user)) {
                     matches.add(matchTry);
-                    matchable.remove(modeSearch, user);
+
+                    matchTry.getUsers().forEach(u -> {
+                        matchable.remove(modeSearch, u);
+                    });
+
                     matchTry = new Match(modeSearch, MAX_USERS_PER_MATCH);
                     matchTry.addUser(user);
                 }
@@ -88,16 +92,22 @@ public class MatchHandler implements Matchmaking {
 
                     if(usersToAdd == 0) {
                         matches.add(matchTry);
-                        matchable.remove(modeSearch, user);
+
+                        matchTry.getUsers().forEach(u -> {
+                            matchable.remove(modeSearch, u);
+                        });
+                        
                         matchTry = new Match(modeSearch, MAX_USERS_PER_MATCH);
-                        usersToAdd = matchable.size();
+                        usersToAdd = matchable.get(modeSearch).size();
                     }
                 }
             }
 
-
+            if(2 <= matchTry.getUsers().size()) {
+                matches.add(matchTry);
+            }
         }
 
-        throw new NotImplementedException();
+        return matches;
     }
 }

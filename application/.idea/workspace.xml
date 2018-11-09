@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="673ae00e-b9df-49c9-aa02-754054735763" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/game/matchmaking/Match.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/game/matchmaking/Match.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/domain/game/matchmaking/MatchHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/game/matchmaking/MatchHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/MatchHandlerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/MatchHandlerTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -84,11 +79,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MatchHandler.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="MatchHandler.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/domain/game/matchmaking/MatchHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="196">
-              <caret line="67" column="21" selection-start-line="67" selection-start-column="21" selection-end-line="67" selection-end-column="21" />
+            <state relative-caret-position="235">
+              <caret line="98" column="24" selection-start-line="98" selection-start-column="24" selection-end-line="98" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -121,11 +116,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MatchHandlerTest.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MatchHandlerTest.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/MatchHandlerTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="298">
-              <caret line="49" column="8" lean-forward="true" selection-start-line="49" selection-start-column="8" selection-end-line="49" selection-end-column="8" />
+            <state relative-caret-position="612">
+              <caret line="49" lean-forward="true" selection-start-line="49" selection-end-line="49" />
             </state>
           </provider>
         </entry>
@@ -576,9 +571,9 @@
         <option value="$PROJECT_DIR$/src/main/java/server/webapi/WebAPI.java" />
         <option value="$PROJECT_DIR$/src/main/java/server/webapi/Routes.java" />
         <option value="$PROJECT_DIR$/src/main/java/domain/User.java" />
-        <option value="$PROJECT_DIR$/src/main/java/domain/game/matchmaking/MatchHandler.java" />
         <option value="$PROJECT_DIR$/src/main/java/domain/game/matchmaking/Match.java" />
         <option value="$PROJECT_DIR$/src/test/java/MatchHandlerTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/domain/game/matchmaking/MatchHandler.java" />
       </list>
     </option>
   </component>
@@ -882,7 +877,7 @@
       <updated>1541582989615</updated>
       <workItem from="1541582991187" duration="2718000" />
       <workItem from="1541662112593" duration="11903000" />
-      <workItem from="1541770677320" duration="2815000" />
+      <workItem from="1541770677320" duration="4120000" />
     </task>
     <servers />
   </component>
@@ -895,7 +890,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="49339000" />
+    <option name="totallyTimeSpent" value="50644000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="878" extended-state="6" />
@@ -914,7 +909,7 @@
       <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info id="Capture Tool" order="3" />
       <window_info id="Designer" order="3" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20469798" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22483222" />
       <window_info anchor="bottom" id="Build" order="8" visible="true" weight="0.328877" />
       <window_info anchor="right" id="Database" order="4" />
       <window_info anchor="right" id="Gradle" order="4" weight="0.3295302" />
@@ -1234,17 +1229,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/domain/game/matchmaking/MatchHandler.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/MatchHandlerTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="67" column="21" selection-start-line="67" selection-start-column="21" selection-end-line="67" selection-end-column="21" />
+        <state relative-caret-position="612">
+          <caret line="49" lean-forward="true" selection-start-line="49" selection-end-line="49" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/MatchHandlerTest.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/domain/game/matchmaking/MatchHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="298">
-          <caret line="49" column="8" lean-forward="true" selection-start-line="49" selection-start-column="8" selection-end-line="49" selection-end-column="8" />
+        <state relative-caret-position="235">
+          <caret line="98" column="24" selection-start-line="98" selection-start-column="24" selection-end-line="98" selection-end-column="24" />
         </state>
       </provider>
     </entry>
