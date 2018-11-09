@@ -158,4 +158,15 @@ class Routes {
             response.sendFile("webroot/index.html");
         }
     }
+
+    void logoutHandler(RoutingContext routingContext) {
+        Session session = routingContext.session();
+        loggedInRepo.deleteLoggedUser(session.id());
+        session.destroy();
+
+        HttpServerResponse response = routingContext.response();
+        response.setChunked(true);
+        response.headers().add("location", "/static");
+        response.setStatusCode(302).end();
+    }
 }
