@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="author" content="Brend Lambert" />
+    <meta charset="UTF-8">
+
+    <title>BinaryFour's TETRIS</title>
+
+    <link href="../assets/media/favicon.ico" rel="icon">
+    <link href="../assets/css/screen.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+</head>
+<body>
+<header>
+    <h1>Tetris by BinaryFour</h1>
+    <a href="#" id="speaker" class="soundON"><i class="material-icons">volume_up</i></a>
+</header>
+
+<main>
+
+    <canvas id="myCanvas" width="304px" height="288px" style="border:1px solid #d3d3d3;">
+        Your browser does not support the HTML5 canvas tag.
+
+    </canvas>
+
+    <canvas id="next" width="200" height="100" style="border:1px solid #d3d3d3;">next</canvas>
+
+    <!--TODO-->
+    <!-- Make 2nd canvas to see what the next block is  -->
+    <!-- Maybe make a 3rd canvas to hold a block -->
+
+    <!-- This makes the browser load the font -->
+    <span style="font-family: Arcade, sans-serif"></span>
+
+    <div>
+        <p class="score">Score:</p>
+        <strong id="points">0</strong>
+    </div>
+
+</main>
+
+<footer>
+    <div>
+        <button type="button" id="pause" class="pause column">PAUSE</button>
+
+        <p class="timer column"><span id="hour">00</span>:<span id="min">00</span>:<span id="sec">00</span></p>
+
+        <p class="game column">SOLO</p>
+    </div>
+
+</footer>
+
+
+
+<script type="module" src="../assets/js/blockPatterns.js"></script>
+<script type="module" src="../assets/js/script.js"></script>
+
+</body>
+</html>

@@ -2,8 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="673ae00e-b9df-49c9-aa02-754054735763" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/resources/webroot/assets/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/webroot/assets/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/webroot/assets/js/chooseGamemode.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/webroot/assets/js/chooseGamemode.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/domain/game/matchmaking/Match.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/domain/game/matchmaking/Match.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/domain/game/matchmaking/MatchHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/domain/game/matchmaking/MatchHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/test/classes/MatchHandlerTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/test/classes/MatchHandlerTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/game/matchmaking/Match.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/game/matchmaking/Match.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/game/matchmaking/MatchHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/game/matchmaking/MatchHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/game/matchmaking/Matchmaking.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/game/matchmaking/Matchmaking.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/domain/game/modes/ModeSearch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/game/modes/ModeSearch.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/MatchHandlerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/MatchHandlerTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -23,6 +30,9 @@
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
         <projects_view>
           <tree_state>
             <expand>
@@ -109,6 +119,9 @@
         <option value="Interface" />
         <option value="Class" />
         <option value="JavaScript File" />
+        <option value="Enum" />
+        <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -491,15 +504,15 @@
     <option name="projectSyncType">
       <map>
         <entry key="E:/Deckbuilder testen/java_backend" value="PREVIEW" />
-        <entry key="$PROJECT_DIR$/../../2018-Group-28/java_backend" value="PREVIEW" />
-        <entry key="$PROJECT_DIR$/../../Project Howeststone/2018-Group-28-master-7a2f8c3aeae15151c7f538ebf5617f7c12a8ca1b/2018-Group-28/java_backend" value="PREVIEW" />
-        <entry key="$PROJECT_DIR$" value="RE_IMPORT" />
-        <entry key="$PROJECT_DIR$/../java_backend" value="PREVIEW" />
         <entry key="E:/Testit/java_backend" value="PREVIEW" />
         <entry key="E:/allboe/java_backend" value="PREVIEW" />
         <entry key="E:/backend/2018-Group-28-128-deckbuilder-javascript-send-newly-made-deck-to-backend-in-json-format/java_backend" value="PREVIEW" />
         <entry key="E:/backend/java_backend" value="PREVIEW" />
         <entry key="E:/haatjava/java_backend" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../2018-Group-28/java_backend" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../Project Howeststone/2018-Group-28-master-7a2f8c3aeae15151c7f538ebf5617f7c12a8ca1b/2018-Group-28/java_backend" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$" value="RE_IMPORT" />
+        <entry key="$PROJECT_DIR$/../java_backend" value="PREVIEW" />
         <entry key="E:/teshap/java_backend" value="PREVIEW" />
         <entry key="E:/test Sprint 2/java_backend" value="PREVIEW" />
         <entry key="E:/test123/java_backend" value="PREVIEW" />
@@ -574,6 +587,7 @@
     <option name="width" value="974" />
     <option name="height" value="1047" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
@@ -748,11 +762,6 @@
     </option>
   </component>
   <component name="RunManager" selected="Application.Tetris">
-    <configuration name="Program" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Program" />
-      <module name="Backend_main" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-    </configuration>
     <configuration name="Tetris" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="server.Tetris" />
       <module name="Backend_main" />
@@ -789,6 +798,40 @@
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="" />
       <option name="MAIN_CLASS_NAME" value="RoutesTest" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <patterns />
+    </configuration>
+    <configuration name="MatchHandlerTest.testAddMatchable" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Backend_test" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="MatchHandlerTest" />
+      <option name="METHOD_NAME" value="testAddMatchable" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <patterns />
+    </configuration>
+    <configuration name="MessageHandlerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Backend_test" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="MessageHandlerTest" />
       <option name="METHOD_NAME" />
       <option name="TEST_OBJECT" value="class" />
       <option name="VM_PARAMETERS" value="-ea" />
@@ -1050,7 +1093,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/server/Tetris.java">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/webroot/assets/js/vertx-eventbus.min.js" />
+    <entry file="file://$PROJECT_DIR$/src/main/resources/webroot/assets/js/script.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="13" column="1" selection-start-line="13" selection-start-column="1" selection-end-line="13" selection-end-column="1" />
@@ -1182,7 +1226,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/webroot/pages/change_avatar.html">
+    <entry file="file://$PROJECT_DIR$/src/main/java/server/Tetris.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="15" column="9" selection-start-line="15" selection-start-column="9" selection-end-line="15" selection-end-column="9" />
@@ -1203,7 +1247,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/webroot/pages/main_menu.html">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/webroot/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
           <caret line="37" column="13" selection-start-line="37" selection-start-column="13" selection-end-line="37" selection-end-column="13" />
