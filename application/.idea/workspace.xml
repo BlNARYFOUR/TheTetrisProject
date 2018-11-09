@@ -23,8 +23,8 @@
             <file leaf-file-name="dailystreaks.js" pinned="false" current-in-tab="true">
               <entry file="file://$PROJECT_DIR$/src/main/resources/webroot/assets/js/dailystreaks.js">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="-71">
-                    <caret line="46" column="31" selection-start-line="46" selection-start-column="20" selection-end-line="46" selection-end-column="31" />
+                  <state relative-caret-position="220">
+                    <caret line="83" lean-forward="true" selection-start-line="83" selection-end-line="83" />
                   </state>
                 </provider>
               </entry>
@@ -86,10 +86,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="scratch_card.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="scratch_card.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/webroot/assets/js/scratch_card.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="265">
+            <state relative-caret-position="180">
               <caret line="89" column="46" selection-start-line="89" selection-start-column="46" selection-end-line="89" selection-end-column="46" />
             </state>
           </provider>
@@ -98,13 +98,13 @@
       <file leaf-file-name="dailystreaks.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/webroot/pages/dailystreaks.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="527">
-              <caret line="31" column="14" selection-start-line="31" selection-start-column="14" selection-end-line="31" selection-end-column="14" />
+            <state relative-caret-position="544">
+              <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="main_menu.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="main_menu.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/resources/webroot/pages/main_menu.html">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="119">
@@ -133,6 +133,7 @@
       <find>from</find>
       <find>form</find>
       <find>console.log</find>
+      <find>visible</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -554,9 +555,9 @@
         <option value="$PROJECT_DIR$/src/main/java/data/loginRepository/MySqlLoginRepository.java" />
         <option value="$PROJECT_DIR$/src/main/resources/webroot/pages/dailystreaks.html" />
         <option value="$PROJECT_DIR$/src/main/resources/webroot/pages/main_menu.html" />
-        <option value="$PROJECT_DIR$/src/main/resources/webroot/assets/js/dailystreaks.js" />
         <option value="$PROJECT_DIR$/src/main/resources/webroot/assets/js/scratch_card.js" />
         <option value="$PROJECT_DIR$/src/main/resources/webroot/assets/css/dailystreaks.css" />
+        <option value="$PROJECT_DIR$/src/main/resources/webroot/assets/js/dailystreaks.js" />
       </list>
     </option>
   </component>
@@ -576,8 +577,7 @@
     <packageJsonPaths />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="694" />
-    <option name="y" value="51" />
+    <option name="x" value="-7" />
     <option name="width" value="974" />
     <option name="height" value="1047" />
   </component>
@@ -852,7 +852,7 @@
       <workItem from="1541662112593" duration="11903000" />
       <workItem from="1541703222229" duration="168000" />
       <workItem from="1541703420683" duration="2069000" />
-      <workItem from="1541754473995" duration="13364000" />
+      <workItem from="1541754473995" duration="15154000" />
     </task>
     <servers />
   </component>
@@ -865,10 +865,10 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="59720000" />
+    <option name="totallyTimeSpent" value="61510000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="694" y="51" width="974" height="1047" extended-state="0" />
+    <frame x="-7" y="0" width="974" height="1047" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
@@ -1169,10 +1169,24 @@
     <entry file="file://$PROJECT_DIR$/src/main/resources/webroot/assets/js/main_menu.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/webroot/assets/js/dailystreaks.js">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/webroot/assets/css/dailystreaks.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-71">
-          <caret line="46" column="31" selection-start-line="46" selection-start-column="20" selection-end-line="46" selection-end-column="31" />
+        <state relative-caret-position="503">
+          <caret line="108" column="23" selection-start-line="108" selection-start-column="23" selection-end-line="108" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/webroot/pages/dailystreaks.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="544">
+          <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/webroot/assets/js/scratch_card.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="89" column="46" selection-start-line="89" selection-start-column="46" selection-end-line="89" selection-end-column="46" />
         </state>
       </provider>
     </entry>
@@ -1183,24 +1197,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/webroot/pages/dailystreaks.html">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/webroot/assets/js/dailystreaks.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="31" column="14" selection-start-line="31" selection-start-column="14" selection-end-line="31" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/webroot/assets/js/scratch_card.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="265">
-          <caret line="89" column="46" selection-start-line="89" selection-start-column="46" selection-end-line="89" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/webroot/assets/css/dailystreaks.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="503">
-          <caret line="108" column="23" selection-start-line="108" selection-start-column="23" selection-end-line="108" selection-end-column="23" />
+        <state relative-caret-position="220">
+          <caret line="83" lean-forward="true" selection-start-line="83" selection-end-line="83" />
         </state>
       </provider>
     </entry>

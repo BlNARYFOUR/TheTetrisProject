@@ -6,7 +6,7 @@ let rewards = ["", "xp", "scratch_card", "xp", "scratch_card", "xp", "mystery_bo
 let amount = ["", 50, 1, 100, 1, 150, 1, 10];
 let photo = "../assets/media/retroBlocks.png";
 let days = 7;
-let severalDaysLoggedIn = 2;
+let severalDaysLoggedIn = 7;
 let whitchRewardYouGet;
 
 let alreadyLoggedIn = false;
@@ -37,7 +37,7 @@ function showDailyRewards(e) {
 
             if (severalDaysLoggedIn >= i){
                 imgList += "<figure id='day_" + i + "'>" +
-                    "<a href='#' id='click_" + rewards[i] + "'><h2>Day " + i + "</h2>" +
+                    "<a href='#' id='click_" + rewards[i] + "_day_" + i + "'><h2>Day " + i + "</h2>" +
                     "<img data-dailysteak='day_" + i + "_" + rewards[i] + "' src='" + photo + "' class='rewards'>" +
                     "<i class='material-icons' id='doneMark'>done</i>" +
                     "<figcaption>+ " + amount[i] + " " + rewards[i] + "</figcaption></a>" +
@@ -65,8 +65,19 @@ function showDailyRewards(e) {
 
     switch (whitchRewardYouGet){
         case "scratch_card":
-            document.getElementById("click_scratch_card").addEventListener("click", scratchCard);
+            document.getElementById("click_scratch_card_day_" + severalDaysLoggedIn).addEventListener("click", scratchCard);
             break;
+        case "xp":
+            document.getElementById("click_xp_day_" + severalDaysLoggedIn).addEventListener("click", receiveXPOrCubes);
+            break;
+        case "mystery_box":
+            //TODO
+            break;
+        case "cubes":
+            document.getElementById("click_cubes_day_" + severalDaysLoggedIn).addEventListener("click", receiveXPOrCubes);
+            break;
+
+
         default:
             //TODO;
     }
@@ -82,6 +93,13 @@ function scratchCard(e) {
     document.getElementById("scratchCard").classList.remove("hiddenDailyRewards");
     document.getElementById("scratchCard").classList.add("showDailyRewards");
     closeDailyStreaks(e);
+}
+
+function receiveXPOrCubes(e) {
+    e.preventDefault();
+
+    alert("You reveive " + amount[severalDaysLoggedIn] + " " + rewards[severalDaysLoggedIn]);
+
 }
 
 function disabledButtons() {
