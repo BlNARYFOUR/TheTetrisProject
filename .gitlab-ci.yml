@@ -1,4 +1,4 @@
-image: library/gradle:jdk10-slim
+image: library/gradle:jdk8-slim
 
 stages:
   - build
