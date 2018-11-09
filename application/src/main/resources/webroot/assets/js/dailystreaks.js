@@ -6,7 +6,7 @@ let rewards = ["", "xp", "scratch_card", "xp", "scratch_card", "xp", "mystery_bo
 let amount = ["", 50, 1, 100, 1, 150, 1, 10];
 let photo = "../assets/media/retroBlocks.png";
 let days = 7;
-let severalDaysLoggedIn = 7;
+let severalDaysLoggedIn = 3;
 let whitchRewardYouGet;
 
 let alreadyLoggedIn = false;
@@ -71,7 +71,7 @@ function showDailyRewards(e) {
             document.getElementById("click_xp_day_" + severalDaysLoggedIn).addEventListener("click", receiveXPOrCubes);
             break;
         case "mystery_box":
-            //TODO
+            document.getElementById("click_mystery_box_day_" + severalDaysLoggedIn).addEventListener("click", mysteryBox);
             break;
         case "cubes":
             document.getElementById("click_cubes_day_" + severalDaysLoggedIn).addEventListener("click", receiveXPOrCubes);

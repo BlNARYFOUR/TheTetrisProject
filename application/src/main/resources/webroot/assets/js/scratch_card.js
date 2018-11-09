@@ -1,21 +1,21 @@
 "use strict";
 
-let prices = ["cubes", "xp", "skin", "nothing"];
+let pricesS = ["cubes", "xp", "skin", "nothing"];
 let boxes = 3;
 let boxesOpen = [];
-let price;
+let priceS;
 let priceInScratch = [];
 
 function showScratchCard() {
     //closeDailyStreaks();
-    let location = document.getElementById("prices");
+    let location = document.getElementById("pricesScratch");
     let imgList = "";
 
     imgList += "<p>This can be in it</p>";
 
-    for (let j = 0; j < prices.length; j++){
-        imgList += "<figure id='" + prices[j] + "'>" +
-            "<img data-prices='" + prices[j] + "' src='../assets/media/retroBlocks.png' class='prices' />" +
+    for (let j = 0; j < pricesS.length; j++){
+        imgList += "<figure id='" + pricesS[j] + "'>" +
+            "<img data-pricesS='" + pricesS[j] + "' src='../assets/media/retroBlocks.png' class='pricesS' />" +
             "</figure>";
     }
     location.innerHTML = imgList;
@@ -26,15 +26,15 @@ function showScratchCard() {
 
     for (let k = 0; k < boxes; k++){
 
-        price = prices[Math.floor(Math.random()*prices.length)];
-        console.log("p " + price);
-        priceInScratch.push(price);
+        priceS = pricesS[Math.floor(Math.random()*pricesS.length)];
+        console.log("p " + priceS);
+        priceInScratch.push(priceS);
         console.log("pis " + priceInScratch);
         boxesList += '<div class="container" id="js-container' + k + '">\n' +
             '<canvas class="canvas' + k + '" id="js-canvas' + k + '"></canvas>\n' +
             '<div class="form">\n' +
             '<div id="text_price_' + k + '" class="visible">\n' +
-            '<h2>' + price + '</h2>\n' +
+            '<h2>' + priceS + '</h2>\n' +
             '</div>\n' +
             '</div>\n' +
             '</div>';
