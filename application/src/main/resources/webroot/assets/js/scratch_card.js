@@ -1,7 +1,5 @@
 "use strict";
 
-document.addEventListener("DOMContentLoaded", showScratchCard);
-
 let prices = ["cubes", "xp", "skin", "nothing"];
 let boxes = 3;
 let boxesOpen = [];
@@ -9,6 +7,7 @@ let price;
 let priceInScratch = [];
 
 function showScratchCard() {
+    //closeDailyStreaks();
     let location = document.getElementById("prices");
     let imgList = "";
 
@@ -28,12 +27,13 @@ function showScratchCard() {
     for (let k = 0; k < boxes; k++){
 
         price = prices[Math.floor(Math.random()*prices.length)];
+        console.log("p " + price);
         priceInScratch.push(price);
-
+        console.log("pis " + priceInScratch);
         boxesList += '<div class="container" id="js-container' + k + '">\n' +
             '<canvas class="canvas' + k + '" id="js-canvas' + k + '"></canvas>\n' +
-            '<div class="form" style="visibility: visible;">\n' +
-            '<div>\n' +
+            '<div class="form">\n' +
+            '<div id="text_price_' + k + '" class="visible">\n' +
             '<h2>' + price + '</h2>\n' +
             '</div>\n' +
             '</div>\n' +
@@ -88,7 +88,6 @@ function loadImage(canvas, image, ctx) {
         // ctx.drawImage(image, 10, 10);
         ctx.drawImage(image, 0, 0);
         // Show the form when Image is loaded.
-        document.querySelectorAll('.form')[0].style.visibility = 'visible';
     };
 }
 
@@ -147,7 +146,7 @@ function mouseAndTouchActions(canvas, ctx, width, height, lastPoint, isDrawing, 
 
     function handlePercentage(filledInPixels) {
         filledInPixels = filledInPixels || 0;
-        console.log(filledInPixels + '%');
+        //console.log(filledInPixels + '%');
         if (filledInPixels > 50) {
             canvas.parentNode.removeChild(canvas);
             boxesOpen.push(canvas);
@@ -188,20 +187,32 @@ function mouseAndTouchActions(canvas, ctx, width, height, lastPoint, isDrawing, 
 
 function controleIfYouWon() {
     let same = [];
+    let notSame = [];
 
     if (boxesOpen.length === boxes) {
         for (let i = 0; i < priceInScratch.length; i++){
             if (priceInScratch[0] === priceInScratch[i]){
                 same.push(priceInScratch[i]);
+            }else {
+                notSame.push(priceInScratch[i]);
             }
 
 
         }
+        console.log("same " + same);
 
         if (same.length === 3){
             alert("You won " + same[0]);
         } else {
             alert("Better luck next time!");
+            document.getElementById("scratchCard").classList.remove("showDailyRewards");
+            document.getElementById("scratchCard").classList.add("hiddenDailyRewards");
+
+            for (let h = 0; h < boxes; h++){
+                document.getElementById("text_price_" + h).classList.remove("visible");
+                document.getElementById("text_price_" + h).classList.add("invisible");
+            }
+
         }
     }
 }

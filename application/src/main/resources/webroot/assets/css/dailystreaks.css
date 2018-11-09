@@ -105,6 +105,8 @@
   /* ----------------------- scratch card ----------------------------*/
 #scratchCard{
     width: 950px;
+    margin-left: auto;
+    margin-right: auto;
 
 }
 
@@ -199,4 +201,12 @@ canvas{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+}
+
+.visible{
+    visibility: visible;
+}
+
+.invisible{
+    visibility: hidden;
 }
