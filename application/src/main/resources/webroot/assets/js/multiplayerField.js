@@ -49,6 +49,8 @@ let tiles;
 let gameBoard;
 let hold;
 
+let oldRadius = 0;
+
 function init(e) {
     c = document.getElementById("userField");
     ctx = c.getContext("2d");
@@ -83,7 +85,8 @@ function drawUserField() {
     drawNext();
     drawHero();
     drawCircle(BLOCK * 2.5, SPACE_TOP + 14 * BLOCK,50,0,2*Math.PI);
-    drawCircle(SPACE + 2.0 * BLOCK + GAME_BOARD_SPACING + GAME_BOARD_WIDTH * BLOCK, SPACE_TOP + 14 * BLOCK,50,0,2*Math.PI)
+    drawCircle(SPACE + 2.0 * BLOCK + GAME_BOARD_SPACING + GAME_BOARD_WIDTH * BLOCK, SPACE_TOP + 14 * BLOCK,50,0,2*Math.PI);
+    drawProgressBar(SPACE + 2.0 * BLOCK + GAME_BOARD_SPACING + GAME_BOARD_WIDTH * BLOCK, SPACE_TOP + 14 * BLOCK,10,0, 2*Math.PI, 0.5);
 }
 
 function createGameBoard() {
@@ -162,4 +165,27 @@ function drawCircle(x, y, radius, startAngle, endAngle, counterClockWise) {
     ctx.fill();
     ctx.stroke();
 }
+
+function drawProgressBar(x, y, radius, startAngle, endAngle, animationDuration) {
+    let frameRadius = (radius - oldRadius) / (animationDuration * 25);
+    let bufRadius = oldRadius;
+    let interval = setInterval(frame, 40);
+
+    function frame() {
+        if (radius - 0.5 <= bufRadius && bufRadius <= radius + 0.5 ) {
+            clearInterval(interval);
+            oldRadius = radius;
+        } else {
+            bufRadius += frameRadius;
+            ctx.beginPath();
+            ctx.arc(x, y, bufRadius, startAngle, endAngle);
+            ctx.fillStyle = "red";
+            ctx.globalAlpha = 0.35;
+            ctx.fill();
+            ctx.stroke();
+        }
+    }
+}
+
+
 
