@@ -104,7 +104,7 @@
 
   /* ----------------------- scratch card ----------------------------*/
 #scratchCard{
-    width: 900px;
+    width: 950px;
 
 }
 
@@ -155,3 +155,48 @@
 }
 
 /* Test */
+
+.container {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    user-select: none;
+    border-radius: 5px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 25px;
+}
+
+.canvas0 {
+    position: absolute;
+    top: 0;
+}
+
+.canvas1 {
+    position: absolute;
+    /*width: 240px;*/
+}
+
+.canvas2 {
+    position: absolute;
+    /*width: 217px;*/
+}
+
+.form{
+    box-shadow: none;
+    width: 200px;
+    margin-top: 70px;
+    text-align: center;
+}
+
+canvas{
+    width: 200px;
+    height: 200px;
+    border-radius: 5px;
+}
+
+#scratch{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
