@@ -40,4 +40,13 @@ public class Match {
             return true;
         }
     }
+
+    @Override
+    public String toString() {
+        return "Match{" +
+                "MAX_USERS=" + MAX_USERS +
+                ", modeSearch=" + modeSearch +
+                ", users=" + users +
+                '}';
+    }
 }

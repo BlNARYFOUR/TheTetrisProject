@@ -69,9 +69,33 @@ public class MatchHandler implements Matchmaking {
 
         for (ModeSearch modeSearch : matchable.keySet()) {
             Match matchTry = new Match(modeSearch, MAX_USERS_PER_MATCH);
+            boolean oneLeft = false;
+            int usersToAdd = Math.round((MAX_USERS_PER_MATCH + 1) / 2);
             for (User user : matchable.get(modeSearch)) {
-                matchTry.addUser(user);
+                if(matchable.size() == MAX_USERS_PER_MATCH + 1) {
+                    oneLeft = true;
+                }
+
+                if(!matchTry.addUser(user)) {
+                    matches.add(matchTry);
+                    matchable.remove(modeSearch, user);
+                    matchTry = new Match(modeSearch, MAX_USERS_PER_MATCH);
+                    matchTry.addUser(user);
+                }
+
+                if(oneLeft) {
+                    usersToAdd--;
+
+                    if(usersToAdd == 0) {
+                        matches.add(matchTry);
+                        matchable.remove(modeSearch, user);
+                        matchTry = new Match(modeSearch, MAX_USERS_PER_MATCH);
+                        usersToAdd = matchable.size();
+                    }
+                }
             }
+
+
         }
 
         throw new NotImplementedException();
