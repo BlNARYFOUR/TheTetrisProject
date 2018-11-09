@@ -7,6 +7,7 @@ let priceS;
 let priceInScratch = [];
 
 function showScratchCard() {
+
     //closeDailyStreaks();
     let location = document.getElementById("pricesScratch");
     let imgList = "";
@@ -76,9 +77,9 @@ function drawScratch() {
         image3       = new Image(),
         brush        = new Image();
 
-    image.src = "../assets/media/backgroundStartScreen.png";
-    image2.src = "../assets/media/backgroundStartScreen.png";
-    image3.src = "../assets/media/backgroundStartScreen.png";
+    image.src = "../assets/media/daily_streaks/scratchFields.png";
+    image2.src = "../assets/media/daily_streaks/scratchFields.png";
+    image3.src = "../assets/media/daily_streaks/scratchFields.png";
 
     loadImage(canvas0, image, ctx0);
     loadImage(canvas1, image2, ctx1);

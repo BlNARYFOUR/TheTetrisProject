@@ -6,7 +6,7 @@ let rewards = ["", "xp", "scratch_card", "xp", "scratch_card", "xp", "mystery_bo
 let amount = ["", 50, 1, 100, 1, 150, 1, 10];
 let photo = "../assets/media/daily_streaks/retroBlocks.png";
 let days = 7;
-let severalDaysLoggedIn = 2;
+let severalDaysLoggedIn = 6;
 let whitchRewardYouGet;
 
 let alreadyLoggedIn = false;
@@ -15,7 +15,7 @@ function showDailyRewards(e) {
     e.preventDefault();
 
     if (alreadyLoggedIn === false){
-        //disabledButtons();
+        disabledButtons();
 
         document.getElementById("close").addEventListener("click", closeDailyStreaks);
 
@@ -41,7 +41,7 @@ function showDailyRewards(e) {
                     "<a href='#' id='click_" + rewards[i] + "_day_" + i + "'><h2>Day " + i + "</h2>" +
                     "<img data-dailysteak='day_" + i + "_" + rewards[i] + "' src='" + photo + "' class='rewards'>" +
                     "<i class='material-icons' id='doneMark'>done</i>" +
-                    "<figcaption>+ " + amount[i] + " " + rewards[i] + "</figcaption></a>" +
+                    "<figcaption>+ " + amount[i] + " " + rewards[i].replace("_", " ") + "</figcaption></a>" +
                     "</figure>";
 
                     whitchRewardYouGet = rewards[severalDaysLoggedIn];
@@ -52,7 +52,7 @@ function showDailyRewards(e) {
                 imgList += "<figure id=day_'" + i + "'>" +
                     "<a href='#' id='click_" + rewards[i] + "'><h2>Day " + i + "</h2>" +
                     "<img data-dailysteak=day_'" + i + "_" + rewards[i] + "' src='" + photo + "' class='rewards'>" +
-                    "<figcaption>+ " + amount[i] + " " + rewards[i] + "</figcaption></a>" +
+                    "<figcaption>+ " + amount[i] + " " + rewards[i].replace("_", " ") + "</figcaption></a>" +
                     "</figure>";
             }
         }
@@ -61,7 +61,7 @@ function showDailyRewards(e) {
 
         alreadyLoggedIn = true;
     }else {
-        //closeDailyStreaks(e);
+        closeDailyStreaks(e);
     }
 
     switch (whitchRewardYouGet){
@@ -117,7 +117,7 @@ function disabledButtons() {
 function closeDailyStreaks(e) {
     e.preventDefault();
 
-    //enabledButtons();
+    enabledButtons();
 
     document.getElementById("dailystreaks").classList.remove("showDailyRewards");
     document.getElementById("dailystreaks").classList.add("hiddenDailyRewards");
