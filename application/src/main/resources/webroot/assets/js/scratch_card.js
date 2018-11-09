@@ -4,6 +4,9 @@ document.addEventListener("DOMContentLoaded", showScratchCard);
 
 let prices = ["cubes", "xp", "skin", "nothing"];
 let boxes = 3;
+let boxesOpen = [];
+let price;
+let priceInScratch = [];
 
 function showScratchCard() {
     let location = document.getElementById("prices");
@@ -24,7 +27,8 @@ function showScratchCard() {
 
     for (let k = 0; k < boxes; k++){
 
-        let price = prices[Math.floor(Math.random()*prices.length)];
+        price = prices[Math.floor(Math.random()*prices.length)];
+        priceInScratch.push(price);
 
         boxesList += '<div class="container" id="js-container' + k + '">\n' +
             '<canvas class="canvas' + k + '" id="js-canvas' + k + '"></canvas>\n' +
@@ -146,7 +150,8 @@ function mouseAndTouchActions(canvas, ctx, width, height, lastPoint, isDrawing, 
         console.log(filledInPixels + '%');
         if (filledInPixels > 50) {
             canvas.parentNode.removeChild(canvas);
-            //TODO functie maken voor het controlleren als alle 3 de price gelijk zijn!
+            boxesOpen.push(canvas);
+            controleIfYouWon();
         }
     }
 
@@ -178,5 +183,25 @@ function mouseAndTouchActions(canvas, ctx, width, height, lastPoint, isDrawing, 
 
     function handleMouseUp(e) {
         isDrawing = false;
+    }
+}
+
+function controleIfYouWon() {
+    let same = [];
+
+    if (boxesOpen.length === boxes) {
+        for (let i = 0; i < priceInScratch.length; i++){
+            if (priceInScratch[0] === priceInScratch[i]){
+                same.push(priceInScratch[i]);
+            }
+
+
+        }
+
+        if (same.length === 3){
+            alert("You won " + same[0]);
+        } else {
+            alert("Better luck next time!");
+        }
     }
 }

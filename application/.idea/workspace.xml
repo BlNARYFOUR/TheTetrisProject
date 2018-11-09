@@ -62,8 +62,8 @@
       <file leaf-file-name="scratch_card.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/resources/webroot/assets/js/scratch_card.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="309">
-              <caret line="148" column="87" selection-start-line="148" selection-start-column="87" selection-end-line="148" selection-end-column="87" />
+            <state relative-caret-position="700">
+              <caret line="203" column="44" selection-start-line="203" selection-start-column="44" selection-end-line="203" selection-end-column="44" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
               </folding>
@@ -74,8 +74,8 @@
       <file leaf-file-name="dailystreaks.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/resources/webroot/pages/dailystreaks.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="66" selection-start-line="8" selection-start-column="66" selection-end-line="8" selection-end-column="66" />
+            <state relative-caret-position="34">
+              <caret line="2" column="6" lean-forward="true" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
             </state>
           </provider>
         </entry>
@@ -816,7 +816,7 @@
       <workItem from="1541662112593" duration="11903000" />
       <workItem from="1541703222229" duration="168000" />
       <workItem from="1541703420683" duration="2069000" />
-      <workItem from="1541754473995" duration="4070000" />
+      <workItem from="1541754473995" duration="7517000" />
     </task>
     <servers />
   </component>
@@ -829,7 +829,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="50426000" />
+    <option name="totallyTimeSpent" value="53873000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="0" width="974" height="1047" extended-state="0" />
@@ -1158,15 +1158,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/webroot/pages/dailystreaks.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="66" selection-start-line="8" selection-start-column="66" selection-end-line="8" selection-end-column="66" />
+        <state relative-caret-position="34">
+          <caret line="2" column="6" lean-forward="true" selection-start-line="2" selection-start-column="6" selection-end-line="2" selection-end-column="6" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/webroot/assets/js/scratch_card.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="309">
-          <caret line="148" column="87" selection-start-line="148" selection-start-column="87" selection-end-line="148" selection-end-column="87" />
+        <state relative-caret-position="700">
+          <caret line="203" column="44" selection-start-line="203" selection-start-column="44" selection-end-line="203" selection-end-column="44" />
           <folding>
             <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
           </folding>
