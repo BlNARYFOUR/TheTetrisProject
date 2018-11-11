@@ -5,15 +5,53 @@
     <title>Main_menu</title>
     <link rel="stylesheet" type="text/css" href="../assets/css/mainCSS.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/dailystreaks.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
 
+<header class="centerDailyStreak">
+    <section id="dailystreaks" class="showDailyRewards">
+        <h1>Daily Streaks</h1>
+
+        <p>Here are your daily rewards!</p>
+
+        <div id="dailyRewards">
+        </div>
+
+        <div class="close">
+            <input type="submit" value="Close" id="close" class="close-submit">
+        </div>
+    </section>
+
+    <section id="scratchCard" class="hiddenDailyRewards">
+        <h1>Scratch card</h1>
+
+        <div id="pricesScratch">
+        </div>
+
+        <div id="scratch">
+        </div>
+    </section>
+
+
+    <section id="mysteryBoxCard" class="hiddenDailyRewards">
+        <h1>Mystery Box</h1>
+
+        <div id="mysteryBox"></div>
+
+        <div id="pricesMysteryBox">
+        </div>
+    </section>
+
+</header>
+
 
 <div class="userInfo">
-
     <div class="userInfo-1">
-        <img src="../assets/media/avatars/Avatar_Banana.png" class="user-avatar" alt="avatar" title="avatar">
+        <a href="change_avatar.html">
+            <img src="../assets/media/avatars/Avatar_Banana.png" class="user-avatar" alt="avatar" title="avatar">
+        </a>
         <p>Welcome <span class="userName">userName</span></p>
         <p>LVL: <span class="level">5</span></p><span class="xp"><span class="xp-value"></span><span class="xp-text">200/500 XP</span></span>
     </div>
@@ -24,26 +62,28 @@
     </div>
 
     <div>
-        <p><img src="../assets/media/cube_logo.png" class="cube" title="cube" alt="cube">Cubes: <span class="numberOfCubes">500</span><a href="#"><i class="material-icons">add_circle</i></a></p>
+        <p><img src="../assets/media/cube_logo.png" class="cube" title="cube" alt="cube">Cubes: <span class="numberOfCubes">500</span><a href="#" id="buyCubes"><i class="material-icons">add_circle</i></a></p>
         <p><img src="../assets/media/clanPoints-logo.png" class="cp" alt="cp" title="cp">Clanpoints: <span class="clanpoints">30</span></p>
     </div>
-
 </div>
 
 
 <div class="mainMenu">
     <ul>
-        <li><input type="submit" name="chooseGameMode" class="main chooseGameMode-submit" value="Choose gamemode"></li>
-        <li><input type="submit" name="clan" class="main clan-submit" value="Clan"></li>
-        <li><input type="submit" name="shop" class="main shop-submit" value="Shop"></li>
-        <li><input type="submit" name="highScore" class="main highScore-submit" value="High score"></li>
+        <li><input type="submit" name="chooseGameMode" id="chooseGamemode" class="main chooseGameMode-submit" value="Choose gamemode"></li>
+        <li><input type="submit" name="clan" id="clan" class="main clan-submit" value="Clan"></li>
+        <li><input type="submit" name="shop" id="shop" class="main shop-submit" value="Shop"></li>
+        <li><input type="submit" name="highScore" id="highScore" class="main highScore-submit" value="High score"></li>
     </ul>
 </div>
-<div class="main logOut">
+<form class="main logOut" action="/logout">
     <input type="submit" id="logOut" name="logOut" class="main logOut-submit" value="Log out">
-</div>
+</form>
 
 <script type="text/javascript" src="../assets/js/main_menu.js"></script>
+<script type="text/javascript" src="../assets/js/dailystreaks.js"></script>
+<script type="text/javascript" src="../assets/js/scratch_card.js"></script>
+<script type="text/javascript" src="../assets/js/mystery_box.js"></script>
 
 </body>
 </html>

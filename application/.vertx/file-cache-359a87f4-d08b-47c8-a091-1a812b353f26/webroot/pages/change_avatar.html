@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Change avatar</title>
+    <link rel="stylesheet" type="text/css" href="../assets/css/mainCSS.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+</head>
+<body>
+
+<form id="confirm" class="hidden">
+    <h1>Confirm</h1>
+    <p>Are you sure, you want to change your avater?</p>
+    <input type="submit" value="No" id="no">
+    <input type="submit" value="Yes" id="yes">
+</form>
+
+
+<header>
+    <div class="userInfo">
+
+        <div class="userInfo-1">
+            <img src="../assets/media/avatars/Avatar_Banana.png" class="user-avatar" alt="avatar" title="avatar">
+            <p>Welcome <span class="userName">userName</span></p>
+            <p>LVL: <span class="level">5</span></p><span class="xp"><span class="xp-value"></span><span class="xp-text">200/500 XP</span></span>
+        </div>
+
+        <div class="userInfo-2">
+            <p>ClanName</p>
+            <p>Leader</p>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div class="border">
+        <p>Select an avatar</p>
+        <div id="showAllAvatars">
+        </div>
+    </div>
+
+    <div id="button_container">
+        <input type="submit" value="Back" id="back" class="back-submit">
+        <input type="submit" value="Save" id="save" class="save-submit">
+    </div>
+</main>
+
+
+
+<script type="text/javascript" src="../assets/js/change_avatars.js"></script>
+
+</body>
+</html>

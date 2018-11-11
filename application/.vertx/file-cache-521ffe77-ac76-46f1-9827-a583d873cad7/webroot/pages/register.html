@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Reinbert Van Acker"/>
+    <title>Tetris</title>
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+
+    <script src="../assets/js/sockjs.min.js"></script>
+    <script src="../assets/js/vertx-eventbus.min.js"></script>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", init);
+        function init(e) {
+            document.getElementById("register").addEventListener("submit", inspectReq);
+        }
+
+        function inspectReq(e) {
+            let pass = document.getElementById("password");
+            let confirmPass = document.getElementById("confirmPass");
+
+            if(pass.value !== confirmPass.value) {
+                e.preventDefault();
+                document.getElementById("error").innerText = "Passwords do not match!";
+                pass.value = "";
+                confirmPass.value = "";
+            }
+        }
+    </script>
+</head>
+<body>
+<header class="retroBlocks-header">
+    <img src="../assets/media/retroBlocks.png" alt="retroBlocks" title="retroBlocks">
+</header>
+<div class="login-container">
+    <br>
+    <form id="register" method="post"> <!--action="javascript:sendMessage()"-->
+        <span id="error"></span>
+        <input id="username" type="text" name="user" placeholder="Username" required="required">
+        <input id="password" type="password" name="password" placeholder="Password" required="required">
+        <input id="confirmPass" type="password" name="confirmPass" placeholder="Confirm password" required="required">
+        <input type="submit" name="register" class="login register-submit" value="register">
+    </form>
+    <div class="login-help">
+        <a href="/static">Login</a>
+    </div>
+</div>
+</body>
+</html>
