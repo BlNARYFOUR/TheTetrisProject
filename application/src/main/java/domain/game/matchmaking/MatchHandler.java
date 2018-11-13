@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class MatchHandler implements Matchmaking {
+    private static final int MAX_USERS_PER_MATCH = 5;
     private static MatchHandler instance = new MatchHandler();
     private static Map<ModeSearch, Set<User>> matchable = new HashMap<>();
 
@@ -61,10 +62,56 @@ public class MatchHandler implements Matchmaking {
 
     @Override
     public Set<Match> matchUsers() {
-        /*
-        based on game ranking
+        // todo: based on game ranking
 
-         */
-        throw new NotImplementedException();
+        Set<Match> matches = new HashSet<>();
+
+        for (ModeSearch modeSearch : matchable.keySet()) {
+            Match matchTry = new Match(modeSearch, MAX_USERS_PER_MATCH);
+            boolean oneLeft = false;
+            int usersToAdd = Math.round((MAX_USERS_PER_MATCH + 1) / 2);
+            for (User user : matchable.get(modeSearch)) {
+                if(matchable.get(modeSearch).size() == MAX_USERS_PER_MATCH + 1) {
+                    oneLeft = true;
+                }
+
+                if(!matchTry.addUser(user)) {
+                    matches.add(matchTry);
+
+                    matchTry.getUsers().forEach(u -> {
+                        matchable.remove(modeSearch, u);
+                    });
+
+                    matchTry = new Match(modeSearch, MAX_USERS_PER_MATCH);
+                    matchTry.addUser(user);
+                }
+
+                if(oneLeft) {
+                    usersToAdd--;
+
+                    if(usersToAdd == 0) {
+                        matches.add(matchTry);
+
+                        matchTry.getUsers().forEach(u -> {
+                            matchable.remove(modeSearch, u);
+                        });
+
+                        matchTry = new Match(modeSearch, MAX_USERS_PER_MATCH);
+                        usersToAdd = matchable.get(modeSearch).size();
+                    }
+                }
+            }
+
+            if(2 <= matchTry.getUsers().size()) {
+                matches.add(matchTry);
+            }
+        }
+
+        return matches;
+    }
+
+    @Override
+    public void resetMatchable() {
+        matchable = new HashMap<>();
     }
 }

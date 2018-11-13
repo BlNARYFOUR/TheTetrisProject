@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Reinbert Van Acker"/>
+    <title>Tetris</title>
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+
+    <script>
+        var eb = new EventBus("https://f5112f02.eu.ngrok.io/chatty/events");
+        //var eb = new EventBus("http://localhost:8080/chatty/events");
+        var sendMessage = function (val) {
+            eb.send("chatty.events.message", {user : document.getElementById("userID").value, content : val},
+                function(err, reply) {
+                    console.log("message broadcasted: " + JSON.stringify(reply));
+
+                });
+        };
+        eb.onopen = function() {
+            eb.registerHandler("chatty.events.main", function (error, message) {
+                if (error) {
+                    console.log("error: " + JSON.stringify(error));
+                };
+                console.log("message: " + JSON.stringify(message.body));
+                newMessage = document.createElement("li");
+                newMessage.innerHTML = JSON.stringify(message.body);
+                messagelist.prepend(newMessage);
+            });
+        };
+    </script>
+</head>
+<body>
+<header class="retroBlocks-header">
+    <img src="../assets/media/retroBlocks.png" alt="retroBlocks" title="retroBlocks">
+</header>
+<div class="login-container">
+    <br>
+    <form>
+        <input type="text" name="user" placeholder="Username">
+        <input type="password" name="password" placeholder="Password">
+        <input type="submit" name="register" class="login register-submit" value="register">
+    </form>
+    <div class="login-help">
+        <a href="/static">Login</a>
+    </div>
+</div>
+</body>
+</html>
