@@ -1,28 +1,28 @@
 package domain.game.matchmaking;
 
 import domain.User;
-import domain.game.modes.ModeSearch;
+import domain.game.modes.GameMode;
 
 import java.util.HashSet;
 import java.util.Set;
 
 public class Match {
     private final int MAX_USERS;
-    private ModeSearch modeSearch;
+    private GameMode gameMode;
     private Set<User> users;
 
-    public Match(ModeSearch modeSearch, int maxUsers) {
-        setModeSearch(modeSearch);
+    public Match(GameMode gameMode, int maxUsers) {
+        setGameMode(gameMode);
         MAX_USERS = maxUsers;
         users = new HashSet<>();
     }
 
-    public ModeSearch getModeSearch() {
-        return modeSearch;
+    public GameMode getGameMode() {
+        return gameMode;
     }
 
-    private void setModeSearch(ModeSearch modeSearch) {
-        this.modeSearch = modeSearch;
+    private void setGameMode(GameMode gameMode) {
+        this.gameMode = gameMode;
     }
 
     public Set<User> getUsers() {
@@ -46,7 +46,7 @@ public class Match {
     public String toString() {
         return "Match{" +
                 "MAX_USERS=" + MAX_USERS +
-                ", modeSearch=" + modeSearch +
+                ", gameMode=" + gameMode +
                 ", users=" + users +
                 '}';
     }
