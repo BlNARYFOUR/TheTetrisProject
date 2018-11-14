@@ -143,14 +143,14 @@ a {
     width: 390px;
 }
 
-.chooseGameMode-submit, .clan-submit, .shop-submit, .highScore-submit, .logOut-submit, .back-submit, .save-submit, .next-submit, .playGame-submit, #no, #yes {
+.chooseGameMode-submit, .clan-submit, .shop-submit, .highScore-submit, .logOut-submit, .back-submit, .save-submit, .playGame-submit, #no, #yes {
     border: 2px solid #9C35FF;
     color: #000000;
     text-shadow: 0 1px rgba(0, 0, 0, 0.1);
     background: linear-gradient(to right, #9584FF , #FFA1E2);
 }
  
-.chooseGameMode-submit:hover, .clan-submit:hover, .shop-submit:hover, .highScore-submit:hover, .logOut-submit:hover, .back-submit:hover, .next-submit:hover .playGame-submit:hover, .option-back-submit:hover, .playFriends-submit:hover, .findOpp-submit:hover, .save-submit:hover, #no:hover, #yes:hover, .multiplayer-footer ul li:hover {
+.chooseGameMode-submit:hover, .clan-submit:hover, .shop-submit:hover, .highScore-submit:hover, .logOut-submit:hover, .back-submit:hover, .playGame-submit:hover, .option-back-submit:hover, .playFriends-submit:hover, .findOpp-submit:hover, .save-submit:hover, #no:hover, #yes:hover, .multiplayer-footer ul li:hover {
     border: 2px solid #9C35FF;
     color: #000000;
     text-shadow: 0 1px rgba(0,0,0,0.3);
@@ -342,7 +342,7 @@ figcaption{
     margin-top: -10px;
 }
 
-#save, #back, #next{
+#save, #back{
     width: 300px;
 }
 
