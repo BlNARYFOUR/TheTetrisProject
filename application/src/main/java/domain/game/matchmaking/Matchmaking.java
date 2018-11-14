@@ -9,4 +9,5 @@ public interface Matchmaking {
     void addMatchable(User user, ModeSearch modeSearch);
     void deleteMatchable(User user);
     Set<Match> matchUsers();
+    void resetMatchable();
 }

@@ -203,6 +203,10 @@ a {
     width: 25%;
 }
 
+ul{
+    list-style-type: none;
+}
+
 /*------Choose Hero------*/
 .chooseHeroTitle {
     color: white;
@@ -351,7 +355,7 @@ figcaption{
 }
 
 /*-----Change avatar confirm screen-------*/
-form{
+section{
     color: white;
     box-shadow: 0 0 50px 10px rebeccapurple;
     width: 500px;
@@ -421,7 +425,7 @@ h1, p{
     border-radius: 10px;
 }
 
-form input{
+section input{
     width: 49.5%;
     display: inline-block;
 }

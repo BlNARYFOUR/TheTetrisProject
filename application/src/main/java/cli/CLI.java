@@ -4,14 +4,11 @@ package cli;
 
 import cli.util.ANSI;
 import cli.util.CommandLineMenu;
-import data.LoginRepository;
+import data.loginRepository.LoginRepository;
 import data.Repositories;
 import domain.User;
 import util.Hash;
 
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
 
 public class CLI {

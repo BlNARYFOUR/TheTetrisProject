@@ -40,4 +40,12 @@ public class ModeSearch {
     public int hashCode() {
         return Objects.hash(playerMode, gameMode);
     }
+
+    @Override
+    public String toString() {
+        return "ModeSearch{" +
+                "playerMode=" + playerMode +
+                ", gameMode=" + gameMode +
+                '}';
+    }
 }

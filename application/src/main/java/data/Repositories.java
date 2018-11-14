@@ -1,5 +1,10 @@
 package data;
 
+import data.loggedInRepository.HcLoggedInRepository;
+import data.loggedInRepository.LoggedInRepository;
+import data.loginRepository.LoginRepository;
+import data.loginRepository.MySqlLoginRepository;
+
 public class Repositories {
     private static Repositories instance = new Repositories();
 
@@ -12,5 +17,8 @@ public class Repositories {
 
     public LoginRepository getLoginRepository(){
         return new MySqlLoginRepository();
+    }
+    public LoggedInRepository getLoggedInRepository() {
+        return new HcLoggedInRepository();
     }
 }
