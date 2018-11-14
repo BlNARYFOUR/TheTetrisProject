@@ -46,7 +46,7 @@ function selectablesEvents(){
 function changeSelected(e) {
     e.stopPropagation();
 
-    let gameMode = e.target.dataset.gamemodename;
+    let gameMode = e.target.getAttribute("data-gamemodename");
     console.log("Gamemode:", gameMode);
     localStorage.setItem("gameMode", gameMode);
 
@@ -55,6 +55,10 @@ function changeSelected(e) {
             elementSelectables[i].classList.remove("selected");
         }
         e.target.parentNode.classList.add("selected");
+
+        // Hier wordt de naam van de geselecteerde gamemode ingestoken
+        selectedGamemode = e.target.dataset.gamemodename;
+
     }
     e.target.parentNode.classList.add("selected");
 
@@ -68,8 +72,4 @@ function changeSelected(e) {
 function goBack(e) {
     e.preventDefault();
     location.href="main_menu.html";
-}
-
-function goNext(e) {
-
 }

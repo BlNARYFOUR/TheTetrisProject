@@ -3,11 +3,11 @@
 document.addEventListener("DOMContentLoaded", init);
 
 const GAME_MODES =  [
-        "singlePlayer",
-        "standard",
-        "lastManStanding",
-        "timeAttack"
-    ];
+    "singlePlayer",
+    "standard",
+    "lastManStanding",
+    "timeAttack"
+];
 
 let elementSelectables;
 let selectedGamemode;
@@ -46,20 +46,15 @@ function selectablesEvents(){
 function changeSelected(e) {
     e.stopPropagation();
 
-    let gameMode = e.target.getAttribute("data-gamemodename");
+    let gameMode = e.target.dataset.gamemodename;
     console.log("Gamemode:", gameMode);
     localStorage.setItem("gameMode", gameMode);
-    localStorage.setItem("playerMode", "");
 
     if(e.target.parentNode.classList.contains("selectable")){
         for (let i = 0; i < elementSelectables.length; i++) {
             elementSelectables[i].classList.remove("selected");
         }
         e.target.parentNode.classList.add("selected");
-
-        // Hier wordt de naam van de geselecteerde gamemode ingestoken
-        selectedGamemode = e.target.dataset.gamemodename;
-
     }
     e.target.parentNode.classList.add("selected");
 
@@ -70,6 +65,11 @@ function changeSelected(e) {
 
 }
 
-function goBack() {
+function goBack(e) {
+    e.preventDefault();
     location.href="main_menu.html";
+}
+
+function goNext(e) {
+
 }
