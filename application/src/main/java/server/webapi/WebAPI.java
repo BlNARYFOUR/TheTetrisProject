@@ -14,10 +14,11 @@ import io.vertx.ext.web.handler.SessionHandler;
 import io.vertx.ext.web.handler.StaticHandler;
 import io.vertx.ext.web.sstore.LocalSessionStore;
 import io.vertx.ext.web.sstore.SessionStore;
-import org.pmw.tinylog.Logger;
+import server.Tetris;
 import server.webapi.util.SecureFilePath;
 import util.Hash;
 
+import javax.smartcardio.TerminalFactory;
 import java.io.IOException;
 
 public class WebAPI extends AbstractVerticle {
@@ -56,6 +57,10 @@ public class WebAPI extends AbstractVerticle {
         router.route("/static/*").handler(StaticHandler.create());
         router.route("/tetris/events/*").handler(new TetrisSockJSHandler(vertx).create());
         router.route("/logout").handler(routes::logoutHandler);
+
+        router.route("/static/pages/main_menu.html").handler(routes::dailyStreakHandler);
+
+
 
         server.requestHandler(router::accept).listen(8081);
 
