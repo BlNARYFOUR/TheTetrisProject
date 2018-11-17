@@ -66,6 +66,7 @@ class Routes {
 
                 user.setLoginDate(new Date());
                 loggedInRepo.addLoggedUser(session.id(), user);
+                //System.out.println(loggedInRepo.getLoggedUser(session.id()).getLoginDate());
 
                 HttpServerResponse response = routingContext.response();
                 response.setChunked(true);
@@ -113,7 +114,7 @@ class Routes {
         response.setChunked(true);
 
         try {
-            System.out.println("Here");
+            //System.out.println("Here");
             User user = loginRepo.authenticateUser(session.get("username"), session.get("password"), false);
             if (user == null) {
                 response.headers().add("location", "/static");

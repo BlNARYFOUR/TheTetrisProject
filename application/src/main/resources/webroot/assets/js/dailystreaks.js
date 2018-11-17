@@ -1,5 +1,5 @@
 "use strict";
-let eb = new EventBus("http://localhost:8081/static/pages/main_menu.html");
+//let eb = new EventBus("http://localhost:8081/static/pages/main_menu.html");
 
 document.addEventListener("DOMContentLoaded", showDailyRewards);
 
