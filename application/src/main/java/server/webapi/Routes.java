@@ -1,14 +1,18 @@
 package server.webapi;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import data.dailyStreakRepository.DailyRepository;
 import data.loggedInRepository.LoggedInRepository;
 import data.loginRepository.LoginRepository;
 import data.Repositories;
 import domain.User;
+import domain.dailyStreak.DailyStreakRewards;
+import io.vertx.core.Vertx;
+import io.vertx.core.eventbus.EventBus;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.Session;
-import org.pmw.tinylog.Logger;
+import server.Tetris;
 import server.webapi.util.SecureFilePath;
 import util.Hash;
 
@@ -20,14 +24,16 @@ class Routes {
     private static ObjectMapper objectMapper = new ObjectMapper();
     private LoginRepository loginRepo = Repositories.getInstance().getLoginRepository();
     private LoggedInRepository loggedInRepo = Repositories.getInstance().getLoggedInRepository();
+    private DailyRepository repo = Repositories.getInstance().getDailyReposistory();
+
 
     void rootHandler(RoutingContext routingContext) {
         HttpServerResponse response = routingContext.response();
         response.setChunked(true);
         response
-            .putHeader("content-type", "text/html")
-            .write("<h1>Wrong page amigo...</h1><img src=static/images/facepalm.jpg><p>Goto <a href=static>here</a> instead</p>")
-            .end();
+                .putHeader("content-type", "text/html")
+                .write("<h1>Wrong page amigo...</h1><img src=static/images/facepalm.jpg><p>Goto <a href=static>here</a> instead</p>")
+                .end();
     }
 
     private User getUserFromBody(String body) {
@@ -49,8 +55,8 @@ class Routes {
 
             user = loginRepo.authenticateUser(session.get("username"), session.get("password"), false);
             if (loggedInRepo.isUserLogged(user) || user == null) {
-                if(loggedInRepo.isUserLogged(user)) {
-                    Logger.warn("User already logged in: " + Objects.requireNonNull(user).getUsername());
+                if (loggedInRepo.isUserLogged(user)) {
+                    //Logger.warn("User already logged in: " + Objects.requireNonNull(user).getUsername());
                 }
 
                 HttpServerResponse response = routingContext.response();
@@ -113,8 +119,8 @@ class Routes {
                 response.headers().add("location", "/static");
                 response.setStatusCode(302).end();
             } else {
-                response.sendFile("webroot"+filePath);
-        }
+                response.sendFile("webroot" + filePath);
+            }
         } catch (Exception ex) {
             response.headers().add("location", "/static");
             response.setStatusCode(302).end();
@@ -170,4 +176,36 @@ class Routes {
         response.headers().add("location", "/static");
         response.setStatusCode(302).end();
     }
+
+    // BRYAN
+
+    public void dailyStreakHandler(RoutingContext routingContext) {
+        Session session = routingContext.session();
+        HttpServerResponse response = routingContext.response();
+        response.setChunked(true);
+
+        try {
+            User u = new User();
+            DailyStreakRewards dsr = new DailyStreakRewards();
+
+            System.out.println(repo.getUser(u.getUsername()));
+            System.out.println("incoming request");
+
+            System.out.println("main_menu");
+            if (repo.getUser(u.getUsername()).isAlreadyLoggedIn() == true) {
+                System.out.println("Already received daily rewards");
+            } else {
+                System.out.println(repo.getStreak(dsr.dailyStreak(u.getUsername())).getReward());
+            }
+
+            repo.updateAlreaddyLoggedIn(true, u.getUsername());
+
+
+        } catch (Exception ex) {
+            response.sendFile("webroot/pages/main_menu.html");
+        }
+
+    }
 }
+
+
