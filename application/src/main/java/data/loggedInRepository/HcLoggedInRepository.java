@@ -2,6 +2,7 @@ package data.loggedInRepository;
 
 import domain.User;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,6 +12,7 @@ public class HcLoggedInRepository implements LoggedInRepository {
     @Override
     public boolean addLoggedUser(String sessionID, User user) {
         try {
+            user.setLoginDate(new Date());
             loggedUsers.put(sessionID, user);
             return true;
         } catch (Exception ex) {
@@ -28,6 +30,11 @@ public class HcLoggedInRepository implements LoggedInRepository {
     @Override
     public boolean isUserLogged(User user) {
         return loggedUsers.containsValue(user);
+    }
+
+    @Override
+    public boolean isUserLogged(String sessionID, User user) {
+        return user.equals(loggedUsers.getOrDefault(sessionID, null));
     }
 
     @Override
