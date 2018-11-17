@@ -12,9 +12,13 @@ public class HcLoggedInRepository implements LoggedInRepository {
     @Override
     public boolean addLoggedUser(String sessionID, User user) {
         try {
-            user.setLoginDate(new Date());
-            loggedUsers.put(sessionID, user);
-            return true;
+            if(!loggedUsers.containsValue(user)) {
+                user.setLoginDate(new Date());
+                loggedUsers.put(sessionID, user);
+                return true;
+            } else {
+                return false;
+            }
         } catch (Exception ex) {
             return false;
         }
@@ -29,6 +33,19 @@ public class HcLoggedInRepository implements LoggedInRepository {
 
     @Override
     public boolean isUserLogged(User user) {
+        if(loggedUsers.containsValue(user)) {
+            long passedTime = 0;
+
+            for(User u : loggedUsers.values()) {
+                if(user.equals(u)) {
+                    passedTime = Math.round((new Date().getTime() - u.getLoginDate().getTime()) / 1000);
+                    break;
+                }
+            }
+
+            System.out.println("Logged for "  + Long.toString(passedTime));
+        }
+
         return loggedUsers.containsValue(user);
     }
 

@@ -133,7 +133,7 @@ class Routes {
         try {
             User user = loginRepo.authenticateUser(session.get("username"), session.get("password"), false);
 
-            if (user == null) {
+            if (!loggedInRepo.isUserLogged(session.id(), user) || user == null) {
                 response.headers().add("location", "/static");
             } else {
                 response.headers().add("location", "/static" + SecureFilePath.MAIN_MENU);
@@ -153,7 +153,7 @@ class Routes {
         try {
             User user = loginRepo.authenticateUser(session.get("username"), session.get("password"), false);
 
-            if (user == null) {
+            if (!loggedInRepo.isUserLogged(session.id(), user) || user == null) {
                 response.sendFile("webroot/index.html");
             } else {
                 response.headers().add("location", "/static" + SecureFilePath.MAIN_MENU);
