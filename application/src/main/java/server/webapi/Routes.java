@@ -7,15 +7,14 @@ import data.loginRepository.LoginRepository;
 import data.Repositories;
 import domain.User;
 import domain.dailyStreak.DailyStreakRewards;
-import io.vertx.core.Vertx;
-import io.vertx.core.eventbus.EventBus;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.Session;
-import server.Tetris;
+import org.pmw.tinylog.Logger;
 import server.webapi.util.SecureFilePath;
 import util.Hash;
 
+import java.util.Date;
 import java.util.Objects;
 
 class Routes {
@@ -51,12 +50,12 @@ class Routes {
 
             Session session = routingContext.session();
             session.put("username", user.getUsername());
-            session.put("password", Hash.md5HashString(user.getPassword()));
+            session.put("password", Hash.md5(user.getPassword()));
 
             user = loginRepo.authenticateUser(session.get("username"), session.get("password"), false);
             if (loggedInRepo.isUserLogged(user) || user == null) {
                 if (loggedInRepo.isUserLogged(user)) {
-                    //Logger.warn("User already logged in: " + Objects.requireNonNull(user).getUsername());
+                    Logger.warn("User already logged in: " + Objects.requireNonNull(user).getUsername());
                 }
 
                 HttpServerResponse response = routingContext.response();
@@ -65,6 +64,7 @@ class Routes {
             } else {
                 routingContext.getCookie("vertx-web.session").setMaxAge(EXPIRATION_TIME);
 
+                user.setLoginDate(new Date());
                 loggedInRepo.addLoggedUser(session.id(), user);
 
                 HttpServerResponse response = routingContext.response();
@@ -86,7 +86,7 @@ class Routes {
 
             Session session = routingContext.session();
             session.put("username", user.getUsername());
-            session.put("password", Hash.md5HashString(user.getPassword()));
+            session.put("password", Hash.md5(user.getPassword()));
 
             loginRepo.addUser(user);
 

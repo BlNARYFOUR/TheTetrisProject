@@ -1,8 +1,11 @@
 package domain;
 
 import domain.game.modes.GameMode;
+import util.DateFormat;
 import util.HighScoreException;
+import util.UserException;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
@@ -10,18 +13,21 @@ import java.util.Objects;
 
 public class User {
     Date now = new Date();
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+    SimpleDateFormat dateFormat = new SimpleDateFormat(DateFormat.YODA_TIME.toString());
 
 
     private int ID;
     private String username;
     private String password;
 
-    //BRYAN
-    private String register_date;
-    private String begin_date;
-    private String next_date;
-    private int daily_streak_id;
+    //login
+    private Date loginDate;
+
+    //Daily streak stuff
+    private Date registerDate;
+    private Date beginDate;
+    private Date nextDate;
+    private int dailyStreakId;
     private boolean alreadyLoggedIn;
 
     private Map<GameMode, Integer> highScores;
@@ -41,14 +47,19 @@ public class User {
         this("TEST", "TESTIE");
     }
 
-    public User(int ID, String username, String register_date, String begin_date, String next_date, int daily_streak_id, boolean alreadyLoggedIn) {
+    public User(int ID, String username, String registerDate, String beginDate, String nextDate, int dailyStreakId, boolean alreadyLoggedIn) {
         this.ID = ID;
         this.username = username;
-        this.register_date = register_date;
-        this.begin_date = begin_date;
-        this.next_date = next_date;
-        this.daily_streak_id = daily_streak_id;
+        this.dailyStreakId = dailyStreakId;
         this.alreadyLoggedIn = alreadyLoggedIn;
+
+        try {
+            this.registerDate = dateFormat.parse(registerDate);
+            this.beginDate = dateFormat.parse(beginDate);
+            this.nextDate = dateFormat.parse(nextDate);
+        } catch (ParseException e) {
+            throw new UserException("Unable to parse one of the dates", e);
+        }
     }
 
     public int getID() {
@@ -108,24 +119,24 @@ public class User {
     }
 
     //BRYAN
-    public String getRegister_date() {
-        return register_date;
+    public String getRegisterDate() {
+        return dateFormat.format(registerDate);
     }
 
-    public String getBegin_date() {
-        return begin_date;
+    public String getBeginDate() {
+        return dateFormat.format(beginDate);
     }
 
-    public String getNext_date() {
-        return next_date;
+    public String getNextDate() {
+        return dateFormat.format(nextDate);
     }
 
-    public int getDaily_streak_id() {
-        return daily_streak_id;
+    public int getDailyStreakId() {
+        return dailyStreakId;
     }
 
-    public void setDaily_streak_id(int daily_streak_id) {
-        this.daily_streak_id = daily_streak_id;
+    public void setDailyStreakId(int dailyStreakId) {
+        this.dailyStreakId = dailyStreakId;
     }
 
     public boolean isAlreadyLoggedIn() {
@@ -136,6 +147,13 @@ public class User {
         this.alreadyLoggedIn = alreadyLoggedIn;
     }
 
+    public Date getLoginDate() {
+        return loginDate;
+    }
+
+    public void setLoginDate(Date loginDate) {
+        this.loginDate = loginDate;
+    }
 
     @Override
     public String toString() {

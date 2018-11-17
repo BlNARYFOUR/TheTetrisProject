@@ -19,8 +19,8 @@ public class DailyStreakRewards {
 
     public int dailyStreak(String username) {
         int daily_streak = calculateDailyStreak();
-        String beginDailyStreakDate = repo.getUser(username).getBegin_date();
-        String newLoggedInDate = repo.getUser(username).getNext_date();
+        String beginDailyStreakDate = repo.getUser(username).getBeginDate();
+        String newLoggedInDate = repo.getUser(username).getNextDate();
 
         int totalBeginDailyStreakSec = calculateHourMinSec(beginDailyStreakDate);
         int totalNewLoggedInDateSec = calculateHourMinSec(newLoggedInDate);
@@ -99,13 +99,13 @@ public class DailyStreakRewards {
         int calculateDay = 0;
         User u = new User();
 
-        String lastLoggedInDate = repo.getUser(u.getUsername()).getBegin_date();
+        String lastLoggedInDate = repo.getUser(u.getUsername()).getBeginDate();
 
         int lastLoggedInYear = Integer.parseInt(lastLoggedInDate.substring(0,4));
         int lastLoggedInMonth = Integer.parseInt(lastLoggedInDate.substring(5, 7));
         int lastLoggedInDay = Integer.parseInt(lastLoggedInDate.substring(8, 10));
 
-        String newLoggedInDate = repo.getUser(u.getUsername()).getNext_date();
+        String newLoggedInDate = repo.getUser(u.getUsername()).getNextDate();
 
         int newLoggedInYear = Integer.parseInt(newLoggedInDate.substring(0,4));
         int newLoggedInMonth = Integer.parseInt(newLoggedInDate.substring(5, 7));
