@@ -15,6 +15,7 @@ import util.Hash;
 import java.util.Objects;
 
 class Routes {
+    private static final int EXPIRATION_TIME = 31536000;        // 1 year (60s*60m*24h*356d)
 
     private static ObjectMapper objectMapper = new ObjectMapper();
     private LoginRepository loginRepo = Repositories.getInstance().getLoginRepository();
@@ -56,7 +57,7 @@ class Routes {
                 response.setChunked(true);
                 response.sendFile("webroot/index.html");
             } else {
-                routingContext.getCookie("vertx-web.session").setMaxAge(31536000);  //1 year (60s*60m*24h*356d)
+                routingContext.getCookie("vertx-web.session").setMaxAge(EXPIRATION_TIME);
 
                 loggedInRepo.addLoggedUser(session.id(), user);
 
