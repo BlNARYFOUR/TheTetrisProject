@@ -199,6 +199,7 @@ class Routes {
 
             repo.updateAlreaddyLoggedIn(true, u.getUsername());
 
+
         } catch (Exception ex) {
             response.sendFile("webroot/pages/main_menu.html");
         }

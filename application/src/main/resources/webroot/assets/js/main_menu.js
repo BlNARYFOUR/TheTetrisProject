@@ -3,6 +3,7 @@
 document.addEventListener("DOMContentLoaded", init);
 
 function init() {
+
     document.getElementById("logOut").addEventListener("click", logOut);
     document.getElementById("chooseGamemode").addEventListener("click", chooseGamemode);
     document.getElementById("clan").addEventListener("click", clan);
