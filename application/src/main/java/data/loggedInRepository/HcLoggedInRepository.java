@@ -47,7 +47,7 @@ public class HcLoggedInRepository implements LoggedInRepository {
                 }
             }
 
-            System.out.println("Logged for "  + Long.toString(passedTime));
+            //System.out.println("Logged for "  + Long.toString(passedTime));
             if(LoggedInRepository.EXPIRATION_TIME < passedTime) {
                 loggedUsers.remove(keyBuf);
                 return false;
