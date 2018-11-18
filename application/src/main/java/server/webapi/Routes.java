@@ -7,19 +7,17 @@ import data.loginRepository.LoginRepository;
 import data.Repositories;
 import domain.User;
 import domain.dailyStreak.DailyStreakRewards;
-import io.vertx.core.Vertx;
-import io.vertx.core.eventbus.EventBus;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.Session;
-import server.Tetris;
+import org.pmw.tinylog.Logger;
 import server.webapi.util.SecureFilePath;
 import util.Hash;
 
+import java.util.Date;
 import java.util.Objects;
 
 class Routes {
-
     private static ObjectMapper objectMapper = new ObjectMapper();
     private LoginRepository loginRepo = Repositories.getInstance().getLoginRepository();
     private LoggedInRepository loggedInRepo = Repositories.getInstance().getLoggedInRepository();
@@ -43,28 +41,29 @@ class Routes {
         return new User(username, password);
     }
 
-    void loginHandler(RoutingContext routingContext) {
+    synchronized void loginHandler(RoutingContext routingContext) {
         try {
             String body = routingContext.getBodyAsString();
             User user = getUserFromBody(body);
 
             Session session = routingContext.session();
             session.put("username", user.getUsername());
-            session.put("password", Hash.md5HashString(user.getPassword()));
+            session.put("password", Hash.md5(user.getPassword()));
 
             user = loginRepo.authenticateUser(session.get("username"), session.get("password"), false);
             if (loggedInRepo.isUserLogged(user) || user == null) {
                 if (loggedInRepo.isUserLogged(user)) {
-                    //Logger.warn("User already logged in: " + Objects.requireNonNull(user).getUsername());
+                    Logger.warn("User already logged in: " + Objects.requireNonNull(user).getUsername());
                 }
 
                 HttpServerResponse response = routingContext.response();
                 response.setChunked(true);
                 response.sendFile("webroot/index.html");
             } else {
-                routingContext.getCookie("vertx-web.session").setMaxAge(31536000);  //1 year (60s*60m*24h*356d)
+                routingContext.getCookie("vertx-web.session").setMaxAge(LoggedInRepository.EXPIRATION_TIME);
 
                 loggedInRepo.addLoggedUser(session.id(), user);
+                //System.out.println(loggedInRepo.getLoggedUser(session.id()).getLoginDate());
 
                 HttpServerResponse response = routingContext.response();
                 response.setChunked(true);
@@ -78,18 +77,18 @@ class Routes {
         }
     }
 
-    void registerHandler(RoutingContext routingContext) {
+    synchronized void registerHandler(RoutingContext routingContext) {
         try {
             String body = routingContext.getBodyAsString();
             User user = getUserFromBody(body);
 
             Session session = routingContext.session();
             session.put("username", user.getUsername());
-            session.put("password", Hash.md5HashString(user.getPassword()));
+            session.put("password", Hash.md5(user.getPassword()));
 
             loginRepo.addUser(user);
 
-            routingContext.getCookie("vertx-web.session").setMaxAge(31536000);  //1 year (60s*60m*24h*356d)
+            routingContext.getCookie("vertx-web.session").setMaxAge(LoggedInRepository.EXPIRATION_TIME);
 
             loggedInRepo.addLoggedUser(session.id(), user);
 
@@ -114,7 +113,7 @@ class Routes {
         try {
             System.out.println("Here");
             User user = loginRepo.authenticateUser(session.get("username"), session.get("password"), false);
-            if (user == null) {
+            if (!loggedInRepo.isUserLogged(session.id(), user) || user == null) {
                 response.headers().add("location", "/static");
                 response.setStatusCode(302).end();
             } else {
@@ -134,7 +133,7 @@ class Routes {
         try {
             User user = loginRepo.authenticateUser(session.get("username"), session.get("password"), false);
 
-            if (user == null) {
+            if (!loggedInRepo.isUserLogged(session.id(), user) || user == null) {
                 response.headers().add("location", "/static");
             } else {
                 response.headers().add("location", "/static" + SecureFilePath.MAIN_MENU);
@@ -154,7 +153,7 @@ class Routes {
         try {
             User user = loginRepo.authenticateUser(session.get("username"), session.get("password"), false);
 
-            if (user == null) {
+            if (!loggedInRepo.isUserLogged(session.id(), user) || user == null) {
                 response.sendFile("webroot/index.html");
             } else {
                 response.headers().add("location", "/static" + SecureFilePath.MAIN_MENU);
@@ -178,7 +177,7 @@ class Routes {
 
     // BRYAN
 
-    public void dailyStreakHandler(RoutingContext routingContext) {
+    void dailyStreakHandler(RoutingContext routingContext) {
         Session session = routingContext.session();
         HttpServerResponse response = routingContext.response();
         response.setChunked(true);
@@ -191,7 +190,7 @@ class Routes {
             System.out.println("incoming request");
 
             System.out.println("main_menu");
-            if (repo.getUser(u.getUsername()).isAlreadyLoggedIn() == true) {
+            if (repo.getUser(u.getUsername()).isAlreadyLoggedIn()) {
                 System.out.println("Already received daily rewards");
             } else {
                 System.out.println(repo.getStreak(dsr.dailyStreak(u.getUsername())).getReward());

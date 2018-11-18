@@ -3,8 +3,8 @@ package data.dailyStreakRepository;
 import data.MySqlConnection;
 import domain.dailyStreak.Streak;
 import domain.User;
-import io.vertx.core.eventbus.EventBus;
 import util.DailyExeption;
+import util.DateFormat;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -34,11 +34,11 @@ public class MySqlDailyRepository implements DailyRepository {
 
 
 
-    Date now = new Date();
-    Date tomorrow = new Date(now.getTime() + (1000 * 60 * 60 * 24));
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-    String date_today = dateFormat.format(now);
-    String date_tomorrow = dateFormat.format(tomorrow);
+    private Date now = new Date();
+    private Date tomorrow = new Date(now.getTime() + (1000 * 60 * 60 * 24));
+    private SimpleDateFormat dateFormat = new SimpleDateFormat(DateFormat.YODA_TIME.toString());
+    private String dateToday = dateFormat.format(now);
+    private String dateTomorrow = dateFormat.format(tomorrow);
 
 
 
@@ -80,9 +80,9 @@ public class MySqlDailyRepository implements DailyRepository {
         try (Connection con = MySqlConnection.getConnection();
              PreparedStatement prep = con.prepareStatement(SQL_SET_BEGIN_DATE)){
 
-            prep.setString(1, date_today);
+            prep.setString(1, dateToday);
             prep.setString(2, username);
-            System.out.println("begin: " + date_today);
+            System.out.println("begin: " + dateToday);
 
             prep.executeUpdate();
 
@@ -97,9 +97,9 @@ public class MySqlDailyRepository implements DailyRepository {
         try (Connection con = MySqlConnection.getConnection();
              PreparedStatement prep = con.prepareStatement(SQL_SET_NEXT_DATE)){
 
-            prep.setString(1, date_tomorrow);
+            prep.setString(1, dateTomorrow);
             prep.setString(2, username);
-            System.out.println("tomorrow: " + date_tomorrow);
+            System.out.println("tomorrow: " + dateTomorrow);
 
             prep.executeUpdate();
 
@@ -130,9 +130,9 @@ public class MySqlDailyRepository implements DailyRepository {
         try (Connection con = MySqlConnection.getConnection();
              PreparedStatement prep = con.prepareStatement(SQL_ADD_USER)){
             prep.setString(1, u.getUsername());
-            prep.setString(2, date_today);
-            prep.setString(3, date_today);
-            prep.setString(4, date_tomorrow);
+            prep.setString(2, dateToday);
+            prep.setString(3, dateToday);
+            prep.setString(4, dateTomorrow);
             prep.setInt(5, 1);
             prep.setBoolean(6, false);
 
