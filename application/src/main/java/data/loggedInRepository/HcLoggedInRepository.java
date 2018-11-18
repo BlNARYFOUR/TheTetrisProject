@@ -42,6 +42,7 @@ public class HcLoggedInRepository implements LoggedInRepository {
 
                 if(user.equals(u)) {
                     passedTime = Math.round((new Date().getTime() - u.getLoginDate().getTime()) / 1000);
+                    keyBuf = key;
                     break;
                 }
             }
