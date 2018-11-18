@@ -35,8 +35,11 @@ public class HcLoggedInRepository implements LoggedInRepository {
     public boolean isUserLogged(User user) {
         if(loggedUsers.containsValue(user)) {
             long passedTime = 0;
+            String keyBuf = "";
 
-            for(User u : loggedUsers.values()) {
+            for(String key : loggedUsers.keySet()) {
+                User u = loggedUsers.get(key);
+
                 if(user.equals(u)) {
                     passedTime = Math.round((new Date().getTime() - u.getLoginDate().getTime()) / 1000);
                     break;
@@ -44,9 +47,15 @@ public class HcLoggedInRepository implements LoggedInRepository {
             }
 
             System.out.println("Logged for "  + Long.toString(passedTime));
+            if(LoggedInRepository.EXPIRATION_TIME < passedTime) {
+                loggedUsers.remove(keyBuf);
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            return false;
         }
-
-        return loggedUsers.containsValue(user);
     }
 
     @Override
