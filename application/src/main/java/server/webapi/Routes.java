@@ -8,16 +8,21 @@ import data.Repositories;
 import domain.User;
 import domain.dailyStreak.DailyStreakRewards;
 import io.vertx.core.http.HttpServerResponse;
+import io.vertx.ext.web.Cookie;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.Session;
 import org.pmw.tinylog.Logger;
 import server.webapi.util.SecureFilePath;
 import util.Hash;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Date;
 import java.util.Objects;
 
 class Routes {
+    private static final String INFO_COOKIE = "info";
+
     private static ObjectMapper objectMapper = new ObjectMapper();
     private LoginRepository loginRepo = Repositories.getInstance().getLoginRepository();
     private LoggedInRepository loggedInRepo = Repositories.getInstance().getLoggedInRepository();
@@ -42,6 +47,8 @@ class Routes {
     }
 
     synchronized void loginHandler(RoutingContext routingContext) {
+        String info = "";
+
         try {
             String body = routingContext.getBodyAsString();
             User user = getUserFromBody(body);
@@ -54,7 +61,12 @@ class Routes {
             if (loggedInRepo.isUserLogged(user) || user == null) {
                 if (loggedInRepo.isUserLogged(user)) {
                     Logger.warn("User already logged in: " + Objects.requireNonNull(user).getUsername());
+                    info = "User '" + Objects.requireNonNull(user).getUsername() + "' has already logged in.";
+                } else if(session.get("username") != null) {
+                    info = "User or password are incorrect.";
                 }
+
+                cookieHandler(INFO_COOKIE, info, routingContext);
 
                 HttpServerResponse response = routingContext.response();
                 response.setChunked(true);
@@ -65,16 +77,30 @@ class Routes {
                 loggedInRepo.addLoggedUser(session.id(), user);
                 //System.out.println(loggedInRepo.getLoggedUser(session.id()).getLoginDate());
 
+                cookieHandler(INFO_COOKIE, info, routingContext);
+
                 HttpServerResponse response = routingContext.response();
                 response.setChunked(true);
                 response.headers().add("location", "/static/pages/main_menu.html");
                 response.setStatusCode(302).end();
             }
         } catch (Exception ex) {
+            info = "Something went wrong.";
+            try {
+                cookieHandler(INFO_COOKIE, info, routingContext);
+            } catch (UnsupportedEncodingException e) {
+                Logger.warn("Unable to send info cookie", e);
+            }
+
             HttpServerResponse response = routingContext.response();
             response.setChunked(true);
             response.sendFile("webroot/index.html");
         }
+    }
+
+    private void cookieHandler(String key, String value, RoutingContext routingContext) throws UnsupportedEncodingException {
+        String valueEnc = URLEncoder.encode(value, "UTF-8");
+        routingContext.addCookie(Cookie.cookie(key, valueEnc));
     }
 
     synchronized void registerHandler(RoutingContext routingContext) {
