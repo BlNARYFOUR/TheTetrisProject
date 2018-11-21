@@ -1,3 +1,5 @@
 /.idea/*
 /application/.idea/*
 *.xml
+
+/gradle/4.8/*
