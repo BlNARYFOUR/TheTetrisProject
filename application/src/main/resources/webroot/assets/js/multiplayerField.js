@@ -2,8 +2,9 @@
 
 document.addEventListener("DOMContentLoaded", init);
 
-const BLOCK = 32;
-const SPACE = 15;
+let BLOCK = 32;
+let SPACE = 15;
+
 const GAME_BOARD_SPACING = 4 * BLOCK + 2 * SPACE;
 
 const GAME_BOARD_WIDTH = 10;
@@ -51,11 +52,10 @@ let hold;
 
 let oldRadius = 0;
 
+let players = 0;
+
 function init(e) {
-    c = document.getElementById("userField");
-    ctx = c.getContext("2d");
-    c.width = (18 * BLOCK) + (4 * SPACE);
-    c.height = 18 * BLOCK;
+    players = 5;
 
     tiles = new Map();
     tiles.set(COLORS.TRANSPARENT, IMAGES.retroBackgroundTile);
@@ -68,25 +68,45 @@ function init(e) {
     tiles.set(COLORS.PURPLE, IMAGES.purpleTile);
     tiles.set(COLORS.PIKA, IMAGES.pikachuTile);
 
-    createGameBoard();
-    createHold();
-    createText("Next", SPACE + 1.25 * BLOCK + GAME_BOARD_SPACING + GAME_BOARD_WIDTH * BLOCK, SPACE_TOP - 5);
-    createText("Hold", SPACE + 1.2 * BLOCK, SPACE_TOP - 5);
-    createText("Level", SPACE + 1.1 * BLOCK, SPACE_TOP + 12 * BLOCK);
-    createText("Score", SPACE + 1.25 * BLOCK + GAME_BOARD_SPACING + GAME_BOARD_WIDTH * BLOCK, SPACE_TOP + 12 * BLOCK);
-    //createText("3898", SPACE + 1.3 * BLOCK + GAME_BOARD_SPACING + GAME_BOARD_WIDTH * BLOCK, SPACE_TOP + 14.2 * BLOCK);
-    createValue("5", BLOCK * 2.0, SPACE_TOP + 14.5 * BLOCK);
-    drawUserField();
+    drawFields();
 }
 
-function drawUserField() {
+function drawFields() {
+    for (let i = 0; i < players; i++) {
+        c = document.getElementById("userField_" + (i+1).toString());
+        ctx = c.getContext("2d");
+
+        if (i + 1 === 1) {
+            c.width = (18 * BLOCK) + (4 * SPACE);
+            c.height = 18 * BLOCK;
+        } else if (i + 1 === 2 || i + 1 === 3 || i + 1 === 4 || i + 1 === 5) {
+            BLOCK = 12;
+            SPACE = 6;
+            c.width = (18 * BLOCK) + (4 * SPACE);
+            c.height = 18 * BLOCK;
+        }
+
+
+        createGameBoard();
+        drawUserField(ctx);
+    }
+}
+
+function drawUserField(ctx) {
     drawGameBoard();
+    createHold();
+    createText(ctx, "Next", SPACE + 1.25 * BLOCK + GAME_BOARD_SPACING + GAME_BOARD_WIDTH * BLOCK, SPACE_TOP - 5);
+    createText(ctx, "Hold", SPACE + 1.2 * BLOCK, SPACE_TOP - 5);
+    createText(ctx, "Level", SPACE + 1.1 * BLOCK, SPACE_TOP + 12 * BLOCK);
+    createText(ctx, "Score", SPACE + 1.25 * BLOCK + GAME_BOARD_SPACING + GAME_BOARD_WIDTH * BLOCK, SPACE_TOP + 12 * BLOCK);
+    //createText("3898", SPACE + 1.3 * BLOCK + GAME_BOARD_SPACING + GAME_BOARD_WIDTH * BLOCK, SPACE_TOP + 14.2 * BLOCK);
+    createValue(ctx, "5", BLOCK * 2.0, SPACE_TOP + 14.5 * BLOCK);
     drawHold();
     drawNext();
     drawHero();
-    drawCircle(BLOCK * 2.5, SPACE_TOP + 14 * BLOCK,50,0,2*Math.PI);
+    drawCircle(ctx, BLOCK * 2.5, SPACE_TOP + 14 * BLOCK,50,0,2*Math.PI);
     //drawCircle(SPACE + 2.0 * BLOCK + GAME_BOARD_SPACING + GAME_BOARD_WIDTH * BLOCK, SPACE_TOP + 14 * BLOCK,50,0,2*Math.PI);
-    drawProgressBar(SPACE + 2.0 * BLOCK + GAME_BOARD_SPACING + GAME_BOARD_WIDTH * BLOCK, SPACE_TOP + 14 * BLOCK,10,0, 2*Math.PI, 0.5);
+    drawProgressBar(ctx, SPACE + 2.0 * BLOCK + GAME_BOARD_SPACING + GAME_BOARD_WIDTH * BLOCK, SPACE_TOP + 14 * BLOCK,10,0, 2*Math.PI, 0.5);
 }
 
 function createGameBoard() {
@@ -135,14 +155,14 @@ function drawNext() {
     }
 }
 
-function createText(text, x_co, y_co) {
+function createText(ctx, text, x_co, y_co) {
     ctx.globalAlpha = 1;
     ctx.font = 0.8 * BLOCK + "px fabian, sans-serif";
     ctx.fillStyle = "#9584FF";
     ctx.fillText(text, x_co, y_co);
 }
 
-function createValue(number, x_co, y_co) {
+function createValue(ctx, number, x_co, y_co) {
     ctx.font = 2.0 * BLOCK + "px fabian, sans-serif";
     ctx.fillStyle = "#9584FF";
     ctx.fillText(number, x_co, y_co);
@@ -158,7 +178,7 @@ function drawHero() {
     ctx.drawImage(IMAGES.pikachuTile, 1.2 * BLOCK, SPACE_TOP + 6.2 * BLOCK, BLOCK * 3, BLOCK * 3);
 }
 
-function drawCircle(x, y, radius, startAngle, endAngle, counterClockWise) {
+function drawCircle(ctx, x, y, radius, startAngle, endAngle, counterClockWise) {
     ctx.beginPath();
     ctx.arc(x, y, radius, startAngle, endAngle, counterClockWise);
     ctx.fillStyle = "#9584FF";
@@ -167,7 +187,7 @@ function drawCircle(x, y, radius, startAngle, endAngle, counterClockWise) {
     ctx.stroke();
 }
 
-function drawProgressBar(x, y, radius, startAngle, endAngle, animationDuration) {
+function drawProgressBar(ctx, x, y, radius, startAngle, endAngle, animationDuration) {
     if(50 < radius) {
         radius = 50;
     }
@@ -205,7 +225,7 @@ function drawProgressBar(x, y, radius, startAngle, endAngle, animationDuration) 
             ctx.clearRect(x-50,y-50,50*2,50*2);
             ctx.restore();
 
-            drawCircle(x, y,50,0,2*Math.PI);
+            drawCircle(ctx, x, y,50,0,2*Math.PI);
 
             bufRadius += frameRadius;
             ctx.beginPath();
@@ -220,7 +240,7 @@ function drawProgressBar(x, y, radius, startAngle, endAngle, animationDuration) 
             ctx.globalAlpha = 1;
         }
 
-        createText("3898", x-0.7*BLOCK, y+0.2*BLOCK);
+        createText(ctx, "3898", x-0.7*BLOCK, y+0.2*BLOCK);
     }
 }
 
