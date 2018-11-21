@@ -12,6 +12,8 @@ public class Program {
 
     private void run(){
         HeroesRepository repo = Repositories.getInstance().getHeroRepository();
+        
+
        /*// ADD user
         User person = new User(0, "Testid", "testid");
         repo.addUser(person);
