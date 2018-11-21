@@ -203,6 +203,8 @@ function init() {
     blockHeight = playingFieldHeight / GAME_BOARD_HEIGHT;
     console.log(blockWidth);
 
+
+
     //TODO test
     canvasNext = document.getElementById("next");
     ctxNext = canvasNext.getContext("2d");
@@ -875,7 +877,7 @@ function rotatePattern(blockPattern) {
 }
 
 function placeBlock(blockPattern, x, y, colorIndex) {
-    console.log("Try placing block");
+    console.log("Try placing BLOCK");
 
     let maxHeight = blockPattern.length;
     let maxWidth = blockPattern[0].length;

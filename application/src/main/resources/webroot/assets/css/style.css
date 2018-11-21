@@ -2,6 +2,10 @@
 
 /*LOGINSCHERM:*/
 
+#error {
+    display: block;
+}
+
 a {
     text-decoration: none;
 }
@@ -150,7 +154,7 @@ a {
     background: linear-gradient(to right, #9584FF , #FFA1E2);
 }
  
-.chooseGameMode-submit:hover, .clan-submit:hover, .shop-submit:hover, .highScore-submit:hover, .logOut-submit:hover, .back-submit:hover, .playGame-submit:hover, .option-back-submit:hover, .playFriends-submit:hover, .findOpp-submit:hover, .save-submit:hover, #no:hover, #yes:hover {
+.chooseGameMode-submit:hover, .clan-submit:hover, .shop-submit:hover, .highScore-submit:hover, .logOut-submit:hover, .back-submit:hover, .playGame-submit:hover, .option-back-submit:hover, .playFriends-submit:hover, .findOpp-submit:hover, .save-submit:hover, #no:hover, #yes:hover, .multiplayer-footer ul li:hover {
     border: 2px solid #9C35FF;
     color: #000000;
     text-shadow: 0 1px rgba(0,0,0,0.3);
@@ -401,6 +405,8 @@ h1, p{
     width: 200px;
     height: 50px;
     align-self: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .playFriends-submit, .findOpp-submit {
@@ -413,7 +419,6 @@ h1, p{
     background: linear-gradient(to right, #9584FF , #FFA1E2);
     font-size: 1.5rem;
     opacity: 0.5;
-    /*font-family: 'fabian', sans-serif;*/
 }
 
 .option-back-submit {
@@ -443,4 +448,44 @@ section input{
     background: url("../media/retroBackground.png");
 
 }
+
+/*------Multiplayer Field------*/
+.userField {
+    /*background-color: white;*/
+    outline: none;
+    box-shadow: 0 0 50px 10px rebeccapurple;
+    margin-top: 20px;
+    margin-left: 50px;
+}
+
+.multiplayer-footer {
+    color: white;
+    font-size: 1.0rem;
+    margin-top: 80px;
+}
+
+.multiplayer-footer ul {
+    list-style-type: none;
+    display: flex;
+}
+
+.multiplayer-footer ul li {
+    justify-content: space-around;
+    text-align: center;
+    width: 400px;
+    height: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    background-color: #2A679D;
+    align-self: flex-end;
+    border: 2px solid #9584FF;
+    border-radius: 10px;
+    color: #000000;
+    text-shadow: 0 1px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(to right, #9584FF , #FFA1E2);
+    font-size: 1.0rem;
+}
+
+
 
