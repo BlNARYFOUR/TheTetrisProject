@@ -7,11 +7,13 @@ import server.webapi.WebAPI;
 
 public class Tetris {
     public static void main(String... args) {
-        Logger.warn("Starting server");
+        //Logger.warn("Starting server");
+        System.out.println("Starting server");
 
         Vertx vertx = Vertx.vertx();
         EventBus eb = vertx.eventBus();
         vertx.deployVerticle(new WebAPI());
+
 
         Logger.info("Succesfully started server: localhost:8081/static");
     }

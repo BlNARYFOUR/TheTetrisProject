@@ -19,7 +19,7 @@ public class MySqlLoginRepository implements LoginRepository {
     @Override
     public void addUser(User u) {
         try (PreparedStatement prep = MySqlConnection.getConnection().prepareStatement(SQL_ADD_USER, Statement.RETURN_GENERATED_KEYS)){
-            u.setPassword(Hash.md5HashString(u.getPassword()));
+            u.setPassword(Hash.md5(u.getPassword()));
             prep.setString(1, u.getUsername());
             prep.setString(2, u.getPassword());
 
@@ -51,7 +51,7 @@ public class MySqlLoginRepository implements LoginRepository {
         try (Connection con = MySqlConnection.getConnection();
              PreparedStatement prep = con.prepareStatement(SQL_CONTROL_USER)){
 
-            String pass = hashPass ? Hash.md5HashString(password) : password;
+            String pass = hashPass ? Hash.md5(password) : password;
 
             prep.setString(1, username);
             prep.setString(2, pass);
