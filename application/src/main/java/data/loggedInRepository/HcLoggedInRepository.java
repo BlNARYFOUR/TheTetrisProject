@@ -68,4 +68,5 @@ public class HcLoggedInRepository implements LoggedInRepository {
     public User getLoggedUser(String sessionID) {
         return loggedUsers.getOrDefault(sessionID, null);
     }
+
 }

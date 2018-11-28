@@ -126,7 +126,7 @@ public class MySqlDailyRepository implements DailyRepository {
     }
 
     // user toevoegen
-    @Override
+   /* @Override
     public void addUser(User u) {
         try (Connection con = JDBCInteractor.getConnection();
              PreparedStatement prep = con.prepareStatement(SQL_ADD_USER)){
@@ -142,7 +142,7 @@ public class MySqlDailyRepository implements DailyRepository {
         }catch (SQLException ex){
             throw new DailyExeption("Unable to add user to DB.", ex);
         }
-    }
+    }*/
 
 
     // user weergeven

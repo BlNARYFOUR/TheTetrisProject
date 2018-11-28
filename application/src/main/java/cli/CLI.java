@@ -4,6 +4,7 @@ package cli;
 
 import cli.util.ANSI;
 import cli.util.CommandLineMenu;
+import data.TetrisRepository;
 import data.loginRepository.LoginRepository;
 import data.Repositories;
 import domain.User;
@@ -16,6 +17,7 @@ public class CLI {
     private CommandLineMenu mainMenu = new CommandLineMenu();
     private CommandLineMenu gameModes = new CommandLineMenu();
     private LoginRepository repo = Repositories.getInstance().getLoginRepository();
+    private TetrisRepository tetrisRepo;
 
     public static void main(String[] args) {
        new CLI().run();
@@ -68,7 +70,7 @@ public class CLI {
         System.out.println("Enter a password: ");
         String password = in.nextLine();
         User u = new User(username, password);
-        repo.addUser(u);
+        //TetrisRepository.addUser(u);
         System.out.println(ANSI.RED + "User added." + ANSI.RESET);
     }
     
@@ -79,9 +81,9 @@ public class CLI {
         String username = in.nextLine();
         System.out.println("Enter a password: ");
         String password = in.nextLine();
-        repo.getUser(username);
-        repo.authenticateUser(username, password);
-        if (repo.getUser(username).getPassword().equals(Hash.md5(password))){
+        tetrisRepo.getUser(username);
+        tetrisRepo.authenticateUser(username, password);
+        if (tetrisRepo.getUser(username).getPassword().equals(Hash.md5(password))){
             mainMenu.run();
         }
     }

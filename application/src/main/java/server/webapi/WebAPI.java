@@ -31,7 +31,6 @@ public class WebAPI extends AbstractVerticle {
     public void start() {
         
         this.initDB();
-        TetrisRepository.populateDB();
         
         
         HttpServer server = vertx.createHttpServer();
@@ -76,6 +75,7 @@ public class WebAPI extends AbstractVerticle {
 
     private void initDB() {
         new JDBCInteractor().startDBServer();
+        TetrisRepository.populateDB();
     }
 
     private void initConsumers() {

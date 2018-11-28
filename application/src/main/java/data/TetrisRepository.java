@@ -2,15 +2,25 @@ package data;
 
 import domain.User;
 import org.pmw.tinylog.Logger;
+import util.DailyExeption;
+import util.DateFormat;
 import util.Hash;
 import util.LoginException;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public final class TetrisRepository {
+
+    private static java.util.Date now = new java.util.Date();
+    private static java.util.Date tomorrow = new Date(now.getTime() + (1000 * 60 * 60 * 24));
+    private static SimpleDateFormat dateFormat = new SimpleDateFormat(DateFormat.YODA_TIME.toString());
+    private static String dateToday = dateFormat.format(now);
+    private static String dateTomorrow = dateFormat.format(tomorrow);
+
     private static final String SQL_USER_DB =
             "CREATE TABLE IF NOT EXISTS user (\n" +
                     "  user_id int(11) NOT NULL AUTO_INCREMENT,\n" +
@@ -25,9 +35,7 @@ public final class TetrisRepository {
                     "  cubes int(11) DEFAULT 0,\n" +
                     "  PRIMARY KEY (user_id),\n" +
                     "  UNIQUE KEY user_id_UNIQUE (user_id),\n" +
-                    "  UNIQUE KEY username_UNIQUE (username),\n" +
-                    "  /*KEY streak_day_id_idx (streakDays),\n*/" +
-                    "  CONSTRAINT streak_id FOREIGN KEY (streakDays) REFERENCES rewards (rewardID) ON DELETE NO ACTION ON UPDATE NO ACTION)";
+                    "  UNIQUE KEY username_UNIQUE (username))";
 
     private static final String SQL_REWARDS_DB =
             "CREATE TABLE IF NOT EXISTS rewards (\n" +
@@ -96,64 +104,22 @@ public final class TetrisRepository {
                     "  CONSTRAINT FKuserID FOREIGN KEY (userID) REFERENCES user (user_id) ON DELETE NO ACTION ON UPDATE NO ACTION)";
 
 
+    private static final String SQL_ADD_USER = "insert into user(username, password, registerdate, " +
+            "startstreakdate, lastloggedindate, streakdays, alreadyloggedintoday)" +
+            "values (?, ?, ?, ?, ?, ?, ?)";
+    private static final String SQL_CONTROL_USER = "select * from user where username = ?" +
+            " and password = ?";
+    private static final String SQL_DELETE_USER = "delete from user where username = ?";
+    private static final String SQL_GET_USERNAME = "select * from user where username = ?";
 
 
 
 
-
-    private static final String SQL_ADD_GAMEMODES =
-            "insert  into gamemodes(gamemodeID,gamemodeName) values \n" +
-                    "(1,Single_player),\n" +
-                    "(2,Multi_player),\n" +
-                    "(3,Time_attack),\n" +
-                    "(4,Last_Man_Standing);\n";
-
-    private static final String SQL_ADD_HEROES =
-            "insert  into heroes(heroID,heroName,heroAbility,heroAbilityNegative,cost) values \n" +
-                    "(1,Pac-Man,Eating 2 adjacent rows,0,100),\n" +
-                    "(2,Donkey Kong,Throws a ton on the roughest surface of the field,1,100),\n" +
-                    "(4,Pikachu,Reverse controls,1,100),\n" +
-                    "(5,Sonic,\\rThe next block of opponent goes directly down,1,100);\n";
-
-    private static final String SQL_ADD_MYSTERYBOX =
-            "insert  into mysterybox(mbID,amount,mbPrice) values \n" +
-                    "(1,1,skin),\n" +
-                    "(2,10,cubes),\n" +
-                    "(3,100,xp),\n" +
-                    "(4,1,avatar),\n" +
-                    "(5,1,nothing);";
-
-    private static final String SQL_ADD_REWARDS =
-            "insert  into rewards(rewardID,countStreakDays,amount,rewards) values \n" +
-                    "(1,1,50,xp),\n" +
-                    "(2,2,1,scratch card),\n" +
-                    "(3,3,100,xp),\n" +
-                    "(4,4,1,scratch card),\n" +
-                    "(5,5,150,xp),\n" +
-                    "(6,6,1,mystery box),\n" +
-                    "(7,7,10,cubes);";
-
-    private static final String SQL_ADD_SCRATCHCARD =
-            "insert  into scratchcard(scID,amount,scPrice) values \n" +
-                    "(1,10,cubes),\n" +
-                    "(2,100,xp),\n" +
-                    "(3,1,skin),\n" +
-                    "(4,0,nothing);";
-    private static final String SQL_ADD_USER = "insert into user(username, password)" +
-            "values(?, ?)";
-
-    /*private static final String SQL_ADD_USER =
-            "insert into user(user_id,username,password,registerDate,startStreakDate,lastLoggedInDate,streakDays,alreadyLoggedInToday,xp,cubes) values \n" +
-                    "(1,Testid,98f6bcd4621d373cade4e832627b4f6,'',NULL,NULL,NULL,0,NULL,0),\n" +
-                    "(2,Bryan,7d4ef62de50874a4db33e6da3ff79f75,'',NULL,NULL,NULL,0,NULL,0),\n" +
-                    "(3,samsung,6bac5ceb65066fc615beeb839bb6b81,2018-11-19 04:36:34,2018-11-19 04:36:34,2018-11-20 04:36:34,1,0,NULL,0),\n" +
-                    "(4,hallo,598d4c200461b81522a3328565c25f7c,2018-11-19 05:29:09,2018-11-19 05:29:09,2018-11-27 08:11:51,3,1,100,0),\n" +
-                    "(5,test,98f6bcd4621d373cade4e832627b4f6,2018-11-21 01:19:49,2018-11-21 01:19:49,2018-11-29 02:33:32,2,1,50,0),\n" +
-                    "(7,boeman,a6d5559b73dc4b39768e087455d3cbc6,2018-11-25 03:37:36,2018-11-25 03:37:36,2018-11-29 11:25:32,1,1,50,0);\n";
-*/
     private TetrisRepository(){
     }
 
+
+    // DATABASE
     public static void populateDB(){
         try (Statement stmt = JDBCInteractor.getConnection().createStatement()){
             stmt.executeUpdate(SQL_REWARDS_DB);
@@ -176,21 +142,93 @@ public final class TetrisRepository {
         }
     }
 
-    /*public static void addUser(User u) {
-        try (PreparedStatement prep = JDBCInteractor.getConnection().prepareStatement(SQL_ADD_USER, Statement.RETURN_GENERATED_KEYS)){
-            u.setPassword(Hash.md5(u.getPassword()));
+
+    // LOGIN
+    public static void addUser(User u) {
+        try (Connection con = JDBCInteractor.getConnection();
+             PreparedStatement prep = con.prepareStatement(SQL_ADD_USER)){
             prep.setString(1, u.getUsername());
             prep.setString(2, u.getPassword());
+            prep.setString(3, dateToday);
+            prep.setString(4, dateToday);
+            prep.setString(5, dateTomorrow);
+            prep.setInt(6, 1);
+            prep.setBoolean(7, false);
 
             prep.executeUpdate();
-
-            ResultSet rs = prep.getGeneratedKeys();
-            rs.next();
-            u.setID(rs.getInt(1));
             System.out.println("User has been added.");
         }catch (SQLException ex){
-            throw new LoginException("Unable to add user to DB.", ex);
+            throw new DailyExeption("Unable to add user to DB.", ex);
         }
-    }*/
+    }
 
+    public User authenticateUser(String username, String password) {
+        return authenticateUser(username, password, true);
+    }
+
+
+    public static User authenticateUser(String username, String password, boolean hashPass) {
+        User user = null;
+
+        try (Connection con = JDBCInteractor.getConnection();
+             PreparedStatement prep = con.prepareStatement(SQL_CONTROL_USER)){
+
+            String pass = hashPass ? Hash.md5(password) : password;
+
+            prep.setString(1, username);
+            prep.setString(2, pass);
+
+            ResultSet rs = prep.executeQuery();
+
+            if (rs.next()){
+                user = new User(rs.getInt("user_id"), rs.getString("username"), rs.getString("password"));
+                System.out.println("Login successful: " + user.getUsername());
+            }else {
+                System.out.println("Login failed!");
+            }
+
+
+        }catch (SQLException ex){
+            throw new LoginException("Login has been failed!");
+        }
+        return user;
+    }
+
+    public User deleteUser(String username) {
+        try (Connection con = JDBCInteractor.getConnection();
+             PreparedStatement prep = con.prepareStatement(SQL_DELETE_USER)){
+            prep.setString(1, username);
+
+            prep.executeUpdate();
+            System.out.println("User has been deleted!");
+        }catch (SQLException ex){
+            throw new LoginException("Can't delete user", ex);
+        }
+        return null;
+    }
+
+    public User getUser(String username) {
+        try (Connection con = JDBCInteractor.getConnection();
+             PreparedStatement prep = con.prepareStatement(SQL_GET_USERNAME)) {
+            prep.setString(1, username);
+
+            try (ResultSet rs = prep.executeQuery()){
+                if (rs.next()){
+                    return createUser(rs);
+                }else {
+                    return null;
+                }
+            }
+        }catch (SQLException ex){
+            throw new LoginException("Can't find the username.", ex);
+        }
+    }
+
+    private User createUser(ResultSet rs) throws SQLException {
+        int ID = rs.getInt("user_id");
+        String username = rs.getString("username");
+        String password = rs.getString("password");
+        return new User(ID, username, password);
+    }
 }
+
