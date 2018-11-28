@@ -20,6 +20,7 @@ function init(e) {
 function showAllGamemodes() {
 
     document.getElementById("back").addEventListener("click", goBack);
+    document.getElementById("next").addEventListener("click", goNext);
 
     let location = document.getElementById("showAllGamemodes");
     let imgList = "";
@@ -75,5 +76,6 @@ function goBack(e) {
 }
 
 function goNext(e) {
-
+    e.preventDefault();
+    location.href="chooseHero.html";
 }
