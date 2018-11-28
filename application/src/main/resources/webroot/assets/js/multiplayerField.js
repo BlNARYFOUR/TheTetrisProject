@@ -2,16 +2,24 @@
 
 document.addEventListener("DOMContentLoaded", init);
 
-const BLOCK = 32;
-const SPACE = 15;
-const GAME_BOARD_SPACING = 4 * BLOCK + 2 * SPACE;
+let RESIZE_TIME_INTERVAL;
+
+const BLOCK_NORMAL_RATIO = 32/1920;
+const SPACE_NORMAL_RATIO = 15/1920;
+
+let BLOCK = BLOCK_NORMAL_RATIO * document.documentElement.clientWidth;
+let SPACE = SPACE_NORMAL_RATIO * document.documentElement.clientWidth;
+
+let GAME_BOARD_SPACING = 4 * BLOCK + 2 * SPACE;
 
 const GAME_BOARD_WIDTH = 10;
 const GAME_BOARD_HEIGHT = 18;
 
-const SPACE_TOP = 10 + BLOCK;
-const HOLD_WIDTH = 4;
-const HOLD_HEIGHT = 4;
+let SPACE_TOP = 10 + BLOCK;
+let HOLD_WIDTH = 4;
+let HOLD_HEIGHT = 4;
+
+let MOCK_PROGRESS = 20;
 
 const IMAGES = {
     backgroundStartScreen: createImageObj("backgroundStartScreen.png"),
@@ -38,24 +46,24 @@ const COLORS = {
     YELLOW: 4,
     LIGHT_BLUE: 5,
     GREEN: 6,
-    PURPLE: 7,
-    PIKA: 8
+    PURPLE: 7
 };
 
 let c;
 let ctx;
 
 let tiles;
-let gameBoard;
+let GAME_BOARDS = [];
 let hold;
 
-let oldRadius = 0;
+let CIRCLE = BLOCK * 1.5;
+let oldRadius = [0,0,0,0,0];
+let progressIntervals = [0,0,0,0,0];
+
+let AMOUNT_OF_PLAYERS = 0;
 
 function init(e) {
-    c = document.getElementById("userField");
-    ctx = c.getContext("2d");
-    c.width = (18 * BLOCK) + (4 * SPACE);
-    c.height = 18 * BLOCK;
+    AMOUNT_OF_PLAYERS = 5;
 
     tiles = new Map();
     tiles.set(COLORS.TRANSPARENT, IMAGES.retroBackgroundTile);
@@ -69,41 +77,90 @@ function init(e) {
     tiles.set(COLORS.PIKA, IMAGES.pikachuTile);
 
     createGameBoard();
-    createHold();
-    createText("Next", SPACE + 1.25 * BLOCK + GAME_BOARD_SPACING + GAME_BOARD_WIDTH * BLOCK, SPACE_TOP - 5);
-    createText("Hold", SPACE + 1.2 * BLOCK, SPACE_TOP - 5);
-    createText("Level", SPACE + 1.1 * BLOCK, SPACE_TOP + 12 * BLOCK);
-    createText("Score", SPACE + 1.25 * BLOCK + GAME_BOARD_SPACING + GAME_BOARD_WIDTH * BLOCK, SPACE_TOP + 12 * BLOCK);
-    //createText("3898", SPACE + 1.3 * BLOCK + GAME_BOARD_SPACING + GAME_BOARD_WIDTH * BLOCK, SPACE_TOP + 14.2 * BLOCK);
-    createValue("5", BLOCK * 2.0, SPACE_TOP + 14.5 * BLOCK);
-    drawUserField();
+
+    window.addEventListener("resize", onResize);
+
+    gameLoop();
 }
 
-function drawUserField() {
-    drawGameBoard();
+function gameLoop() {
+    drawFields();
+
+    window.requestAnimationFrame(gameLoop);
+}
+
+function onResize(e) {
+    e.preventDefault();
+
+    clearTimeout(RESIZE_TIME_INTERVAL);
+    RESIZE_TIME_INTERVAL = setTimeout(drawFields, 750);
+}
+
+function setSizeStuff(playerId) {
+    if (playerId === 1) {
+        BLOCK = BLOCK_NORMAL_RATIO * document.documentElement.clientWidth;
+        SPACE = SPACE_NORMAL_RATIO * document.documentElement.clientWidth;
+    } else {
+        BLOCK = BLOCK_NORMAL_RATIO * document.documentElement.clientWidth / 2.05;
+        SPACE = SPACE_NORMAL_RATIO * document.documentElement.clientWidth / 2.05;
+    }
+
+    GAME_BOARD_SPACING = 4 * BLOCK + 2 * SPACE;
+    SPACE_TOP = BLOCK * 42/32;
+    CIRCLE = BLOCK * 1.5;
+}
+
+function drawFields() {
+    for (let i = 0; i < AMOUNT_OF_PLAYERS; i++) {
+        c = document.getElementById("userField_" + (i+1).toString());
+        ctx = c.getContext("2d");
+
+        setSizeStuff(i+1);
+
+        c.width = (18 * BLOCK) + (4 * SPACE);
+        c.height = 18 * BLOCK;
+
+        drawUserField(ctx, i);
+    }
+}
+
+function drawUserField(ctx, playerId) {
+    ctx.clearRect(0,0, c.width, c.height);
+
+    drawGameBoard(playerId);
+    createHold();
+    createText(ctx, "Next", SPACE + 1.25 * BLOCK + GAME_BOARD_SPACING + GAME_BOARD_WIDTH * BLOCK, SPACE_TOP - 5, BLOCK);
+    createText(ctx, "Hold", SPACE + 1.2 * BLOCK, SPACE_TOP - 5, BLOCK);
+    createText(ctx, "Level", SPACE + 1.1 * BLOCK, SPACE_TOP + 12 * BLOCK, BLOCK);
+    createText(ctx, "Score", SPACE + 1.25 * BLOCK + GAME_BOARD_SPACING + GAME_BOARD_WIDTH * BLOCK, SPACE_TOP + 12 * BLOCK, BLOCK);
+    //createText("3898", SPACE + 1.3 * BLOCK + GAME_BOARD_SPACING + GAME_BOARD_WIDTH * BLOCK, SPACE_TOP + 14.2 * BLOCK);
+    createValue(ctx, "5", BLOCK * 2.0, SPACE_TOP + 14.5 * BLOCK, BLOCK);
     drawHold();
     drawNext();
     drawHero();
-    drawCircle(BLOCK * 2.5, SPACE_TOP + 14 * BLOCK,50,0,2*Math.PI);
+    drawCircle(ctx, BLOCK * 2.5, SPACE_TOP + 14 * BLOCK,CIRCLE,0,2*Math.PI);
     //drawCircle(SPACE + 2.0 * BLOCK + GAME_BOARD_SPACING + GAME_BOARD_WIDTH * BLOCK, SPACE_TOP + 14 * BLOCK,50,0,2*Math.PI);
-    drawProgressBar(SPACE + 2.0 * BLOCK + GAME_BOARD_SPACING + GAME_BOARD_WIDTH * BLOCK, SPACE_TOP + 14 * BLOCK,10,0, 2*Math.PI, 0.5);
+
+    //MOCK_PROGRESS += 20;
+    drawProgressBar(playerId, ctx, SPACE + 2.0 * BLOCK + GAME_BOARD_SPACING + GAME_BOARD_WIDTH * BLOCK, SPACE_TOP + 14 * BLOCK, MOCK_PROGRESS, 0, 2*Math.PI, 0.5);
 }
 
 function createGameBoard() {
-    gameBoard = new Array(0);
-
-    for(let i=0; i<GAME_BOARD_HEIGHT; i++) {
-        gameBoard.push(new Array(0));
-        for(let j=0; j<GAME_BOARD_WIDTH; j++) {
-            gameBoard[i].push(0);
+    for(let a = 0; a < AMOUNT_OF_PLAYERS; a++) {
+        GAME_BOARDS.push([]);
+        for (let i = 0; i < GAME_BOARD_HEIGHT; i++) {
+            GAME_BOARDS[a].push(new Array(0));
+            for (let j = 0; j < GAME_BOARD_WIDTH; j++) {
+                GAME_BOARDS[a][i].push(0);
+            }
         }
     }
 }
 
-function drawGameBoard() {
+function drawGameBoard(playerID) {
      for (let i = 0; i < GAME_BOARD_HEIGHT; i ++) {
          for (let j = 0; j < GAME_BOARD_WIDTH; j ++) {
-            ctx.drawImage(tiles.get(gameBoard[i][j]), j * BLOCK + GAME_BOARD_SPACING, i * BLOCK, BLOCK, BLOCK)
+            ctx.drawImage(tiles.get(GAME_BOARDS[playerID][i][j]), j * BLOCK + GAME_BOARD_SPACING, i * BLOCK, BLOCK, BLOCK)
          }
      }
 }
@@ -135,15 +192,15 @@ function drawNext() {
     }
 }
 
-function createText(text, x_co, y_co) {
+function createText(ctx, text, x_co, y_co, block) {
     ctx.globalAlpha = 1;
-    ctx.font = 0.8 * BLOCK + "px fabian, sans-serif";
+    ctx.font = 0.8 * block + "px fabian, sans-serif";
     ctx.fillStyle = "#9584FF";
     ctx.fillText(text, x_co, y_co);
 }
 
-function createValue(number, x_co, y_co) {
-    ctx.font = 2.0 * BLOCK + "px fabian, sans-serif";
+function createValue(ctx, number, x_co, y_co, block) {
+    ctx.font = 2.0 * block + "px fabian, sans-serif";
     ctx.fillStyle = "#9584FF";
     ctx.fillText(number, x_co, y_co);
 }
@@ -158,7 +215,7 @@ function drawHero() {
     ctx.drawImage(IMAGES.pikachuTile, 1.2 * BLOCK, SPACE_TOP + 6.2 * BLOCK, BLOCK * 3, BLOCK * 3);
 }
 
-function drawCircle(x, y, radius, startAngle, endAngle, counterClockWise) {
+function drawCircle(ctx, x, y, radius, startAngle, endAngle, counterClockWise) {
     ctx.beginPath();
     ctx.arc(x, y, radius, startAngle, endAngle, counterClockWise);
     ctx.fillStyle = "#9584FF";
@@ -167,13 +224,59 @@ function drawCircle(x, y, radius, startAngle, endAngle, counterClockWise) {
     ctx.stroke();
 }
 
-function drawProgressBar(x, y, radius, startAngle, endAngle, animationDuration) {
-    if(50 < radius) {
-        radius = 50;
+function drawProgressBar(id, ctx, x, y, radius, startAngle, endAngle, animationDuration) {
+    let playerId = id;
+
+    if(100 < radius) {
+        radius = 100;
     }
-    let frameRadius = (radius - oldRadius) / (animationDuration / 0.01);
-    let bufRadius = oldRadius;
-    let interval = setInterval(frame, 10);
+
+    let circle = CIRCLE;
+    let block = BLOCK;
+
+    radius = circle * radius/100;
+
+    let color = {
+        R: 255,
+        G: 0,
+        B: 0
+    };
+
+    if(circle <= radius) {
+        color = {
+            R: 0,
+            G: 255,
+            B: 0
+        };
+    }
+
+    drawCircle(ctx, x, y,circle,0,2*Math.PI);
+
+    ctx.beginPath();
+    ctx.arc(x, y, radius, startAngle, endAngle);
+    ctx.fillStyle = "rgb(" + color.R + "," + color.G + "," + color.B + ")";
+    ctx.globalAlpha = 0.5;
+    ctx.fill();
+    ctx.globalAlpha = 1;
+
+    createText(ctx, "3898", x-0.7*block, y+0.2*block, block);
+}
+
+/*
+function drawProgressBar(id, ctx, x, y, radius, startAngle, endAngle, animationDuration) {
+    let playerId = id;
+
+    if(100 < radius) {
+        radius = 100;
+    }
+
+    let circle = CIRCLE;
+    let block = BLOCK;
+
+    radius = circle * radius/100;
+
+    let frameRadius = (radius - oldRadius[playerId]) / (animationDuration / 0.01);
+    let bufRadius = oldRadius[playerId];
 
     let color = {
         R: 255,
@@ -182,9 +285,9 @@ function drawProgressBar(x, y, radius, startAngle, endAngle, animationDuration) 
     };
     let colorChange = 0;
 
-    if(50 <= radius && oldRadius < 50) {
+    if(circle <= radius && oldRadius[playerId] < circle) {
         colorChange += Math.floor(256 / (animationDuration / 0.01));
-    } else if(50 <= oldRadius && radius < 50) {
+    } else if(circle <= oldRadius[playerId] && radius < circle) {
         color = {
             R: 0,
             G: 255,
@@ -195,17 +298,17 @@ function drawProgressBar(x, y, radius, startAngle, endAngle, animationDuration) 
 
     function frame() {
         if (radius - 0.00000001 <= bufRadius && bufRadius <= radius + 0.00000001 ) {
-            clearInterval(interval);
-            oldRadius = radius;
+            clearInterval(progressIntervals[playerId]);
+            oldRadius[playerId] = radius;
         } else {
             ctx.save();
             ctx.beginPath();
-            ctx.arc(x, y, 50, startAngle, endAngle);
+            ctx.arc(x, y, circle, startAngle, endAngle);
             ctx.clip();
-            ctx.clearRect(x-50,y-50,50*2,50*2);
+            ctx.clearRect(x-circle,y-circle,circle*2,circle*2);
             ctx.restore();
 
-            drawCircle(x, y,50,0,2*Math.PI);
+            drawCircle(ctx, x, y,circle,0,2*Math.PI);
 
             bufRadius += frameRadius;
             ctx.beginPath();
@@ -220,9 +323,9 @@ function drawProgressBar(x, y, radius, startAngle, endAngle, animationDuration) 
             ctx.globalAlpha = 1;
         }
 
-        createText("3898", x-0.7*BLOCK, y+0.2*BLOCK);
+        createText(ctx, "3898", x-0.7*block, y+0.2*block, block);
     }
+
+    progressIntervals[playerId] = setInterval(frame, 10);
 }
-
-
-
+*/
