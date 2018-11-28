@@ -66,7 +66,7 @@ function changeSelected(e) {
 
 
 function goBack() {
-    location.href = "#"; //Go to gamemode
+    location.href = "chooseGamemode.html"; //Go to gamemode
 }
 
 function isLocalStorageSupported() {
