@@ -58,7 +58,7 @@ let GAME_BOARDS = [];
 let hold;
 
 let CIRCLE = BLOCK * 1.5;
-let oldRadius = 0;
+let oldRadius = [0,0,0,0,0];
 
 let AMOUNT_OF_PLAYERS = 0;
 
@@ -87,7 +87,7 @@ function onResize(e) {
     e.preventDefault();
 
     clearTimeout(RESIZE_TIME_INTERVAL);
-    RESIZE_TIME_INTERVAL = setTimeout(drawFields, 200);
+    RESIZE_TIME_INTERVAL = setTimeout(drawFields, 750);
 }
 
 function setSizeStuff(playerId) {
@@ -119,6 +119,8 @@ function drawFields() {
 }
 
 function drawUserField(ctx, playerId) {
+    ctx.clearRect(0,0, c.width, c.height);
+
     drawGameBoard(playerId);
     createHold();
     createText(ctx, "Next", SPACE + 1.25 * BLOCK + GAME_BOARD_SPACING + GAME_BOARD_WIDTH * BLOCK, SPACE_TOP - 5, BLOCK);
@@ -217,6 +219,8 @@ function drawCircle(ctx, x, y, radius, startAngle, endAngle, counterClockWise) {
 }
 
 function drawProgressBar(id, ctx, x, y, radius, startAngle, endAngle, animationDuration) {
+    let playerId = id;
+
     if(100 < radius) {
         radius = 100;
     }
@@ -226,8 +230,8 @@ function drawProgressBar(id, ctx, x, y, radius, startAngle, endAngle, animationD
 
     radius = circle * radius/100;
 
-    let frameRadius = (radius - oldRadius) / (animationDuration / 0.01);
-    let bufRadius = oldRadius;
+    let frameRadius = (radius - oldRadius[playerId]) / (animationDuration / 0.01);
+    let bufRadius = oldRadius[playerId];
 
     let color = {
         R: 255,
@@ -236,9 +240,9 @@ function drawProgressBar(id, ctx, x, y, radius, startAngle, endAngle, animationD
     };
     let colorChange = 0;
 
-    if(50 <= radius && oldRadius < 50) {
+    if(circle <= radius && oldRadius[playerId] < circle) {
         colorChange += Math.floor(256 / (animationDuration / 0.01));
-    } else if(circle <= oldRadius && radius < circle) {
+    } else if(circle <= oldRadius[playerId] && radius < circle) {
         color = {
             R: 0,
             G: 255,
@@ -250,7 +254,7 @@ function drawProgressBar(id, ctx, x, y, radius, startAngle, endAngle, animationD
     function frame() {
         if (radius - 0.00000001 <= bufRadius && bufRadius <= radius + 0.00000001 ) {
             clearInterval(interval);
-            oldRadius = radius;
+            oldRadius[playerId] = radius;
         } else {
             ctx.save();
             ctx.beginPath();
