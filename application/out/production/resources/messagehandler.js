@@ -5,3 +5,5 @@ eb.consumer("login.events.message", function(message) {
     message.reply("OK");
     eb.publish("login.events.main", message.body());
 });
+
+eb.consumer("")

@@ -1,6 +1,8 @@
 package server.webapi;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import data.JDBCInteractor;
+import data.TetrisRepository;
 import data.dailyStreakRepository.DailyRepository;
 import data.loggedInRepository.LoggedInRepository;
 import data.loginRepository.LoginRepository;

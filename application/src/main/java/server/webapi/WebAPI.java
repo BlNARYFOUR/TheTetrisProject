@@ -1,6 +1,8 @@
 package server.webapi;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import data.JDBCInteractor;
+import data.TetrisRepository;
 import data.loginRepository.LoginRepository;
 import data.Repositories;
 import domain.User;
@@ -27,6 +29,11 @@ public class WebAPI extends AbstractVerticle {
 
     @Override
     public void start() {
+        
+        this.initDB();
+        TetrisRepository.populateDB();
+        
+        
         HttpServer server = vertx.createHttpServer();
         Router router = Router.router(vertx);
         Routes routes = new Routes();
@@ -65,6 +72,10 @@ public class WebAPI extends AbstractVerticle {
         server.requestHandler(router::accept).listen(8081);
 
         initConsumers();
+    }
+
+    private void initDB() {
+        new JDBCInteractor().startDBServer();
     }
 
     private void initConsumers() {
