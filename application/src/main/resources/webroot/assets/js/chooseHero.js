@@ -15,20 +15,22 @@ function loadHeroes() {
 
     let location = document.getElementById("choose-hero");
     let imgList = "";
-    let heroes = ["donkeykong", "donkeykong", "donkeykong", "donkeykong"];
+    let heroes = ["donkeykong"];
 
     let firstSelected = " selected";
 
     for (let i = 0; i < heroes.length; i++) {
-                imgList += "<li class='selectable hero-" + heroes[i] + firstSelected + "'>" +
-                    "<img data-heroname='" + heroes[i] + "' src= ../assets/media/" + heroes[i] + ".gif class='"+ heroes[i] +"' title='"+ heroes[i] +"' alt='"+ heroes[i] +"'>" +
-                    "<p>"+ heroes[i] +"</p>" +
-                    "</li>";
+        imgList += "<li class='selectable hero-" + heroes[i] + firstSelected + "' data-heroname='" + heroes[i] + "'>" +
+            "<img data-heroname='" + heroes[i] + "' src= ../assets/media/" + heroes[i] + ".gif class='"+ heroes[i] +"' title='"+ heroes[i] +"' alt='"+ heroes[i] +"'>" +
+            "<p data-heroname='" + heroes[i] + "'>"+ heroes[i] +"</p>" +
+            "</li>";
 
-                firstSelected = "";
+        firstSelected = "";
     }
 
     location.innerHTML = imgList;
+    selectedHero = heroes[0];
+    storeHero();
     selectablesEvents();
 }
 
@@ -50,14 +52,8 @@ function changeSelected(e) {
 
         selectedHero = e.target.dataset.heroname;
 
-        if (emptyLocalStorage()){
-            storeHero();
-            retrieveHero();
-        } else {
-            //deleteHeroFromLocalStorage();
-        }
-
-
+        storeHero();
+        retrieveHero();
     }
     e.target.parentNode.classList.add("selected");
 
@@ -70,7 +66,7 @@ function changeSelected(e) {
 
 
 function goBack() {
-    location.href = "#"; //Go to gamemode
+    location.href = "chooseGamemode.html"; //Go to gamemode
 }
 
 function isLocalStorageSupported() {
@@ -83,21 +79,16 @@ function isLocalStorageSupported() {
 
 function storeHero() {
     if (isLocalStorageSupported()){
-        let heroName = selectedHero;
-        let hero = {"name": heroName};
-        let heroAsString = JSON.stringify(hero);
-        localStorage.setItem("hero", heroAsString);
+        localStorage.setItem("hero", selectedHero);
     } else {
         console.log("something went wrong!");
     }
 }
 
 function retrieveHero() {
-    if (isLocalStorageSupported() && localStorage.getItem("hero")!== null){
+    if (isLocalStorageSupported()){
         let heroAsString = localStorage.getItem("hero");
-        let hero = JSON.parse(heroAsString);
-
-        console.log(hero);
+        console.log(heroAsString);
     } else {
         console.log("Somthing went wrong!");
     }

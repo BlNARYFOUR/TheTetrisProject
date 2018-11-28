@@ -1,9 +1,9 @@
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import domain.User;
 import domain.game.matchmaking.Match;
 import domain.game.matchmaking.MatchHandler;
 import domain.game.modes.GameMode;
-import domain.game.modes.ModeSearch;
-import domain.game.modes.PlayerMode;
 import org.junit.Test;
 import util.MatchableException;
 
@@ -14,31 +14,39 @@ import java.util.*;
 public class MatchHandlerTest {
     @Test
     public void testAddMatchable() {
+
+        try {
+            String json = new ObjectMapper().writeValueAsString(GameMode.getValues());
+            System.out.println(json);
+        } catch (JsonProcessingException e) {
+            System.out.println("failed gamemode.values");
+        }
+
         MatchHandler.getInstance().resetMatchable();
 
-        Map<ModeSearch, Set<User>> expectedMatchable = new HashMap<>();
+        Map<GameMode, Set<User>> expectedMatchable = new HashMap<>();
 
         User user = new User(0, "Test", "Azerty123");
-        ModeSearch modeSearch = new ModeSearch(PlayerMode.MULTI_RANDOM, GameMode.STANDARD);
+        GameMode gameMode = GameMode.STANDARD;
 
-        expectedMatchable.put(modeSearch, new HashSet<>());
-        expectedMatchable.get(modeSearch).add(user);
+        expectedMatchable.put(gameMode, new HashSet<>());
+        expectedMatchable.get(gameMode).add(user);
 
-        MatchHandler.getInstance().addMatchable(user, modeSearch);
+        MatchHandler.getInstance().addMatchable(user, gameMode);
 
         assertEquals(expectedMatchable, MatchHandler.getInstance().getMatchable());
 
         user = new User(2, "Sonic", "Sonic123");
-        expectedMatchable.get(modeSearch).add(user);
+        expectedMatchable.get(gameMode).add(user);
 
-        MatchHandler.getInstance().addMatchable(user, modeSearch);
+        MatchHandler.getInstance().addMatchable(user, gameMode);
 
         assertEquals(expectedMatchable, MatchHandler.getInstance().getMatchable());
 
-        modeSearch = new ModeSearch(PlayerMode.SINGLE_PLAYER, GameMode.STANDARD);
+        gameMode = GameMode.SINGLE_PLAYER;
 
         try {
-            MatchHandler.getInstance().addMatchable(user, modeSearch);
+            MatchHandler.getInstance().addMatchable(user, gameMode);
             fail();
         } catch (MatchableException ex) {
             /* expected*/
@@ -55,12 +63,12 @@ public class MatchHandlerTest {
             users.add(new User(i, "User" + Integer.toString(i+1), ""));
         }
 
-        ModeSearch modeSearch = new ModeSearch(PlayerMode.MULTI_RANDOM, GameMode.STANDARD);
+        GameMode gameMode = GameMode.STANDARD;
 
         System.out.println(users);
 
         users.forEach(user -> {
-            MatchHandler.getInstance().addMatchable(user, modeSearch);
+            MatchHandler.getInstance().addMatchable(user, gameMode);
         });
 
         Set<Match> matches = MatchHandler.getInstance().matchUsers();

@@ -1,8 +1,7 @@
 package domain.game.matchmaking;
 
 import domain.User;
-import domain.game.modes.ModeSearch;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import domain.game.modes.GameMode;
 import util.MatchableException;
 
 import java.util.HashMap;
@@ -13,7 +12,7 @@ import java.util.Set;
 public class MatchHandler implements Matchmaking {
     private static final int MAX_USERS_PER_MATCH = 5;
     private static MatchHandler instance = new MatchHandler();
-    private static Map<ModeSearch, Set<User>> matchable = new HashMap<>();
+    private static Map<GameMode, Set<User>> matchable = new HashMap<>();
 
     public static MatchHandler getInstance(){
         return instance;
@@ -22,12 +21,12 @@ public class MatchHandler implements Matchmaking {
     private MatchHandler() {
     }
 
-    public Map<ModeSearch, Set<User>> getMatchable() {
+    public Map<GameMode, Set<User>> getMatchable() {
         return matchable;
     }
 
     @Override
-    public void addMatchable(User user, ModeSearch modeSearch) {
+    public void addMatchable(User user, GameMode modeSearch) {
         if(matchableContains(user)) {
             throw new MatchableException("User is already searching for a game!");
         }
@@ -66,12 +65,12 @@ public class MatchHandler implements Matchmaking {
 
         Set<Match> matches = new HashSet<>();
 
-        for (ModeSearch modeSearch : matchable.keySet()) {
-            Match matchTry = new Match(modeSearch, MAX_USERS_PER_MATCH);
+        for (GameMode gameMode : matchable.keySet()) {
+            Match matchTry = new Match(gameMode, MAX_USERS_PER_MATCH);
             boolean oneLeft = false;
             int usersToAdd = Math.round((MAX_USERS_PER_MATCH + 1) / 2);
-            for (User user : matchable.get(modeSearch)) {
-                if(matchable.get(modeSearch).size() == MAX_USERS_PER_MATCH + 1) {
+            for (User user : matchable.get(gameMode)) {
+                if(matchable.get(gameMode).size() == MAX_USERS_PER_MATCH + 1) {
                     oneLeft = true;
                 }
 
@@ -79,10 +78,10 @@ public class MatchHandler implements Matchmaking {
                     matches.add(matchTry);
 
                     matchTry.getUsers().forEach(u -> {
-                        matchable.remove(modeSearch, u);
+                        matchable.remove(gameMode, u);
                     });
 
-                    matchTry = new Match(modeSearch, MAX_USERS_PER_MATCH);
+                    matchTry = new Match(gameMode, MAX_USERS_PER_MATCH);
                     matchTry.addUser(user);
                 }
 
@@ -93,11 +92,11 @@ public class MatchHandler implements Matchmaking {
                         matches.add(matchTry);
 
                         matchTry.getUsers().forEach(u -> {
-                            matchable.remove(modeSearch, u);
+                            matchable.remove(gameMode, u);
                         });
 
-                        matchTry = new Match(modeSearch, MAX_USERS_PER_MATCH);
-                        usersToAdd = matchable.get(modeSearch).size();
+                        matchTry = new Match(gameMode, MAX_USERS_PER_MATCH);
+                        usersToAdd = matchable.get(gameMode).size();
                     }
                 }
             }
