@@ -19,7 +19,12 @@
         <!-- Disabled as confusing check (very misleading description) and also not so useful -->
         <Bug pattern="NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE"/>
     </Match>
-
+    <Match>
+        <Bug pattern="DMI_EMPTY_DB_PASSWORD"/>
+    </Match>
+    <Match>
+        <Bug pattern="DMI_CONSTANT_DB_PASSWORD"/>
+    </Match>
 
     <!-- Do not check class -->
     <!--<Match>-->
