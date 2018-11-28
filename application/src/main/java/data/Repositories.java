@@ -1,5 +1,9 @@
 package data;
 
+import data.dailyStreakRepository.DailyRepository;
+import data.dailyStreakRepository.MySqlDailyRepository;
+import data.heroesRepository.HeroesRepository;
+import data.heroesRepository.MySqlHeroesRepository;
 import data.loggedInRepository.HcLoggedInRepository;
 import data.loggedInRepository.LoggedInRepository;
 import data.loginRepository.LoginRepository;
@@ -20,5 +24,11 @@ public class Repositories {
     }
     public LoggedInRepository getLoggedInRepository() {
         return new HcLoggedInRepository();
+    }
+    public DailyRepository getDailyReposistory(){
+        return new MySqlDailyRepository();
+    }
+    public HeroesRepository getHeroRepository(){
+        return new MySqlHeroesRepository();
     }
 }

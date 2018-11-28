@@ -81,7 +81,7 @@ public class CLI {
         String password = in.nextLine();
         repo.getUser(username);
         repo.authenticateUser(username, password);
-        if (repo.getUser(username).getPassword().equals(Hash.md5HashString(password))){
+        if (repo.getUser(username).getPassword().equals(Hash.md5(password))){
             mainMenu.run();
         }
     }

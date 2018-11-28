@@ -1,37 +1,24 @@
 "use strict";
 
-document.addEventListener("DOMContentLoaded", init);
-
-const GAME_MODES =  [
-    "singlePlayer",
-    "standard",
-    "lastManStanding",
-    "timeAttack"
-];
+document.addEventListener("DOMContentLoaded", showAllGamemodes);
 
 let elementSelectables;
 let selectedGamemode;
 
-function init(e) {
-    showAllGamemodes();
-
-}
-
 function showAllGamemodes() {
+
     document.getElementById("back").addEventListener("click", goBack);
 
     let location = document.getElementById("showAllGamemodes");
     let imgList = "";
+    let gamemodes = ["single_player", "multi_player", "time_attack", "last_man_standing"];
 
     let firstSelected = " selected";
 
-    for (let i = 0; i < GAME_MODES.length; i++){
-        imgList += "<figure class='selectable" + firstSelected + "'><img data-gamemodename='" + GAME_MODES[i] + "' src='../assets/media/gamemodes/" + GAME_MODES[i] + ".png' alt='" + GAME_MODES[i] + "' title='" + GAME_MODES[i] + "' class='gamemodes'/></figure>";
+    for (let i = 0; i < gamemodes.length; i++){
+        imgList += "<figure class='selectable" + firstSelected + "'><img data-gamemodename='" + gamemodes[i] + "' src='../assets/media/gamemodes/" + gamemodes[i] + ".png' alt='" + gamemodes[i] + "' title='" + gamemodes[i] + "' class='gamemodes'/></figure>";
 
-        if(i===0) {
-            localStorage.setItem("gameMode", GAME_MODES[i]);
-            firstSelected = "";
-        }
+        firstSelected = "";
     }
 
     location.innerHTML = imgList;
@@ -48,16 +35,15 @@ function selectablesEvents(){
 
 function changeSelected(e) {
     e.stopPropagation();
-
-    let gameMode = e.target.dataset.gamemodename;
-    console.log("Gamemode:", gameMode);
-    localStorage.setItem("gameMode", gameMode);
-
     if(e.target.parentNode.classList.contains("selectable")){
         for (let i = 0; i < elementSelectables.length; i++) {
             elementSelectables[i].classList.remove("selected");
         }
         e.target.parentNode.classList.add("selected");
+
+        // Hier wordt de naam van de geselecteerde gamemode ingestoken
+        selectedGamemode = e.target.dataset.gamemodename;
+
     }
     e.target.parentNode.classList.add("selected");
 
@@ -68,11 +54,6 @@ function changeSelected(e) {
 
 }
 
-function goBack(e) {
-    e.preventDefault();
+function goBack() {
     location.href="main_menu.html";
-}
-
-function goNext(e) {
-
 }

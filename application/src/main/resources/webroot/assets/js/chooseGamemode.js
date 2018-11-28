@@ -18,6 +18,7 @@ function init(e) {
 }
 
 function showAllGamemodes() {
+
     document.getElementById("back").addEventListener("click", goBack);
 
     let location = document.getElementById("showAllGamemodes");
