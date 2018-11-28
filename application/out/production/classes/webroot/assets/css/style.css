@@ -450,12 +450,41 @@ section input{
 }
 
 /*------Multiplayer Field------*/
-.userField {
-    /*background-color: white;*/
+#container-field {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+}
+
+.multiplayer-container {
+    display: inline-block;
+}
+
+.multiplayer-opponents {
+    width: 40%;
+    text-align: center;
+    position: relative;
+
+}
+
+#opp {
+    position: absolute;
+    bottom: 5%;
+    top: 5%;
+}
+
+#userField_2, #userField_3, #userField_4, #userField_5 {
     outline: none;
     box-shadow: 0 0 50px 10px rebeccapurple;
-    margin-top: 20px;
-    margin-left: 50px;
+    /*width: 270px;
+    height: 250px;*/
+    align-items: center;
+    opacity: 1;
+}
+
+.userField_1 {
+    outline: none;
+    box-shadow: 0 0 50px 10px rebeccapurple;
 }
 
 .multiplayer-footer {
@@ -486,6 +515,7 @@ section input{
     background: linear-gradient(to right, #9584FF , #FFA1E2);
     font-size: 1.0rem;
 }
+
 
 
 
