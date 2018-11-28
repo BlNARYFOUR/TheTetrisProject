@@ -19,7 +19,7 @@ let SPACE_TOP = 10 + BLOCK;
 let HOLD_WIDTH = 4;
 let HOLD_HEIGHT = 4;
 
-let MOCK_PROGRESS = 0;
+let MOCK_PROGRESS = 20;
 
 const IMAGES = {
     backgroundStartScreen: createImageObj("backgroundStartScreen.png"),
@@ -46,8 +46,7 @@ const COLORS = {
     YELLOW: 4,
     LIGHT_BLUE: 5,
     GREEN: 6,
-    PURPLE: 7,
-    PIKA: 8
+    PURPLE: 7
 };
 
 let c;
@@ -59,6 +58,7 @@ let hold;
 
 let CIRCLE = BLOCK * 1.5;
 let oldRadius = [0,0,0,0,0];
+let progressIntervals = [0,0,0,0,0];
 
 let AMOUNT_OF_PLAYERS = 0;
 
@@ -78,9 +78,15 @@ function init(e) {
 
     createGameBoard();
 
+    window.addEventListener("resize", onResize);
+
+    gameLoop();
+}
+
+function gameLoop() {
     drawFields();
 
-    window.addEventListener("resize", onResize);
+    window.requestAnimationFrame(gameLoop);
 }
 
 function onResize(e) {
@@ -135,7 +141,7 @@ function drawUserField(ctx, playerId) {
     drawCircle(ctx, BLOCK * 2.5, SPACE_TOP + 14 * BLOCK,CIRCLE,0,2*Math.PI);
     //drawCircle(SPACE + 2.0 * BLOCK + GAME_BOARD_SPACING + GAME_BOARD_WIDTH * BLOCK, SPACE_TOP + 14 * BLOCK,50,0,2*Math.PI);
 
-    MOCK_PROGRESS += 20;
+    //MOCK_PROGRESS += 20;
     drawProgressBar(playerId, ctx, SPACE + 2.0 * BLOCK + GAME_BOARD_SPACING + GAME_BOARD_WIDTH * BLOCK, SPACE_TOP + 14 * BLOCK, MOCK_PROGRESS, 0, 2*Math.PI, 0.5);
 }
 
@@ -230,6 +236,45 @@ function drawProgressBar(id, ctx, x, y, radius, startAngle, endAngle, animationD
 
     radius = circle * radius/100;
 
+    let color = {
+        R: 255,
+        G: 0,
+        B: 0
+    };
+
+    if(circle <= radius) {
+        color = {
+            R: 0,
+            G: 255,
+            B: 0
+        };
+    }
+
+    drawCircle(ctx, x, y,circle,0,2*Math.PI);
+
+    ctx.beginPath();
+    ctx.arc(x, y, radius, startAngle, endAngle);
+    ctx.fillStyle = "rgb(" + color.R + "," + color.G + "," + color.B + ")";
+    ctx.globalAlpha = 0.5;
+    ctx.fill();
+    ctx.globalAlpha = 1;
+
+    createText(ctx, "3898", x-0.7*block, y+0.2*block, block);
+}
+
+/*
+function drawProgressBar(id, ctx, x, y, radius, startAngle, endAngle, animationDuration) {
+    let playerId = id;
+
+    if(100 < radius) {
+        radius = 100;
+    }
+
+    let circle = CIRCLE;
+    let block = BLOCK;
+
+    radius = circle * radius/100;
+
     let frameRadius = (radius - oldRadius[playerId]) / (animationDuration / 0.01);
     let bufRadius = oldRadius[playerId];
 
@@ -253,7 +298,7 @@ function drawProgressBar(id, ctx, x, y, radius, startAngle, endAngle, animationD
 
     function frame() {
         if (radius - 0.00000001 <= bufRadius && bufRadius <= radius + 0.00000001 ) {
-            clearInterval(interval);
+            clearInterval(progressIntervals[playerId]);
             oldRadius[playerId] = radius;
         } else {
             ctx.save();
@@ -281,8 +326,6 @@ function drawProgressBar(id, ctx, x, y, radius, startAngle, endAngle, animationD
         createText(ctx, "3898", x-0.7*block, y+0.2*block, block);
     }
 
-    let interval = setInterval(frame, 10);
+    progressIntervals[playerId] = setInterval(frame, 10);
 }
-
-
-
+*/

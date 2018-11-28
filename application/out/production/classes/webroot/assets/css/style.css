@@ -454,6 +454,7 @@ section input{
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-around;
+    padding-top: 3vh;
 }
 
 .multiplayer-container {
