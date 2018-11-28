@@ -3,3 +3,8 @@
 *.xml
 
 /gradle/4.8/*
+application/\.vertx/
+
+application/\.idea/
+
+application/out/
