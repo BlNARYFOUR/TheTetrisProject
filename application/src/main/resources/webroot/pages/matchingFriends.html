@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matching Friends</title>
+    <link rel="stylesheet" type="text/css" href="../assets/css/mainCSS.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+</head>
+<body>
+<div id="matchingFriends">
+    <p>To invite your friends send them the following URL:</p>
+    <p id="url">https://localhost:26/tetris/game/RWbZ2T4CRMmALBpUMdmzoQ==/1/</p>
+    <div class="matching-friends-buttons">
+        <div class="leaveGame">
+            <input type="submit" value="Leave game" id="leaveMatch">
+        </div>
+
+        <div class="playGameWithFr">
+            <input type="submit" value="Play Game" id="playGame">
+        </div>
+    </div>
+</div>
+<div id="matchStats">
+    <div id="playerList">
+        <p>Player list</p>
+        <div class="heading"><p class="name">Name</p><p class="score">Score</p></div>
+        <hr>
+        <ul id="listOfPlayers"></ul>
+    </div>
+    <div id="playerChat">
+        <p>Chat</p>
+        <hr>
+    </div>
+</div>
+
+<script type="text/javascript" src="../assets/js/matchingFriends.js"></script>
+</body>
+</html>
