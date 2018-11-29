@@ -132,8 +132,8 @@ public class WebAPI extends AbstractVerticle {
             Map<String, Object> jsonMap = objectMapper.readValue(message.body().toString(), new TypeReference<Map<String, Object>>(){});
             Logger.warn("Match request received: " + jsonMap);
 
-           User user = loggedInRepo.getLoggedUser((String)jsonMap.get("session"));
-           user.selectHero((String)jsonMap.get("hero"));
+            User user = loggedInRepo.getLoggedUser((String)jsonMap.get("session"));
+            user.selectHero((String)jsonMap.get("hero"));
             GameMode gameMode = GameMode.valueOf((String)jsonMap.get("gameMode"));
 
             MatchHandler.getInstance().addMatchable(user, gameMode);
