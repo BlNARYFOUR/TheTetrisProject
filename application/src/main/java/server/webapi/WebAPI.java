@@ -18,6 +18,7 @@ import io.vertx.ext.web.handler.SessionHandler;
 import io.vertx.ext.web.handler.StaticHandler;
 import io.vertx.ext.web.sstore.LocalSessionStore;
 import io.vertx.ext.web.sstore.SessionStore;
+import org.pmw.tinylog.Logger;
 import server.Tetris;
 import server.webapi.util.SecureFilePath;
 import util.Hash;
@@ -95,6 +96,7 @@ public class WebAPI extends AbstractVerticle {
     private void matchHandler(Message message) {
         try {
             Map<String, Object> jsonMap = objectMapper.readValue(message.body().toString(), new TypeReference<Map<String, Object>>(){});
+            Logger.warn("Match request received: " + jsonMap);
         } catch (IOException e) {
             e.printStackTrace();
         }

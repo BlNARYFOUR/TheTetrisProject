@@ -7,6 +7,7 @@ let selectedHero;
 
 function init() {
     document.getElementById("back").addEventListener("click", goBack);
+    document.getElementById("playGame").addEventListener("click", play);
     loadHeroes();
 
 }
@@ -65,8 +66,12 @@ function changeSelected(e) {
 }
 
 
-function goBack() {
+function goBack(e) {
     location.href = "chooseGamemode.html"; //Go to gamemode
+}
+
+function play(e) {
+    matching.sendMatchRequest();
 }
 
 function isLocalStorageSupported() {
