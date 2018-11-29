@@ -1,5 +1,6 @@
 package server.webapi;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import data.JDBCInteractor;
 import data.TetrisRepository;
@@ -23,6 +24,7 @@ import util.Hash;
 
 import javax.smartcardio.TerminalFactory;
 import java.io.IOException;
+import java.util.Map;
 
 public class WebAPI extends AbstractVerticle {
     private ObjectMapper objectMapper = new ObjectMapper();
@@ -67,9 +69,10 @@ public class WebAPI extends AbstractVerticle {
 
         //router.route("/static/pages/main_menu.html").handler(routes::dailyStreakHandler);
 
-        server.requestHandler(router::accept).listen(8081);
+        server.requestHandler(router::accept).listen(8016);
 
         initConsumers();
+        initGameConsumers();
     }
 
     private void initDB() {
@@ -81,13 +84,21 @@ public class WebAPI extends AbstractVerticle {
         /*
         TODO
          */
+    }
 
+    private void initGameConsumers() {
         EventBus eb = vertx.eventBus();
 
         eb.consumer("tetris-16.socket.server.match", this::matchHandler);
     }
 
     private void matchHandler(Message message) {
-        message.body();
+        try {
+            Map<String, Object> jsonMap = objectMapper.readValue(message.body().toString(), new TypeReference<Map<String, Object>>(){});
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        message.reply("OK");
     }
 }
