@@ -45,16 +45,21 @@ public class Game {
     }
 
     private void createPlayingFields(int width, int height) {
-        players.forEach((player) -> {
-            for(int i=0; i<height; i++) {
-                playingFields.add(new Integer[width][]);
+        for(Player player : players) {
+            playingFields.add(new Integer[height][]);
+            for(int y=0; y<height; y++) {
+                playingFields.get(playingFields.size()-1)[y] = new Integer[width];
             }
-        });
+        }
+
+        System.out.println("PLayingfield length: " + playingFields.size());
 
         playingFields.forEach(playingField -> {
-            for (Integer[] row : playingField) {
-                for(int x=0; x<row.length; x++) {
-                    row[x] = 0;
+            System.out.println(playingField.length);
+
+            for (int y=0; y<playingField.length; y++) {
+                for(int x=0; x<playingField[0].length; x++) {
+                    playingField[y][x] = 0;
                 }
             }
         });

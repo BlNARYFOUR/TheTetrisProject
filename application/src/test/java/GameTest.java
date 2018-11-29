@@ -5,12 +5,10 @@ import domain.game.matchmaking.MatchHandler;
 import domain.game.modes.GameMode;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class GameTest {
     @Test
@@ -84,6 +82,15 @@ public class GameTest {
         };
 
         playingFields.add(arr);
+        playingFields.add(arr);
+        playingFields.add(arr);
+        playingFields.add(arr);
+        playingFields.add(arr);
+
+        for(int i=0; i<playingFields.size(); i++) {
+            boolean equals = Arrays.deepEquals(playingFields.get(i), game.getPlayingFields().get(i));
+            assertTrue(equals);
+        }
     }
 
     private Game makeAGame() {
