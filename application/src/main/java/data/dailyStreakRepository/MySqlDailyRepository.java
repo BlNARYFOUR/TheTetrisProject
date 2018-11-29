@@ -1,7 +1,6 @@
 package data.dailyStreakRepository;
 
 import data.JDBCInteractor;
-import data.MySqlConnection;
 import domain.dailyStreak.Streak;
 import domain.User;
 import util.DailyExeption;
@@ -126,7 +125,7 @@ public class MySqlDailyRepository implements DailyRepository {
     }
 
     // user toevoegen
-   /* @Override
+    @Override
     public void addUser(User u) {
         try (Connection con = JDBCInteractor.getConnection();
              PreparedStatement prep = con.prepareStatement(SQL_ADD_USER)){
@@ -142,7 +141,7 @@ public class MySqlDailyRepository implements DailyRepository {
         }catch (SQLException ex){
             throw new DailyExeption("Unable to add user to DB.", ex);
         }
-    }*/
+    }
 
 
     // user weergeven
@@ -167,6 +166,7 @@ public class MySqlDailyRepository implements DailyRepository {
     private User createUser(ResultSet rs) throws SQLException {
         int id = rs.getInt("userid");
         String username = rs.getString("name");
+        String password = rs.getString("password");
         String register_date = rs.getString("register_date");
         String begin_date = rs.getString("begin_date");
         String next_date = rs.getString("next_date");

@@ -24,10 +24,9 @@ class Routes {
     private static final String INFO_COOKIE = "info";
 
     private static ObjectMapper objectMapper = new ObjectMapper();
-    private DailyRepository repo = Repositories.getInstance().getDailyReposistory();
     private LoginRepository loginRepo = Repositories.getInstance().getLoginRepository();
     private LoggedInRepository loggedInRepo = Repositories.getInstance().getLoggedInRepository();
-
+    private DailyRepository repo = Repositories.getInstance().getDailyReposistory();
 
     void rootHandler(RoutingContext routingContext) {
         HttpServerResponse response = routingContext.response();
@@ -112,11 +111,11 @@ class Routes {
         try {
             String body = routingContext.getBodyAsString();
             User user = getUserFromBody(body);
-            user.setPassword(Hash.md5(user.getPassword()));
+            //user.setPassword(Hash.md5(user.getPassword()));
 
             Session session = routingContext.session();
             session.put("username", user.getUsername());
-            session.put("password", user.getPassword());
+            session.put("password", Hash.md5(user.getPassword()));
 
             System.out.println("1 " + session.get("username") + " " + session.get("password"));
 
@@ -168,7 +167,7 @@ class Routes {
         try {
             User user = loginRepo.authenticateUser(session.get("username"), session.get("password"), false);
 
-            if (loggedInRepo.isUserLogged(session.id(), user) || user == null) {
+            if (!loggedInRepo.isUserLogged(session.id(), user) || user == null) {
                 response.headers().add("location", "/static");
             } else {
                 response.headers().add("location", "/static" + SecureFilePath.MAIN_MENU);

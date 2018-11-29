@@ -5,7 +5,7 @@ import domain.dailyStreak.Streak;
 import domain.User;
 
 public interface DailyRepository {
-    //void addUser(User u);
+    void addUser(User u);
     User getUser(String username);
     void updateAlreaddyLoggedIn(Boolean alreadyLoggedIn, String username);
     //void updateDailyStreak(String name);
