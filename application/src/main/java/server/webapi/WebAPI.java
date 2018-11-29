@@ -7,6 +7,7 @@ import data.loginRepository.LoginRepository;
 import data.Repositories;
 import domain.User;
 import io.vertx.core.AbstractVerticle;
+import io.vertx.core.eventbus.EventBus;
 import io.vertx.core.eventbus.Message;
 import io.vertx.core.http.HttpServer;
 import io.vertx.ext.web.Router;
@@ -61,12 +62,10 @@ public class WebAPI extends AbstractVerticle {
 
 
         router.route("/static/*").handler(StaticHandler.create());
-        router.route("/tetris/events/*").handler(new TetrisSockJSHandler(vertx).create());
+        router.route("/tetris-16/socket/*").handler(new TetrisSockJSHandler(vertx).create());
         router.route("/logout").handler(routes::logoutHandler);
 
         //router.route("/static/pages/main_menu.html").handler(routes::dailyStreakHandler);
-
-
 
         server.requestHandler(router::accept).listen(8081);
 
@@ -82,5 +81,13 @@ public class WebAPI extends AbstractVerticle {
         /*
         TODO
          */
+
+        EventBus eb = vertx.eventBus();
+
+        eb.consumer("tetris-16.socket.server.match", this::matchHandler);
+    }
+
+    private void matchHandler(Message message) {
+        message.body();
     }
 }
