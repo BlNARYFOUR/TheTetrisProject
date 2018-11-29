@@ -6,7 +6,7 @@ import domain.User;
 
 public class DailyStreakRewards {
 
-    private DailyRepository repo = Repositories.getInstance().getDailyReposistory();
+    private DailyRepository repo = Repositories.getInstance().getDailyRepository();
 
 
     private int calculateHourMinSec(String day){

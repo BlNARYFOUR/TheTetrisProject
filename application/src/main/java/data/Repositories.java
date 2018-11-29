@@ -25,7 +25,7 @@ public class Repositories {
     public LoggedInRepository getLoggedInRepository() {
         return new HcLoggedInRepository();
     }
-    public DailyRepository getDailyReposistory(){
+    public DailyRepository getDailyRepository(){
         return new MySqlDailyRepository();
     }
     public HeroesRepository getHeroRepository(){

@@ -1,7 +1,6 @@
 package server.webapi;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import data.TetrisRepository;
 import data.dailyStreakRepository.DailyRepository;
 import data.loggedInRepository.LoggedInRepository;
 import data.Repositories;
@@ -26,7 +25,7 @@ class Routes {
     private static ObjectMapper objectMapper = new ObjectMapper();
     private LoginRepository loginRepo = Repositories.getInstance().getLoginRepository();
     private LoggedInRepository loggedInRepo = Repositories.getInstance().getLoggedInRepository();
-    private DailyRepository repo = Repositories.getInstance().getDailyReposistory();
+    private DailyRepository repo = Repositories.getInstance().getDailyRepository();
 
     void rootHandler(RoutingContext routingContext) {
         HttpServerResponse response = routingContext.response();
