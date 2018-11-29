@@ -73,7 +73,7 @@ public class HcLoggedInRepository implements LoggedInRepository {
     public String getSessionID(User user) {
         String[] sessionID = {null};
 
-        loggedUsers.forEach((k, u) -> setSessionID(k, u, sessionID));
+        loggedUsers.forEach((k, u) -> setSessionID(k, user, sessionID));
 
         return sessionID[0];
     }

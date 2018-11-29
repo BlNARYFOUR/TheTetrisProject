@@ -1,5 +1,6 @@
 package server.webapi;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import data.JDBCInteractor;
@@ -26,9 +27,11 @@ import org.pmw.tinylog.Logger;
 import server.Tetris;
 import server.webapi.util.SecureFilePath;
 import util.Hash;
+import util.MatchableException;
 
 import javax.smartcardio.TerminalFactory;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -90,6 +93,28 @@ public class WebAPI extends AbstractVerticle {
         TetrisRepository.populateDB();
     }
 
+    private void makeMatchHandler(Long aLong) {
+        Set<Match> matched = MatchHandler.getInstance().matchUsers();
+        Logger.info("Matched users: " + matched);
+
+        Map<String, String> data = new HashMap<>();
+        data.put("match", "someGameAddress");
+        try {
+            String json = objectMapper.writeValueAsString(data);
+
+            matched.forEach(match -> {
+                match.getUsers().forEach(user -> {
+                    Logger.warn(user.getUsername() + " tetris-16.socket.client.match." + loggedInRepo.getSessionID(user));
+                    vertx.eventBus().publish("tetris-16.client.match." + loggedInRepo.getSessionID(user), json);
+                });
+            });
+        } catch (JsonProcessingException e) {
+            throw new MatchableException("json data is not okay ¯\\_(ツ)_/¯");
+        }
+
+        // TODO: send response to users activate a game
+    }
+
     private void initConsumers() {
         /*
         TODO
@@ -100,11 +125,6 @@ public class WebAPI extends AbstractVerticle {
         EventBus eb = vertx.eventBus();
 
         eb.consumer("tetris-16.socket.server.match", this::matchHandler);
-    }
-
-    private void makeMatchHandler(Long aLong) {
-        Set<Match> matched = MatchHandler.getInstance().matchUsers();
-        Logger.info("Matched users: " + matched);
     }
 
     private void matchHandler(Message message) {

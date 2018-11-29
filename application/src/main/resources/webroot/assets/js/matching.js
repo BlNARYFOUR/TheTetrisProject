@@ -6,7 +6,8 @@ let matching = function () {
     eb.onopen = function () {
         console.log("Connection Open");
 
-        eb.registerHandler("tetris-16.socket.client.match." + cookies.getCookie(), matchHandler);
+        console.warn("tetris-16.socket.client.match." + cookies.getCookie("vertx-web.session"));
+        eb.registerHandler("tetris-16.socket.client.match." + cookies.getCookie("vertx-web.session"), matchHandler);
     };
 
     function sendMatchRequest() {
