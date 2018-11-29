@@ -1,7 +1,6 @@
 package data.loginRepository;
 
 import data.JDBCInteractor;
-import data.MySqlConnection;
 import domain.User;
 import util.Hash;
 import util.LoginException;
@@ -17,7 +16,7 @@ public class MySqlLoginRepository implements LoginRepository {
     private static final String SQL_GET_USERNAME = "select * from user where username = ?";
 
 
-   /* @Override
+    @Override
     public void addUser(User u) {
         try (PreparedStatement prep = JDBCInteractor.getConnection().prepareStatement(SQL_ADD_USER, Statement.RETURN_GENERATED_KEYS)){
             u.setPassword(Hash.md5(u.getPassword()));
@@ -33,9 +32,9 @@ public class MySqlLoginRepository implements LoginRepository {
         }catch (SQLException ex){
             throw new LoginException("Unable to add user to DB.", ex);
         }
-    }*/
+    }
 
-   /* @Override
+    @Override
     public User authenticateUser(String username, String password) {
         return authenticateUser(username, password, true);
     }
@@ -110,5 +109,5 @@ public class MySqlLoginRepository implements LoginRepository {
         String username = rs.getString("username");
         String password = rs.getString("password");
         return new User(ID, username, password);
-    }*/
+    }
 }

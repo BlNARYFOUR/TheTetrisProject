@@ -81,9 +81,9 @@ public class CLI {
         String username = in.nextLine();
         System.out.println("Enter a password: ");
         String password = in.nextLine();
-        tetrisRepo.getUser(username);
-        tetrisRepo.authenticateUser(username, password);
-        if (tetrisRepo.getUser(username).getPassword().equals(Hash.md5(password))){
+        repo.getUser(username);
+        repo.authenticateUser(username, password);
+        if (repo.getUser(username).getPassword().equals(Hash.md5(password))){
             mainMenu.run();
         }
     }

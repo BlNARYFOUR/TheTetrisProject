@@ -104,14 +104,14 @@ public final class TetrisRepository {
                     "  CONSTRAINT FKuserID FOREIGN KEY (userID) REFERENCES user (user_id) ON DELETE NO ACTION ON UPDATE NO ACTION)";
 
 
-    private static final String SQL_ADD_USER = "insert into user(username, password, registerdate, " +
+    /*private static final String SQL_ADD_USER = "insert into user(username, password, registerdate, " +
             "startstreakdate, lastloggedindate, streakdays, alreadyloggedintoday)" +
             "values (?, ?, ?, ?, ?, ?, ?)";
     private static final String SQL_CONTROL_USER = "select * from user where username = ?" +
             " and password = ?";
     private static final String SQL_DELETE_USER = "delete from user where username = ?";
     private static final String SQL_GET_USERNAME = "select * from user where username = ?";
-
+*/
 
 
 
@@ -141,7 +141,7 @@ public final class TetrisRepository {
 
         }
     }
-
+/*
 
     // LOGIN
     public static void addUser(User u) {
@@ -229,6 +229,6 @@ public final class TetrisRepository {
         String username = rs.getString("username");
         String password = rs.getString("password");
         return new User(ID, username, password);
-    }
+    }*/
 }
 

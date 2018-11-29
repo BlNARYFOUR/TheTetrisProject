@@ -5,6 +5,7 @@ import data.TetrisRepository;
 import data.dailyStreakRepository.DailyRepository;
 import data.loggedInRepository.LoggedInRepository;
 import data.Repositories;
+import data.loginRepository.LoginRepository;
 import domain.User;
 import domain.dailyStreak.DailyStreakRewards;
 import io.vertx.core.http.HttpServerResponse;
@@ -24,6 +25,7 @@ class Routes {
 
     private static ObjectMapper objectMapper = new ObjectMapper();
     private DailyRepository repo = Repositories.getInstance().getDailyReposistory();
+    private LoginRepository loginRepo = Repositories.getInstance().getLoginRepository();
     private LoggedInRepository loggedInRepo = Repositories.getInstance().getLoggedInRepository();
 
 
@@ -57,7 +59,7 @@ class Routes {
 
             System.out.println("L " + session.get("username") + " " + session.get("password"));
 
-            user = TetrisRepository.authenticateUser(session.get("username"), session.get("password"), false);
+            user = loginRepo.authenticateUser(session.get("username"), session.get("password"), false);
 
             System.out.println(user + " : " + loggedInRepo.getLoggedUser(session.id()));
 
@@ -118,7 +120,7 @@ class Routes {
 
             System.out.println("1 " + session.get("username") + " " + session.get("password"));
 
-            TetrisRepository.addUser(user);
+            loginRepo.addUser(user);
 
             routingContext.getCookie("vertx-web.session").setMaxAge(LoggedInRepository.EXPIRATION_TIME);
 
@@ -145,7 +147,7 @@ class Routes {
         try {
             System.out.println("Here");
             System.out.println(session.id());
-            User user = TetrisRepository.authenticateUser(session.get("username"), session.get("password"), false);
+            User user = loginRepo.authenticateUser(session.get("username"), session.get("password"), false);
             if (!loggedInRepo.isUserLogged(session.id(), user) || user == null) {
                 response.headers().add("location", "/static");
                 response.setStatusCode(302).end();
@@ -164,7 +166,7 @@ class Routes {
         response.setChunked(true);
 
         try {
-            User user = TetrisRepository.authenticateUser(session.get("username"), session.get("password"), false);
+            User user = loginRepo.authenticateUser(session.get("username"), session.get("password"), false);
 
             if (loggedInRepo.isUserLogged(session.id(), user) || user == null) {
                 response.headers().add("location", "/static");
@@ -184,9 +186,9 @@ class Routes {
         response.setChunked(true);
 
         try {
-            User user = TetrisRepository.authenticateUser(session.get("username"), session.get("password"), false);
+            User user = loginRepo.authenticateUser(session.get("username"), session.get("password"), false);
 
-            if (loggedInRepo.isUserLogged(session.id(), user) || user == null) {
+            if (!loggedInRepo.isUserLogged(session.id(), user) || user == null) {
                 response.sendFile("webroot/index.html");
             } else {
                 response.headers().add("location", "/static" + SecureFilePath.MAIN_MENU);
