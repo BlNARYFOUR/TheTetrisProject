@@ -6,7 +6,6 @@ import domain.User;
 import domain.game.matchmaking.Match;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -29,7 +28,7 @@ public class Game {
             players.add(player);
         });
 
-        createPlayingFields(PLAYING_FIELD_WIDTH, PLAYING_FIELD_HEIGHT);
+        createPlayingFields();
     }
 
     public List<Player> getPlayers() {
@@ -44,11 +43,11 @@ public class Game {
         return playingFields.get(players.indexOf(player));
     }
 
-    private void createPlayingFields(int width, int height) {
+    private void createPlayingFields() {
         for(Player player : players) {
-            playingFields.add(new Integer[height][]);
-            for(int y=0; y<height; y++) {
-                playingFields.get(playingFields.size()-1)[y] = new Integer[width];
+            playingFields.add(new Integer[Game.PLAYING_FIELD_HEIGHT][]);
+            for(int y = 0; y<Game.PLAYING_FIELD_HEIGHT; y++) {
+                playingFields.get(playingFields.size()-1)[y] = new Integer[Game.PLAYING_FIELD_WIDTH];
             }
         }
 
