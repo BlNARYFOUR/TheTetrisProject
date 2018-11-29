@@ -106,7 +106,12 @@ public class MatchHandler implements Matchmaking {
 
             if(2 <= matchTry.getUsers().size()) {
                 matches.add(matchTry);
+                usersToRemove.addAll(matchTry.getUsers());
             }
+
+            usersToRemove.forEach(user -> {
+                matchable.get(gameMode).remove(user);
+            });
         }
 
         return matches;
