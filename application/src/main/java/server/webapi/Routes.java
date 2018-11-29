@@ -145,7 +145,7 @@ class Routes {
 
         try {
             System.out.println("Here");
-            System.out.println(session.id());
+            //System.out.println(session.id());
             User user = loginRepo.authenticateUser(session.get("username"), session.get("password"), false);
             if (!loggedInRepo.isUserLogged(session.id(), user) || user == null) {
                 response.headers().add("location", "/static");

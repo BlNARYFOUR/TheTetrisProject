@@ -55,4 +55,62 @@ public class GameTest {
         game.getPlayers().forEach(System.out::println);
         assertEquals(2, game.getPlayers().size());
     }
+
+    @Test
+    public void testCreatePlayingFields() {
+        Game game = makeAGame();
+
+        List<Integer[][]> playingFields = new ArrayList<>();
+
+        Integer[][] arr = {
+                {0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0},
+                {0,0,0,0,0,0,0,0,0,0}
+        };
+
+        playingFields.add(arr);
+    }
+
+    private Game makeAGame() {
+        MatchHandler.getInstance().resetMatchable();
+        final int MAX_USERS = 5;
+        List<User> users = new ArrayList<>();
+
+        for(int i=0; i<MAX_USERS; i++) {
+            users.add(new User(i, "User" + Integer.toString(i+1), ""));
+        }
+
+        GameMode gameMode = GameMode.STANDARD;
+
+        System.out.println(users);
+
+        users.forEach(user -> {
+            MatchHandler.getInstance().addMatchable(user, gameMode);
+        });
+
+        Set<Match> matches = MatchHandler.getInstance().matchUsers();
+
+        System.out.println(MatchHandler.getInstance().getMatchable());
+
+        System.out.println(matches);
+
+        Iterator<Match> matchIterator = matches.iterator();
+
+        return new Game(matchIterator.next());
+    }
 }
