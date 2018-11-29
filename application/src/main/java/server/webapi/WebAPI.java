@@ -105,7 +105,7 @@ public class WebAPI extends AbstractVerticle {
             matched.forEach(match -> {
                 match.getUsers().forEach(user -> {
                     Logger.warn(user.getUsername() + " tetris-16.socket.client.match." + loggedInRepo.getSessionID(user));
-                    vertx.eventBus().publish("tetris-16.client.match." + loggedInRepo.getSessionID(user), json);
+                    vertx.eventBus().publish("tetris-16.socket.client.match." + loggedInRepo.getSessionID(user), json);
                 });
             });
         } catch (JsonProcessingException e) {
