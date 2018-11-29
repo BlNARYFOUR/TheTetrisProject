@@ -8,6 +8,7 @@ import data.loggedInRepository.LoggedInRepository;
 import data.loginRepository.LoginRepository;
 import data.Repositories;
 import domain.User;
+import domain.game.matchmaking.Match;
 import domain.game.matchmaking.MatchHandler;
 import domain.game.modes.GameMode;
 import io.vertx.core.AbstractVerticle;
@@ -29,6 +30,7 @@ import util.Hash;
 import javax.smartcardio.TerminalFactory;
 import java.io.IOException;
 import java.util.Map;
+import java.util.Set;
 
 public class WebAPI extends AbstractVerticle {
     private ObjectMapper objectMapper = new ObjectMapper();
@@ -76,6 +78,9 @@ public class WebAPI extends AbstractVerticle {
 
         server.requestHandler(router::accept).listen(8016);
 
+        // MATCH_MAKING
+        vertx.setPeriodic(7500, this::makeMatchHandler);
+
         initConsumers();
         initGameConsumers();
     }
@@ -95,6 +100,11 @@ public class WebAPI extends AbstractVerticle {
         EventBus eb = vertx.eventBus();
 
         eb.consumer("tetris-16.socket.server.match", this::matchHandler);
+    }
+
+    private void makeMatchHandler(Long aLong) {
+        Set<Match> matched = MatchHandler.getInstance().matchUsers();
+        Logger.info("Matched users: " + matched);
     }
 
     private void matchHandler(Message message) {
