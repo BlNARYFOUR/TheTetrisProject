@@ -69,4 +69,19 @@ public class HcLoggedInRepository implements LoggedInRepository {
         return loggedUsers.getOrDefault(sessionID, null);
     }
 
+    @Override
+    public String getSessionID(User user) {
+        String[] sessionID = {null};
+
+        loggedUsers.forEach((k, u) -> setSessionID(k, u, sessionID));
+
+        return sessionID[0];
+    }
+
+    private void setSessionID(String key, User user, String[] sessionID) {
+        if(loggedUsers.get(key).equals(user)) {
+            sessionID[0] = key;
+        }
+    }
+
 }

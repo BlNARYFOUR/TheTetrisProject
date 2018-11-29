@@ -66,20 +66,23 @@ public class MatchHandler implements Matchmaking {
         Set<Match> matches = new HashSet<>();
 
         for (GameMode gameMode : matchable.keySet()) {
+            Set<User> usersToRemove = new HashSet<>();
+
             Match matchTry = new Match(gameMode, MAX_USERS_PER_MATCH);
             boolean oneLeft = false;
             int usersToAdd = Math.round((MAX_USERS_PER_MATCH + 1) / 2);
             for (User user : matchable.get(gameMode)) {
-                if(matchable.get(gameMode).size() == MAX_USERS_PER_MATCH + 1) {
+                System.out.println(matchable.get(gameMode).size() - usersToRemove.size());
+
+                if(matchable.get(gameMode).size() - usersToRemove.size() == MAX_USERS_PER_MATCH + 1) {
+                    System.out.println("one left");
                     oneLeft = true;
                 }
 
                 if(!matchTry.addUser(user)) {
                     matches.add(matchTry);
 
-                    matchTry.getUsers().forEach(u -> {
-                        matchable.remove(gameMode, u);
-                    });
+                    usersToRemove.addAll(matchTry.getUsers());
 
                     matchTry = new Match(gameMode, MAX_USERS_PER_MATCH);
                     matchTry.addUser(user);
@@ -91,14 +94,14 @@ public class MatchHandler implements Matchmaking {
                     if(usersToAdd == 0) {
                         matches.add(matchTry);
 
-                        matchTry.getUsers().forEach(u -> {
-                            matchable.remove(gameMode, u);
-                        });
+                        usersToRemove.addAll(matchTry.getUsers());
 
                         matchTry = new Match(gameMode, MAX_USERS_PER_MATCH);
-                        usersToAdd = matchable.get(gameMode).size();
+                        usersToAdd = matchable.get(gameMode).size() - usersToRemove.size();
                     }
                 }
+
+                System.out.println("u to add: " + usersToAdd);
             }
 
             if(2 <= matchTry.getUsers().size()) {
