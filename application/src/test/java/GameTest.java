@@ -21,7 +21,7 @@ public class GameTest {
             users.add(new User(i, "User" + Integer.toString(i+1), ""));
         }
 
-        GameMode gameMode = GameMode.STANDARD;
+        GameMode gameMode = GameMode.standard;
 
         System.out.println(users);
 

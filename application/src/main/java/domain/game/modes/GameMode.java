@@ -5,10 +5,10 @@ import java.util.List;
 
 public enum GameMode {
 
-    SINGLE_PLAYER("singlePlayer"),
-    STANDARD("standard"),
-    LAST_MAN_STANDING("lastManStanding"),
-    TIME_ATTACK("timeAttack");
+    singlePlayer("singlePlayer"),
+    standard("standard"),
+    lastManStanding("lastManStanding"),
+    timeAttack("timeAttack");
 
     private final String gameMode;
 

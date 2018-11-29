@@ -4,9 +4,12 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import data.JDBCInteractor;
 import data.TetrisRepository;
+import data.loggedInRepository.LoggedInRepository;
 import data.loginRepository.LoginRepository;
 import data.Repositories;
 import domain.User;
+import domain.game.matchmaking.MatchHandler;
+import domain.game.modes.GameMode;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.eventbus.EventBus;
 import io.vertx.core.eventbus.Message;
@@ -30,6 +33,7 @@ import java.util.Map;
 public class WebAPI extends AbstractVerticle {
     private ObjectMapper objectMapper = new ObjectMapper();
     private LoginRepository repo = Repositories.getInstance().getLoginRepository();
+    private LoggedInRepository loggedInRepo = Repositories.getInstance().getLoggedInRepository();
 
     @Override
     public void start() {
@@ -97,6 +101,13 @@ public class WebAPI extends AbstractVerticle {
         try {
             Map<String, Object> jsonMap = objectMapper.readValue(message.body().toString(), new TypeReference<Map<String, Object>>(){});
             Logger.warn("Match request received: " + jsonMap);
+
+           User user = loggedInRepo.getLoggedUser((String)jsonMap.get("session"));
+           user.selectHero((String)jsonMap.get("hero"));
+            GameMode gameMode = GameMode.valueOf((String)jsonMap.get("gameMode"));
+
+            MatchHandler.getInstance().addMatchable(user, gameMode);
+            Logger.info(MatchHandler.getInstance().getMatchable());
         } catch (IOException e) {
             e.printStackTrace();
         }

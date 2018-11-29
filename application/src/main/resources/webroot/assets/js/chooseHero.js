@@ -71,6 +71,7 @@ function goBack(e) {
 }
 
 function play(e) {
+    console.log("Waiting for matchmaking...");
     matching.sendMatchRequest();
 }
 
