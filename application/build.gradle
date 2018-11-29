@@ -1,3 +1,13 @@
+plugins {
+    id 'application'
+    id 'java'
+    id "com.github.johnrengelman.shadow" version "4.0.1"
+    id 'ru.vyarus.quality' version '3.2.0'
+    id "com.eriwen.gradle.js" version "2.14.1"
+    id "com.eriwen.gradle.css" version "2.14.0"
+}
+
+
 group 'application'
 version '1.0-SNAPSHOT'
 
@@ -42,4 +52,5 @@ dependencies {
     //MySQL Database connection
     // https://mvnrepository.com/artifact/mysql/mysql-connector-java
     compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.12'
+    compile group: 'com.h2database', name: 'h2', version: '1.4.197'
 }

@@ -62,6 +62,18 @@ public class User {
         }
     }
 
+    public User(int ID, String username, String password, Date loginDate, Date registerDate, Date beginDate, Date nextDate, int dailyStreakId, boolean alreadyLoggedIn) {
+        this.ID = ID;
+        this.username = username;
+        this.password = password;
+        this.loginDate = loginDate;
+        this.registerDate = registerDate;
+        this.beginDate = beginDate;
+        this.nextDate = nextDate;
+        this.dailyStreakId = dailyStreakId;
+        this.alreadyLoggedIn = alreadyLoggedIn;
+    }
+
     public int getID() {
         return ID;
     }

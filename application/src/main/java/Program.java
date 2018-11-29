@@ -18,7 +18,7 @@ public class Program {
         User person = new User(0, "Testid", "testid");
         repo.addUser(person);
 
-        // TRY TO LOGIN
+       /* // TRY TO LOGIN
         repo.authenticateUser("bryan", "bryan");
         repo.authenticateUser("Testid", "testid");
 

@@ -1,6 +1,6 @@
 package data.dailyStreakRepository;
 
-import data.MySqlConnection;
+import data.JDBCInteractor;
 import domain.dailyStreak.Streak;
 import domain.User;
 import util.DailyExeption;
@@ -45,7 +45,7 @@ public class MySqlDailyRepository implements DailyRepository {
     // user heeft al ingelogd wordt in databank opgeslagen als true
     @Override
     public void updateAlreaddyLoggedIn(Boolean alreadyLoggedIn, String username) {
-        try (Connection con = MySqlConnection.getConnection();
+        try (Connection con = JDBCInteractor.getConnection();
              PreparedStatement prep = con.prepareStatement(SQL_SET_USER_ALREADY_LOGGED_IN)){
 
             prep.setBoolean(1,alreadyLoggedIn);
@@ -61,7 +61,7 @@ public class MySqlDailyRepository implements DailyRepository {
     // zet daily_streakID back to 1
     @Override
     public void resetDailyStreak(String username) {
-        try (Connection con = MySqlConnection.getConnection();
+        try (Connection con = JDBCInteractor.getConnection();
              PreparedStatement prep = con.prepareStatement(SQL_RESET_DAILY_STREAK)){
 
             prep.setString(1, username);
@@ -77,7 +77,7 @@ public class MySqlDailyRepository implements DailyRepository {
     // wijzigen van begin_date
     @Override
     public void setBeginDate(String username) {
-        try (Connection con = MySqlConnection.getConnection();
+        try (Connection con = JDBCInteractor.getConnection();
              PreparedStatement prep = con.prepareStatement(SQL_SET_BEGIN_DATE)){
 
             prep.setString(1, dateToday);
@@ -94,7 +94,7 @@ public class MySqlDailyRepository implements DailyRepository {
     // wijzigen van next_date
     @Override
     public void setNewNextDate(String username) {
-        try (Connection con = MySqlConnection.getConnection();
+        try (Connection con = JDBCInteractor.getConnection();
              PreparedStatement prep = con.prepareStatement(SQL_SET_NEXT_DATE)){
 
             prep.setString(1, dateTomorrow);
@@ -111,7 +111,7 @@ public class MySqlDailyRepository implements DailyRepository {
     // wijzigen van daily_streakID
     @Override
     public void setDailyStreakID(String username, int daily_streak) {
-        try (Connection con = MySqlConnection.getConnection();
+        try (Connection con = JDBCInteractor.getConnection();
              PreparedStatement prep = con.prepareStatement(SQL_SET_DAILY_STREAK)){
 
             prep.setInt(1, daily_streak);
@@ -127,7 +127,7 @@ public class MySqlDailyRepository implements DailyRepository {
     // user toevoegen
     @Override
     public void addUser(User u) {
-        try (Connection con = MySqlConnection.getConnection();
+        try (Connection con = JDBCInteractor.getConnection();
              PreparedStatement prep = con.prepareStatement(SQL_ADD_USER)){
             prep.setString(1, u.getUsername());
             prep.setString(2, dateToday);
@@ -147,7 +147,7 @@ public class MySqlDailyRepository implements DailyRepository {
     // user weergeven
     @Override
     public User getUser(String username) {
-        try (Connection con = MySqlConnection.getConnection();
+        try (Connection con = JDBCInteractor.getConnection();
              PreparedStatement prep = con.prepareStatement(SQL_GET_USERNAME)) {
             prep.setString(1, username);
 
@@ -166,6 +166,7 @@ public class MySqlDailyRepository implements DailyRepository {
     private User createUser(ResultSet rs) throws SQLException {
         int id = rs.getInt("userid");
         String username = rs.getString("name");
+        String password = rs.getString("password");
         String register_date = rs.getString("register_date");
         String begin_date = rs.getString("begin_date");
         String next_date = rs.getString("next_date");
@@ -183,7 +184,7 @@ public class MySqlDailyRepository implements DailyRepository {
     // show reward
     @Override
     public Streak getStreak(int streakId) {
-        try (Connection con = MySqlConnection.getConnection();
+        try (Connection con = JDBCInteractor.getConnection();
              PreparedStatement prep = con.prepareStatement(SQL_GET_REWARD)) {
             prep.setInt(1, streakId);
 
