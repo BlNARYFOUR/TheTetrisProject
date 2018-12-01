@@ -9,6 +9,7 @@ import data.loggedInRepository.LoggedInRepository;
 import data.loginRepository.LoginRepository;
 import data.Repositories;
 import domain.User;
+import domain.game.Game;
 import domain.game.matchmaking.Match;
 import domain.game.matchmaking.MatchHandler;
 import domain.game.modes.GameMode;
@@ -95,22 +96,27 @@ public class WebAPI extends AbstractVerticle {
 
     private void makeMatchHandler(Long aLong) {
         Set<Match> matched = MatchHandler.getInstance().matchUsers();
-        Logger.info("Matched users: " + matched);
+        //Logger.info("Matched users: " + matched);
 
-        Map<String, String> data = new HashMap<>();
-        data.put("match", "someGameAddress");
-        try {
-            String json = objectMapper.writeValueAsString(data);
+        matched.forEach(match -> {
+            Game game = new Game(match);
 
-            matched.forEach(match -> {
-                match.getUsers().forEach(user -> {
-                    Logger.warn(user.getUsername() + " tetris-16.socket.client.match." + loggedInRepo.getSessionID(user));
-                    vertx.eventBus().publish("tetris-16.socket.client.match." + loggedInRepo.getSessionID(user), json);
-                });
+            Map<String, String> data = new HashMap<>();
+            data.put("match", game.getGameAddress());
+            String json;
+            try {
+                json = objectMapper.writeValueAsString(data);
+            } catch (JsonProcessingException e) {
+                throw new MatchableException("json data is not okay ¯\\_(ツ)_/¯");
+            }
+
+            match.getUsers().forEach(user -> {
+                Logger.warn(user.getUsername() + " tetris-16.socket.client.match." + loggedInRepo.getSessionID(user));
+                vertx.eventBus().publish("tetris-16.socket.client.match." + loggedInRepo.getSessionID(user), json);
             });
-        } catch (JsonProcessingException e) {
-            throw new MatchableException("json data is not okay ¯\\_(ツ)_/¯");
-        }
+
+            //game.startGame();
+        });
 
         // TODO: send response to users activate a game
     }

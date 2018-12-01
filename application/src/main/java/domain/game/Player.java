@@ -1,6 +1,11 @@
 package domain.game;
 
 import domain.User;
+import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Context;
+import io.vertx.core.Vertx;
+import io.vertx.core.eventbus.EventBus;
+import io.vertx.core.eventbus.Message;
 import org.pmw.tinylog.Logger;
 
 public class Player {
@@ -9,6 +14,7 @@ public class Player {
 
     private User user;
     private String address;
+    private boolean ready;
     private Integer[][] playingField;
 
     private FallingBlock holdFallingBlock;
@@ -20,6 +26,7 @@ public class Player {
     private int level;
 
     private double normalMovementTime;
+    private long periodic;
 
     public Player(User user, String sessionID) {
         setUser(user);
@@ -32,6 +39,25 @@ public class Player {
         amountOfScoredLines = 0;
         level = 0;
         normalMovementTime = BEGIN_MOVEMENT_TIME;
+        ready = false;
+    }
+
+    public void startPlaying() {
+        Context vertx = Vertx.currentContext();
+        //periodic = vertx.setPeriodic(Math.round(normalMovementTime), this::nextBlockFall);
+        setupListener();
+    }
+
+    public void setupListener() {
+        Context context = Vertx.currentContext();
+        EventBus eb = context.owner().eventBus();
+        Logger.warn(address);
+        eb.consumer(address, this::gameHandler);
+    }
+
+    private void gameHandler(Message message) {
+        Logger.info(this + " got a message!");
+        message.reply("GOT IT");
     }
 
     private void getNextFallingBlock() {
@@ -43,7 +69,7 @@ public class Player {
         getNextFallingBlock();
     }
 
-    public synchronized boolean nextBlockFall() {
+    public synchronized boolean nextBlockFall(long l) {
         boolean isNew = false;
 
         if(checkCollision(fallingBlock, fallingBlock.getX(), fallingBlock.getY() + 1)) {
@@ -75,8 +101,10 @@ public class Player {
         Logger.warn("updateSpeed NYI");
     }
 
-    private void die() {
+    public void die() {
         Logger.warn("Die NYI");
+        Vertx vertx = Vertx.vertx();
+        vertx.cancelTimer(periodic);
     }
 
     private boolean checkAndScoreFullRows() {
@@ -168,7 +196,7 @@ public class Player {
     }
 
     private void setAddress(String sessionID) {
-        this.address = "tetris-16.socket.client." + sessionID;
+        this.address = "tetris-16.socket.server.game." + sessionID;
     }
 
     public FallingBlock getFallingBlock() {
@@ -189,6 +217,14 @@ public class Player {
                 playingField[y][x] = 0;
             }
         }
+    }
+
+    private void setReady() {
+        ready = true;
+    }
+
+    private boolean isReady() {
+        return ready;
     }
 
     @Override

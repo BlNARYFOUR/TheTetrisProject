@@ -72,10 +72,10 @@ public class MatchHandler implements Matchmaking {
             boolean oneLeft = false;
             int usersToAdd = Math.round((MAX_USERS_PER_MATCH + 1) / 2);
             for (User user : matchable.get(gameMode)) {
-                System.out.println(matchable.get(gameMode).size() - usersToRemove.size());
+                //System.out.println(matchable.get(gameMode).size() - usersToRemove.size());
 
                 if(matchable.get(gameMode).size() - usersToRemove.size() == MAX_USERS_PER_MATCH + 1) {
-                    System.out.println("one left");
+                    //System.out.println("one left");
                     oneLeft = true;
                 }
 
@@ -101,7 +101,7 @@ public class MatchHandler implements Matchmaking {
                     }
                 }
 
-                System.out.println("u to add: " + usersToAdd);
+                //System.out.println("u to add: " + usersToAdd);
             }
 
             if(2 <= matchTry.getUsers().size()) {
