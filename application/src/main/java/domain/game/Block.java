@@ -3,10 +3,15 @@ package domain.game;
 import java.util.Arrays;
 
 public class Block {
+    private String name;
     private Boolean[][] pattern;
 
-    public Block(Boolean[][] pattern) {
+    public Block(Boolean[][] pattern, String name) {
         setPattern(pattern);
+        setName(name);
+    }
+    public Block(Boolean[][] pattern) {
+        this(pattern, "[Empty]");
     }
 
     public Block rotate() {
@@ -31,6 +36,14 @@ public class Block {
         this.pattern = pattern;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    private void setName(String name) {
+        this.name = name;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -48,10 +61,10 @@ public class Block {
     public String toString() {
         StringBuilder sb =new StringBuilder();
 
-        sb.append("Block:\n[");
+        sb.append("Block:").append(getName()).append(" = {");
 
         for (Boolean[] row : pattern) {
-            sb.append("\n\t[");
+            sb.append("\n\t{");
 
             for (int x = 0; x < row.length; x++) {
                 if(row[x]) {
@@ -65,10 +78,10 @@ public class Block {
                 }
             }
 
-            sb.append(']');
+            sb.append('}');
         }
 
-        sb.append("\n]");
+        sb.append("\n}");
 
         return sb.toString();
     }
