@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class HcBlockRepository implements BlockRepository {
+    private static int nextID = 0;
+
     private static final Boolean[][] PATTERN_LINE = {
             {true, true, true, true}
     };
@@ -43,13 +45,19 @@ public class HcBlockRepository implements BlockRepository {
     private static Set<Block> blocks = new HashSet<>();
 
     public HcBlockRepository() {
-        blocks.add(new Block(PATTERN_LINE, "LINE"));
-        blocks.add(new Block(PATTERN_L_1, "L_1"));
-        blocks.add(new Block(PATTERN_L_2, "L_2"));
-        blocks.add(new Block(PATTERN_SQUARE, "SQUARE"));
-        blocks.add(new Block(PATTERN_ZIGZAG_1, "ZIGZAG_1"));
-        blocks.add(new Block(PATTERN_ZIGZAG_2, "ZIGZAG_2"));
-        blocks.add(new Block(PATTERN_T, "T"));
+        registerBlock(PATTERN_LINE, "LINE");
+        registerBlock(PATTERN_L_1, "L_1");
+        registerBlock(PATTERN_L_2, "L_2");
+        registerBlock(PATTERN_SQUARE, "SQUARE");
+        registerBlock(PATTERN_ZIGZAG_1, "ZIGZAG_1");
+        registerBlock(PATTERN_ZIGZAG_2, "ZIGZAG_2");
+        registerBlock(PATTERN_T, "T");
+    }
+
+    @SuppressWarnings("WeakerAccess")
+    public void registerBlock(Boolean[][] pattern, String name) {
+        blocks.add(new Block(nextID, pattern, name));
+        nextID++;
     }
 
     @Override

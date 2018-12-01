@@ -1,17 +1,19 @@
 package domain.game;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 public class Block {
+    private int ID;
     private String name;
     private Boolean[][] pattern;
 
-    public Block(Boolean[][] pattern, String name) {
+    public Block(int ID, Boolean[][] pattern, String name) {
         setPattern(pattern);
         setName(name);
     }
-    public Block(Boolean[][] pattern) {
-        this(pattern, "[Empty]");
+    public Block(int ID, Boolean[][] pattern) {
+        this(ID, pattern, "[Empty]");
     }
 
     public Block rotate() {
@@ -25,7 +27,7 @@ public class Block {
             }
         }
 
-        return new Block(rotatedPattern);
+        return new Block(this.ID, rotatedPattern);
     }
 
     public Boolean[][] getPattern() {
@@ -44,17 +46,26 @@ public class Block {
         this.name = name;
     }
 
+    public int getID() {
+        return ID;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Block block = (Block) o;
-        return Arrays.deepEquals(getPattern(), block.getPattern());
+        return getID() == block.getID() &&
+                Objects.equals(getName(), block.getName()) &&
+                Arrays.deepEquals(getPattern(), block.getPattern());
     }
 
     @Override
     public int hashCode() {
-        return Arrays.hashCode(getPattern());
+
+        int result = Objects.hash(getID(), getName());
+        result = 31 * result + Arrays.hashCode(getPattern());
+        return result;
     }
 
     @Override

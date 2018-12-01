@@ -19,8 +19,8 @@ public class BlockTest {
                 {true, true}
         };
 
-        Block block = new Block(pattern);
-        Block rotatedExpected = new Block(rotatedPattern);
+        Block block = new Block(0, pattern);
+        Block rotatedExpected = new Block(0, rotatedPattern);
 
         System.out.println(block);
 
