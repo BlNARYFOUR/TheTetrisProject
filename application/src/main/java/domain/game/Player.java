@@ -15,6 +15,7 @@ public class Player {
     private User user;
     private String address;
     private boolean ready;
+    private boolean isDead;
     private Integer[][] playingField;
 
     private FallingBlock holdFallingBlock;
@@ -40,6 +41,7 @@ public class Player {
         level = 0;
         normalMovementTime = BEGIN_MOVEMENT_TIME;
         ready = false;
+        isDead = false;
     }
 
     public void startPlaying() {
@@ -105,6 +107,7 @@ public class Player {
         Logger.warn("Die NYI");
         Vertx vertx = Vertx.vertx();
         vertx.cancelTimer(periodic);
+        isDead = true;
     }
 
     private boolean checkAndScoreFullRows() {

@@ -1,12 +1,12 @@
 "use strict";
 
-let matching = function () {
+let ready = function () {
     let eb = new EventBus("http://localhost:8016/tetris-16/socket");
 
     eb.onopen = function () {
         console.log("Connection Open");
 
-        console.warn("tetris-16.socket.client.match." + cookies.getCookie("vertx-web.session"));
+        console.warn("tetris-16.socket.server." + localStorage.getItem("game-address"));
         eb.registerHandler("tetris-16.socket.client.match." + cookies.getCookie("vertx-web.session"), matchHandler);
     };
 
@@ -30,9 +30,6 @@ let matching = function () {
 
     let matchHandler = function (err, message) {
         console.log("received a matching message:" + JSON.stringify(message));
-        console.log("body: " + JSON.stringify(message.body()));
-        localStorage.setItem("game-address", message.body["match"]);
-        location.href = "tetrisMultiplayerField.html";
     };
 
     return {"sendMatchRequest": sendMatchRequest};

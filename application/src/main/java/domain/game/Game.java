@@ -63,7 +63,7 @@ public class Game {
 
         Logger.warn("Match request received: " + jsonMap);
 
-        Logger.info("Game " + gameID + " got a ready-state for " + );
+        Logger.info("Game " + gameID + " got a ready-state for " + jsonMap.getOrDefault("session", "<ERROR>"));
         message.reply("GOT IT");
     }
 
