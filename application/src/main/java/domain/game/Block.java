@@ -11,6 +11,7 @@ public class Block {
     public Block(int ID, Boolean[][] pattern, String name) {
         setPattern(pattern);
         setName(name);
+        setID(ID);
     }
     public Block(int ID, Boolean[][] pattern) {
         this(ID, pattern, "[Empty]");
@@ -48,6 +49,10 @@ public class Block {
 
     public int getID() {
         return ID;
+    }
+
+    private void setID(int ID) {
+        this.ID = ID;
     }
 
     @Override

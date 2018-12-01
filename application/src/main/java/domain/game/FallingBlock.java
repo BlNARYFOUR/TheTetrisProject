@@ -7,7 +7,7 @@ public class FallingBlock extends Block {
     private int x, y;
 
     public FallingBlock(Block block) {
-        super(block.getPattern(), block.getName());
+        super(block.getID(), block.getPattern(), block.getName());
         x = (int) Math.floor((Game.PLAYING_FIELD_WIDTH - block.getPattern()[0].length) / 2);
         y = 0;
     }

@@ -21,7 +21,7 @@ public class Player {
 
     private double normalMovementTime;
 
-    Player(User user, String sessionID) {
+    public Player(User user, String sessionID) {
         setUser(user);
         setAddress(sessionID);
 
@@ -147,9 +147,11 @@ public class Player {
         final int MAX_WIDTH = block.getPattern()[0].length;
 
         if(!checkCollision(block, x, y)) {
+            //System.out.println("Placed!");
             for (int i = 0; i < MAX_HEIGHT; i++) {
                 for (int j = 0; j < MAX_WIDTH; j++) {
                     if (block.getPattern()[i][j]) {
+                        //System.out.println("Gets here: " + (y + i) + " " + (x + j) + " ID: " + colorIndex);
                         playingField[y + i][x + j] = colorIndex;
                     }
                 }
@@ -167,6 +169,10 @@ public class Player {
 
     private void setAddress(String sessionID) {
         this.address = "tetris-16.socket.client." + sessionID;
+    }
+
+    public FallingBlock getFallingBlock() {
+        return fallingBlock;
     }
 
     private void createPlayingFields() {
@@ -191,5 +197,38 @@ public class Player {
                 "user=" + user +
                 ", address='" + address + '\'' +
                 '}';
+    }
+
+    public String playingFieldWithFallingBlock() {
+        StringBuilder sb = new StringBuilder();
+
+        final int MAX_HEIGHT = fallingBlock.getPattern().length;
+        final int MAX_WIDTH = fallingBlock.getPattern()[0].length;
+
+        for (int i = 0; i < playingField.length; i++) {
+            for (int j = 0; j < playingField[i].length; j++) {
+                int yDiff = i - fallingBlock.getY();
+                int xDiff = j - fallingBlock.getX();
+
+                //System.out.println(yDiff + " " + xDiff);
+
+                if((0 <= yDiff && 0 <= xDiff) && (yDiff < MAX_HEIGHT && xDiff < MAX_WIDTH)) {
+                    //System.out.println("Gets here");
+                    if (fallingBlock.getPattern()[yDiff][xDiff]) {
+                        sb.append('F');
+                    } else {
+                        sb.append(playingField[i][j]);
+                    }
+                } else {
+                    sb.append(playingField[i][j]);
+                }
+
+                sb.append(' ');
+            }
+
+            sb.append('\n');
+        }
+
+        return sb.toString();
     }
 }
