@@ -8,7 +8,6 @@ import org.junit.Test;
 import java.util.*;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public class GameTest {
     @Test
@@ -45,12 +44,12 @@ public class GameTest {
 
         game = new Game(matchIterator.next());
         game.getPlayers().forEach(System.out::println);
-        assertEquals(4, game.getPlayers().size());
+        assertEquals(2, game.getPlayers().size());
 
         System.out.println();
 
         game = new Game(matchIterator.next());
         game.getPlayers().forEach(System.out::println);
-        assertEquals(2, game.getPlayers().size());
+        assertEquals(4, game.getPlayers().size());
     }
 }
