@@ -7,31 +7,24 @@ let ready = function () {
         console.log("Connection Open");
 
         console.warn("tetris-16.socket.server." + localStorage.getItem("game-address"));
-        eb.registerHandler("tetris-16.socket.client.match." + cookies.getCookie("vertx-web.session"), matchHandler);
     };
 
-    function sendMatchRequest() {
+    function sendReady() {
         let data = {
-            "session": cookies.getCookie("vertx-web.session"),
-            "gameMode": localStorage.getItem("gameMode"),
-            "hero": localStorage.getItem("hero")
+            "session": cookies.getCookie("vertx-web.session")
         };
 
         const DONE_FUNC = function(err, reply) {
-            console.log("Match: reply: " + JSON.stringify(reply));
+            console.warn("Ready: reply: " + JSON.stringify(reply));
         };
 
-        eb.send("tetris-16.socket.server.match", data, DONE_FUNC);
+        eb.send("tetris-16.socket.server." + localStorage.getItem("game-address"), data, DONE_FUNC);
     }
 
     eb.onclose = function () {
         console.log("Connection Closed");
     };
 
-    let matchHandler = function (err, message) {
-        console.log("received a matching message:" + JSON.stringify(message));
-    };
-
-    return {"sendMatchRequest": sendMatchRequest};
+    return {"sendReadyStatus": sendReady};
 }();
 

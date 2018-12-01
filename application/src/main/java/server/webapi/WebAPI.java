@@ -103,6 +103,7 @@ public class WebAPI extends AbstractVerticle {
 
             Map<String, String> data = new HashMap<>();
             data.put("match", game.getGameAddress());
+            data.put("amountOfPlayers", Integer.toString(match.getUsers().size()));
             String json;
             try {
                 json = objectMapper.writeValueAsString(data);

@@ -63,7 +63,9 @@ let progressIntervals = [0,0,0,0,0];
 let AMOUNT_OF_PLAYERS = 0;
 
 function init(e) {
-    AMOUNT_OF_PLAYERS = 5;
+    ready.sendReadyStatus();
+
+    AMOUNT_OF_PLAYERS = parseInt(localStorage.getItem("amountOfPlayers"));
 
     tiles = new Map();
     tiles.set(COLORS.TRANSPARENT, IMAGES.retroBackgroundTile);
