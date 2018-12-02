@@ -3,6 +3,7 @@ package server.webapi;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import data.GameRepository.GameRepository;
 import data.JDBCInteractor;
 import data.TetrisRepository;
 import data.loggedInRepository.LoggedInRepository;
@@ -38,8 +39,9 @@ import java.util.Set;
 
 public class WebAPI extends AbstractVerticle {
     private ObjectMapper objectMapper = new ObjectMapper();
-    private LoginRepository repo = Repositories.getInstance().getLoginRepository();
+    private LoginRepository loginRepo = Repositories.getInstance().getLoginRepository();
     private LoggedInRepository loggedInRepo = Repositories.getInstance().getLoggedInRepository();
+    private GameRepository gameRepo = Repositories.getInstance().getGameRepository();
 
     @Override
     public void start() {
@@ -100,6 +102,7 @@ public class WebAPI extends AbstractVerticle {
 
         matched.forEach(match -> {
             Game game = new Game(match);
+            gameRepo.addActiveGame(game);
 
             Map<String, String> data = new HashMap<>();
             data.put("match", game.getGameAddress());

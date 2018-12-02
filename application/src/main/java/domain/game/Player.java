@@ -14,6 +14,7 @@ public class Player {
 
     private User user;
     private String address;
+    private String session;
     private boolean ready;
     private boolean isDead;
     private Integer[][] playingField;
@@ -42,6 +43,7 @@ public class Player {
         normalMovementTime = BEGIN_MOVEMENT_TIME;
         ready = false;
         isDead = false;
+        this.session = sessionID;
     }
 
     public void startPlaying() {
@@ -228,6 +230,10 @@ public class Player {
 
     private boolean isReady() {
         return ready;
+    }
+
+    public String getSession() {
+        return session;
     }
 
     @Override
