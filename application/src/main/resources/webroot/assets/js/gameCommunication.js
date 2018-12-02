@@ -19,7 +19,9 @@ let gameCommunication = function () {
 
     function getGameBoards() {
         let GAME_BOARDS = [];
-        GAME_BOARDS.push(GAME.YOUR_GAME_BOARD.slice());
+
+        if(0 < GAME.YOUR_GAME_BOARD.length)
+            GAME_BOARDS.push(GAME.YOUR_GAME_BOARD.slice());
 
         let enemyGameBoards = Array.from(GAME.ENEMY_GAME_BOARDS);
 
