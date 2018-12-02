@@ -90,7 +90,7 @@ public class Player {
         getNextFallingBlock();
     }
 
-    public synchronized boolean nextBlockFall() {
+    public boolean nextBlockFall() {
         boolean isNew = false;
 
         if(checkCollision(fallingBlock, fallingBlock.getX(), fallingBlock.getY() + 1)) {
