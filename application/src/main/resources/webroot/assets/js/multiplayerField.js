@@ -63,6 +63,7 @@ let progressIntervals = [0,0,0,0,0];
 let AMOUNT_OF_PLAYERS = 0;
 
 function init(e) {
+    // noinspection JSIgnoredPromiseFromCall
     ready.sendReadyStatus();
 
     AMOUNT_OF_PLAYERS = parseInt(localStorage.getItem("amountOfPlayers"));

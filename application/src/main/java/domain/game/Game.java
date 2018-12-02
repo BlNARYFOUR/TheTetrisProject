@@ -40,16 +40,19 @@ public class Game {
         gameID = nextGameID;
         nextGameID++;
 
+        setupListener();
+
         users.forEach(user -> {
             Player player = new Player(user, repo.getSessionID(user));
             players.add(player);
         });
     }
 
-    public void setupListener() {
+    private void setupListener() {
         Context context = Vertx.currentContext();
         EventBus eb = context.owner().eventBus();
-        eb.consumer("tetris-16.socket.server.ready", this::readyHandler);
+        Logger.warn("SETUP: tetris-16.socket.server.ready." + getGameAddress());
+        eb.consumer("tetris-16.socket.server.ready." + getGameAddress(), this::readyHandler);
     }
 
     private void readyHandler(Message message) {
@@ -61,10 +64,8 @@ public class Game {
             throw new MatchableException("json in readyHandler not valid!");
         }
 
-        Logger.warn("Match request received: " + jsonMap);
-
         Logger.info("Game " + gameID + " got a ready-state for " + jsonMap.getOrDefault("session", "<ERROR>"));
-        message.reply("GOT IT");
+        message.reply("OKE");
     }
 
     public void startGame() {
