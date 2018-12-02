@@ -46,13 +46,13 @@ public class Player {
         this.session = sessionID;
     }
 
-    public void startPlaying() {
-        Context vertx = Vertx.currentContext();
-        //periodic = vertx.setPeriodic(Math.round(normalMovementTime), this::nextBlockFall);
+    void startPlaying() {
+        Context context = Vertx.currentContext();
+        //periodic = context.owner().setPeriodic(Math.round(normalMovementTime), this::updateCycle);
         setupListener();
     }
 
-    public void setupListener() {
+    private void setupListener() {
         Context context = Vertx.currentContext();
         EventBus eb = context.owner().eventBus();
         Logger.warn(address);
@@ -64,6 +64,11 @@ public class Player {
         message.reply("GOT IT");
     }
 
+    private void updateCycle(long l) {
+        nextBlockFall();
+        sendUpdate();
+    }
+
     private void getNextFallingBlock() {
         nextFallingBlock = new FallingBlock();
     }
@@ -73,7 +78,7 @@ public class Player {
         getNextFallingBlock();
     }
 
-    public synchronized boolean nextBlockFall(long l) {
+    public synchronized boolean nextBlockFall() {
         boolean isNew = false;
 
         if(checkCollision(fallingBlock, fallingBlock.getX(), fallingBlock.getY() + 1)) {
@@ -99,6 +104,10 @@ public class Player {
         }
 
         return isNew;
+    }
+
+    public void sendUpdate() {
+
     }
 
     private void updateSpeed() {
