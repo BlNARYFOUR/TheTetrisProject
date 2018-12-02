@@ -1,5 +1,7 @@
 package domain.game;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import domain.User;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Context;
@@ -15,6 +17,9 @@ public class Player {
     private static final int BEGIN_MOVEMENT_TIME = 750;
     private static final int FULL_LINE_POINTS = 10;
 
+    private ObjectMapper objectMapper = new ObjectMapper();
+
+    private int playerID;
     private User user;
     private String address;
     private String session;
@@ -34,7 +39,7 @@ public class Player {
     private double normalMovementTime;
     private long periodic;
 
-    public Player(User user, String sessionID, String gameAddress) {
+    public Player(int playerID, User user, String sessionID, String gameAddress) {
         setUser(user);
         setAddress(sessionID);
 
@@ -49,11 +54,13 @@ public class Player {
         isDead = false;
         this.session = sessionID;
         this.gameAddress = gameAddress;
+        this.playerID = playerID;
     }
 
     void startPlaying() {
         Context context = Vertx.currentContext();
         periodic = context.owner().setPeriodic(Math.round(normalMovementTime), this::updateCycle);
+        //updateCycle(0);
         setupListener();
     }
 
@@ -117,18 +124,31 @@ public class Player {
 
         Map<String, Object> data = new HashMap<>();
         data.put("playingField", playingField);
+        data.put("fallingBlock", fallingBlock);
+        data.put("playerId", playerID);
 
-        eb.publish("tetris-16.socket.client.game." + gameAddress, data);
+        String json = "<ERROR>";
+
+        try {
+            json = objectMapper.writeValueAsString(data);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        Logger.info("Update to client! <3 : tetris-16.socket.client.game." + gameAddress);
+
+        eb.publish("tetris-16.socket.client.game." + gameAddress, json);
     }
 
     private void updateSpeed() {
         Logger.warn("updateSpeed NYI");
     }
 
-    public void die() {
+    private void die() {
         Logger.warn("Die NYI");
-        Vertx vertx = Vertx.vertx();
-        vertx.cancelTimer(periodic);
+        Context context = Vertx.currentContext();
+        Logger.warn("Periodic: " + periodic);
+        context.owner().cancelTimer(periodic);
         isDead = true;
     }
 
@@ -244,16 +264,20 @@ public class Player {
         }
     }
 
-    private void setReady() {
+    public void setReady() {
         ready = true;
     }
 
-    private boolean isReady() {
+    public boolean isReady() {
         return ready;
     }
 
     public String getSession() {
         return session;
+    }
+
+    public int getPlayerID() {
+        return playerID;
     }
 
     @Override

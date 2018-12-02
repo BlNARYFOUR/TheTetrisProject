@@ -63,10 +63,10 @@ let progressIntervals = [0,0,0,0,0];
 let AMOUNT_OF_PLAYERS = 0;
 
 function init(e) {
+    let data = [0];
     // noinspection JSIgnoredPromiseFromCall
-    communication.sendReadyStatus();
-
-    AMOUNT_OF_PLAYERS = parseInt(localStorage.getItem("amountOfPlayers"));
+    gameCommunication.sendReadyStatus();
+    AMOUNT_OF_PLAYERS = localStorage.getItem("amountOfPlayers");
 
     tiles = new Map();
     tiles.set(COLORS.TRANSPARENT, IMAGES.retroBackgroundTile);
@@ -87,6 +87,12 @@ function init(e) {
 }
 
 function gameLoop() {
+    let gameBoardBuf = gameCommunication.getGameBoards();
+
+    for(let i=0; i<gameBoardBuf.length; i++) {
+        GAME_BOARDS[i] = gameBoardBuf[i].slice();
+    }
+
     drawFields();
 
     window.requestAnimationFrame(gameLoop);

@@ -77,7 +77,7 @@ public class Block {
     public String toString() {
         StringBuilder sb =new StringBuilder();
 
-        sb.append("Block:").append(getName()).append(" = {");
+        sb.append("Block").append('-').append(getID()).append(':').append(getName()).append(" = {");
 
         for (Boolean[] row : pattern) {
             sb.append("\n\t{");

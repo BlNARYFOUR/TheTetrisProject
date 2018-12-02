@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class HcBlockRepository implements BlockRepository {
-    private static int nextID = 0;
+    private int nextID = 0;
 
     private static final Boolean[][] PATTERN_LINE = {
             {true, true, true, true}
@@ -42,7 +42,7 @@ public class HcBlockRepository implements BlockRepository {
             {true, true, true}
     };
 
-    private static Set<Block> blocks = new HashSet<>();
+    private Set<Block> blocks = new HashSet<>();
 
     public HcBlockRepository() {
         registerBlock(PATTERN_LINE, "LINE");

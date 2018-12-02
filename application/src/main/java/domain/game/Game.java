@@ -1,5 +1,6 @@
 package domain.game;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import data.Repositories;
@@ -28,6 +29,7 @@ public class Game {
     private static int nextGameID = 0;
 
     private int gameID;
+    private int nextPlayerID;
     private ObjectMapper objectMapper = new ObjectMapper();
 
     private List<Player> players;
@@ -38,12 +40,14 @@ public class Game {
         players = new ArrayList<>();
         gameID = nextGameID;
         nextGameID++;
+        nextPlayerID = 0;
 
         setupListener();
 
         users.forEach(user -> {
-            Player player = new Player(user, repo.getSessionID(user), getGameAddress());
+            Player player = new Player(nextPlayerID, user, repo.getSessionID(user), getGameAddress());
             players.add(player);
+            nextPlayerID++;
         });
     }
 
@@ -54,17 +58,61 @@ public class Game {
         consumer = eb.consumer("tetris-16.socket.server.ready." + getGameAddress(), this::readyHandler);
     }
 
+    private int getPlayerIdBySession(String session) {
+        int playerId = -1;
+
+        for(Player player : players) {
+            if(player.getSession().equals(session)) {
+                playerId = player.getPlayerID();
+            }
+        }
+
+        return playerId;
+    }
+
     private void readyHandler(Message message) {
-        Map<String, Object> jsonMap = null;
+        Map<String, Object> data = null;
 
         try {
-            jsonMap = objectMapper.readValue(message.body().toString(), new TypeReference<Map<String, Object>>(){});
+            data = objectMapper.readValue(message.body().toString(), new TypeReference<Map<String, Object>>(){});
         } catch (IOException e) {
             throw new MatchableException("json in readyHandler not valid!");
         }
 
-        Logger.info("Game " + gameID + " got a ready-state for " + jsonMap.getOrDefault("session", "<ERROR>"));
-        message.reply("OKE");
+        String sessionID = String.valueOf(data.getOrDefault("session", "<ERROR>"));
+
+        Logger.info("Game " + gameID + " got a ready-state for " + sessionID);
+
+        players.get(getPlayerIdBySession(sessionID)).setReady();
+
+        data = new HashMap<>();
+        data.put("status", "oke");
+        data.put("playerId", getPlayerIdBySession(sessionID));
+        //data.put("amountOfPlayers", players.size());
+
+        String json = "<ERROR>";
+
+        try {
+            json = objectMapper.writeValueAsString(data);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        message.reply(json);
+
+        boolean allReady = true;
+
+        for(Player player : players) {
+            if(!player.isReady()) {
+                allReady = false;
+                break;
+            }
+        }
+
+        if(allReady) {
+            Logger.info("All ready!!");
+            startGame();
+        }
     }
 
     public void startGame() {
