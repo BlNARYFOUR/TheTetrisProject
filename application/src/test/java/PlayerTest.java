@@ -10,7 +10,7 @@ public class PlayerTest {
     @Test
     public void testNextBlockFall() {
         User user = new User();
-        Player player = new Player(user, "1234");
+        Player player = new Player(0, user, "1234", "<EMPTY>");
 
         System.out.println(player.getFallingBlock());
         System.out.println(player.getFallingBlock().getX() + " " + player.getFallingBlock().getY());

@@ -1,12 +1,21 @@
 "use strict";
 
-let ready = function () {
+let communication = function () {
     let eb = new EventBus("http://localhost:8016/tetris-16/socket");
+
+    let data = null;
 
     eb.onopen = function () {
         console.log("Connection Open");
-
         console.warn("tetris-16.socket.server.ready." + localStorage.getItem("game-address"));
+
+        eb.registerHandler("tetris-16.socket.client.game." + cookies.getCookie("game-address"), gameHandler);
+    };
+
+    let gameHandler = function (err, message) {
+        //console.log("received a matching message:" + JSON.stringify(message));
+
+        data = JSON.parse(message.body);
     };
 
     function resolveOnOpenState() {
@@ -43,6 +52,6 @@ let ready = function () {
         console.log("Connection Closed");
     };
 
-    return {"sendReadyStatus": sendReady};
+    return {"sendReadyStatus": sendReady, "gameData": data};
 }();
 

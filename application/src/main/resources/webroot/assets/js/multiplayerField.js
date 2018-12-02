@@ -64,7 +64,7 @@ let AMOUNT_OF_PLAYERS = 0;
 
 function init(e) {
     // noinspection JSIgnoredPromiseFromCall
-    ready.sendReadyStatus();
+    communication.sendReadyStatus();
 
     AMOUNT_OF_PLAYERS = parseInt(localStorage.getItem("amountOfPlayers"));
 

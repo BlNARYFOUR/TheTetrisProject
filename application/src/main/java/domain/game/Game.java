@@ -42,7 +42,7 @@ public class Game {
         setupListener();
 
         users.forEach(user -> {
-            Player player = new Player(user, repo.getSessionID(user));
+            Player player = new Player(user, repo.getSessionID(user), getGameAddress());
             players.add(player);
         });
     }

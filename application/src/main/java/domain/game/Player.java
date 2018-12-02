@@ -8,6 +8,9 @@ import io.vertx.core.eventbus.EventBus;
 import io.vertx.core.eventbus.Message;
 import org.pmw.tinylog.Logger;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Player {
     private static final int BEGIN_MOVEMENT_TIME = 750;
     private static final int FULL_LINE_POINTS = 10;
@@ -15,6 +18,7 @@ public class Player {
     private User user;
     private String address;
     private String session;
+    private String gameAddress;
     private boolean ready;
     private boolean isDead;
     private Integer[][] playingField;
@@ -30,7 +34,7 @@ public class Player {
     private double normalMovementTime;
     private long periodic;
 
-    public Player(User user, String sessionID) {
+    public Player(User user, String sessionID, String gameAddress) {
         setUser(user);
         setAddress(sessionID);
 
@@ -44,11 +48,12 @@ public class Player {
         ready = false;
         isDead = false;
         this.session = sessionID;
+        this.gameAddress = gameAddress;
     }
 
     void startPlaying() {
         Context context = Vertx.currentContext();
-        //periodic = context.owner().setPeriodic(Math.round(normalMovementTime), this::updateCycle);
+        periodic = context.owner().setPeriodic(Math.round(normalMovementTime), this::updateCycle);
         setupListener();
     }
 
@@ -107,7 +112,13 @@ public class Player {
     }
 
     public void sendUpdate() {
+        Context context = Vertx.currentContext();
+        EventBus eb = context.owner().eventBus();
 
+        Map<String, Object> data = new HashMap<>();
+        data.put("playingField", playingField);
+
+        eb.publish("tetris-16.socket.client.game." + gameAddress, data);
     }
 
     private void updateSpeed() {
