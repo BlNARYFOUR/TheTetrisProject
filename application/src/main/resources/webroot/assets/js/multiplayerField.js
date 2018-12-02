@@ -116,6 +116,7 @@ function setSizeStuff(playerId) {
 function drawFields() {
     for (let i = 0; i < AMOUNT_OF_PLAYERS; i++) {
         c = document.getElementById("userField_" + (i+1).toString());
+        c.classList.remove("hidden");
         ctx = c.getContext("2d");
 
         setSizeStuff(i+1);

@@ -146,7 +146,7 @@ public class WebAPI extends AbstractVerticle {
             MatchHandler.getInstance().addMatchable(user, gameMode);
             Logger.info(MatchHandler.getInstance().getMatchable());
         } catch (IOException e) {
-            e.printStackTrace();
+            e.getMessage();
         }
 
         message.reply("OK");
