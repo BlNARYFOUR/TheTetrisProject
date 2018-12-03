@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto:400,100);
+/*@import url(https://fonts.googleapis.com/css?family=Roboto:400,100);*/
 
 /*LOGINSCHERM:*/
 
@@ -148,10 +148,14 @@ a {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 .chooseGameMode-submit, .clan-submit, .shop-submit, .highScore-submit, .logOut-submit, .back-submit, .save-submit, .next-submit, .playGame-submit, #no, #yes {
 =======
 .chooseGameMode-submit, .clan-submit, .shop-submit, .highScore-submit, .logOut-submit, .back-submit, .save-submit, .playGame-submit, #no, #yes, #leaveMatch, #playGame {
 >>>>>>> frontend invite friends
+=======
+.chooseGameMode-submit, .clan-submit, .shop-submit, .highScore-submit, .logOut-submit, .back-submit, .save-submit, .playGame-submit, #no, #yes, #leaveMatch, #playGame, .sendMessage  {
+>>>>>>> invite friends frontend + chat (js)
     border: 2px solid #9C35FF;
     color: #000000;
     text-shadow: 0 1px rgba(0, 0, 0, 0.1);
@@ -159,10 +163,14 @@ a {
 }
  
 <<<<<<< HEAD
+<<<<<<< HEAD
 .chooseGameMode-submit:hover, .clan-submit:hover, .shop-submit:hover, .highScore-submit:hover, .logOut-submit:hover, .back-submit:hover, .next-submit:hover .playGame-submit:hover, .option-back-submit:hover, .playFriends-submit:hover, .findOpp-submit:hover, .save-submit:hover, #no:hover, #yes:hover, .multiplayer-footer ul li:hover {
 =======
 .chooseGameMode-submit:hover, .clan-submit:hover, .shop-submit:hover, .highScore-submit:hover, .logOut-submit:hover, .back-submit:hover, .playGame-submit:hover, .option-back-submit:hover, .playFriends-submit:hover, .findOpp-submit:hover, .save-submit:hover, #no:hover, #yes:hover, .multiplayer-footer ul li:hover, #leaveMatch:hover, #playGame:hover {
 >>>>>>> frontend invite friends
+=======
+.chooseGameMode-submit:hover, .clan-submit:hover, .shop-submit:hover, .highScore-submit:hover, .logOut-submit:hover, .back-submit:hover, .playGame-submit:hover, .option-back-submit:hover, .playFriends-submit:hover, .findOpp-submit:hover, .save-submit:hover, #no:hover, #yes:hover, .multiplayer-footer ul li:hover, #leaveMatch:hover, #playGame:hover, .sendMessage:hover {
+>>>>>>> invite friends frontend + chat (js)
     border: 2px solid #9C35FF;
     color: #000000;
     text-shadow: 0 1px rgba(0,0,0,0.3);
@@ -633,4 +641,85 @@ section input{
     justify-content: space-between;
     padding: 0 100px;
 }
+<<<<<<< HEAD
 >>>>>>> frontend invite friends
+=======
+
+.message-container {
+    display: flex;
+    width: 30vw;
+    height: 10vh;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 2px;
+}
+
+.message {
+    width: 15vw;
+    border: 2px solid #9584FF;
+    border-radius: 10px;
+    padding: 10px 20px;
+}
+
+.sendMessage {
+    width: 6vw;
+    border: 2px solid #9584FF;
+    border-radius: 10px;
+    padding: 10px 20px;
+}
+
+
+/*------chat------*/
+
+.container {
+    width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.window {
+    margin: 0 auto;
+    width: 90%;
+    height: 40vh;
+    border-radius: 15px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    z-index: 1;
+    position: relative;
+}
+
+.text {
+    font-family: sans-serif;
+    font-size: 14px;
+    margin: 25px;
+    letter-spacing: 1px;
+    position: relative;
+    margin-bottom: 200px;
+}
+
+.chatbox {
+    width: 90%;
+    margin: 0 auto;
+    margin-top: -133px;
+}
+
+.chatbox input {
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    background-color: white;
+    border-radius: 15px;
+    border: none;
+    outline: none;
+    margin: 20% auto;
+    line-height: 100px;
+    overflow: hidden;
+    color: #222;
+    font-family: 'Raleway', sans-serif;
+    font-size: 14px;
+    letter-spacing: 2.5px;
+    border-top: 3px solid #9584FF;
+    z-index: 2;
+    position: relative;
+}
+>>>>>>> invite friends frontend + chat (js)

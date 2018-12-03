@@ -16,4 +16,46 @@ function loadPlayers() {
 
     document.getElementById("listOfPlayers").innerHTML = list;
 
+    chat();
+
+}
+
+function chat() {
+    let chatinput = document.getElementById("chat-input");
+    let chatoutput = document.getElementById("chat-output");
+    let textstyle = document.querySelector(".text");
+    let chatarray = [];
+
+    let date = new Date();
+    let day = "["+date.getDate()+"."+date.getMonth()+"."+date.getFullYear()+"]:";
+    let time = "["+date.getHours()+":"+date.getMinutes()+"]:";
+
+    chatinput.addEventListener("keyup", function(event) {
+
+        event.preventDefault();
+
+        if (event.keyCode === 13) {
+            send();
+        }
+
+    });
+
+    function send() {
+
+        let chattext;
+        chattext = time+" "+chatinput.value;
+        chatarray.push(chattext);
+        let newchatarray = chatarray.join("\n");
+
+        chatoutput.innerText = newchatarray;
+        chatinput.value = "";
+
+        // Style
+        textstyle.style.backgroundColor = "#9584FF";
+        textstyle.style.color = "#fff";
+        textstyle.style.padding = "10px 20px";
+        textstyle.style.borderRadius = "5px";
+
+    }
+
 }

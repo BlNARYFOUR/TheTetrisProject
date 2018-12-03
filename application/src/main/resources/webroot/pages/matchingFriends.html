@@ -6,6 +6,7 @@
     <title>Matching Friends</title>
     <link rel="stylesheet" type="text/css" href="../assets/css/mainCSS.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 </head>
 <body>
 <div id="matchingFriends">
@@ -24,13 +25,28 @@
 <div id="matchStats">
     <div id="playerList">
         <p>Player list</p>
-        <div class="heading"><p class="name">Name</p><p class="score">Score</p></div>
+        <div class="heading"><p class="name">Name</p>
+            <p class="score">Score</p></div>
         <hr>
         <ul id="listOfPlayers"></ul>
     </div>
     <div id="playerChat">
         <p>Chat</p>
         <hr>
+        <!--<div class="message-container">
+            <form method="post">
+                <input type="text" name="message" class="message" placeholder="Type something here..." required="required">
+                &lt;!&ndash;<input type="submit" name="send" class="sendMessage" value="send">&ndash;&gt;
+            </form>
+        </div>-->
+        <div class="container">
+            <div class="window">
+                <div class="text" id="chat-output"></div>
+            </div>
+            <div class="chatbox">
+                <input placeholder="Type something here..." id="chat-input" required="required">
+            </div>
+        </div>
     </div>
 </div>
 
