@@ -6,6 +6,7 @@ let elementSelectables;
 let selectedGamemode;
 
 function showAllGamemodes() {
+
     document.getElementById("back").addEventListener("click", goBack);
 
     let location = document.getElementById("showAllGamemodes");

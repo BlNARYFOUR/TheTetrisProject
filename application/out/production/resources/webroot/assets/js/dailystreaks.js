@@ -1,4 +1,5 @@
 "use strict";
+//let eb = new EventBus("http://localhost:8081/static/pages/main_menu.html");
 
 document.addEventListener("DOMContentLoaded", showDailyRewards);
 
@@ -13,6 +14,7 @@ let alreadyLoggedIn = false;
 
 function showDailyRewards(e) {
     e.preventDefault();
+
 
     if (alreadyLoggedIn === false){
         disabledButtons();

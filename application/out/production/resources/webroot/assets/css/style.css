@@ -2,6 +2,10 @@
 
 /*LOGINSCHERM:*/
 
+#error {
+    display: block;
+}
+
 a {
     text-decoration: none;
 }
