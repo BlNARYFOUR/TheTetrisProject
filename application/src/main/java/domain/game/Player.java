@@ -120,6 +120,7 @@ public class Player {
 
     private Integer[][] getPlayingFieldWithFallingBlock() {
         Integer[][] pwfb = new Integer[playingField.length][];
+        boolean collided = checkCollision(fallingBlock, fallingBlock.getX(), fallingBlock.getY());
 
         final int MAX_HEIGHT = fallingBlock.getPattern().length;
         final int MAX_WIDTH = fallingBlock.getPattern()[0].length;
@@ -135,7 +136,7 @@ public class Player {
 
                 if((0 <= yDiff && 0 <= xDiff) && (yDiff < MAX_HEIGHT && xDiff < MAX_WIDTH)) {
                     //System.out.println("Gets here");
-                    if (fallingBlock.getPattern()[yDiff][xDiff]) {
+                    if (fallingBlock.getPattern()[yDiff][xDiff] && !collided) {
                         pwfb[i][j] = fallingBlock.getID();
                     } else {
                         pwfb[i][j] = playingField[i][j];
