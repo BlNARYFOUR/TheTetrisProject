@@ -1,21 +1,27 @@
 package domain.game;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import domain.User;
-import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Context;
 import io.vertx.core.Vertx;
 import io.vertx.core.eventbus.EventBus;
 import io.vertx.core.eventbus.Message;
 import org.pmw.tinylog.Logger;
+import util.InputException;
+import util.MatchableException;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Player {
     private static final int BEGIN_MOVEMENT_TIME = 750;
     private static final int FULL_LINE_POINTS = 10;
+    private static final int SUPER_SONIC_POINTS = 5;
+
+    private static final long FAST_MOVEMENT_TIME = 25;
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
@@ -37,7 +43,9 @@ public class Player {
     private int level;
 
     private double normalMovementTime;
-    private long periodic;
+    private long periodicID;
+
+    private boolean isKeyDown;
 
     public Player(int playerID, User user, String sessionID, String gameAddress) {
         setUser(user);
@@ -46,20 +54,21 @@ public class Player {
         createPlayingFields();
         getNextFallingBlock();
         setFallingBlock();
-        score = 0;
-        amountOfScoredLines = 0;
-        level = 0;
-        normalMovementTime = BEGIN_MOVEMENT_TIME;
-        ready = false;
-        isDead = false;
+        this.score = 0;
+        this.amountOfScoredLines = 0;
+        this.level = 0;
+        this.normalMovementTime = BEGIN_MOVEMENT_TIME;
+        this.ready = false;
+        this.isDead = false;
         this.session = sessionID;
         this.gameAddress = gameAddress;
         this.playerID = playerID;
+        this.isKeyDown = false;
     }
 
     void startPlaying() {
         Context context = Vertx.currentContext();
-        periodic = context.owner().setPeriodic(Math.round(normalMovementTime), this::updateCycle);
+        periodicID = context.owner().setPeriodic(Math.round(normalMovementTime), this::updateCycle);
         //updateCycle(0);
         setupListener();
     }
@@ -72,8 +81,108 @@ public class Player {
     }
 
     private void gameHandler(Message message) {
-        Logger.info(this + " got a message!");
+        Logger.info(this.session + " got a message!");
+
+        Logger.warn(message.body());
+
+        Map<String, Object> data = null;
+
+        try {
+            data = objectMapper.readValue(message.body().toString(), new TypeReference<Map<String, Object>>(){});
+        } catch (IOException e) {
+            throw new MatchableException("json in readyHandler not valid!");
+        }
+
+        try {
+            String key = (String) data.get("key");
+            Boolean isKeyDown = (Boolean) data.get("state");
+
+            if(!this.isKeyDown) {
+                switch (key) {
+                    case "ArrowLeft":
+                    case "KeyA":
+                        goLeft();
+                        break;
+                    case "ArrowRight":
+                    case "KeyD":
+                        goRight();
+                        break;
+                    case "KeyW":
+                    case "ArrowUp":
+                        rotate();
+                        break;
+                    case "KeyS":
+                    case "ArrowDown":
+                        goSonic();
+                        break;
+                    case "Space":
+                        goSuperSonic();
+                        break;
+                    default:
+                        break;
+                }
+            } else {
+                switch (key) {
+                    case "KeyS":
+                    case "ArrowDown":
+                        stopSonic();
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            this.isKeyDown = isKeyDown;
+        } catch (Exception e) {
+            throw new InputException("Key or state not of valid type!");
+        }
+
         message.reply("GOT IT");
+        sendUpdate();
+    }
+
+    private void goRight() {
+        if(!checkCollision(fallingBlock, fallingBlock.getX()+1, fallingBlock.getY())) {
+            fallingBlock.goRight();
+        }
+    }
+
+    private void goLeft() {
+        if(!checkCollision(fallingBlock, fallingBlock.getX()-1, fallingBlock.getY())) {
+            fallingBlock.goLeft();
+        }
+    }
+
+    private void rotate() {
+        FallingBlock rotatedBlock = new FallingBlock(fallingBlock.rotate());
+        rotatedBlock.setX(fallingBlock.getX());
+        rotatedBlock.setY(fallingBlock.getY());
+
+        if(!checkCollision(rotatedBlock, rotatedBlock.getX(), rotatedBlock.getY())) {
+            fallingBlock = rotatedBlock;
+        }
+    }
+
+    private void goSonic() {
+        Vertx.currentContext().owner().cancelTimer(periodicID);
+        periodicID = Vertx.currentContext().owner().setPeriodic(FAST_MOVEMENT_TIME, this::updateCycle);
+    }
+
+    private void stopSonic() {
+        Vertx.currentContext().owner().cancelTimer(periodicID);
+        periodicID = Vertx.currentContext().owner().setPeriodic(Math.round(normalMovementTime), this::updateCycle);
+    }
+
+    private void goSuperSonic() {
+        boolean placed;
+        int levels = 0;
+
+        do {
+            placed = nextBlockFall();
+            levels++;
+        } while(!placed);
+
+        score += levels * SUPER_SONIC_POINTS;
     }
 
     private void updateCycle(long l) {
@@ -110,7 +219,6 @@ public class Player {
                     updateSpeed();
                 }
             }
-
         } else {
             fallingBlock.fall();
         }
@@ -150,13 +258,12 @@ public class Player {
         return pwfb;
     }
 
-    public void sendUpdate() {
+    private void sendUpdate() {
         Context context = Vertx.currentContext();
         EventBus eb = context.owner().eventBus();
 
         Map<String, Object> data = new HashMap<>();
         data.put("playingField", getPlayingFieldWithFallingBlock());
-        data.put("fallingBlock", fallingBlock);
         data.put("playerId", playerID);
 
         String json = "<ERROR>";
@@ -167,7 +274,7 @@ public class Player {
             e.printStackTrace();
         }
 
-        Logger.info("Update to client! <3 : tetris-16.socket.client.game." + gameAddress);
+        // Logger.info("Update to client! <3 : tetris-16.socket.client.game." + gameAddress);
 
         eb.publish("tetris-16.socket.client.game." + gameAddress, json);
     }
@@ -179,8 +286,8 @@ public class Player {
     private void die() {
         Logger.warn("Die NYI");
         Context context = Vertx.currentContext();
-        Logger.warn("Periodic: " + periodic);
-        context.owner().cancelTimer(periodic);
+        Logger.warn("Periodic: " + periodicID);
+        context.owner().cancelTimer(periodicID);
         isDead = true;
     }
 

@@ -78,10 +78,27 @@ let gameCommunication = function () {
         console.warn("SEND READY");
     }
 
+    async function sendKey(key, isKeyDownState) {
+        await resolveOnOpenState();
+
+        let d = {
+            "session": cookies.getCookie("vertx-web.session"),
+            "key": key,
+            "state": isKeyDownState
+        };
+
+        const DONE_FUNC = function(err, reply) {
+            console.warn("Ready: reply: " + JSON.stringify(reply));
+        };
+
+        eb.send("tetris-16.socket.server.game." + cookies.getCookie("vertx-web.session"), d, DONE_FUNC);
+        console.warn("SEND READY");
+    }
+
     eb.onclose = function () {
         console.log("Connection Closed");
     };
 
-    return {"sendReadyStatus": sendReady, "getGameBoards": getGameBoards};
+    return {"sendReadyStatus": sendReady, "getGameBoards": getGameBoards, "sendKey": sendKey};
 }();
 

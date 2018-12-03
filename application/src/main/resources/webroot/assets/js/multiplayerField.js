@@ -81,9 +81,11 @@ function init(e) {
 
     createGameBoard();
 
-    window.addEventListener("resize", onResize);
-
     gameLoop();
+
+    window.addEventListener("resize", onResize);
+    document.addEventListener("keydown", onKeyDown);
+    document.addEventListener("keyup", onKeyUp);
 }
 
 function gameLoop() {
@@ -98,6 +100,16 @@ function gameLoop() {
     drawFields();
 
     window.requestAnimationFrame(gameLoop);
+}
+
+function onKeyDown(e) {
+    // noinspection JSIgnoredPromiseFromCall
+    gameCommunication.sendKey(e.code, true);
+}
+
+function onKeyUp(e) {
+    // noinspection JSIgnoredPromiseFromCall
+    gameCommunication.sendKey(e.code, false);
 }
 
 function onResize(e) {
