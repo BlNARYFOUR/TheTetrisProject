@@ -118,12 +118,43 @@ public class Player {
         return isNew;
     }
 
+    private Integer[][] getPlayingFieldWithFallingBlock() {
+        Integer[][] pwfb = new Integer[playingField.length][];
+
+        final int MAX_HEIGHT = fallingBlock.getPattern().length;
+        final int MAX_WIDTH = fallingBlock.getPattern()[0].length;
+
+        for (int i = 0; i < playingField.length; i++) {
+            pwfb[i] = new Integer[playingField[i].length];
+
+            for (int j = 0; j < playingField[i].length; j++) {
+                int yDiff = i - fallingBlock.getY();
+                int xDiff = j - fallingBlock.getX();
+
+                //System.out.println(yDiff + " " + xDiff);
+
+                if((0 <= yDiff && 0 <= xDiff) && (yDiff < MAX_HEIGHT && xDiff < MAX_WIDTH)) {
+                    //System.out.println("Gets here");
+                    if (fallingBlock.getPattern()[yDiff][xDiff]) {
+                        pwfb[i][j] = fallingBlock.getID();
+                    } else {
+                        pwfb[i][j] = playingField[i][j];
+                    }
+                } else {
+                    pwfb[i][j] = playingField[i][j];
+                }
+            }
+        }
+
+        return pwfb;
+    }
+
     public void sendUpdate() {
         Context context = Vertx.currentContext();
         EventBus eb = context.owner().eventBus();
 
         Map<String, Object> data = new HashMap<>();
-        data.put("playingField", playingField);
+        data.put("playingField", getPlayingFieldWithFallingBlock());
         data.put("fallingBlock", fallingBlock);
         data.put("playerId", playerID);
 
