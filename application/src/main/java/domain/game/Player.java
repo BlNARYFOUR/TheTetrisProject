@@ -81,9 +81,9 @@ public class Player {
     }
 
     private void gameHandler(Message message) {
-        Logger.info(this.session + " got a message!");
+        //Logger.info(this.session + " got a message!");
 
-        Logger.warn(message.body());
+        //Logger.warn(message.body());
 
         Map<String, Object> data = null;
 
@@ -155,11 +155,10 @@ public class Player {
 
     private void rotate() {
         FallingBlock rotatedBlock = new FallingBlock(fallingBlock.rotate());
-        rotatedBlock.setX(fallingBlock.getX());
-        rotatedBlock.setY(fallingBlock.getY());
 
-        if(!checkCollision(rotatedBlock, rotatedBlock.getX(), rotatedBlock.getY())) {
-            fallingBlock = rotatedBlock;
+        if(!checkCollision(rotatedBlock, fallingBlock.getX(), fallingBlock.getY())) {
+            Logger.warn("Rotate: did not collide!");
+            fallingBlock.applyRotation();
         }
     }
 
@@ -334,7 +333,7 @@ public class Player {
     private boolean checkCollision (Block block, int x, int y) {
         boolean collided = false;
 
-        Boolean[][] blockPattern = fallingBlock.getPattern();
+        Boolean[][] blockPattern = block.getPattern();
 
         final int MAX_HEIGHT = blockPattern.length;
         final int MAX_WIDTH = blockPattern[0].length;
@@ -394,7 +393,7 @@ public class Player {
             playingField[y] = new Integer[Game.PLAYING_FIELD_WIDTH];
         }
 
-        System.out.println("PLayingfield length: " + playingField.length);
+        //System.out.println("PLayingfield length: " + playingField.length);
 
         for (int y = 0; y < playingField.length; y++) {
             for (int x = 0; x < playingField[0].length; x++) {

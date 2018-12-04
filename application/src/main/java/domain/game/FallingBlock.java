@@ -1,6 +1,5 @@
 package domain.game;
 
-import data.BlockRepository.BlockRepository;
 import data.Repositories;
 
 public class FallingBlock extends Block {
@@ -42,5 +41,12 @@ public class FallingBlock extends Block {
 
     public void fall() {
         this.y += 1;
+    }
+
+    public Block applyRotation() {
+        FallingBlock rotatedBlock = new FallingBlock(this.rotate());
+        this.setPattern(rotatedBlock.getPattern());
+
+        return this;
     }
 }
