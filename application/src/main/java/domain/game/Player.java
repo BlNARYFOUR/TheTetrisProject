@@ -279,7 +279,8 @@ public class Player {
     }
 
     private void updateSpeed() {
-        Logger.warn("updateSpeed NYI");
+        Vertx.currentContext().owner().cancelTimer(periodicID);
+        periodicID = Vertx.currentContext().owner().setPeriodic(Math.round(normalMovementTime), this::updateCycle);
     }
 
     private void die() {
