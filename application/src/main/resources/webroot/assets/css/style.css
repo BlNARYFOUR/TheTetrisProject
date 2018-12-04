@@ -669,7 +669,7 @@ section input{
 }
 
 
-/*------chat------*/
+/*---chat---*/
 
 .container {
     width: 100%;
@@ -722,4 +722,60 @@ section input{
     z-index: 2;
     position: relative;
 }
+<<<<<<< HEAD
 >>>>>>> invite friends frontend + chat (js)
+=======
+
+
+/*------High Scores------*/
+.header-scores {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2vh;
+}
+
+.header-scores h1 {
+    color: white;
+    font-size: 8vh;
+}
+
+#searchScore {
+    width: 15vw;
+    height: 4vh;
+    padding: 10px;
+    font-size: 3vh;
+    border: 2px solid #9584FF;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.container-score, .score-types {
+    height: 55vh;
+}
+
+.score-types {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.score-types div {
+    height: 50vh;
+    width: 15vw;
+    border: 2px solid #9584FF;
+    border-radius: 15px;
+}
+
+.score-types div p {
+    color: white;
+    font-size: 3vh;
+    text-align: center;
+}
+
+.score-types div hr {
+    background-color: #9584FF;
+    width: 70%;
+}
+>>>>>>> test
