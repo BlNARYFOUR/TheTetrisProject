@@ -88,11 +88,11 @@ let gameCommunication = function () {
         };
 
         const DONE_FUNC = function(err, reply) {
-            console.warn("Ready: reply: " + JSON.stringify(reply));
+            //console.warn("Ready: reply: " + JSON.stringify(reply));
         };
 
         eb.send("tetris-16.socket.server.game." + cookies.getCookie("vertx-web.session"), d, DONE_FUNC);
-        console.warn("SEND READY");
+        //console.warn("SEND READY");
     }
 
     eb.onclose = function () {
