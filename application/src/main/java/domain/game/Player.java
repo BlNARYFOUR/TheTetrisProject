@@ -8,6 +8,7 @@ import io.vertx.core.Context;
 import io.vertx.core.Vertx;
 import io.vertx.core.eventbus.EventBus;
 import io.vertx.core.eventbus.Message;
+import io.vertx.core.eventbus.MessageConsumer;
 import org.pmw.tinylog.Logger;
 import util.InputException;
 import util.MatchableException;
@@ -46,6 +47,7 @@ public class Player {
     private long periodicID;
 
     private boolean isKeyDown;
+    private MessageConsumer<Object> consumer;
 
     public Player(int playerID, User user, String sessionID, String gameAddress) {
         setUser(user);
@@ -77,7 +79,7 @@ public class Player {
         Context context = Vertx.currentContext();
         EventBus eb = context.owner().eventBus();
         Logger.warn(address);
-        eb.consumer(address, this::gameHandler);
+        consumer = eb.consumer(address, this::gameHandler);
     }
 
     private void gameHandler(Message message) {
@@ -157,7 +159,7 @@ public class Player {
         FallingBlock rotatedBlock = new FallingBlock(fallingBlock.rotate());
 
         if(!checkCollision(rotatedBlock, fallingBlock.getX(), fallingBlock.getY())) {
-            Logger.warn("Rotate: did not collide!");
+            //Logger.warn("Rotate: did not collide!");
             fallingBlock.applyRotation();
         }
     }
@@ -283,11 +285,16 @@ public class Player {
         periodicID = Vertx.currentContext().owner().setPeriodic(Math.round(normalMovementTime), this::updateCycle);
     }
 
+    private void disable() {
+        consumer.unregister();
+    }
+
     private void die() {
         Logger.warn("Die NYI");
         Context context = Vertx.currentContext();
         Logger.warn("Periodic: " + periodicID);
         context.owner().cancelTimer(periodicID);
+        disable();
         isDead = true;
     }
 

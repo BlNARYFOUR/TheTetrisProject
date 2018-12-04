@@ -1,6 +1,5 @@
 package data.GameRepository;
 
-import domain.User;
 import domain.game.Game;
 import domain.game.Player;
 
@@ -30,7 +29,7 @@ public class HcGameRepository implements GameRepository {
         if(games.contains(game)) {
             games.forEach(g -> {
                 if(g.equals(game)) {
-                    g.disable();
+                    g.disableReadyHandler();
                     games.remove(g);
                 }
             });

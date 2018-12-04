@@ -112,6 +112,7 @@ public class Game {
         if(allReady) {
             Logger.info("All ready!!");
             startGame();
+            disableReadyHandler();
         }
     }
 
@@ -119,7 +120,7 @@ public class Game {
         players.forEach(Player::startPlaying);
     }
 
-    public void disable() {
+    public void disableReadyHandler() {
         consumer.unregister();
     }
 

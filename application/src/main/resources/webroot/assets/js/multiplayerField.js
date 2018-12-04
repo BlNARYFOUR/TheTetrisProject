@@ -91,7 +91,7 @@ function init(e) {
 function gameLoop() {
     let gameBoardBuf = gameCommunication.getGameBoards();
 
-    console.log(gameBoardBuf);
+    //console.log(gameBoardBuf);
 
     for(let i=0; i<gameBoardBuf.length; i++) {
         GAME_BOARDS[i] = gameBoardBuf[i].slice();
