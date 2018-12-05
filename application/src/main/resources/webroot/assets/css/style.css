@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto:400,100);
+/*@import url(https://fonts.googleapis.com/css?family=Roboto:400,100);*/
 
 /*LOGINSCHERM:*/
 
@@ -147,14 +147,30 @@ a {
     width: 390px;
 }
 
+<<<<<<< HEAD
+<<<<<<< HEAD
 .chooseGameMode-submit, .clan-submit, .shop-submit, .highScore-submit, .logOut-submit, .back-submit, .save-submit, .next-submit, .playGame-submit, #no, #yes {
+=======
+.chooseGameMode-submit, .clan-submit, .shop-submit, .highScore-submit, .logOut-submit, .back-submit, .save-submit, .playGame-submit, #no, #yes, #leaveMatch, #playGame {
+>>>>>>> frontend invite friends
+=======
+.chooseGameMode-submit, .clan-submit, .shop-submit, .highScore-submit, .logOut-submit, .back-submit, .save-submit, .playGame-submit, #no, #yes, #leaveMatch, #playGame, .sendMessage  {
+>>>>>>> invite friends frontend + chat (js)
     border: 2px solid #9C35FF;
     color: #000000;
     text-shadow: 0 1px rgba(0, 0, 0, 0.1);
     background: linear-gradient(to right, #9584FF , #FFA1E2);
 }
  
+<<<<<<< HEAD
+<<<<<<< HEAD
 .chooseGameMode-submit:hover, .clan-submit:hover, .shop-submit:hover, .highScore-submit:hover, .logOut-submit:hover, .back-submit:hover, .next-submit:hover .playGame-submit:hover, .option-back-submit:hover, .playFriends-submit:hover, .findOpp-submit:hover, .save-submit:hover, #no:hover, #yes:hover, .multiplayer-footer ul li:hover {
+=======
+.chooseGameMode-submit:hover, .clan-submit:hover, .shop-submit:hover, .highScore-submit:hover, .logOut-submit:hover, .back-submit:hover, .playGame-submit:hover, .option-back-submit:hover, .playFriends-submit:hover, .findOpp-submit:hover, .save-submit:hover, #no:hover, #yes:hover, .multiplayer-footer ul li:hover, #leaveMatch:hover, #playGame:hover {
+>>>>>>> frontend invite friends
+=======
+.chooseGameMode-submit:hover, .clan-submit:hover, .shop-submit:hover, .highScore-submit:hover, .logOut-submit:hover, .back-submit:hover, .playGame-submit:hover, .option-back-submit:hover, .playFriends-submit:hover, .findOpp-submit:hover, .save-submit:hover, #no:hover, #yes:hover, .multiplayer-footer ul li:hover, #leaveMatch:hover, #playGame:hover, .sendMessage:hover {
+>>>>>>> invite friends frontend + chat (js)
     border: 2px solid #9C35FF;
     color: #000000;
     text-shadow: 0 1px rgba(0,0,0,0.3);
@@ -518,5 +534,248 @@ section input{
 }
 
 
+/*------Matching Friends------*/
+#matchingFriends {
+    width: 80%;
+    height: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 8vh;
+    margin-top: 3vh;
+    border: 2px solid #9584FF;
+    border-radius: 10px;
+    text-align: center;
+}
+
+#matchingFriends:first-child {
+    color: white;
+    font-size: 4vh;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2vh;
+}
+
+#url {
+    width: 45%;
+    height: 3vh;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+    border-radius: 20px;
+    padding-top: 0.2vh;
+    padding-bottom: 0.2vh;
+    font-size: 2vh;
+    color: black;
+}
+
+.matching-friends-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 45%;
+    height: 3vh;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#leaveMatch, #playGame {
+    border-radius: 20px;
+    padding: 5px 10px 5px 10px;
+}
+
+#matchStats {
+    width: 80vw;
+    height: 60vh;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+<<<<<<< HEAD
+
+=======
+#playerList, #playerChat {
+    width: 35vw;
+    height: 60vh;
+    border: 2px solid #9584FF;
+    border-radius: 10px;
+    color: white;
+}
+
+#playerList p, #playerChat p {
+    text-align: center;
+    font-size: 3vh;
+    margin-bottom: 1vh;
+}
+
+#playerList hr, #playerChat hr {
+    display: block;
+    height: 1px;
+    width: 30vw;
+    border: 0;
+    border-top: 1px solid #9584FF;
+    padding: 0;
+}
+
+#playerList p.name, #playerList p.score  {
+    font-size: 2vh;
+    margin-top: 1vh;
+}
+
+.playersName, .playersScore {
+    font-size: 3vh;
+}
+
+#listOfPlayers {
+    margin: 0;
+    padding: 0;
+}
+
+#listOfPlayers li, .heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 100px;
+}
+<<<<<<< HEAD
+>>>>>>> frontend invite friends
+=======
+
+.message-container {
+    display: flex;
+    width: 30vw;
+    height: 10vh;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 2px;
+}
+
+.message {
+    width: 15vw;
+    border: 2px solid #9584FF;
+    border-radius: 10px;
+    padding: 10px 20px;
+}
+
+.sendMessage {
+    width: 6vw;
+    border: 2px solid #9584FF;
+    border-radius: 10px;
+    padding: 10px 20px;
+}
 
 
+/*---chat---*/
+
+.container {
+    width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.window {
+    margin: 0 auto;
+    width: 90%;
+    height: 40vh;
+    border-radius: 15px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    z-index: 1;
+    position: relative;
+}
+
+.text {
+    font-family: sans-serif;
+    font-size: 14px;
+    margin: 25px;
+    letter-spacing: 1px;
+    position: relative;
+    margin-bottom: 200px;
+}
+
+.chatbox {
+    width: 90%;
+    margin: 0 auto;
+    margin-top: -133px;
+}
+
+.chatbox input {
+    width: 100%;
+    height: 50px;
+    text-align: center;
+    background-color: white;
+    border-radius: 15px;
+    border: none;
+    outline: none;
+    margin: 20% auto;
+    line-height: 100px;
+    overflow: hidden;
+    color: #222;
+    font-family: 'Raleway', sans-serif;
+    font-size: 14px;
+    letter-spacing: 2.5px;
+    border-top: 3px solid #9584FF;
+    z-index: 2;
+    position: relative;
+}
+<<<<<<< HEAD
+>>>>>>> invite friends frontend + chat (js)
+=======
+
+
+/*------High Scores------*/
+.header-scores {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2vh;
+}
+
+.header-scores h1 {
+    color: white;
+    font-size: 8vh;
+}
+
+#searchScore {
+    width: 15vw;
+    height: 4vh;
+    padding: 10px;
+    font-size: 3vh;
+    border: 2px solid #9584FF;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.container-score, .score-types {
+    height: 55vh;
+}
+
+.score-types {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.score-types div {
+    height: 50vh;
+    width: 15vw;
+    border: 2px solid #9584FF;
+    border-radius: 15px;
+}
+
+.score-types div p {
+    color: white;
+    font-size: 3vh;
+    text-align: center;
+}
+
+.score-types div hr {
+    background-color: #9584FF;
+    width: 70%;
+}
+>>>>>>> test
