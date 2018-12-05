@@ -1,10 +1,11 @@
 package server.webapi;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import data.TetrisRepository;
 import data.dailyStreakRepository.DailyRepository;
 import data.loggedInRepository.LoggedInRepository;
-import data.loginRepository.LoginRepository;
 import data.Repositories;
+import data.loginRepository.LoginRepository;
 import domain.User;
 import domain.dailyStreak.DailyStreakRewards;
 import io.vertx.core.http.HttpServerResponse;
@@ -17,7 +18,6 @@ import util.Hash;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.Date;
 import java.util.Objects;
 
 class Routes {
@@ -27,7 +27,6 @@ class Routes {
     private LoginRepository loginRepo = Repositories.getInstance().getLoginRepository();
     private LoggedInRepository loggedInRepo = Repositories.getInstance().getLoggedInRepository();
     private DailyRepository repo = Repositories.getInstance().getDailyReposistory();
-
 
     void rootHandler(RoutingContext routingContext) {
         HttpServerResponse response = routingContext.response();
@@ -57,7 +56,12 @@ class Routes {
             session.put("username", user.getUsername());
             session.put("password", Hash.md5(user.getPassword()));
 
+            System.out.println("L " + session.get("username") + " " + session.get("password"));
+
             user = loginRepo.authenticateUser(session.get("username"), session.get("password"), false);
+
+            System.out.println(user + " : " + loggedInRepo.getLoggedUser(session.id()));
+
             if (loggedInRepo.isUserLogged(user) || user == null) {
                 if (loggedInRepo.isUserLogged(user)) {
                     Logger.warn("User already logged in: " + Objects.requireNonNull(user).getUsername());
@@ -75,7 +79,7 @@ class Routes {
                 routingContext.getCookie("vertx-web.session").setMaxAge(LoggedInRepository.EXPIRATION_TIME);
 
                 loggedInRepo.addLoggedUser(session.id(), user);
-                //System.out.println(loggedInRepo.getLoggedUser(session.id()).getLoginDate());
+                System.out.println(loggedInRepo.getLoggedUser(session.id()).getLoginDate());
 
                 cookieHandler(INFO_COOKIE, info, routingContext);
 
@@ -107,10 +111,13 @@ class Routes {
         try {
             String body = routingContext.getBodyAsString();
             User user = getUserFromBody(body);
+            //user.setPassword(Hash.md5(user.getPassword()));
 
             Session session = routingContext.session();
             session.put("username", user.getUsername());
             session.put("password", Hash.md5(user.getPassword()));
+
+            System.out.println("1 " + session.get("username") + " " + session.get("password"));
 
             loginRepo.addUser(user);
 
@@ -138,6 +145,7 @@ class Routes {
 
         try {
             System.out.println("Here");
+            System.out.println(session.id());
             User user = loginRepo.authenticateUser(session.get("username"), session.get("password"), false);
             if (!loggedInRepo.isUserLogged(session.id(), user) || user == null) {
                 response.headers().add("location", "/static");

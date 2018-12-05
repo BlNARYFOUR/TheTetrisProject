@@ -1,20 +1,32 @@
 package domain.game.modes;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public enum GameMode {
 
-    STANDARD(0),
-    HORIZONTAL(1),
-    BLOCK_WARS(2),
-    LAST_MAN_STANDING(3),
-    TIME_ATTACK(4);
+    SINGLE_PLAYER("singlePlayer"),
+    STANDARD("standard"),
+    LAST_MAN_STANDING("lastManStanding"),
+    TIME_ATTACK("timeAttack");
 
-    private final int gameMode;
+    private final String gameMode;
 
-    GameMode(int gameMode){
+    GameMode(String gameMode){
         this.gameMode = gameMode;
     }
 
     public String toString(){
-        return Integer.toString(gameMode);
+        return gameMode;
+    }
+
+    public static List<String> getValues() {
+        List<String> result = new ArrayList<>();
+
+        for (GameMode gameMode : values()) {
+            result.add(gameMode.toString());
+        }
+
+        return result;
     }
 }

@@ -1,7 +1,9 @@
 
+import data.heroesRepository.HeroesRepository;
 import data.loginRepository.LoginRepository;
 import data.Repositories;
 import domain.User;
+import domain.hero.Hero;
 
 public class Program {
     public static void main(String[] args) {
@@ -9,13 +11,14 @@ public class Program {
     }
 
     private void run(){
-        LoginRepository repo = Repositories.getInstance().getLoginRepository();
+        HeroesRepository repo = Repositories.getInstance().getHeroRepository();
 
-        // ADD user
+
+       /*// ADD user
         User person = new User(0, "Testid", "testid");
         repo.addUser(person);
 
-        // TRY TO LOGIN
+       /* // TRY TO LOGIN
         repo.authenticateUser("bryan", "bryan");
         repo.authenticateUser("Testid", "testid");
 
@@ -24,6 +27,6 @@ public class Program {
         //repo.deleteUser("Testid");
 
         // GET USERNAME
-        System.out.println(repo.getUser("Testid").getPassword());
+        System.out.println(repo.getUser("Testid").getPassword())*/
     }
 }

@@ -17,7 +17,7 @@ a {
     width: 300px;
     background-color: #F7F7F7;
     border-radius: 2px;
-    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
     overflow: hidden;
 }
 
@@ -62,14 +62,14 @@ a {
 }
 
 .login-submit, .register-submit  {
-    border: 0px;
+    border: 0;
     color: #fff;
     text-shadow: 0 1px rgba(0, 0, 0, 0.1);
     background-color: #000000;
 }
 
 .login-submit:hover, .register-submit:hover {
-    border: 0px;
+    border: 0;
     text-shadow: 0 1px rgba(0,0,0,0.3);
     background-color: #1B3041;
 }
@@ -128,7 +128,7 @@ a {
     margin-left: auto;
 }
 
-.mainMenu li input[type=submit], .logOut-submit, .option-back-submit, .back-submit, .save-submit  {
+.mainMenu li input[type=submit], .logOut-submit, .option-back-submit, .back-submit, .save-submit, .next-submit {
     width: 80%;
     margin-left: auto;
     margin-right: auto;
@@ -147,14 +147,14 @@ a {
     width: 390px;
 }
 
-.chooseGameMode-submit, .clan-submit, .shop-submit, .highScore-submit, .logOut-submit, .back-submit, .save-submit, .playGame-submit, #no, #yes {
+.chooseGameMode-submit, .clan-submit, .shop-submit, .highScore-submit, .logOut-submit, .back-submit, .save-submit, .next-submit, .playGame-submit, #no, #yes {
     border: 2px solid #9C35FF;
     color: #000000;
     text-shadow: 0 1px rgba(0, 0, 0, 0.1);
     background: linear-gradient(to right, #9584FF , #FFA1E2);
 }
  
-.chooseGameMode-submit:hover, .clan-submit:hover, .shop-submit:hover, .highScore-submit:hover, .logOut-submit:hover, .back-submit:hover, .playGame-submit:hover, .option-back-submit:hover, .playFriends-submit:hover, .findOpp-submit:hover, .save-submit:hover, #no:hover, #yes:hover, .multiplayer-footer ul li:hover {
+.chooseGameMode-submit:hover, .clan-submit:hover, .shop-submit:hover, .highScore-submit:hover, .logOut-submit:hover, .back-submit:hover, .next-submit:hover .playGame-submit:hover, .option-back-submit:hover, .playFriends-submit:hover, .findOpp-submit:hover, .save-submit:hover, #no:hover, #yes:hover, .multiplayer-footer ul li:hover {
     border: 2px solid #9C35FF;
     color: #000000;
     text-shadow: 0 1px rgba(0,0,0,0.3);
@@ -346,7 +346,7 @@ figcaption{
     margin-top: -10px;
 }
 
-#save, #back{
+#save, #back, #next{
     width: 300px;
 }
 
@@ -450,12 +450,42 @@ section input{
 }
 
 /*------Multiplayer Field------*/
-.userField {
-    /*background-color: white;*/
+#container-field {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    padding-top: 3vh;
+}
+
+.multiplayer-container {
+    display: inline-block;
+}
+
+.multiplayer-opponents {
+    width: 40%;
+    text-align: center;
+    position: relative;
+
+}
+
+#opp {
+    position: absolute;
+    bottom: 5%;
+    top: 5%;
+}
+
+#userField_2, #userField_3, #userField_4, #userField_5 {
     outline: none;
     box-shadow: 0 0 50px 10px rebeccapurple;
-    margin-top: 20px;
-    margin-left: 50px;
+    /*width: 270px;
+    height: 250px;*/
+    align-items: center;
+    opacity: 1;
+}
+
+.userField_1 {
+    outline: none;
+    box-shadow: 0 0 50px 10px rebeccapurple;
 }
 
 .multiplayer-footer {
@@ -486,6 +516,7 @@ section input{
     background: linear-gradient(to right, #9584FF , #FFA1E2);
     font-size: 1.0rem;
 }
+
 
 
 
