@@ -1,16 +1,10 @@
-/.idea/*
-/application/.idea/*
+.idea/*
+application/.idea/*
 *.xml
-<<<<<<< HEAD
-
-/gradle/4.8/*
+.gradle/*
 application/\.vertx/
-
 application/\.idea/
-
 application/out/
-
 application/\.gradle/
-=======
-/.gradle/*
->>>>>>> changes gitignore
+.gradle/*
+
