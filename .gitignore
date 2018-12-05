@@ -2,9 +2,7 @@
 application/.idea/*
 *.xml
 .gradle/*
-application/\.vertx/
-application/\.idea/
+application/.vertx/
+application/.idea/
 application/out/
-application/\.gradle/
-.gradle/*
-
+application/.gradle/
