@@ -147,30 +147,18 @@ a {
     width: 390px;
 }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-.chooseGameMode-submit, .clan-submit, .shop-submit, .highScore-submit, .logOut-submit, .back-submit, .save-submit, .next-submit, .playGame-submit, #no, #yes {
-=======
-.chooseGameMode-submit, .clan-submit, .shop-submit, .highScore-submit, .logOut-submit, .back-submit, .save-submit, .playGame-submit, #no, #yes, #leaveMatch, #playGame {
->>>>>>> frontend invite friends
-=======
+
+
 .chooseGameMode-submit, .clan-submit, .shop-submit, .highScore-submit, .logOut-submit, .back-submit, .save-submit, .playGame-submit, #no, #yes, #leaveMatch, #playGame, .sendMessage  {
->>>>>>> invite friends frontend + chat (js)
+
     border: 2px solid #9C35FF;
     color: #000000;
     text-shadow: 0 1px rgba(0, 0, 0, 0.1);
     background: linear-gradient(to right, #9584FF , #FFA1E2);
 }
- 
-<<<<<<< HEAD
-<<<<<<< HEAD
-.chooseGameMode-submit:hover, .clan-submit:hover, .shop-submit:hover, .highScore-submit:hover, .logOut-submit:hover, .back-submit:hover, .next-submit:hover .playGame-submit:hover, .option-back-submit:hover, .playFriends-submit:hover, .findOpp-submit:hover, .save-submit:hover, #no:hover, #yes:hover, .multiplayer-footer ul li:hover {
-=======
-.chooseGameMode-submit:hover, .clan-submit:hover, .shop-submit:hover, .highScore-submit:hover, .logOut-submit:hover, .back-submit:hover, .playGame-submit:hover, .option-back-submit:hover, .playFriends-submit:hover, .findOpp-submit:hover, .save-submit:hover, #no:hover, #yes:hover, .multiplayer-footer ul li:hover, #leaveMatch:hover, #playGame:hover {
->>>>>>> frontend invite friends
-=======
+
 .chooseGameMode-submit:hover, .clan-submit:hover, .shop-submit:hover, .highScore-submit:hover, .logOut-submit:hover, .back-submit:hover, .playGame-submit:hover, .option-back-submit:hover, .playFriends-submit:hover, .findOpp-submit:hover, .save-submit:hover, #no:hover, #yes:hover, .multiplayer-footer ul li:hover, #leaveMatch:hover, #playGame:hover, .sendMessage:hover {
->>>>>>> invite friends frontend + chat (js)
+
     border: 2px solid #9C35FF;
     color: #000000;
     text-shadow: 0 1px rgba(0,0,0,0.3);
@@ -595,9 +583,6 @@ section input{
     align-items: center;
 }
 
-<<<<<<< HEAD
-
-=======
 #playerList, #playerChat {
     width: 35vw;
     height: 60vh;
@@ -641,9 +626,6 @@ section input{
     justify-content: space-between;
     padding: 0 100px;
 }
-<<<<<<< HEAD
->>>>>>> frontend invite friends
-=======
 
 .message-container {
     display: flex;
@@ -722,9 +704,6 @@ section input{
     z-index: 2;
     position: relative;
 }
-<<<<<<< HEAD
->>>>>>> invite friends frontend + chat (js)
-=======
 
 
 /*------High Scores------*/
@@ -778,4 +757,4 @@ section input{
     background-color: #9584FF;
     width: 70%;
 }
->>>>>>> test
+
