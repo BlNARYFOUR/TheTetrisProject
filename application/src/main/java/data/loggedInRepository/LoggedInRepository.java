@@ -9,6 +9,7 @@ public interface LoggedInRepository {
     boolean isUserLogged(User user);
     boolean isUserLogged(String sessionID, User user);
     User getLoggedUser(String sessionID);
+    String getSessionID(User user);
 
     int EXPIRATION_TIME = 31536000;        // 1 year (60s*60m*24h*356d) in seconds
 }

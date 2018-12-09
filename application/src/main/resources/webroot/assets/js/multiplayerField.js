@@ -63,7 +63,10 @@ let progressIntervals = [0,0,0,0,0];
 let AMOUNT_OF_PLAYERS = 0;
 
 function init(e) {
-    AMOUNT_OF_PLAYERS = 5;
+    let data = [0];
+    // noinspection JSIgnoredPromiseFromCall
+    gameCommunication.sendReadyStatus();
+    AMOUNT_OF_PLAYERS = localStorage.getItem("amountOfPlayers");
 
     tiles = new Map();
     tiles.set(COLORS.TRANSPARENT, IMAGES.retroBackgroundTile);
@@ -78,15 +81,35 @@ function init(e) {
 
     createGameBoard();
 
-    window.addEventListener("resize", onResize);
-
     gameLoop();
+
+    window.addEventListener("resize", onResize);
+    document.addEventListener("keydown", onKeyDown);
+    document.addEventListener("keyup", onKeyUp);
 }
 
 function gameLoop() {
+    let gameBoardBuf = gameCommunication.getGameBoards();
+
+    //console.log(gameBoardBuf);
+
+    for(let i=0; i<gameBoardBuf.length; i++) {
+        GAME_BOARDS[i] = gameBoardBuf[i].slice();
+    }
+
     drawFields();
 
     window.requestAnimationFrame(gameLoop);
+}
+
+function onKeyDown(e) {
+    // noinspection JSIgnoredPromiseFromCall
+    gameCommunication.sendKey(e.code, true);
+}
+
+function onKeyUp(e) {
+    // noinspection JSIgnoredPromiseFromCall
+    gameCommunication.sendKey(e.code, false);
 }
 
 function onResize(e) {
@@ -113,6 +136,7 @@ function setSizeStuff(playerId) {
 function drawFields() {
     for (let i = 0; i < AMOUNT_OF_PLAYERS; i++) {
         c = document.getElementById("userField_" + (i+1).toString());
+        c.classList.remove("hidden");
         ctx = c.getContext("2d");
 
         setSizeStuff(i+1);

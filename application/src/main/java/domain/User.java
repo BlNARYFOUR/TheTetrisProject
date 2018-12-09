@@ -1,6 +1,7 @@
 package domain;
 
 import domain.game.modes.GameMode;
+import domain.hero.Hero;
 import util.DateFormat;
 import util.HighScoreException;
 import util.UserException;
@@ -32,6 +33,8 @@ public class User {
 
     private Map<GameMode, Integer> highScores;
     private int gameRanking;
+
+    private String heroName;
 
     public User(int ID, String username, String password) {
         this.ID = ID;
@@ -85,6 +88,10 @@ public class User {
         } else {
             return false;
         }
+    }
+
+    public void selectHero(String heroName) {
+        this.heroName = heroName;
     }
 
     public String getUsername() {

@@ -27,7 +27,7 @@ public class MatchHandlerTest {
         Map<GameMode, Set<User>> expectedMatchable = new HashMap<>();
 
         User user = new User(0, "Test", "Azerty123");
-        GameMode gameMode = GameMode.STANDARD;
+        GameMode gameMode = GameMode.standard;
 
         expectedMatchable.put(gameMode, new HashSet<>());
         expectedMatchable.get(gameMode).add(user);
@@ -43,7 +43,7 @@ public class MatchHandlerTest {
 
         assertEquals(expectedMatchable, MatchHandler.getInstance().getMatchable());
 
-        gameMode = GameMode.SINGLE_PLAYER;
+        gameMode = GameMode.singlePlayer;
 
         try {
             MatchHandler.getInstance().addMatchable(user, gameMode);
@@ -63,7 +63,7 @@ public class MatchHandlerTest {
             users.add(new User(i, "User" + Integer.toString(i+1), ""));
         }
 
-        GameMode gameMode = GameMode.STANDARD;
+        GameMode gameMode = GameMode.standard;
 
         System.out.println(users);
 

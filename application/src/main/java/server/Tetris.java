@@ -1,5 +1,6 @@
 package server;
 
+import domain.game.modes.GameMode;
 import io.vertx.core.Vertx;
 import io.vertx.core.eventbus.EventBus;
 import org.pmw.tinylog.Logger;
@@ -15,6 +16,6 @@ public class Tetris {
         vertx.deployVerticle(new WebAPI());
 
 
-        Logger.info("Succesfully started server: localhost:8081/static");
+        Logger.info("Succesfully started server: localhost:8016/static");
     }
 }

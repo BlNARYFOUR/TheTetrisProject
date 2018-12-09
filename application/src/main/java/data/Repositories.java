@@ -1,5 +1,9 @@
 package data;
 
+import data.BlockRepository.BlockRepository;
+import data.BlockRepository.HcBlockRepository;
+import data.GameRepository.GameRepository;
+import data.GameRepository.HcGameRepository;
 import data.dailyStreakRepository.DailyRepository;
 import data.dailyStreakRepository.MySqlDailyRepository;
 import data.heroesRepository.HeroesRepository;
@@ -25,10 +29,16 @@ public class Repositories {
     public LoggedInRepository getLoggedInRepository() {
         return new HcLoggedInRepository();
     }
-    public DailyRepository getDailyReposistory(){
+    public DailyRepository getDailyRepository(){
         return new MySqlDailyRepository();
     }
     public HeroesRepository getHeroRepository(){
         return new MySqlHeroesRepository();
+    }
+    public BlockRepository getBlockRepository() {
+        return new HcBlockRepository();
+    }
+    public GameRepository getGameRepository() {
+        return new HcGameRepository();
     }
 }
