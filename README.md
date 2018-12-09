@@ -40,7 +40,7 @@ Hij heeft zich het grootste deel beziggehouden met de backend van de game.
 
 Om af te sluiten hebben we nog **Bryan Helsens**.  
 Zijn passie is om de Nederlandse taal en Engelse taal samen te mengen in 1 stukje code.
-Hij heeft zich het meetste beziggehouden met de wireframes en de backend van de game.
+Hij heeft zich het meeste beziggehouden met de wireframes en de backend van de game.
 
 
 ## 2. Installatie
