@@ -243,7 +243,7 @@ public class Player {
 
                 //System.out.println(yDiff + " " + xDiff);
 
-                if((0 <= yDiff && 0 <= xDiff) && (yDiff < MAX_HEIGHT && xDiff < MAX_WIDTH)) {
+                if ((0 <= yDiff && 0 <= xDiff) && (yDiff < MAX_HEIGHT && xDiff < MAX_WIDTH)) {
                     //System.out.println("Gets here");
                     if (fallingBlock.getPattern()[yDiff][xDiff] && !collided) {
                         pwfb[i][j] = fallingBlock.getID();
@@ -260,10 +260,10 @@ public class Player {
     }
 
     private void sendUpdate() {
-        Context context = Vertx.currentContext();
-        EventBus eb = context.owner().eventBus();
+        final Context context = Vertx.currentContext();
+        final EventBus eb = context.owner().eventBus();
 
-        Map<String, Object> data = new HashMap<>();
+        final Map<String, Object> data = new HashMap<>();
         data.put("playingField", getPlayingFieldWithFallingBlock());
         data.put("playerId", playerID);
 
@@ -291,7 +291,7 @@ public class Player {
 
     private void die() {
         Logger.warn("Die NYI");
-        Context context = Vertx.currentContext();
+        final Context context = Vertx.currentContext();
         Logger.warn("Periodic: " + periodicID);
         context.owner().cancelTimer(periodicID);
         disable();
@@ -303,18 +303,18 @@ public class Player {
         boolean hasScored = false;
         int totalLineScore = 0;
 
-        for(int i=0; i<playingField.length; i++) {
+        for (int i = 0; i < playingField.length; i++) {
             totalLineScore = 0;
             isFullLine = true;
-            for(int j=0; j<playingField[i].length; j++) {
-                if(0 < playingField[i][j]) {
+            for (int j = 0; j < playingField[i].length; j++) {
+                if (0 < playingField[i][j]) {
                     totalLineScore += playingField[i][j];
                 } else {
                     isFullLine = false;
                 }
             }
 
-            if(isFullLine) {
+            if (isFullLine) {
                 dropTopLayers(i);
                 hasScored = true;
                 score += totalLineScore * FULL_LINE_POINTS;
@@ -333,23 +333,23 @@ public class Player {
     private void emptyLine(int lineHeight) {
         playingField[lineHeight] = new Integer[Game.PLAYING_FIELD_WIDTH];
 
-        for(int j=0; j<Game.PLAYING_FIELD_WIDTH; j++) {
+        for (int j = 0; j < Game.PLAYING_FIELD_WIDTH; j++) {
             playingField[lineHeight][j] = 0;
         }
     }
 
-    private boolean checkCollision (Block block, int x, int y) {
+    private boolean checkCollision(Block block, int x, int y) {
         boolean collided = false;
 
-        Boolean[][] blockPattern = block.getPattern();
+        final Boolean[][] blockPattern = block.getPattern();
 
-        final int MAX_HEIGHT = blockPattern.length;
-        final int MAX_WIDTH = blockPattern[0].length;
+        final int maxHeight = blockPattern.length;
+        final int maxWidth = blockPattern[0].length;
 
-        if(x+MAX_WIDTH <= Game.PLAYING_FIELD_WIDTH && y+MAX_HEIGHT <= Game.PLAYING_FIELD_HEIGHT && x >= 0) {
-            for(int i=0; i<MAX_HEIGHT; i++) {
-                for (int j = 0; j < MAX_WIDTH; j++) {
-                    if(blockPattern[i][j] && 0 < playingField[y+i][x+j]) {
+        if (x + maxWidth <= Game.PLAYING_FIELD_WIDTH && y + maxHeight <= Game.PLAYING_FIELD_HEIGHT && x >= 0) {
+            for (int i = 0; i < maxHeight; i++) {
+                for (int j = 0; j < maxWidth; j++) {
+                    if (blockPattern[i][j] && 0 < playingField[y + i][x + j]) {
                         collided = true;
                     }
                 }
@@ -362,13 +362,13 @@ public class Player {
     }
 
     private void placeBlock(Block block, int x, int y, int colorIndex) {
-        final int MAX_HEIGHT = block.getPattern().length;
-        final int MAX_WIDTH = block.getPattern()[0].length;
+        final int maxHeight = block.getPattern().length;
+        final int maxWidth = block.getPattern()[0].length;
 
-        if(!checkCollision(block, x, y)) {
+        if (!checkCollision(block, x, y)) {
             //System.out.println("Placed!");
-            for (int i = 0; i < MAX_HEIGHT; i++) {
-                for (int j = 0; j < MAX_WIDTH; j++) {
+            for (int i = 0; i < maxHeight; i++) {
+                for (int j = 0; j < maxWidth; j++) {
                     if (block.getPattern()[i][j]) {
                         //System.out.println("Gets here: " + (y + i) + " " + (x + j) + " ID: " + colorIndex);
                         playingField[y + i][x + j] = colorIndex;
@@ -428,26 +428,26 @@ public class Player {
 
     @Override
     public String toString() {
-        return "Player{" +
-                "user=" + user +
-                ", address='" + address + '\'' +
-                '}';
+        return "Player{"
+                + "user=" + user
+                + ", address='" + address + '\''
+                + '}';
     }
 
     public String playingFieldWithFallingBlock() {
-        StringBuilder sb = new StringBuilder();
+        final StringBuilder sb = new StringBuilder();
 
-        final int MAX_HEIGHT = fallingBlock.getPattern().length;
-        final int MAX_WIDTH = fallingBlock.getPattern()[0].length;
+        final int maxHeight = fallingBlock.getPattern().length;
+        final int maxWidth = fallingBlock.getPattern()[0].length;
 
         for (int i = 0; i < playingField.length; i++) {
             for (int j = 0; j < playingField[i].length; j++) {
-                int yDiff = i - fallingBlock.getY();
-                int xDiff = j - fallingBlock.getX();
+                final int yDiff = i - fallingBlock.getY();
+                final int xDiff = j - fallingBlock.getX();
 
                 //System.out.println(yDiff + " " + xDiff);
 
-                if((0 <= yDiff && 0 <= xDiff) && (yDiff < MAX_HEIGHT && xDiff < MAX_WIDTH)) {
+                if ((0 <= yDiff && 0 <= xDiff) && (yDiff < maxHeight && xDiff < maxWidth)) {
                     //System.out.println("Gets here");
                     if (fallingBlock.getPattern()[yDiff][xDiff]) {
                         sb.append('F');
