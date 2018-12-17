@@ -9,16 +9,19 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class MatchHandler implements Matchmaking {
+/**
+ * MatchHandler for random games.
+ */
+public final class MatchHandler implements Matchmaking {
     private static final int MAX_USERS_PER_MATCH = 5;
     private static MatchHandler instance = new MatchHandler();
     private static Map<GameMode, Set<User>> matchable = new HashMap<>();
 
-    public static MatchHandler getInstance(){
-        return instance;
+    private MatchHandler() {
     }
 
-    private MatchHandler() {
+    public static MatchHandler getInstance() {
+        return instance;
     }
 
     public Map<GameMode, Set<User>> getMatchable() {
@@ -27,11 +30,11 @@ public class MatchHandler implements Matchmaking {
 
     @Override
     public void addMatchable(User user, GameMode modeSearch) {
-        if(matchableContains(user)) {
+        if (matchableContains(user)) {
             throw new MatchableException("User is already searching for a game!");
         }
 
-        if(!matchable.containsKey(modeSearch)) {
+        if (!matchable.containsKey(modeSearch)) {
             matchable.put(modeSearch, new HashSet<>());
         }
 
@@ -63,10 +66,10 @@ public class MatchHandler implements Matchmaking {
     public Set<Match> matchUsers() {
         // todo: based on game ranking
 
-        Set<Match> matches = new HashSet<>();
+        final Set<Match> matches = new HashSet<>();
 
         for (GameMode gameMode : matchable.keySet()) {
-            Set<User> usersToRemove = new HashSet<>();
+            final Set<User> usersToRemove = new HashSet<>();
 
             Match matchTry = new Match(gameMode, MAX_USERS_PER_MATCH);
             boolean oneLeft = false;
@@ -74,12 +77,12 @@ public class MatchHandler implements Matchmaking {
             for (User user : matchable.get(gameMode)) {
                 //System.out.println(matchable.get(gameMode).size() - usersToRemove.size());
 
-                if(matchable.get(gameMode).size() - usersToRemove.size() == MAX_USERS_PER_MATCH + 1) {
+                if (matchable.get(gameMode).size() - usersToRemove.size() == MAX_USERS_PER_MATCH + 1) {
                     //System.out.println("one left");
                     oneLeft = true;
                 }
 
-                if(!matchTry.addUser(user)) {
+                if (!matchTry.addUser(user)) {
                     matches.add(matchTry);
 
                     usersToRemove.addAll(matchTry.getUsers());
@@ -88,10 +91,10 @@ public class MatchHandler implements Matchmaking {
                     matchTry.addUser(user);
                 }
 
-                if(oneLeft) {
+                if (oneLeft) {
                     usersToAdd--;
 
-                    if(usersToAdd == 0) {
+                    if (usersToAdd == 0) {
                         matches.add(matchTry);
 
                         usersToRemove.addAll(matchTry.getUsers());
@@ -104,7 +107,7 @@ public class MatchHandler implements Matchmaking {
                 //System.out.println("u to add: " + usersToAdd);
             }
 
-            if(2 <= matchTry.getUsers().size()) {
+            if (2 <= matchTry.getUsers().size()) {
                 matches.add(matchTry);
                 usersToRemove.addAll(matchTry.getUsers());
             }
