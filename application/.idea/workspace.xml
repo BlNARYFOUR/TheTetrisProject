@@ -1,67 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2d248d51-a647-49a4-9124-b302ac81294f" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Program.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/cli/CLI.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/cli/CLI.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/cli/util/ANSI.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/cli/util/ANSI.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/cli/util/CommandLineMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/cli/util/CommandLineMenu.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/data/BlockRepository/HcBlockRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/data/BlockRepository/HcBlockRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/data/GameRepository/HcGameRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/data/GameRepository/HcGameRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/data/JDBCInteractor.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/data/JDBCInteractor.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/data/MySqlConnection.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/data/MySqlConnection.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/data/Repositories.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/data/Repositories.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/data/TetrisRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/data/TetrisRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/data/dailyStreakRepository/MySqlDailyRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/data/dailyStreakRepository/MySqlDailyRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/data/heroesRepository/MySqlHeroesRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/data/heroesRepository/MySqlHeroesRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/data/loggedInRepository/HcLoggedInRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/data/loggedInRepository/HcLoggedInRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/data/loginRepository/MySqlLoginRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/data/loginRepository/MySqlLoginRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/server/webapi/Routes.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/server/webapi/Routes.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/server/webapi/TetrisSockJSHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/server/webapi/TetrisSockJSHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/server/webapi/WebAPI$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/server/webapi/WebAPI$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/server/webapi/WebAPI.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/server/webapi/WebAPI.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/server/webapi/util/SecureFilePath.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/server/webapi/util/SecureFilePath.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/util/DateFormat.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/util/DateFormat.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/util/Hash.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/util/Hash.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/reports/checkstyle/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/checkstyle/main.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/data/JDBCInteractor.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/data/JDBCInteractor.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/data/TetrisRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/data/TetrisRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Program.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/program/Program.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cli/CLI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cli/CLI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cli/util/ANSI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cli/util/Ansi.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cli/util/CommandLineMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cli/util/CommandLineMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data/BlockRepository/BlockRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/BlockRepository/BlockRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data/BlockRepository/HcBlockRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/BlockRepository/HcBlockRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data/GameRepository/GameRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/GameRepository/GameRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data/GameRepository/HcGameRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/GameRepository/HcGameRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data/JDBCInteractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/JdbcInteractor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data/MySqlConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/MySqlConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data/Repositories.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/Repositories.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data/TetrisRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/TetrisRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data/dailyStreakRepository/DailyRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/dailyStreakRepository/DailyRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data/dailyStreakRepository/MySqlDailyRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/dailyStreakRepository/MySqlDailyRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data/heroesRepository/HeroesRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/heroesRepository/HeroesRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data/heroesRepository/MySqlHeroesRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/heroesRepository/MySqlHeroesRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data/loggedInRepository/HcLoggedInRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/loggedInRepository/HcLoggedInRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data/loginRepository/MySqlLoginRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/loginRepository/MySqlLoginRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/game/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/game/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/webapi/Routes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/webapi/Routes.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/webapi/TetrisSockJSHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/webapi/TetrisSockJSHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/webapi/WebAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/webapi/WebAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/server/webapi/util/SecureFilePath.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/webapi/util/SecureFilePath.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/DailyException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/DailyException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/DateFormat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/DateFormat.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/Hash.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/Hash.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/HeroException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/HeroException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/HighScoreException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/HighScoreException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/InputException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/InputException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/LoginException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/LoginException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/MatchableException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/MatchableException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/UserException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/UserException.java" afterDir="false" />
-    </list>
+    <list default="true" id="2d248d51-a647-49a4-9124-b302ac81294f" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -142,7 +82,7 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/domain/game/Player.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="147">
-              <caret line="298" column="96" lean-forward="true" selection-start-line="298" selection-start-column="96" selection-end-line="298" selection-end-column="96" />
+              <caret line="298" column="96" selection-start-line="298" selection-start-column="96" selection-end-line="298" selection-end-column="96" />
             </state>
           </provider>
         </entry>
@@ -905,11 +845,10 @@
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-9" />
-    <option name="y" value="-9" />
-    <option name="width" value="975" />
-    <option name="height" value="1048" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="952" />
+    <option name="width" value="977" />
+    <option name="height" value="1038" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -1092,7 +1031,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1545064603571</updated>
-      <workItem from="1545064605079" duration="5328000" />
+      <workItem from="1545064605079" duration="5794000" />
     </task>
     <servers />
   </component>
@@ -1129,11 +1068,10 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5328000" />
+    <option name="totallyTimeSpent" value="5794000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
-    <editor active="true" />
+    <frame x="762" y="0" width="781" height="830" extended-state="0" />
     <layout>
       <window_info anchor="right" id="Palette" />
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
@@ -1152,12 +1090,12 @@
       <window_info anchor="right" id="Palette&#9;" />
       <window_info id="Image Layers" />
       <window_info anchor="right" id="Capture Analysis" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.33474576" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.5914286" />
       <window_info anchor="bottom" id="Version Control" />
       <window_info anchor="bottom" id="Terminal" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.23892617" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.48266298" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32909605" />
-      <window_info anchor="right" id="Gradle" visible="true" weight="0.2557047" />
+      <window_info anchor="right" id="Gradle" visible="true" weight="0.5159501" />
       <window_info anchor="right" id="Theme Preview" />
       <window_info id="Favorites" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -1514,7 +1452,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/domain/game/Player.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="147">
-          <caret line="298" column="96" lean-forward="true" selection-start-line="298" selection-start-column="96" selection-end-line="298" selection-end-column="96" />
+          <caret line="298" column="96" selection-start-line="298" selection-start-column="96" selection-end-line="298" selection-end-column="96" />
         </state>
       </provider>
     </entry>
