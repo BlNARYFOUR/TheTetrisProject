@@ -42,7 +42,7 @@ public class HcBlockRepository implements BlockRepository {
             {true, true, true}
     };
 
-    public static final Boolean[][] PATTERN_CROSS = {
+    private static final Boolean[][] PATTERN_CROSS = {
             {false, true, false},
             {true, true, true},
             {false, true, false}
@@ -53,7 +53,6 @@ public class HcBlockRepository implements BlockRepository {
             {false, true, false},
             {false, true, false}
     };
-
     private static final Boolean[][] PATTERN_HORSESHOE = {
             {true, false, true},
             {true, true, true}

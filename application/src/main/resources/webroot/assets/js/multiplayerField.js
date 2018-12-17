@@ -46,7 +46,10 @@ const COLORS = {
     YELLOW: 4,
     LIGHT_BLUE: 5,
     GREEN: 6,
-    PURPLE: 7
+    PURPLE: 7,
+    GREEN2: 8,
+    RED2: 9,
+    COMMUNISM: 10
 };
 
 let c;
@@ -77,7 +80,10 @@ function init(e) {
     tiles.set(COLORS.YELLOW, IMAGES.yellowTile);
     tiles.set(COLORS.GREEN, IMAGES.greenTile);
     tiles.set(COLORS.PURPLE, IMAGES.purpleTile);
-    tiles.set(COLORS.PIKA, IMAGES.pikachuTile);
+    tiles.set(COLORS.GREEN2, IMAGES.greenTile);
+    tiles.set(COLORS.RED2, IMAGES.redTile);
+    tiles.set(COLORS.COMMUNISM, IMAGES.redTile);
+    //tiles.set(COLORS.PIKA, IMAGES.pikachuTile);
 
     createGameBoard();
 
