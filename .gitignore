@@ -1,8 +1,0 @@
-.idea/*
-application/.idea/*
-*.xml
-.gradle/*
-application/.vertx/
-application/.idea/
-application/out/
-application/.gradle/
