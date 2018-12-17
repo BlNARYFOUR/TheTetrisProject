@@ -19,6 +19,9 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Objects;
 
+/**
+ * all the rout handlers are initialized here.
+ */
 class Routes {
     private static final String INFO_COOKIE = "info";
     private static final String STATIC_REF = "/static";

@@ -3,6 +3,9 @@ package domain.game.modes;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * all the gameModes in a useful format.
+ */
 public enum GameMode {
 
     singlePlayer("singlePlayer"),
@@ -12,16 +15,16 @@ public enum GameMode {
 
     private final String gameMode;
 
-    GameMode(String gameMode){
+    GameMode(String gameMode) {
         this.gameMode = gameMode;
     }
 
-    public String toString(){
+    public String toString() {
         return gameMode;
     }
 
     public static List<String> getValues() {
-        List<String> result = new ArrayList<>();
+        final List<String> result = new ArrayList<>();
 
         for (GameMode gameMode : values()) {
             result.add(gameMode.toString());

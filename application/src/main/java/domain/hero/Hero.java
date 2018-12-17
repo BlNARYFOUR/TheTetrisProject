@@ -2,6 +2,9 @@ package domain.hero;
 
 import java.util.Objects;
 
+/**
+ * Hero class.
+ */
 public class Hero {
     private int heroID;
     private String heroName;
@@ -17,16 +20,16 @@ public class Hero {
         this.cost = cost;
     }
 
-    public Hero(String heroName, String heroAbility,  boolean heroAbilityNegative, int cost) {
+    public Hero(String heroName, String heroAbility, boolean heroAbilityNegative, int cost) {
         this(-1, heroName, heroAbility, heroAbilityNegative, cost);
     }
 
-    public int getHeroID() {
+    private int getHeroID() {
         return heroID;
     }
 
     public boolean setHeroID(int heroID) {
-        if(this.heroID < 0) {
+        if (this.heroID < 0) {
             this.heroID = heroID;
             return true;
         } else {
@@ -69,18 +72,22 @@ public class Hero {
     @Override
     public String toString() {
         return "Selected " + getHeroID() + " hero: " + getHeroName() + " ability: "
-                + getHeroAbility() + " heroAbilityNegative? : " + isHeroAbilityNegative() +
-                " cost: " + getCost();
+                + getHeroAbility() + " heroAbilityNegative? : " + isHeroAbilityNegative()
+                + " cost: " + getCost();
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Hero hero = (Hero) o;
-        return heroID == hero.heroID &&
-                Objects.equals(heroName, hero.heroName) &&
-                Objects.equals(heroAbility, hero.heroAbility);
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        final Hero hero = (Hero) o;
+        return heroID == hero.heroID
+                && Objects.equals(heroName, hero.heroName)
+                && Objects.equals(heroAbility, hero.heroAbility);
     }
 
     @Override

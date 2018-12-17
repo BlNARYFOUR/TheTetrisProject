@@ -1,18 +1,24 @@
 package server;
 
-import domain.game.modes.GameMode;
 import io.vertx.core.Vertx;
 import io.vertx.core.eventbus.EventBus;
 import org.pmw.tinylog.Logger;
 import server.webapi.WebAPI;
 
-public class Tetris {
+/**
+ * deploy a new WebAPI.
+ */
+public final class Tetris {
+    private Tetris() {
+
+    }
+
     public static void main(String... args) {
         //Logger.warn("Starting server");
         System.out.println("Starting server");
 
-        Vertx vertx = Vertx.vertx();
-        EventBus eb = vertx.eventBus();
+        final Vertx vertx = Vertx.vertx();
+        final EventBus eb = vertx.eventBus();
         vertx.deployVerticle(new WebAPI());
 
 
