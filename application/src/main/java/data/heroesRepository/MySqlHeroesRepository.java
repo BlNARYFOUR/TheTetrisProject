@@ -2,7 +2,7 @@ package data.heroesRepository;
 
 import data.MySqlConnection;
 import domain.hero.Hero;
-import util.HeroExeption;
+import util.HeroException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -32,7 +32,7 @@ public class MySqlHeroesRepository implements HeroesRepository {
             System.out.println("Hero has been added.");
 
         }catch (SQLException ex){
-            throw new HeroExeption("Unable to add hero to DB.", ex);
+            throw new HeroException("Unable to add hero to DB.", ex);
         }
     }
 
@@ -50,7 +50,7 @@ public class MySqlHeroesRepository implements HeroesRepository {
                 }
             }
         }catch (SQLException ex){
-            throw new HeroExeption("Can't find the hero.", ex);
+            throw new HeroException("Can't find the hero.", ex);
         }
     }
 
@@ -72,7 +72,7 @@ public class MySqlHeroesRepository implements HeroesRepository {
             prep.executeUpdate();
             System.out.println("Hero has been deleted!");
         }catch (SQLException ex){
-            throw new HeroExeption("Can't delete hero", ex);
+            throw new HeroException("Can't delete hero", ex);
         }
         return null;
     }
@@ -90,7 +90,7 @@ public class MySqlHeroesRepository implements HeroesRepository {
                 return heroes;
             }
         }catch (SQLException ex){
-            throw new HeroExeption("Unable to get logins from DB.", ex);
+            throw new HeroException("Unable to get logins from DB.", ex);
         }
     }
 }

@@ -21,6 +21,14 @@ import java.util.Objects;
 
 class Routes {
     private static final String INFO_COOKIE = "info";
+    private static final String STATIC_REF = "/static";
+    private static final String MAIN_REF = "/static/pages/main_menu.html";
+    private static final String LOCATION = "location";
+    private static final String SESSION_COOKIE = "vertx-web.session";
+    private static final String INDEX_REF = "webroot/index.html";
+    private static final String SPACE = " ";
+    private static final String PASSWORD = "password";
+    private static final String USERNAME = "username";
 
     private static ObjectMapper objectMapper = new ObjectMapper();
     private LoginRepository loginRepo = Repositories.getInstance().getLoginRepository();
@@ -28,36 +36,45 @@ class Routes {
     private DailyRepository repo = Repositories.getInstance().getDailyRepository();
 
     void rootHandler(RoutingContext routingContext) {
-        HttpServerResponse response = routingContext.response();
+        final HttpServerResponse response = routingContext.response();
         response.setChunked(true);
         response
                 .putHeader("content-type", "text/html")
-                .write("<h1>Wrong page amigo...</h1><img src=static/images/facepalm.jpg><p>Goto <a href=static>here</a> instead</p>")
+                .write("<h1>Wrong page amigo...</h1>"
+                        + "<img src=static/images/facepalm.jpg>"
+                        + "<p>Goto <a href=static>here</a> instead</p>")
                 .end();
     }
 
     private User getUserFromBody(String body) {
-        String[] params = body.split("&");
-        String username = params[0].split("=")[1];
-        String password = params[1].split("=")[1];
+        final String[] params = body.split("&");
+        final String equals = "=";
+        final String username = params[0].split(equals)[1];
+        final String password = params[1].split(equals)[1];
 
         return new User(username, password);
+    }
+
+    private void sendRef(RoutingContext routingContext, String ref) {
+        final HttpServerResponse response = routingContext.response();
+        response.setChunked(true);
+        response.sendFile(ref);
     }
 
     synchronized void loginHandler(RoutingContext routingContext) {
         String info = "";
 
         try {
-            String body = routingContext.getBodyAsString();
+            final String body = routingContext.getBodyAsString();
             User user = getUserFromBody(body);
 
-            Session session = routingContext.session();
-            session.put("username", user.getUsername());
-            session.put("password", Hash.md5(user.getPassword()));
+            final Session session = routingContext.session();
+            session.put(USERNAME, user.getUsername());
+            session.put(PASSWORD, Hash.md5(user.getPassword()));
 
-            System.out.println("L " + session.get("username") + " " + session.get("password"));
+            System.out.println("L " + session.get(USERNAME) + SPACE + session.get(PASSWORD));
 
-            user = loginRepo.authenticateUser(session.get("username"), session.get("password"), false);
+            user = loginRepo.authenticateUser(session.get(USERNAME), session.get(PASSWORD), false);
 
             System.out.println(user + " : " + loggedInRepo.getLoggedUser(session.id()));
 
@@ -65,26 +82,24 @@ class Routes {
                 if (loggedInRepo.isUserLogged(user)) {
                     Logger.warn("User already logged in: " + Objects.requireNonNull(user).getUsername());
                     info = "User '" + Objects.requireNonNull(user).getUsername() + "' has already logged in.";
-                } else if(session.get("username") != null) {
+                } else if (session.get(USERNAME) != null) {
                     info = "User or password are incorrect.";
                 }
 
                 cookieHandler(INFO_COOKIE, info, routingContext);
 
-                HttpServerResponse response = routingContext.response();
-                response.setChunked(true);
-                response.sendFile("webroot/index.html");
+                sendRef(routingContext, INDEX_REF);
             } else {
-                routingContext.getCookie("vertx-web.session").setMaxAge(LoggedInRepository.EXPIRATION_TIME);
+                routingContext.getCookie(SESSION_COOKIE).setMaxAge(LoggedInRepository.EXPIRATION_TIME);
 
                 loggedInRepo.addLoggedUser(session.id(), user);
                 System.out.println(loggedInRepo.getLoggedUser(session.id()).getLoginDate());
 
                 cookieHandler(INFO_COOKIE, info, routingContext);
 
-                HttpServerResponse response = routingContext.response();
+                final HttpServerResponse response = routingContext.response();
                 response.setChunked(true);
-                response.headers().add("location", "/static/pages/main_menu.html");
+                response.headers().add(LOCATION, MAIN_REF);
                 response.setStatusCode(302).end();
             }
         } catch (Exception ex) {
@@ -95,41 +110,40 @@ class Routes {
                 Logger.warn("Unable to send info cookie", e);
             }
 
-            HttpServerResponse response = routingContext.response();
-            response.setChunked(true);
-            response.sendFile("webroot/index.html");
+            sendRef(routingContext, INDEX_REF);
         }
     }
 
-    private void cookieHandler(String key, String value, RoutingContext routingContext) throws UnsupportedEncodingException {
-        String valueEnc = URLEncoder.encode(value, "UTF-8");
+    private void cookieHandler(String key, String value, RoutingContext routingContext)
+            throws UnsupportedEncodingException {
+        final String valueEnc = URLEncoder.encode(value, "UTF-8");
         routingContext.addCookie(Cookie.cookie(key, valueEnc));
     }
 
     synchronized void registerHandler(RoutingContext routingContext) {
         try {
-            String body = routingContext.getBodyAsString();
-            User user = getUserFromBody(body);
+            final String body = routingContext.getBodyAsString();
+            final User user = getUserFromBody(body);
             //user.setPassword(Hash.md5(user.getPassword()));
 
-            Session session = routingContext.session();
-            session.put("username", user.getUsername());
-            session.put("password", Hash.md5(user.getPassword()));
+            final Session session = routingContext.session();
+            session.put(USERNAME, user.getUsername());
+            session.put(PASSWORD, Hash.md5(user.getPassword()));
 
-            System.out.println("1 " + session.get("username") + " " + session.get("password"));
+            System.out.println("1 " + session.get(USERNAME) + SPACE + session.get(PASSWORD));
 
             loginRepo.addUser(user);
 
-            routingContext.getCookie("vertx-web.session").setMaxAge(LoggedInRepository.EXPIRATION_TIME);
+            routingContext.getCookie(SESSION_COOKIE).setMaxAge(LoggedInRepository.EXPIRATION_TIME);
 
             loggedInRepo.addLoggedUser(session.id(), user);
 
-            HttpServerResponse response = routingContext.response();
+            final HttpServerResponse response = routingContext.response();
             response.setChunked(true);
-            response.headers().add("location", "/static/pages/main_menu.html");
+            response.headers().add(LOCATION, MAIN_REF);
             response.setStatusCode(302).end();
         } catch (Exception ex) {
-            HttpServerResponse response = routingContext.response();
+            final HttpServerResponse response = routingContext.response();
             response.setChunked(true);
             response.sendFile("webroot/pages/register.html");
         }
@@ -138,86 +152,86 @@ class Routes {
     }
 
     void secureHandler(RoutingContext routingContext, SecureFilePath filePath) {
-        Session session = routingContext.session();
-        HttpServerResponse response = routingContext.response();
+        final Session session = routingContext.session();
+        final HttpServerResponse response = routingContext.response();
         response.setChunked(true);
 
         try {
             System.out.println("Here");
             //System.out.println(session.id());
-            User user = loginRepo.authenticateUser(session.get("username"), session.get("password"), false);
+            final User user = loginRepo.authenticateUser(session.get(USERNAME), session.get(PASSWORD), false);
             if (!loggedInRepo.isUserLogged(session.id(), user) || user == null) {
-                response.headers().add("location", "/static");
+                response.headers().add(LOCATION, STATIC_REF);
                 response.setStatusCode(302).end();
             } else {
                 response.sendFile("webroot" + filePath);
             }
         } catch (Exception ex) {
-            response.headers().add("location", "/static");
+            response.headers().add(LOCATION, STATIC_REF);
             response.setStatusCode(302).end();
         }
     }
 
     void rerouteHandler(RoutingContext routingContext) {
-        Session session = routingContext.session();
-        HttpServerResponse response = routingContext.response();
+        final Session session = routingContext.session();
+        final HttpServerResponse response = routingContext.response();
         response.setChunked(true);
 
         try {
-            User user = loginRepo.authenticateUser(session.get("username"), session.get("password"), false);
+            final User user = loginRepo.authenticateUser(session.get(USERNAME), session.get(PASSWORD), false);
 
             if (!loggedInRepo.isUserLogged(session.id(), user) || user == null) {
-                response.headers().add("location", "/static");
+                response.headers().add(LOCATION, STATIC_REF);
             } else {
-                response.headers().add("location", "/static" + SecureFilePath.MAIN_MENU);
+                response.headers().add(LOCATION, STATIC_REF + SecureFilePath.MAIN_MENU);
             }
         } catch (Exception ex) {
-            response.headers().add("location", "/static");
+            response.headers().add(LOCATION, STATIC_REF);
         }
 
         response.setStatusCode(302).end();
     }
 
     void rerouteWebrootHandler(RoutingContext routingContext) {
-        Session session = routingContext.session();
-        HttpServerResponse response = routingContext.response();
+        final Session session = routingContext.session();
+        final HttpServerResponse response = routingContext.response();
         response.setChunked(true);
 
         try {
-            User user = loginRepo.authenticateUser(session.get("username"), session.get("password"), false);
+            final User user = loginRepo.authenticateUser(session.get(USERNAME), session.get(PASSWORD), false);
 
             if (!loggedInRepo.isUserLogged(session.id(), user) || user == null) {
-                response.sendFile("webroot/index.html");
+                response.sendFile(INDEX_REF);
             } else {
-                response.headers().add("location", "/static" + SecureFilePath.MAIN_MENU);
+                response.headers().add(LOCATION, STATIC_REF + SecureFilePath.MAIN_MENU);
                 response.setStatusCode(302).end();
             }
         } catch (Exception ex) {
-            response.sendFile("webroot/index.html");
+            response.sendFile(INDEX_REF);
         }
     }
 
     void logoutHandler(RoutingContext routingContext) {
-        Session session = routingContext.session();
+        final Session session = routingContext.session();
         loggedInRepo.deleteLoggedUser(session.id());
         session.destroy();
 
-        HttpServerResponse response = routingContext.response();
+        final HttpServerResponse response = routingContext.response();
         response.setChunked(true);
-        response.headers().add("location", "/static");
+        response.headers().add(LOCATION, STATIC_REF);
         response.setStatusCode(302).end();
     }
 
     // BRYAN
 
     void dailyStreakHandler(RoutingContext routingContext) {
-        Session session = routingContext.session();
-        HttpServerResponse response = routingContext.response();
+        final Session session = routingContext.session();
+        final HttpServerResponse response = routingContext.response();
         response.setChunked(true);
 
         try {
-            User u = new User();
-            DailyStreakRewards dsr = new DailyStreakRewards();
+            final User u = new User();
+            final DailyStreakRewards dsr = new DailyStreakRewards();
 
             System.out.println(repo.getUser(u.getUsername()));
             System.out.println("incoming request");

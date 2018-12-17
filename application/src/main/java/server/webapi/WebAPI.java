@@ -7,7 +7,6 @@ import data.GameRepository.GameRepository;
 import data.JDBCInteractor;
 import data.TetrisRepository;
 import data.loggedInRepository.LoggedInRepository;
-import data.loginRepository.LoginRepository;
 import data.Repositories;
 import domain.User;
 import domain.game.Game;
@@ -26,20 +25,22 @@ import io.vertx.ext.web.handler.StaticHandler;
 import io.vertx.ext.web.sstore.LocalSessionStore;
 import io.vertx.ext.web.sstore.SessionStore;
 import org.pmw.tinylog.Logger;
-import server.Tetris;
 import server.webapi.util.SecureFilePath;
-import util.Hash;
 import util.MatchableException;
 
-import javax.smartcardio.TerminalFactory;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * All the communication setup and basic handlers.
+ */
 public class WebAPI extends AbstractVerticle {
+    private static final String STATIC_REF = "/static";
+
     private ObjectMapper objectMapper = new ObjectMapper();
-    private LoginRepository loginRepo = Repositories.getInstance().getLoginRepository();
+    // private LoginRepository loginRepo = Repositories.getInstance().getLoginRepository();
     private LoggedInRepository loggedInRepo = Repositories.getInstance().getLoggedInRepository();
     private GameRepository gameRepo = Repositories.getInstance().getGameRepository();
 
@@ -49,29 +50,29 @@ public class WebAPI extends AbstractVerticle {
         this.initDB();
         
         
-        HttpServer server = vertx.createHttpServer();
-        Router router = Router.router(vertx);
-        Routes routes = new Routes();
+        final HttpServer server = vertx.createHttpServer();
+        final Router router = Router.router(vertx);
+        final Routes routes = new Routes();
 
         // We need a cookie handler first
         router.route().handler(CookieHandler.create());
         // Create a clustered session store using defaults
-        SessionStore store = LocalSessionStore.create(vertx);
-        SessionHandler sessionHandler = SessionHandler.create(store);
+        final SessionStore store = LocalSessionStore.create(vertx);
+        final SessionHandler sessionHandler = SessionHandler.create(store);
         // Make sure all requests are routed through the session handler too
         router.route().handler(sessionHandler);
 
         router.route("/").handler(routes::rootHandler);
 
         router.route("/static*").handler(BodyHandler.create());
-        router.post("/static").handler(routes::loginHandler);
+        router.post(STATIC_REF).handler(routes::loginHandler);
         router.post("/static/pages/register.html").handler(routes::registerHandler);
 
-        router.route("/static").handler(routes::rerouteWebrootHandler);
+        router.route(STATIC_REF).handler(routes::rerouteWebrootHandler);
         router.route("/static/index.html").handler(routes::rerouteHandler);
 
         for (SecureFilePath secureFilePath : SecureFilePath.values()) {
-            router.route("/static" + secureFilePath).handler(routingContext ->
+            router.route(STATIC_REF + secureFilePath).handler(routingContext ->
                     routes.secureHandler(routingContext, secureFilePath));
         }
 
@@ -97,19 +98,19 @@ public class WebAPI extends AbstractVerticle {
     }
 
     private void makeMatchHandler(Long aLong) {
-        Set<Match> matched = MatchHandler.getInstance().matchUsers();
+        final Set<Match> matched = MatchHandler.getInstance().matchUsers();
         //Logger.info("Matched users: " + matched);
 
         matched.forEach(match -> {
-            Game game = new Game(match);
+            final Game game = new Game(match);
             gameRepo.addActiveGame(game);
 
-            Map<String, String> data = new HashMap<>();
+            final Map<String, String> data = new HashMap<>();
 
             data.put("match", game.getGameAddress());
             data.put("amountOfPlayers", Integer.toString(match.getUsers().size()));
 
-            String json;
+            final String json;
 
             try {
                 json = objectMapper.writeValueAsString(data);
@@ -135,19 +136,22 @@ public class WebAPI extends AbstractVerticle {
     }
 
     private void initGameConsumers() {
-        EventBus eb = vertx.eventBus();
+        final EventBus eb = vertx.eventBus();
 
         eb.consumer("tetris-16.socket.server.match", this::matchHandler);
     }
 
     private void matchHandler(Message message) {
         try {
-            Map<String, Object> jsonMap = objectMapper.readValue(message.body().toString(), new TypeReference<Map<String, Object>>(){});
+            final Map<String, Object> jsonMap = objectMapper.readValue(
+                    message.body().toString(),
+                    new TypeReference<Map<String, Object>>() { }
+                    );
             Logger.warn("Match request received: " + jsonMap);
 
-            User user = loggedInRepo.getLoggedUser((String)jsonMap.get("session"));
-            user.selectHero((String)jsonMap.get("hero"));
-            GameMode gameMode = GameMode.valueOf((String)jsonMap.get("gameMode"));
+            final User user = loggedInRepo.getLoggedUser((String) jsonMap.get("session"));
+            user.selectHero((String) jsonMap.get("hero"));
+            final GameMode gameMode = GameMode.valueOf((String) jsonMap.get("gameMode"));
 
             MatchHandler.getInstance().addMatchable(user, gameMode);
             Logger.info(MatchHandler.getInstance().getMatchable());

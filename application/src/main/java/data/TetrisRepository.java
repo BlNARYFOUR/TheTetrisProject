@@ -1,17 +1,11 @@
 package data;
 
-import domain.User;
 import org.pmw.tinylog.Logger;
-import util.DailyExeption;
 import util.DateFormat;
-import util.Hash;
-import util.LoginException;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 public final class TetrisRepository {
 
@@ -158,7 +152,7 @@ public final class TetrisRepository {
             prep.executeUpdate();
             System.out.println("User has been added.");
         }catch (SQLException ex){
-            throw new DailyExeption("Unable to add user to DB.", ex);
+            throw new DailyException("Unable to add user to DB.", ex);
         }
     }
 

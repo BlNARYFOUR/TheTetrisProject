@@ -1,9 +1,5 @@
-
 import data.heroesRepository.HeroesRepository;
-import data.loginRepository.LoginRepository;
 import data.Repositories;
-import domain.User;
-import domain.hero.Hero;
 
 public class Program {
     public static void main(String[] args) {

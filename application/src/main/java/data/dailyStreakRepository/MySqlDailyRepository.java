@@ -3,7 +3,7 @@ package data.dailyStreakRepository;
 import data.JDBCInteractor;
 import domain.dailyStreak.Streak;
 import domain.User;
-import util.DailyExeption;
+import util.DailyException;
 import util.DateFormat;
 
 import java.sql.Connection;
@@ -54,7 +54,7 @@ public class MySqlDailyRepository implements DailyRepository {
             prep.executeUpdate();
 
         }catch (SQLException ex){
-            throw new DailyExeption("Unable to update song from DB.", ex);
+            throw new DailyException("Unable to update song from DB.", ex);
         }
     }
 
@@ -70,7 +70,7 @@ public class MySqlDailyRepository implements DailyRepository {
             System.out.println("reset");
 
         }catch (SQLException ex){
-            throw new DailyExeption("Unable to update song from DB.", ex);
+            throw new DailyException("Unable to update song from DB.", ex);
         }
     }
 
@@ -87,7 +87,7 @@ public class MySqlDailyRepository implements DailyRepository {
             prep.executeUpdate();
 
         }catch (SQLException ex){
-            throw new DailyExeption("Unable to update begin_data from DB.", ex);
+            throw new DailyException("Unable to update begin_data from DB.", ex);
         }
     }
 
@@ -104,7 +104,7 @@ public class MySqlDailyRepository implements DailyRepository {
             prep.executeUpdate();
 
         }catch (SQLException ex){
-            throw new DailyExeption("Unable to update next_date from DB.", ex);
+            throw new DailyException("Unable to update next_date from DB.", ex);
         }
     }
 
@@ -120,7 +120,7 @@ public class MySqlDailyRepository implements DailyRepository {
             prep.executeUpdate();
 
         }catch (SQLException ex){
-            throw new DailyExeption("Unable to update daily_streakID from DB.", ex);
+            throw new DailyException("Unable to update daily_streakID from DB.", ex);
         }
     }
 
@@ -139,7 +139,7 @@ public class MySqlDailyRepository implements DailyRepository {
             prep.executeUpdate();
             System.out.println("User has been added.");
         }catch (SQLException ex){
-            throw new DailyExeption("Unable to add user to DB.", ex);
+            throw new DailyException("Unable to add user to DB.", ex);
         }
     }
 
@@ -159,7 +159,7 @@ public class MySqlDailyRepository implements DailyRepository {
                 }
             }
         }catch (SQLException ex){
-            throw new DailyExeption("Can't find the username.", ex);
+            throw new DailyException("Can't find the username.", ex);
         }
     }
 
@@ -196,7 +196,7 @@ public class MySqlDailyRepository implements DailyRepository {
                 }
             }
         }catch (SQLException ex){
-            throw new DailyExeption("Can't find the username.", ex);
+            throw new DailyException("Can't find the username.", ex);
         }
     }
 
