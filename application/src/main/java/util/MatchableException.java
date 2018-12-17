@@ -6,11 +6,11 @@ package util;
  * but give useful info to Developers.
  */
 public class MatchableException extends RuntimeException {
-    public MatchableException(String msg, Exception innerException) {
+    public MatchableException(final String msg, final Exception innerException) {
         super(msg, innerException);
     }
 
-    public MatchableException(String msg) {
+    public MatchableException(final String msg) {
         super(msg);
     }
 }

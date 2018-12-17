@@ -1,10 +1,12 @@
 package data.GameRepository;
 
-import domain.User;
 import domain.game.Game;
 
 import java.util.Set;
 
+/**
+ * Contract for GameRepository.
+ */
 public interface GameRepository {
     Set<Game> getActiveGames();
     boolean addActiveGame(Game game);

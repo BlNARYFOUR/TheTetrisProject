@@ -13,10 +13,11 @@ public enum SecureFilePath {
 
     private final String path;
 
-    SecureFilePath(String path) {
+    SecureFilePath(final String path) {
         this.path = path;
     }
 
+    @Override
     public String toString() {
         return path;
     }

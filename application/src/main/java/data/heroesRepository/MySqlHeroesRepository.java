@@ -11,9 +11,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implementation of HeroesRepository.
+ */
 public class MySqlHeroesRepository implements HeroesRepository {
-    private static final String SQL_ADD_HERO = "insert into heroes (heroName, heroAbility, heroAbilityNegative, cost) " +
-            "values (?, ?, ?, ?)";
+    private static final String SQL_ADD_HERO = "insert into heroes (heroName, heroAbility, heroAbilityNegative, cost) "
+            + "values (?, ?, ?, ?)";
     private static final String SQL_GET_HERO = "select * from heroes where heroName = ?";
     private static final String SQL_DELETE_HERO = "delete from heroes where heroName = ?";
     private static final String SQL_GET_ALL_HEROES = "select * from heroes";
@@ -21,7 +24,7 @@ public class MySqlHeroesRepository implements HeroesRepository {
     @Override
     public void addHero(Hero h) {
         try (Connection con = MySqlConnection.getConnection();
-             PreparedStatement prep = con.prepareStatement(SQL_ADD_HERO)){
+             PreparedStatement prep = con.prepareStatement(SQL_ADD_HERO)) {
 
             prep.setString(1, h.getHeroName());
             prep.setString(2, h.getHeroAbility());
@@ -31,7 +34,7 @@ public class MySqlHeroesRepository implements HeroesRepository {
             prep.executeUpdate();
             System.out.println("Hero has been added.");
 
-        }catch (SQLException ex){
+        } catch (SQLException ex) {
             throw new HeroException("Unable to add hero to DB.", ex);
         }
     }
@@ -42,36 +45,36 @@ public class MySqlHeroesRepository implements HeroesRepository {
              PreparedStatement prep = con.prepareStatement(SQL_GET_HERO)) {
             prep.setString(1, name);
 
-            try (ResultSet rs = prep.executeQuery()){
-                if (rs.next()){
+            try (ResultSet rs = prep.executeQuery()) {
+                if (rs.next()) {
                     return createHero(rs);
-                }else {
+                } else {
                     return null;
                 }
             }
-        }catch (SQLException ex){
+        } catch (SQLException ex) {
             throw new HeroException("Can't find the hero.", ex);
         }
     }
 
     private Hero createHero(ResultSet rs) throws SQLException {
-        int ID = rs.getInt("heroID");
-        String heroName = rs.getString("heroName");
-        String heroAbility = rs.getString("heroAbility");
-        Boolean heroAbilityNegative = rs.getBoolean("heroAbilityNegative");
-        int cost = rs.getInt("cost");
-        return new Hero(ID, heroName, heroAbility, heroAbilityNegative, cost);
+        final int id = rs.getInt("heroID");
+        final String heroName = rs.getString("heroName");
+        final String heroAbility = rs.getString("heroAbility");
+        final Boolean heroAbilityNegative = rs.getBoolean("heroAbilityNegative");
+        final int cost = rs.getInt("cost");
+        return new Hero(id, heroName, heroAbility, heroAbilityNegative, cost);
     }
 
     @Override
     public Hero deleteHero(String name) {
         try (Connection con = MySqlConnection.getConnection();
-             PreparedStatement prep = con.prepareStatement(SQL_DELETE_HERO)){
+             PreparedStatement prep = con.prepareStatement(SQL_DELETE_HERO)) {
             prep.setString(1, name);
 
             prep.executeUpdate();
             System.out.println("Hero has been deleted!");
-        }catch (SQLException ex){
+        } catch (SQLException ex) {
             throw new HeroException("Can't delete hero", ex);
         }
         return null;
@@ -80,16 +83,16 @@ public class MySqlHeroesRepository implements HeroesRepository {
     @Override
     public List<Hero> getAllHeroes() {
         try (Connection con = MySqlConnection.getConnection();
-             PreparedStatement prep = con.prepareStatement(SQL_GET_ALL_HEROES)){
-            try (ResultSet rs = prep.executeQuery()){
-                List<Hero> heroes = new ArrayList<>();
+             PreparedStatement prep = con.prepareStatement(SQL_GET_ALL_HEROES)) {
+            try (ResultSet rs = prep.executeQuery()) {
+                final List<Hero> heroes = new ArrayList<>();
 
-                while (rs.next()){
+                while (rs.next()) {
                     heroes.add(createHero(rs));
                 }
                 return heroes;
             }
-        }catch (SQLException ex){
+        } catch (SQLException ex) {
             throw new HeroException("Unable to get logins from DB.", ex);
         }
     }

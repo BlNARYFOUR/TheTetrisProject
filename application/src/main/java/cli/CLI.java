@@ -1,6 +1,6 @@
 package cli;
 
-import cli.util.ANSI;
+import cli.util.Ansi;
 import cli.util.CommandLineMenu;
 import data.TetrisRepository;
 import data.loginRepository.LoginRepository;
@@ -10,20 +10,20 @@ import util.Hash;
 
 import java.util.Scanner;
 
-public class CLI {
+/**
+ * CLI.
+ */
+public final class CLI {
+    private static final String ENTER_A_PASS_STR = "Enter a password: ";
     private CommandLineMenu loginMenu = new CommandLineMenu();
     private CommandLineMenu mainMenu = new CommandLineMenu();
     private CommandLineMenu gameModes = new CommandLineMenu();
     private LoginRepository repo = Repositories.getInstance().getLoginRepository();
     private TetrisRepository tetrisRepo;
+    private final Scanner in = new Scanner(System.in);
+    private boolean cont = true;
 
-    public static void main(String[] args) {
-       new CLI().run();
-
-
-    }
-
-    private CLI(){
+    private CLI() {
         loginMenu.add("Login", this::login);
         loginMenu.add("Register", this::register);
         loginMenu.add("EXIT", this::stop);
@@ -40,7 +40,9 @@ public class CLI {
 
     }
 
-    private boolean cont = true;
+    public static void main(String[] args) {
+        new CLI().run();
+    }
 
     private void run() {
         while (cont) {
@@ -52,36 +54,33 @@ public class CLI {
         // do nothing
     }
 
-
-    private final Scanner in = new Scanner(System.in);
-
     private void stop() {
         cont = false;
-        System.out.println(ANSI.RED + "shutting down" + ANSI.RESET);
+        System.out.println(Ansi.RED + "shutting down" + Ansi.RESET);
     }
     
 
     private void register() {
         System.out.println("REGISTER");
         System.out.println("Enter an username : ");
-        String username = in.nextLine();
-        System.out.println("Enter a password: ");
-        String password = in.nextLine();
-        User u = new User(username, password);
+        final String username = in.nextLine();
+        System.out.println(ENTER_A_PASS_STR);
+        final String password = in.nextLine();
+        final User u = new User(username, password);
         //TetrisRepository.addUser(u);
-        System.out.println(ANSI.RED + "User added." + ANSI.RESET);
+        System.out.println(Ansi.RED + "User added." + Ansi.RESET);
     }
     
 
     private void login() {
         System.out.println("LOGIN");
         System.out.println("Enter an username: ");
-        String username = in.nextLine();
-        System.out.println("Enter a password: ");
-        String password = in.nextLine();
+        final String username = in.nextLine();
+        System.out.println(ENTER_A_PASS_STR);
+        final String password = in.nextLine();
         repo.getUser(username);
         repo.authenticateUser(username, password);
-        if (repo.getUser(username).getPassword().equals(Hash.md5(password))){
+        if (repo.getUser(username).getPassword().equals(Hash.md5(password))) {
             mainMenu.run();
         }
     }

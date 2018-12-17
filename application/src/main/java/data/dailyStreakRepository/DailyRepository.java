@@ -4,6 +4,9 @@ package data.dailyStreakRepository;
 import domain.dailyStreak.Streak;
 import domain.User;
 
+/**
+ * Contract for DailyRepository.
+ */
 public interface DailyRepository {
     void addUser(User u);
     User getUser(String username);

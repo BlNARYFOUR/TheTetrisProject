@@ -1,6 +1,6 @@
 package data.loginRepository;
 
-import data.JDBCInteractor;
+import data.JdbcInteractor;
 import domain.User;
 import util.DateFormat;
 import util.Hash;
@@ -34,7 +34,7 @@ public class MySqlLoginRepository implements LoginRepository {
 
     @Override
     public void addUser(User u) {
-        try (PreparedStatement prep = JDBCInteractor.getConnection().prepareStatement(
+        try (PreparedStatement prep = JdbcInteractor.getConnection().prepareStatement(
                 SQL_ADD_USER, Statement.RETURN_GENERATED_KEYS)) {
             u.setPassword(Hash.md5(u.getPassword()));
             prep.setString(1, u.getUsername());
@@ -71,7 +71,7 @@ public class MySqlLoginRepository implements LoginRepository {
     public User authenticateUser(String username, String password, boolean hashPass) {
         User user = null;
 
-        try (Connection con = JDBCInteractor.getConnection();
+        try (Connection con = JdbcInteractor.getConnection();
              PreparedStatement prep = con.prepareStatement(SQL_CONTROL_USER)) {
 
             final String pass = hashPass ? Hash.md5(password) : password;
@@ -97,7 +97,7 @@ public class MySqlLoginRepository implements LoginRepository {
 
     @Override
     public User deleteUser(String username) {
-        try (Connection con = JDBCInteractor.getConnection();
+        try (Connection con = JdbcInteractor.getConnection();
              PreparedStatement prep = con.prepareStatement(SQL_DELETE_USER)) {
             prep.setString(1, username);
 
@@ -111,7 +111,7 @@ public class MySqlLoginRepository implements LoginRepository {
 
     @Override
     public User getUser(String username) {
-        try (Connection con = JDBCInteractor.getConnection();
+        try (Connection con = JdbcInteractor.getConnection();
              PreparedStatement prep = con.prepareStatement(SQL_GET_USERNAME)) {
             prep.setString(1, username);
 

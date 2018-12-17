@@ -4,35 +4,63 @@
     <list default="true" id="2d248d51-a647-49a4-9124-b302ac81294f" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/Program.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/cli/CLI.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/cli/CLI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/cli/util/ANSI.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/cli/util/ANSI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/cli/util/CommandLineMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/cli/util/CommandLineMenu.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/data/BlockRepository/HcBlockRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/data/BlockRepository/HcBlockRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/data/GameRepository/HcGameRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/data/GameRepository/HcGameRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/data/JDBCInteractor.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/data/JDBCInteractor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/data/MySqlConnection.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/data/MySqlConnection.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/data/Repositories.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/data/Repositories.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/data/TetrisRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/data/TetrisRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/data/dailyStreakRepository/MySqlDailyRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/data/dailyStreakRepository/MySqlDailyRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/data/heroesRepository/MySqlHeroesRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/data/heroesRepository/MySqlHeroesRepository.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/data/loggedInRepository/HcLoggedInRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/data/loggedInRepository/HcLoggedInRepository.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/data/loginRepository/MySqlLoginRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/data/loginRepository/MySqlLoginRepository.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/domain/User.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/domain/User.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/domain/dailyStreak/DailyStreakRewards.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/domain/dailyStreak/Streak.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/domain/dailyStreak/Streak.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/domain/game/Block.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/domain/game/Block.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/domain/game/FallingBlock.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/domain/game/FallingBlock.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/domain/game/Game$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/domain/game/Game$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/domain/game/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/domain/game/Game.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/domain/game/Player$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/domain/game/Player$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/domain/game/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/domain/game/Player.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/java/main/server/webapi/Routes.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/server/webapi/Routes.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/server/webapi/TetrisSockJSHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/server/webapi/TetrisSockJSHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/server/webapi/WebAPI$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/server/webapi/WebAPI$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/server/webapi/WebAPI.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/server/webapi/WebAPI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/server/webapi/util/SecureFilePath.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/server/webapi/util/SecureFilePath.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/util/DateFormat.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/util/DateFormat.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/util/Hash.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/util/Hash.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/reports/checkstyle/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/checkstyle/main.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/data/JDBCInteractor.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/data/JDBCInteractor.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/data/TetrisRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/data/TetrisRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Program.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/program/Program.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/cli/CLI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cli/CLI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cli/util/ANSI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cli/util/Ansi.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cli/util/CommandLineMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cli/util/CommandLineMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/data/BlockRepository/BlockRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/BlockRepository/BlockRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/data/BlockRepository/HcBlockRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/BlockRepository/HcBlockRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/data/GameRepository/GameRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/GameRepository/GameRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/data/GameRepository/HcGameRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/GameRepository/HcGameRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/data/JDBCInteractor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/JdbcInteractor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/data/MySqlConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/MySqlConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/data/Repositories.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/Repositories.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/data/TetrisRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/TetrisRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/data/dailyStreakRepository/DailyRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/dailyStreakRepository/DailyRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/data/dailyStreakRepository/MySqlDailyRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/dailyStreakRepository/MySqlDailyRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/data/heroesRepository/HeroesRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/heroesRepository/HeroesRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/data/heroesRepository/MySqlHeroesRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/heroesRepository/MySqlHeroesRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/data/loggedInRepository/HcLoggedInRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/loggedInRepository/HcLoggedInRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data/loggedInRepository/LoggedInRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/loggedInRepository/LoggedInRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/data/loginRepository/LoginRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/loginRepository/LoginRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/data/loginRepository/MySqlLoginRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/data/loginRepository/MySqlLoginRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/dailyStreak/DailyStreakRewards.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/dailyStreak/Streak.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/dailyStreak/Streak.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/game/Block.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/game/Block.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/game/FallingBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/game/FallingBlock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/domain/game/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/game/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/domain/game/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/domain/game/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/server/webapi/Routes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/webapi/Routes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/webapi/TetrisSockJSHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/webapi/TetrisSockJSHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/webapi/WebAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/webapi/WebAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/server/webapi/util/SecureFilePath.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/server/webapi/util/SecureFilePath.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/DailyException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/DailyException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/DateFormat.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/DateFormat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/Hash.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/Hash.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/HeroException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/HeroException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/HighScoreException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/HighScoreException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/InputException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/InputException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/LoginException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/LoginException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/MatchableException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/MatchableException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/UserException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/UserException.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -47,36 +75,165 @@
       <ProjectState />
     </projectState>
   </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Backend" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Backend" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="Backend" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="verification" type="c8890929:TasksNode$1" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Program.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/Program.java">
+      <file leaf-file-name="WebAPI.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/server/webapi/WebAPI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="3" column="13" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
+            <state relative-caret-position="136">
+              <caret line="20" column="34" selection-start-line="20" selection-start-column="34" selection-end-line="20" selection-end-column="34" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CLI.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cli/CLI.java">
+      <file leaf-file-name="TetrisSockJSHandler.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/server/webapi/TetrisSockJSHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="15" selection-start-line="2" selection-start-column="15" selection-end-line="2" selection-end-column="15" />
+            <state relative-caret-position="135">
+              <caret line="29" column="8" selection-start-line="29" selection-start-column="8" selection-end-line="29" selection-end-column="8" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Tetris.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Tetris.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/server/Tetris.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="85">
-              <caret line="5" column="20" selection-start-line="5" selection-start-column="20" selection-end-line="5" selection-end-column="20" />
+              <caret line="10" column="19" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Player.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/domain/game/Player.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="147">
+              <caret line="298" column="96" lean-forward="true" selection-start-line="298" selection-start-column="96" selection-end-line="298" selection-end-column="96" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Routes.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/server/webapi/Routes.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="100">
+              <caret line="113" column="23" selection-start-line="113" selection-start-column="23" selection-end-line="113" selection-end-column="23" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HeroException.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/util/HeroException.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="84">
+              <caret line="8" selection-start-line="8" selection-end-line="8" />
+              <folding>
+                <element signature="e#330#331#0" expanded="true" />
+                <element signature="e#372#373#0" expanded="true" />
+                <element signature="e#412#413#0" expanded="true" />
+                <element signature="e#438#439#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Hash.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/util/Hash.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="84">
+              <caret line="16" column="35" selection-start-line="16" selection-start-column="35" selection-end-line="16" selection-end-column="35" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DateFormat.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/util/DateFormat.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="84">
+              <caret line="10" column="21" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
+              <folding>
+                <element signature="e#199#200#0" expanded="true" />
+                <element signature="e#235#236#0" expanded="true" />
+                <element signature="e#267#268#0" expanded="true" />
+                <element signature="e#296#297#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DailyException.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/util/DailyException.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="84">
+              <caret line="8" selection-start-line="8" selection-end-line="8" />
+              <folding>
+                <element signature="e#334#335#0" expanded="true" />
+                <element signature="e#376#377#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SecureFilePath.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/server/webapi/util/SecureFilePath.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="84">
+              <caret line="15" column="25" selection-start-line="15" selection-start-column="25" selection-end-line="15" selection-end-column="25" />
+              <folding>
+                <element signature="e#395#396#0" expanded="true" />
+                <element signature="e#427#428#0" expanded="true" />
+                <element signature="e#459#460#0" expanded="true" />
+                <element signature="e#486#487#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>&quot;Can't find the username.&quot;</find>
+      <find>&quot;Unable to update song from DB.&quot;</find>
+      <find>&quot;where name = ?&quot;</find>
+      <find>&quot;  amount int(11) NOT NULL,\n&quot;</find>
+      <find>&quot;Enter a password: &quot;</find>
+      <find>periodic:</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -699,6 +856,46 @@
       </map>
     </option>
   </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/main/java/data/loggedInRepository/HcLoggedInRepository.java" />
+        <option value="$PROJECT_DIR$/src/main/java/data/heroesRepository/MySqlHeroesRepository.java" />
+        <option value="$PROJECT_DIR$/src/main/java/data/heroesRepository/HeroesRepository.java" />
+        <option value="$PROJECT_DIR$/src/main/java/data/dailyStreakRepository/MySqlDailyRepository.java" />
+        <option value="$PROJECT_DIR$/src/main/java/data/dailyStreakRepository/DailyRepository.java" />
+        <option value="$PROJECT_DIR$/src/main/java/data/TetrisRepository.java" />
+        <option value="$PROJECT_DIR$/src/main/java/data/Repositories.java" />
+        <option value="$PROJECT_DIR$/src/main/java/data/MySqlConnection.java" />
+        <option value="$PROJECT_DIR$/src/main/java/data/JDBCInteractor.java" />
+        <option value="$PROJECT_DIR$/src/main/java/data/JdbcInteractor.java" />
+        <option value="$PROJECT_DIR$/src/main/java/data/GameRepository/HcGameRepository.java" />
+        <option value="$PROJECT_DIR$/src/main/java/data/GameRepository/GameRepository.java" />
+        <option value="$PROJECT_DIR$/src/main/java/data/BlockRepository/HcBlockRepository.java" />
+        <option value="$PROJECT_DIR$/src/main/java/data/BlockRepository/BlockRepository.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cli/util/CommandLineMenu.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cli/util/ANSI.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cli/util/Ansi.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cli/CLI.java" />
+        <option value="$PROJECT_DIR$/src/main/java/Program.java" />
+        <option value="$PROJECT_DIR$/src/main/java/program/Program.java" />
+        <option value="$PROJECT_DIR$/src/main/java/util/UserException.java" />
+        <option value="$PROJECT_DIR$/src/main/java/util/MatchableException.java" />
+        <option value="$PROJECT_DIR$/src/main/java/util/LoginException.java" />
+        <option value="$PROJECT_DIR$/src/main/java/util/InputException.java" />
+        <option value="$PROJECT_DIR$/src/main/java/util/HighScoreException.java" />
+        <option value="$PROJECT_DIR$/src/main/java/util/HeroException.java" />
+        <option value="$PROJECT_DIR$/src/main/java/util/Hash.java" />
+        <option value="$PROJECT_DIR$/src/main/java/util/DateFormat.java" />
+        <option value="$PROJECT_DIR$/src/main/java/util/DailyException.java" />
+        <option value="$PROJECT_DIR$/src/main/java/server/webapi/util/SecureFilePath.java" />
+        <option value="$PROJECT_DIR$/src/main/java/server/webapi/WebAPI.java" />
+        <option value="$PROJECT_DIR$/src/main/java/server/webapi/TetrisSockJSHandler.java" />
+        <option value="$PROJECT_DIR$/src/main/java/server/webapi/Routes.java" />
+        <option value="$PROJECT_DIR$/src/main/java/domain/game/Player.java" />
+      </list>
+    </option>
+  </component>
   <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
   <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
   <component name="JsGulpfileManager">
@@ -754,7 +951,7 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="cli" type="462c0819:PsiDirectoryNode" />
+              <item name="domain" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="application" type="b2602c69:ProjectViewProjectNode" />
@@ -762,8 +959,8 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="cli" type="462c0819:PsiDirectoryNode" />
-              <item name="util" type="462c0819:PsiDirectoryNode" />
+              <item name="domain" type="462c0819:PsiDirectoryNode" />
+              <item name="game" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="application" type="b2602c69:ProjectViewProjectNode" />
@@ -797,9 +994,9 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Gradle.application [check]">
+  <component name="RunManager" selected="Application.Tetris">
     <configuration name="Program" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Program" />
+      <option name="MAIN_CLASS_NAME" value="program.Program" />
       <module name="Backend_main" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
     </configuration>
@@ -879,8 +1076,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.application [check]" />
         <item itemvalue="Application.Tetris" />
+        <item itemvalue="Gradle.application [check]" />
         <item itemvalue="Application.Program" />
       </list>
     </recent_temporary>
@@ -895,42 +1092,74 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1545064603571</updated>
-      <workItem from="1545064605079" duration="816000" />
+      <workItem from="1545064605079" duration="5328000" />
     </task>
     <servers />
   </component>
+  <component name="TestHistory">
+    <history-entry file="application_[check] - 2018.12.17 at 18h 43m 07s.xml">
+      <configuration name="application [check]" configurationId="GradleRunConfiguration" />
+    </history-entry>
+    <history-entry file="application_[check] - 2018.12.17 at 18h 43m 38s.xml">
+      <configuration name="application [check]" configurationId="GradleRunConfiguration" />
+    </history-entry>
+    <history-entry file="application_[check] - 2018.12.17 at 18h 44m 07s.xml">
+      <configuration name="application [check]" configurationId="GradleRunConfiguration" />
+    </history-entry>
+    <history-entry file="application_[check] - 2018.12.17 at 18h 44m 23s.xml">
+      <configuration name="application [check]" configurationId="GradleRunConfiguration" />
+    </history-entry>
+    <history-entry file="application_[check] - 2018.12.17 at 18h 44m 37s.xml">
+      <configuration name="application [check]" configurationId="GradleRunConfiguration" />
+    </history-entry>
+    <history-entry file="application_[check] - 2018.12.17 at 18h 48m 29s.xml">
+      <configuration name="application [check]" configurationId="GradleRunConfiguration" />
+    </history-entry>
+    <history-entry file="application_[check] - 2018.12.17 at 18h 49m 37s.xml">
+      <configuration name="application [check]" configurationId="GradleRunConfiguration" />
+    </history-entry>
+    <history-entry file="application_[check] - 2018.12.17 at 18h 50m 09s.xml">
+      <configuration name="application [check]" configurationId="GradleRunConfiguration" />
+    </history-entry>
+    <history-entry file="application_[check] - 2018.12.17 at 18h 53m 06s.xml">
+      <configuration name="application [check]" configurationId="GradleRunConfiguration" />
+    </history-entry>
+    <history-entry file="application_[check] - 2018.12.17 at 18h 55m 04s.xml">
+      <configuration name="application [check]" configurationId="GradleRunConfiguration" />
+    </history-entry>
+  </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="816000" />
+    <option name="totallyTimeSpent" value="5328000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" />
+      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info anchor="right" id="Maven Projects" />
+      <window_info anchor="bottom" id="Database Changes" show_stripe_button="false" />
+      <window_info id="Capture Tool" />
+      <window_info id="Designer" />
+      <window_info anchor="bottom" id="Build" weight="0.32909605" />
+      <window_info anchor="right" id="Database" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info id="UI Designer" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Messages" weight="0.32909605" />
       <window_info anchor="right" id="Palette&#9;" />
       <window_info id="Image Layers" />
       <window_info anchor="right" id="Capture Analysis" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
-      <window_info anchor="right" id="Maven Projects" />
-      <window_info anchor="bottom" id="Database Changes" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32909605" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.33474576" />
       <window_info anchor="bottom" id="Version Control" />
       <window_info anchor="bottom" id="Terminal" />
-      <window_info id="Capture Tool" />
-      <window_info id="Designer" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12080537" />
-      <window_info anchor="bottom" id="Build" weight="0.32909605" />
-      <window_info anchor="right" id="Database" />
-      <window_info anchor="right" id="Gradle" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info id="UI Designer" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.23892617" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32909605" />
+      <window_info anchor="right" id="Gradle" visible="true" weight="0.2557047" />
       <window_info anchor="right" id="Theme Preview" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info id="Favorites" side_tool="true" />
-      <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -945,24 +1174,347 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/Program.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/data/heroesRepository/MySqlHeroesRepository.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="3" column="13" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
+        <state relative-caret-position="85">
+          <caret line="14" column="20" selection-start-line="14" selection-start-column="20" selection-end-line="14" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/data/loggedInRepository/HcLoggedInRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="9" column="20" selection-start-line="9" selection-start-column="20" selection-end-line="9" selection-end-column="20" />
+          <folding>
+            <element signature="e#1828#1829#0" expanded="true" />
+            <element signature="e#1892#1893#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/data/heroesRepository/HeroesRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="7" column="33" selection-start-line="7" selection-start-column="33" selection-end-line="7" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/data/dailyStreakRepository/MySqlDailyRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="16" column="37" selection-start-line="16" selection-start-column="37" selection-end-line="16" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/data/dailyStreakRepository/DailyRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="7" column="32" selection-start-line="7" selection-start-column="32" selection-end-line="7" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/data/TetrisRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="10" column="16" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/data/Repositories.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="16" column="41" selection-start-line="16" selection-start-column="41" selection-end-line="16" selection-end-column="41" />
+          <folding>
+            <element signature="e#786#787#0" expanded="true" />
+            <element signature="e#817#818#0" expanded="true" />
+            <element signature="e#868#869#0" expanded="true" />
+            <element signature="e#917#918#0" expanded="true" />
+            <element signature="e#973#974#0" expanded="true" />
+            <element signature="e#1022#1023#0" expanded="true" />
+            <element signature="e#1072#1073#0" expanded="true" />
+            <element signature="e#1121#1122#0" expanded="true" />
+            <element signature="e#1171#1172#0" expanded="true" />
+            <element signature="e#1221#1222#0" expanded="true" />
+            <element signature="e#1271#1272#0" expanded="true" />
+            <element signature="e#1317#1318#0" expanded="true" />
+            <element signature="e#1365#1366#0" expanded="true" />
+            <element signature="e#1410#1411#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/data/MySqlConnection.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="11" column="12" selection-start-line="11" selection-start-column="12" selection-end-line="11" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/data/JdbcInteractor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="12" column="17" selection-start-line="12" selection-start-column="17" selection-end-line="12" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/data/GameRepository/HcGameRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="9" column="36" selection-start-line="9" selection-start-column="36" selection-end-line="9" selection-end-column="36" />
+          <folding>
+            <element signature="e#309#310#0" expanded="true" />
+            <element signature="e#337#338#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/data/GameRepository/GameRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/data/BlockRepository/HcBlockRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="8" column="37" selection-start-line="8" selection-start-column="37" selection-end-line="8" selection-end-column="37" />
+          <folding>
+            <element signature="e#1712#1713#0" expanded="true" />
+            <element signature="e#1741#1742#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/data/BlockRepository/BlockRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="7" column="32" selection-start-line="7" selection-start-column="32" selection-end-line="7" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cli/util/CommandLineMenu.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="7" column="24" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
+          <folding>
+            <element signature="e#868#869#0" expanded="true" />
+            <element signature="e#904#905#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cli/util/Ansi.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
+          <folding>
+            <element signature="e#328#329#0" expanded="true" />
+            <element signature="e#360#361#0" expanded="true" />
+            <element signature="e#393#394#0" expanded="true" />
+            <element signature="e#420#421#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cli/CLI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="15" selection-start-line="2" selection-start-column="15" selection-end-line="2" selection-end-column="15" />
+        <state relative-caret-position="135">
+          <caret line="15" column="12" selection-start-line="15" selection-start-column="12" selection-end-line="15" selection-end-column="12" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1395#1396#0" expanded="true" />
+            <element signature="e#1426#1427#0" expanded="true" />
+            <element signature="e#2641#2642#0" expanded="true" />
+            <element signature="e#2689#2690#0" expanded="true" />
+            <element signature="e#2716#2717#0" expanded="true" />
+            <element signature="e#2758#2759#0" expanded="true" />
+            <element signature="e#2785#2786#0" expanded="true" />
+            <element signature="e#2827#2828#0" expanded="true" />
+            <element signature="e#2974#2975#0" expanded="true" />
+            <element signature="e#3029#3030#0" expanded="true" />
+            <element signature="e#3062#3063#0" expanded="true" />
+            <element signature="e#3111#3112#0" expanded="true" />
+            <element signature="e#3145#3146#0" expanded="true" />
+            <element signature="e#3195#3196#0" expanded="true" />
+            <element signature="e#3230#3231#0" expanded="true" />
+            <element signature="e#3281#3282#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/program/Program.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="13" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#152#153#0" expanded="true" />
+            <element signature="e#187#188#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/util/UserException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="8" column="49" selection-start-line="8" selection-start-column="49" selection-end-line="8" selection-end-column="49" />
+          <folding>
+            <element signature="e#330#331#0" expanded="true" />
+            <element signature="e#372#373#0" expanded="true" />
+            <element signature="e#412#413#0" expanded="true" />
+            <element signature="e#438#439#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/util/MatchableException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="8" column="54" selection-start-line="8" selection-start-column="54" selection-end-line="8" selection-end-column="54" />
+          <folding>
+            <element signature="e#350#351#0" expanded="true" />
+            <element signature="e#392#393#0" expanded="true" />
+            <element signature="e#437#438#0" expanded="true" />
+            <element signature="e#463#464#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/util/LoginException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+          <folding>
+            <element signature="e#334#335#0" expanded="true" />
+            <element signature="e#376#377#0" expanded="true" />
+            <element signature="e#417#418#0" expanded="true" />
+            <element signature="e#443#444#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/util/InputException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+          <folding>
+            <element signature="e#334#335#0" expanded="true" />
+            <element signature="e#376#377#0" expanded="true" />
+            <element signature="e#417#418#0" expanded="true" />
+            <element signature="e#443#444#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/util/HighScoreException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+          <folding>
+            <element signature="e#350#351#0" expanded="true" />
+            <element signature="e#392#393#0" expanded="true" />
+            <element signature="e#437#438#0" expanded="true" />
+            <element signature="e#463#464#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/util/HeroException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+          <folding>
+            <element signature="e#330#331#0" expanded="true" />
+            <element signature="e#372#373#0" expanded="true" />
+            <element signature="e#412#413#0" expanded="true" />
+            <element signature="e#438#439#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/util/Hash.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="16" column="35" selection-start-line="16" selection-start-column="35" selection-end-line="16" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/util/DateFormat.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="10" column="21" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
+          <folding>
+            <element signature="e#199#200#0" expanded="true" />
+            <element signature="e#235#236#0" expanded="true" />
+            <element signature="e#267#268#0" expanded="true" />
+            <element signature="e#296#297#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/util/DailyException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+          <folding>
+            <element signature="e#334#335#0" expanded="true" />
+            <element signature="e#376#377#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/server/webapi/util/SecureFilePath.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="15" column="25" selection-start-line="15" selection-start-column="25" selection-end-line="15" selection-end-column="25" />
+          <folding>
+            <element signature="e#395#396#0" expanded="true" />
+            <element signature="e#427#428#0" expanded="true" />
+            <element signature="e#459#460#0" expanded="true" />
+            <element signature="e#486#487#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/server/webapi/WebAPI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="20" column="34" selection-start-line="20" selection-start-column="34" selection-end-line="20" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/server/webapi/TetrisSockJSHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="29" column="8" selection-start-line="29" selection-start-column="8" selection-end-line="29" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/server/webapi/Routes.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="113" column="23" selection-start-line="113" selection-start-column="23" selection-end-line="113" selection-end-column="23" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/server/Tetris.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
-          <caret line="5" column="20" selection-start-line="5" selection-start-column="20" selection-end-line="5" selection-end-column="20" />
+          <caret line="10" column="19" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/domain/game/Player.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="298" column="96" lean-forward="true" selection-start-line="298" selection-start-column="96" selection-end-line="298" selection-end-column="96" />
         </state>
       </provider>
     </entry>

@@ -5,43 +5,45 @@ import domain.game.Block;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Implementation of BlockRepository.
+ */
 public class HcBlockRepository implements BlockRepository {
-    private int nextID = 1;
-
     private static final Boolean[][] PATTERN_LINE = {
-            {true, true, true, true}
+            {true, true, true, true},
     };
 
     private static final Boolean[][] PATTERN_L_1 = {
             {true, false, false},
-            {true, true, true}
+            {true, true, true},
     };
 
     private static final Boolean[][] PATTERN_L_2 = {
             {false, false, true},
-            {true, true, true}
+            {true, true, true},
     };
 
     private static final Boolean[][] PATTERN_SQUARE = {
             {true, true},
-            {true, true}
+            {true, true},
     };
 
     private static final Boolean[][] PATTERN_ZIGZAG_1 = {
             {false, true, true},
-            {true, true, false}
+            {true, true, false},
     };
 
     private static final Boolean[][] PATTERN_ZIGZAG_2 = {
             {true, true, false},
-            {false, true, true}
+            {false, true, true},
     };
 
     private static final Boolean[][] PATTERN_T = {
             {false, true, false},
-            {true, true, true}
+            {true, true, true},
     };
 
+    private int nextID = 1;
     private Set<Block> blocks = new HashSet<>();
 
     public HcBlockRepository() {
@@ -67,7 +69,7 @@ public class HcBlockRepository implements BlockRepository {
 
     @Override
     public Block getRandomBlock() {
-        double r = Math.random();
+        final double r = Math.random();
 
         return (Block) blocks.toArray()[Math.toIntExact(Math.round(r * (blocks.size() - 1)))];
     }

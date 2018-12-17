@@ -7,11 +7,14 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class JDBCInteractor {
-    static final String JDBC_DRIVER = "org.h2.Driver";
-    static final String DB_URL = "jdbc:h2:~/tetris-16";
-    static final String USER = "tetris_user";
-    static final String PASS = "tetris_user";
+/**
+ * JdbcInteractor.
+ */
+public class JdbcInteractor {
+    private static final String JDBC_DRIVER = "org.h2.Driver";
+    private static final String DB_URL = "jdbc:h2:~/tetris-16";
+    private static final String USER = "tetris_user";
+    private static final String PASS = USER;
 
     //TODO database naam + nummer
 

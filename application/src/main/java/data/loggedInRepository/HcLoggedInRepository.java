@@ -6,6 +6,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Implementation of LoggedInRepository.
+ */
 public class HcLoggedInRepository implements LoggedInRepository {
     private static Map<String, User> loggedUsers = new HashMap<>();
 
@@ -16,12 +19,12 @@ public class HcLoggedInRepository implements LoggedInRepository {
                 user.setLoginDate(new Date());
                 loggedUsers.put(sessionID, user);
                 return true;
-            } else {
-                return false;
             }
         } catch (Exception ex) {
-            return false;
+            // just go further
         }
+
+        return false;
     }
 
     @Override

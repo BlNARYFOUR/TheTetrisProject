@@ -6,11 +6,11 @@ package util;
  * but give useful info to Developers.
  */
 public class HeroException extends RuntimeException {
-    public HeroException(String msg, Exception innerException) {
+    public HeroException(final String msg, final Exception innerException) {
         super(msg, innerException);
     }
 
-    public HeroException(String msg) {
+    public HeroException(final String msg) {
         super(msg);
     }
 }

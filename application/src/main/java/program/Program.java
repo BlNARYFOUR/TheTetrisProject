@@ -1,20 +1,25 @@
+package program;
+
 import data.heroesRepository.HeroesRepository;
 import data.Repositories;
 
+/**
+ * program.Program.
+ */
 public class Program {
     public static void main(String[] args) {
         new Program().run();
     }
 
-    private void run(){
-        HeroesRepository repo = Repositories.getInstance().getHeroRepository();
+    private void run() {
+        final HeroesRepository repo = Repositories.getInstance().getHeroRepository();
 
 
-       /*// ADD user
+        /*// ADD user
         User person = new User(0, "Testid", "testid");
         repo.addUser(person);
 
-       /* // TRY TO LOGIN
+        /* // TRY TO LOGIN
         repo.authenticateUser("bryan", "bryan");
         repo.authenticateUser("Testid", "testid");
 
@@ -23,6 +28,7 @@ public class Program {
         //repo.deleteUser("Testid");
 
         // GET USERNAME
-        System.out.println(repo.getUser("Testid").getPassword())*/
+        System.out.println(repo.getUser("Testid").getPassword())
+        */
     }
 }

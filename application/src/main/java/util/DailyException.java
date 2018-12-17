@@ -6,7 +6,7 @@ package util;
  * but give useful info to Developers.
  */
 public class DailyException extends RuntimeException {
-    public DailyException(String msg, Exception innerException) {
+    public DailyException(final String msg, final Exception innerException) {
         super(msg, innerException);
     }
 }

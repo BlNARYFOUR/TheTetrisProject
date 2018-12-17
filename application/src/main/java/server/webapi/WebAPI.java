@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import data.GameRepository.GameRepository;
-import data.JDBCInteractor;
+import data.JdbcInteractor;
 import data.TetrisRepository;
 import data.loggedInRepository.LoggedInRepository;
 import data.Repositories;
@@ -18,10 +18,7 @@ import io.vertx.core.eventbus.EventBus;
 import io.vertx.core.eventbus.Message;
 import io.vertx.core.http.HttpServer;
 import io.vertx.ext.web.Router;
-import io.vertx.ext.web.handler.BodyHandler;
-import io.vertx.ext.web.handler.CookieHandler;
-import io.vertx.ext.web.handler.SessionHandler;
-import io.vertx.ext.web.handler.StaticHandler;
+import io.vertx.ext.web.handler.*;
 import io.vertx.ext.web.sstore.LocalSessionStore;
 import io.vertx.ext.web.sstore.SessionStore;
 import org.pmw.tinylog.Logger;
@@ -39,10 +36,10 @@ import java.util.Set;
 public class WebAPI extends AbstractVerticle {
     private static final String STATIC_REF = "/static";
 
-    private ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper = new ObjectMapper();
     // private LoginRepository loginRepo = Repositories.getInstance().getLoginRepository();
-    private LoggedInRepository loggedInRepo = Repositories.getInstance().getLoggedInRepository();
-    private GameRepository gameRepo = Repositories.getInstance().getGameRepository();
+    private final LoggedInRepository loggedInRepo = Repositories.getInstance().getLoggedInRepository();
+    private final GameRepository gameRepo = Repositories.getInstance().getGameRepository();
 
     @Override
     public void start() {
@@ -93,11 +90,12 @@ public class WebAPI extends AbstractVerticle {
     }
 
     private void initDB() {
-        new JDBCInteractor().startDBServer();
+        new JdbcInteractor().startDBServer();
         TetrisRepository.populateDB();
     }
 
-    private void makeMatchHandler(Long aLong) {
+    private void makeMatchHandler(final Long aLong) {
+        Logger.debug(aLong);
         final Set<Match> matched = MatchHandler.getInstance().matchUsers();
         //Logger.info("Matched users: " + matched);
 
@@ -115,7 +113,7 @@ public class WebAPI extends AbstractVerticle {
             try {
                 json = objectMapper.writeValueAsString(data);
             } catch (JsonProcessingException e) {
-                throw new MatchableException("json data is not okay ¯\\_(ツ)_/¯");
+                throw new MatchableException("json data is not okay ¯\\_(ツ)_/¯", e);
             }
 
             match.getUsers().forEach(user -> {
@@ -141,7 +139,7 @@ public class WebAPI extends AbstractVerticle {
         eb.consumer("tetris-16.socket.server.match", this::matchHandler);
     }
 
-    private void matchHandler(Message message) {
+    private void matchHandler(final Message message) {
         try {
             final Map<String, Object> jsonMap = objectMapper.readValue(
                     message.body().toString(),
@@ -156,7 +154,7 @@ public class WebAPI extends AbstractVerticle {
             MatchHandler.getInstance().addMatchable(user, gameMode);
             Logger.info(MatchHandler.getInstance().getMatchable());
         } catch (IOException e) {
-            e.getMessage();
+            Logger.warn(e.getMessage());
         }
 
         message.reply("OK");

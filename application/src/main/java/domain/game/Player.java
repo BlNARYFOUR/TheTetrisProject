@@ -296,6 +296,7 @@ public class Player {
     }
 
     private void updateSpeed() {
+        Logger.warn("Speed updated! Lines scored: " + amountOfScoredLines + " Level: " + level);
         Vertx.currentContext().owner().cancelTimer(periodicID);
         periodicID = Vertx.currentContext().owner().setPeriodic(Math.round(normalMovementTime), this::updateCycle);
     }

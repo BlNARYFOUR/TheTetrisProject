@@ -6,11 +6,11 @@ package util;
  * but give useful info to Developers.
  */
 public class UserException extends RuntimeException {
-    public UserException(String msg, Exception innerException) {
+    public UserException(final String msg, final Exception innerException) {
         super(msg, innerException);
     }
 
-    public UserException(String msg) {
+    public UserException(final String msg) {
         super(msg);
     }
 }

@@ -63,103 +63,111 @@ class Routes {
         response.sendFile(ref);
     }
 
-    synchronized void loginHandler(RoutingContext routingContext) {
-        String info = "";
+    private String tryLogin(RoutingContext routingContext) throws UnsupportedEncodingException {
+        final String body = routingContext.getBodyAsString();
+        String infoBuf = "";
+        User user = getUserFromBody(body);
 
-        try {
-            final String body = routingContext.getBodyAsString();
-            User user = getUserFromBody(body);
+        final Session session = routingContext.session();
+        session.put(USERNAME, user.getUsername());
+        session.put(PASSWORD, Hash.md5(user.getPassword()));
 
-            final Session session = routingContext.session();
-            session.put(USERNAME, user.getUsername());
-            session.put(PASSWORD, Hash.md5(user.getPassword()));
+        //System.out.println("L " + session.get(USERNAME) + SPACE + session.get(PASSWORD));
 
-            System.out.println("L " + session.get(USERNAME) + SPACE + session.get(PASSWORD));
+        user = loginRepo.authenticateUser(session.get(USERNAME), session.get(PASSWORD), false);
 
-            user = loginRepo.authenticateUser(session.get(USERNAME), session.get(PASSWORD), false);
+        //System.out.println(user + " : " + loggedInRepo.getLoggedUser(session.id()));
 
-            System.out.println(user + " : " + loggedInRepo.getLoggedUser(session.id()));
-
-            if (loggedInRepo.isUserLogged(user) || user == null) {
-                if (loggedInRepo.isUserLogged(user)) {
-                    Logger.warn("User already logged in: " + Objects.requireNonNull(user).getUsername());
-                    info = "User '" + Objects.requireNonNull(user).getUsername() + "' has already logged in.";
-                } else if (session.get(USERNAME) != null) {
-                    info = "User or password are incorrect.";
-                }
-
-                cookieHandler(INFO_COOKIE, info, routingContext);
-
-                sendRef(routingContext, INDEX_REF);
-            } else {
-                routingContext.getCookie(SESSION_COOKIE).setMaxAge(LoggedInRepository.EXPIRATION_TIME);
-
-                loggedInRepo.addLoggedUser(session.id(), user);
-                System.out.println(loggedInRepo.getLoggedUser(session.id()).getLoginDate());
-
-                cookieHandler(INFO_COOKIE, info, routingContext);
-
-                final HttpServerResponse response = routingContext.response();
-                response.setChunked(true);
-                response.headers().add(LOCATION, MAIN_REF);
-                response.setStatusCode(302).end();
+        if (loggedInRepo.isUserLogged(user) || user == null) {
+            if (loggedInRepo.isUserLogged(user)) {
+                Logger.warn("User already logged in: " + Objects.requireNonNull(user).getUsername());
+                infoBuf = "User '" + Objects.requireNonNull(user).getUsername() + "' has already logged in.";
+            } else if (session.get(USERNAME) != null) {
+                infoBuf = "User or password are incorrect.";
             }
-        } catch (Exception ex) {
-            info = "Something went wrong.";
-            try {
-                cookieHandler(INFO_COOKIE, info, routingContext);
-            } catch (UnsupportedEncodingException e) {
-                Logger.warn("Unable to send info cookie", e);
-            }
+
+            cookieHandler(INFO_COOKIE, infoBuf, routingContext);
 
             sendRef(routingContext, INDEX_REF);
-        }
-    }
-
-    private void cookieHandler(String key, String value, RoutingContext routingContext)
-            throws UnsupportedEncodingException {
-        final String valueEnc = URLEncoder.encode(value, "UTF-8");
-        routingContext.addCookie(Cookie.cookie(key, valueEnc));
-    }
-
-    synchronized void registerHandler(RoutingContext routingContext) {
-        try {
-            final String body = routingContext.getBodyAsString();
-            final User user = getUserFromBody(body);
-            //user.setPassword(Hash.md5(user.getPassword()));
-
-            final Session session = routingContext.session();
-            session.put(USERNAME, user.getUsername());
-            session.put(PASSWORD, Hash.md5(user.getPassword()));
-
-            System.out.println("1 " + session.get(USERNAME) + SPACE + session.get(PASSWORD));
-
-            loginRepo.addUser(user);
-
+        } else {
             routingContext.getCookie(SESSION_COOKIE).setMaxAge(LoggedInRepository.EXPIRATION_TIME);
 
             loggedInRepo.addLoggedUser(session.id(), user);
+            //System.out.println(loggedInRepo.getLoggedUser(session.id()).getLoginDate());
+
+            cookieHandler(INFO_COOKIE, infoBuf, routingContext);
 
             final HttpServerResponse response = routingContext.response();
             response.setChunked(true);
             response.headers().add(LOCATION, MAIN_REF);
             response.setStatusCode(302).end();
-        } catch (Exception ex) {
-            final HttpServerResponse response = routingContext.response();
-            response.setChunked(true);
-            response.sendFile("webroot/pages/register.html");
         }
 
-
+        return infoBuf;
     }
 
-    void secureHandler(RoutingContext routingContext, SecureFilePath filePath) {
+    public void loginHandler(RoutingContext routingContext) {
+        synchronized (this) {
+            String info = "";
+
+            try {
+                info = tryLogin(routingContext);
+            } catch (Exception ex) {
+                info = "Something went wrong.";
+                try {
+                    cookieHandler(INFO_COOKIE, info, routingContext);
+                } catch (UnsupportedEncodingException e) {
+                    Logger.warn("Unable to send info cookie", e);
+                }
+
+                sendRef(routingContext, INDEX_REF);
+            }
+        }
+    }
+
+    private void cookieHandler(final String key, final String value, final RoutingContext routingContext)
+            throws UnsupportedEncodingException {
+        final String valueEnc = URLEncoder.encode(value, "UTF-8");
+        routingContext.addCookie(Cookie.cookie(key, valueEnc));
+    }
+
+    public void registerHandler(final RoutingContext routingContext) {
+        synchronized (this) {
+            try {
+                final String body = routingContext.getBodyAsString();
+                final User user = getUserFromBody(body);
+                //user.setPassword(Hash.md5(user.getPassword()));
+
+                final Session session = routingContext.session();
+                session.put(USERNAME, user.getUsername());
+                session.put(PASSWORD, Hash.md5(user.getPassword()));
+
+                //System.out.println("1 " + session.get(USERNAME) + SPACE + session.get(PASSWORD));
+
+                loginRepo.addUser(user);
+
+                routingContext.getCookie(SESSION_COOKIE).setMaxAge(LoggedInRepository.EXPIRATION_TIME);
+
+                loggedInRepo.addLoggedUser(session.id(), user);
+
+                final HttpServerResponse response = routingContext.response();
+                response.setChunked(true);
+                response.headers().add(LOCATION, MAIN_REF);
+                response.setStatusCode(302).end();
+            } catch (Exception ex) {
+                final HttpServerResponse response = routingContext.response();
+                response.setChunked(true);
+                response.sendFile("webroot/pages/register.html");
+            }
+        }
+    }
+
+    public void secureHandler(final RoutingContext routingContext, final SecureFilePath filePath) {
         final Session session = routingContext.session();
         final HttpServerResponse response = routingContext.response();
         response.setChunked(true);
 
         try {
-            System.out.println("Here");
             //System.out.println(session.id());
             final User user = loginRepo.authenticateUser(session.get(USERNAME), session.get(PASSWORD), false);
             if (!loggedInRepo.isUserLogged(session.id(), user) || user == null) {
@@ -174,7 +182,7 @@ class Routes {
         }
     }
 
-    void rerouteHandler(RoutingContext routingContext) {
+    public void rerouteHandler(final RoutingContext routingContext) {
         final Session session = routingContext.session();
         final HttpServerResponse response = routingContext.response();
         response.setChunked(true);
@@ -194,7 +202,7 @@ class Routes {
         response.setStatusCode(302).end();
     }
 
-    void rerouteWebrootHandler(RoutingContext routingContext) {
+    public void rerouteWebrootHandler(final RoutingContext routingContext) {
         final Session session = routingContext.session();
         final HttpServerResponse response = routingContext.response();
         response.setChunked(true);
@@ -213,7 +221,7 @@ class Routes {
         }
     }
 
-    void logoutHandler(RoutingContext routingContext) {
+    public void logoutHandler(final RoutingContext routingContext) {
         final Session session = routingContext.session();
         loggedInRepo.deleteLoggedUser(session.id());
         session.destroy();

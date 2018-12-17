@@ -8,10 +8,11 @@ public enum DateFormat {
 
     private final String format;
 
-    DateFormat(String format) {
+    DateFormat(final String format) {
         this.format = format;
     }
 
+    @Override
     public String toString() {
         return format;
     }

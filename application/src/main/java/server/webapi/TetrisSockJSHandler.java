@@ -27,7 +27,7 @@ class TetrisSockJSHandler {
         sockJSHandler.bridge(options);
     }
 
-    SockJSHandler create() {
+    public SockJSHandler create() {
         addBridgeOptions();
         return sockJSHandler;
     }

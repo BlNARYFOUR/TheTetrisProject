@@ -1,6 +1,9 @@
 package cli.util;
 
-public enum ANSI {
+/**
+ * Text format enum Helper.
+ */
+public enum Ansi {
 
     RESET("\u001B[0m"),
     BLACK("\u001B[30m"),
@@ -14,12 +17,12 @@ public enum ANSI {
 
     private final String code;
 
-    ANSI(String code){
+    Ansi(String code) {
         this.code = code;
     }
 
 
-    public String toString(){
+    public String toString() {
         return code;
     }
 

@@ -13,26 +13,29 @@ import data.loggedInRepository.LoggedInRepository;
 import data.loginRepository.LoginRepository;
 import data.loginRepository.MySqlLoginRepository;
 
-public class Repositories {
+/**
+ * Instance with all Usable Repositories.
+ */
+public final class Repositories {
     private static Repositories instance = new Repositories();
-
-    public static Repositories getInstance(){
-        return instance;
-    }
 
     private Repositories() {
     }
 
-    public LoginRepository getLoginRepository(){
+    public static Repositories getInstance() {
+        return instance;
+    }
+
+    public LoginRepository getLoginRepository() {
         return new MySqlLoginRepository();
     }
     public LoggedInRepository getLoggedInRepository() {
         return new HcLoggedInRepository();
     }
-    public DailyRepository getDailyRepository(){
+    public DailyRepository getDailyRepository() {
         return new MySqlDailyRepository();
     }
-    public HeroesRepository getHeroRepository(){
+    public HeroesRepository getHeroRepository() {
         return new MySqlHeroesRepository();
     }
     public BlockRepository getBlockRepository() {

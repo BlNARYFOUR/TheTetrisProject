@@ -6,11 +6,11 @@ package util;
  * but give useful info to Developers.
  */
 public class HighScoreException extends RuntimeException {
-    public HighScoreException(String msg, Exception innerException) {
+    public HighScoreException(final String msg, final Exception innerException) {
         super(msg, innerException);
     }
 
-    public HighScoreException(String msg) {
+    public HighScoreException(final String msg) {
         super(msg);
     }
 }
