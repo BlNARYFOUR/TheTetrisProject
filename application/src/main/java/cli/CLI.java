@@ -1,7 +1,5 @@
 package cli;
 
-
-
 import cli.util.ANSI;
 import cli.util.CommandLineMenu;
 import data.TetrisRepository;

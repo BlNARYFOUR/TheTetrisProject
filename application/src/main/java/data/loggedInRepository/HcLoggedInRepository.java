@@ -12,7 +12,7 @@ public class HcLoggedInRepository implements LoggedInRepository {
     @Override
     public boolean addLoggedUser(String sessionID, User user) {
         try {
-            if(!loggedUsers.containsValue(user)) {
+            if (!loggedUsers.containsValue(user)) {
                 user.setLoginDate(new Date());
                 loggedUsers.put(sessionID, user);
                 return true;
@@ -33,14 +33,14 @@ public class HcLoggedInRepository implements LoggedInRepository {
 
     @Override
     public boolean isUserLogged(User user) {
-        if(loggedUsers.containsValue(user)) {
+        if (loggedUsers.containsValue(user)) {
             long passedTime = 0;
             String keyBuf = "";
 
-            for(String key : loggedUsers.keySet()) {
-                User u = loggedUsers.get(key);
+            for (String key : loggedUsers.keySet()) {
+                final User u = loggedUsers.get(key);
 
-                if(user.equals(u)) {
+                if (user.equals(u)) {
                     passedTime = Math.round((new Date().getTime() - u.getLoginDate().getTime()) / 1000);
                     keyBuf = key;
                     break;
@@ -48,15 +48,14 @@ public class HcLoggedInRepository implements LoggedInRepository {
             }
 
             //System.out.println("Logged for "  + Long.toString(passedTime));
-            if(LoggedInRepository.EXPIRATION_TIME < passedTime) {
+            if (LoggedInRepository.EXPIRATION_TIME < passedTime) {
                 loggedUsers.remove(keyBuf);
-                return false;
             } else {
                 return true;
             }
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     @Override
@@ -71,7 +70,7 @@ public class HcLoggedInRepository implements LoggedInRepository {
 
     @Override
     public String getSessionID(User user) {
-        String[] sessionID = {null};
+        final String[] sessionID = {null};
 
         loggedUsers.forEach((k, u) -> setSessionID(k, user, sessionID));
 
@@ -79,7 +78,7 @@ public class HcLoggedInRepository implements LoggedInRepository {
     }
 
     private void setSessionID(String key, User user, String[] sessionID) {
-        if(loggedUsers.get(key).equals(user)) {
+        if (loggedUsers.get(key).equals(user)) {
             sessionID[0] = key;
         }
     }

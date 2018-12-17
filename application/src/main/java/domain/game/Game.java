@@ -19,14 +19,18 @@ import util.MatchableException;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * Game class.
+ */
 public class Game {
     static final int PLAYING_FIELD_WIDTH = 10;
     static final int PLAYING_FIELD_HEIGHT = 18;
+    private static final String ERROR = "<ERROR>";
 
     private static LoggedInRepository repo = Repositories.getInstance().getLoggedInRepository();
 
     private static final String SALT = "A1fj65mg<2eigo";
-    private static int nextGameID = 0;
+    private static int nextGameID;
 
     private int gameID;
     private int nextPlayerID;
@@ -36,24 +40,24 @@ public class Game {
     private MessageConsumer<Object> consumer;
 
     public Game(Match match) {
-        Set<User> users = match.getUsers();
         players = new ArrayList<>();
         gameID = nextGameID;
         nextGameID++;
         nextPlayerID = 0;
+        final Set<User> users = match.getUsers();
 
         setupListener();
 
         users.forEach(user -> {
-            Player player = new Player(nextPlayerID, user, repo.getSessionID(user), getGameAddress());
+            final Player player = new Player(nextPlayerID, user, repo.getSessionID(user), getGameAddress());
             players.add(player);
             nextPlayerID++;
         });
     }
 
     private void setupListener() {
-        Context context = Vertx.currentContext();
-        EventBus eb = context.owner().eventBus();
+        final Context context = Vertx.currentContext();
+        final EventBus eb = context.owner().eventBus();
         Logger.warn("SETUP: tetris-16.socket.server.ready." + getGameAddress());
         consumer = eb.consumer("tetris-16.socket.server.ready." + getGameAddress(), this::readyHandler);
     }
@@ -61,8 +65,8 @@ public class Game {
     private int getPlayerIdBySession(String session) {
         int playerId = -1;
 
-        for(Player player : players) {
-            if(player.getSession().equals(session)) {
+        for (Player player : players) {
+            if (player.getSession().equals(session)) {
                 playerId = player.getPlayerID();
             }
         }
@@ -74,12 +78,12 @@ public class Game {
         Map<String, Object> data = null;
 
         try {
-            data = objectMapper.readValue(message.body().toString(), new TypeReference<Map<String, Object>>(){});
+            data = objectMapper.readValue(message.body().toString(), new TypeReference<Map<String, Object>>() { });
         } catch (IOException e) {
             throw new MatchableException("json in readyHandler not valid!");
         }
 
-        String sessionID = String.valueOf(data.getOrDefault("session", "<ERROR>"));
+        final String sessionID = String.valueOf(data.getOrDefault("session", ERROR));
 
         Logger.info("Game " + gameID + " got a ready-state for " + sessionID);
 
@@ -90,7 +94,7 @@ public class Game {
         data.put("playerId", getPlayerIdBySession(sessionID));
         //data.put("amountOfPlayers", players.size());
 
-        String json = "<ERROR>";
+        String json = ERROR;
 
         try {
             json = objectMapper.writeValueAsString(data);
@@ -102,14 +106,14 @@ public class Game {
 
         boolean allReady = true;
 
-        for(Player player : players) {
-            if(!player.isReady()) {
+        for (Player player : players) {
+            if (!player.isReady()) {
                 allReady = false;
                 break;
             }
         }
 
-        if(allReady) {
+        if (allReady) {
             Logger.info("All ready!!");
             startGame();
             disableReadyHandler();
@@ -134,9 +138,13 @@ public class Game {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Game game = (Game) o;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        final Game game = (Game) o;
         return gameID == game.gameID;
     }
 

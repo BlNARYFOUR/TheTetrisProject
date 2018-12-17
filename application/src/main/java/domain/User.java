@@ -1,7 +1,6 @@
 package domain;
 
 import domain.game.modes.GameMode;
-import domain.hero.Hero;
 import util.DateFormat;
 import util.HighScoreException;
 import util.UserException;
@@ -12,12 +11,15 @@ import java.util.Date;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * User class.
+ */
 public class User {
-    Date now = new Date();
-    SimpleDateFormat dateFormat = new SimpleDateFormat(DateFormat.YODA_TIME.toString());
+    private Date now = new Date();
+    private SimpleDateFormat dateFormat = new SimpleDateFormat(DateFormat.YODA_TIME.toString());
 
 
-    private int ID;
+    private int id;
     private String username;
     private String password;
 
@@ -36,8 +38,8 @@ public class User {
 
     private String heroName;
 
-    public User(int ID, String username, String password) {
-        this.ID = ID;
+    public User(int id, String username, String password) {
+        this.id = id;
         this.username = username;
         this.password = password;
     }
@@ -50,8 +52,9 @@ public class User {
         this("TEST", "TESTIE");
     }
 
-    public User(int ID, String username, String registerDate, String beginDate, String nextDate, int dailyStreakId, boolean alreadyLoggedIn) {
-        this.ID = ID;
+    public User(int id, String username, String registerDate, String beginDate,
+                String nextDate, int dailyStreakId, boolean alreadyLoggedIn) {
+        this.id = id;
         this.username = username;
         this.dailyStreakId = dailyStreakId;
         this.alreadyLoggedIn = alreadyLoggedIn;
@@ -65,8 +68,10 @@ public class User {
         }
     }
 
-    public User(int ID, String username, String password, Date loginDate, Date registerDate, Date beginDate, Date nextDate, int dailyStreakId, boolean alreadyLoggedIn) {
-        this.ID = ID;
+    /*
+    public User(int id, String username, String password, Date loginDate, Date registerDate,
+    Date beginDate, Date nextDate, int dailyStreakId, boolean alreadyLoggedIn) {
+        this.id = id;
         this.username = username;
         this.password = password;
         this.loginDate = loginDate;
@@ -76,17 +81,15 @@ public class User {
         this.dailyStreakId = dailyStreakId;
         this.alreadyLoggedIn = alreadyLoggedIn;
     }
+    */
 
-    public int getID() {
-        return ID;
+    public int getId() {
+        return id;
     }
 
-    public boolean setID(int ID) {
-        if(this.ID < 0) {
-            this.ID = ID;
-            return true;
-        } else {
-            return false;
+    public void setId(int id) {
+        if (this.id < 0) {
+            this.id = id;
         }
     }
 
@@ -119,10 +122,10 @@ public class User {
     }
 
     public void setHighScore(GameMode gameMode, int highScore) {
-        if(!highScores.containsKey(gameMode)) {
+        if (!highScores.containsKey(gameMode)) {
             highScores.put(gameMode, highScore);
         } else {
-            if(highScore <= highScores.get(gameMode)) {
+            if (highScore <= highScores.get(gameMode)) {
                 throw new HighScoreException("The new HighScore must be greater than the previous!");
             }
             highScores.replace(gameMode, highScore);
@@ -181,16 +184,20 @@ public class User {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return ID == user.ID &&
-                Objects.equals(username, user.username) &&
-                Objects.equals(password, user.password);
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        final User user = (User) o;
+        return id == user.id
+                && Objects.equals(username, user.username)
+                && Objects.equals(password, user.password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(ID, username, password);
+        return Objects.hash(id, username, password);
     }
 }

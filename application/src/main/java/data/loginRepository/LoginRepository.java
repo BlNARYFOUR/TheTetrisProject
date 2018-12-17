@@ -2,6 +2,9 @@ package data.loginRepository;
 
 import domain.User;
 
+/**
+ * Contract for a loginRepository.
+ */
 public interface LoginRepository {
     void addUser(User u);
     User authenticateUser(String username, String password);

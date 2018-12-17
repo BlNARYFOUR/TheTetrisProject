@@ -2,11 +2,15 @@ package domain.game;
 
 import data.Repositories;
 
+/**
+ * A block that falls.
+ */
 public class FallingBlock extends Block {
-    private int x, y;
+    private int x;
+    private int y;
 
-    public FallingBlock(Block block) {
-        super(block.getID(), block.getPattern(), block.getName());
+    FallingBlock(Block block) {
+        super(block.getId(), block.getPattern(), block.getName());
         x = (int) Math.floor((Game.PLAYING_FIELD_WIDTH - block.getPattern()[0].length) / 2);
         y = 0;
     }
@@ -23,11 +27,11 @@ public class FallingBlock extends Block {
         this.x = x;
     }
 
-    public void goLeft() {
+    void goLeft() {
         x--;
     }
 
-    public void goRight() {
+    void goRight() {
         x++;
     }
 
@@ -39,14 +43,12 @@ public class FallingBlock extends Block {
         this.y = y;
     }
 
-    public void fall() {
+    void fall() {
         this.y += 1;
     }
 
-    public Block applyRotation() {
-        FallingBlock rotatedBlock = new FallingBlock(this.rotate());
+    void applyRotation() {
+        final FallingBlock rotatedBlock = new FallingBlock(this.rotate());
         this.setPattern(rotatedBlock.getPattern());
-
-        return this;
     }
 }

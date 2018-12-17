@@ -6,7 +6,6 @@ import data.loggedInRepository.LoggedInRepository;
 import data.Repositories;
 import data.loginRepository.LoginRepository;
 import domain.User;
-import domain.dailyStreak.DailyStreakRewards;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.ext.web.Cookie;
 import io.vertx.ext.web.RoutingContext;
@@ -223,36 +222,6 @@ class Routes {
         response.setChunked(true);
         response.headers().add(LOCATION, STATIC_REF);
         response.setStatusCode(302).end();
-    }
-
-    // BRYAN
-
-    void dailyStreakHandler(RoutingContext routingContext) {
-        final Session session = routingContext.session();
-        final HttpServerResponse response = routingContext.response();
-        response.setChunked(true);
-
-        try {
-            final User u = new User();
-            final DailyStreakRewards dsr = new DailyStreakRewards();
-
-            System.out.println(repo.getUser(u.getUsername()));
-            System.out.println("incoming request");
-
-            System.out.println("main_menu");
-            if (repo.getUser(u.getUsername()).isAlreadyLoggedIn()) {
-                System.out.println("Already received daily rewards");
-            } else {
-                System.out.println(repo.getStreak(dsr.dailyStreak(u.getUsername())).getReward());
-            }
-
-            repo.updateAlreaddyLoggedIn(true, u.getUsername());
-
-
-        } catch (Exception ex) {
-            response.sendFile("webroot/pages/main_menu.html");
-        }
-
     }
 }
 
