@@ -34,6 +34,9 @@ const IMAGES = {
     yellowTile: createImageObj("yellowTile.png"),
     greenTile: createImageObj("greenTile.png"),
     purpleTile: createImageObj("purpleTile.png"),
+    pinkTile: createImageObj("pinkTile.png"),
+    shitBrownTile: createImageObj("shitBrownTile.png"),
+    shitGreenTile: createImageObj("shitGreenTile.png"),
     pikachuTile: createImageObj("pikachu.png")
 
 };
@@ -47,9 +50,9 @@ const COLORS = {
     LIGHT_BLUE: 5,
     GREEN: 6,
     PURPLE: 7,
-    GREEN2: 8,
-    RED2: 9,
-    COMMUNISM: 10
+    PINK: 8,
+    SHITBROWN: 9,
+    SHITGREEN: 10
 };
 
 let c;
@@ -80,9 +83,9 @@ function init(e) {
     tiles.set(COLORS.YELLOW, IMAGES.yellowTile);
     tiles.set(COLORS.GREEN, IMAGES.greenTile);
     tiles.set(COLORS.PURPLE, IMAGES.purpleTile);
-    tiles.set(COLORS.GREEN2, IMAGES.greenTile);
-    tiles.set(COLORS.RED2, IMAGES.redTile);
-    tiles.set(COLORS.COMMUNISM, IMAGES.redTile);
+    tiles.set(COLORS.PINK, IMAGES.pinkTile);
+    tiles.set(COLORS.SHITBROWN, IMAGES.shitBrownTile);
+    tiles.set(COLORS.SHITGREEN, IMAGES.shitGreenTile);
     //tiles.set(COLORS.PIKA, IMAGES.pikachuTile);
 
     createGameBoard();
