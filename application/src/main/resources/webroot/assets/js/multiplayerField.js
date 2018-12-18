@@ -35,8 +35,10 @@ const IMAGES = {
     greenTile: createImageObj("greenTile.png"),
     purpleTile: createImageObj("purpleTile.png"),
     pikachuTile: createImageObj("pikachu.png"),
-    unbreakableTile: createImageObj("unbreakableBlock.png")
-
+    unbreakableTile: createImageObj("unbreakableBlock.png"),
+    pinkTile: createImageObj("pinkTile.png"),
+    shitBrownTile: createImageObj("shitBrownTile.png"),
+    shitGreenTile: createImageObj("shitGreenTile.png")
 };
 
 const COLORS = {
