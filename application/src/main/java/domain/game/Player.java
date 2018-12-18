@@ -5,7 +5,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import domain.User;
 import domain.game.events.EventHandler;
-import domain.game.events.SpawnEventHandler;
 import io.vertx.core.Context;
 import io.vertx.core.Vertx;
 import io.vertx.core.eventbus.EventBus;
@@ -18,6 +17,7 @@ import util.MatchableException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class Player {
     private static final int BEGIN_MOVEMENT_TIME = 750;
@@ -51,7 +51,9 @@ public class Player {
     private boolean isKeyDown;
     private MessageConsumer<Object> consumer;
 
-    public Player(int playerID, User user, String sessionID, String gameAddress) {
+    private EventHandler eventHandler;
+
+    public Player(int playerID, User user, String sessionID, String gameAddress, EventHandler eventHandler) {
         setUser(user);
         setAddress(sessionID);
 
@@ -68,6 +70,8 @@ public class Player {
         this.gameAddress = gameAddress;
         this.playerID = playerID;
         this.isKeyDown = false;
+
+        this.eventHandler = eventHandler;
     }
 
     void startPlaying() {
@@ -334,23 +338,10 @@ public class Player {
 
         if (totalLines >= 2) {
             System.out.println("Proficiat je scoorde zonet 2 lijnen of meer tergelijk!!!!!");
-//            SpawnEventHandler.spawnUnbreakable(user);
-            spawnUnbreakable();
+            eventHandler.spawnUnbreakable(this);
         }
 
         return hasScored;
-    }
-
-    private void spawnUnbreakable() {
-
-        for (int y = playingField.length - 1; y >= 0; y--) {
-            if (playingField[y][0] != null) {
-                for (int x = 0; x < playingField[0].length; x++) {
-                    playingField[17][x] = null;
-                }
-                return;
-            }
-        }
     }
 
     private void dropTopLayers(int lineHeight) {
@@ -456,6 +447,23 @@ public class Player {
 
     public int getPlayerID() {
         return playerID;
+    }
+
+    public Integer[][] getPlayingField() {
+        return playingField;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Player player = (Player) o;
+        return playerID == player.playerID;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(playerID);
     }
 
     @Override
