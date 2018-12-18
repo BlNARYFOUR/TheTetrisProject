@@ -34,10 +34,8 @@ const IMAGES = {
     yellowTile: createImageObj("yellowTile.png"),
     greenTile: createImageObj("greenTile.png"),
     purpleTile: createImageObj("purpleTile.png"),
-    pinkTile: createImageObj("pinkTile.png"),
-    shitBrownTile: createImageObj("shitBrownTile.png"),
-    shitGreenTile: createImageObj("shitGreenTile.png"),
-    pikachuTile: createImageObj("pikachu.png")
+    pikachuTile: createImageObj("pikachu.png"),
+    unbreakableTile: createImageObj("unbreakableBlock.png")
 
 };
 
@@ -193,7 +191,11 @@ function createGameBoard() {
 function drawGameBoard(playerID) {
      for (let i = 0; i < GAME_BOARD_HEIGHT; i ++) {
          for (let j = 0; j < GAME_BOARD_WIDTH; j ++) {
-            ctx.drawImage(tiles.get(GAME_BOARDS[playerID][i][j]), j * BLOCK + GAME_BOARD_SPACING, i * BLOCK, BLOCK, BLOCK)
+           if (GAME_BOARDS[playerID][i][j] !== null) {
+               ctx.drawImage(tiles.get(GAME_BOARDS[playerID][i][j]), j * BLOCK + GAME_BOARD_SPACING, i * BLOCK, BLOCK, BLOCK)
+           } else {
+               ctx.drawImage(IMAGES.unbreakableTile, j * BLOCK + GAME_BOARD_SPACING, i * BLOCK, BLOCK, BLOCK)
+           }
          }
      }
 }

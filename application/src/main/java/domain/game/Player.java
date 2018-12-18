@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import domain.User;
+import domain.game.events.EventHandler;
 import io.vertx.core.Context;
 import io.vertx.core.Vertx;
 import io.vertx.core.eventbus.EventBus;
@@ -16,6 +17,7 @@ import util.MatchableException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class Player {
     private static final int BEGIN_MOVEMENT_TIME = 750;
@@ -49,7 +51,9 @@ public class Player {
     private boolean isKeyDown;
     private MessageConsumer<Object> consumer;
 
-    public Player(int playerID, User user, String sessionID, String gameAddress) {
+    private EventHandler eventHandler;
+
+    public Player(int playerID, User user, String sessionID, String gameAddress, EventHandler eventHandler) {
         setUser(user);
         setAddress(sessionID);
 
@@ -66,6 +70,8 @@ public class Player {
         this.gameAddress = gameAddress;
         this.playerID = playerID;
         this.isKeyDown = false;
+
+        this.eventHandler = eventHandler;
     }
 
     void startPlaying() {
@@ -303,15 +309,22 @@ public class Player {
         boolean hasScored = false;
         int totalLineScore = 0;
 
+        int totalLines = 0;
+
         for(int i=0; i<playingField.length; i++) {
             totalLineScore = 0;
             isFullLine = true;
             for(int j=0; j<playingField[i].length; j++) {
-                if(0 < playingField[i][j]) {
-                    totalLineScore += playingField[i][j];
+                if (playingField[i][j] != null) {
+                    if(0 < playingField[i][j]) {
+                        totalLineScore += playingField[i][j];
+                    } else {
+                        isFullLine = false;
+                    }
                 } else {
                     isFullLine = false;
                 }
+
             }
 
             if(isFullLine) {
@@ -319,7 +332,13 @@ public class Player {
                 hasScored = true;
                 score += totalLineScore * FULL_LINE_POINTS;
                 amountOfScoredLines++;
+                totalLines ++;
             }
+        }
+
+        if (totalLines >= 2) {
+            System.out.println("Proficiat je scoorde zonet 2 lijnen of meer tergelijk!!!!!");
+            eventHandler.spawnUnbreakable(this);
         }
 
         return hasScored;
@@ -349,7 +368,11 @@ public class Player {
         if(x+MAX_WIDTH <= Game.PLAYING_FIELD_WIDTH && y+MAX_HEIGHT <= Game.PLAYING_FIELD_HEIGHT && x >= 0) {
             for(int i=0; i<MAX_HEIGHT; i++) {
                 for (int j = 0; j < MAX_WIDTH; j++) {
-                    if(blockPattern[i][j] && 0 < playingField[y+i][x+j]) {
+                    if (playingField[y+i][x+j] != null) {
+                        if(blockPattern[i][j] && 0 < playingField[y+i][x+j]) {
+                            collided = true;
+                        }
+                    } else {
                         collided = true;
                     }
                 }
@@ -424,6 +447,23 @@ public class Player {
 
     public int getPlayerID() {
         return playerID;
+    }
+
+    public Integer[][] getPlayingField() {
+        return playingField;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Player player = (Player) o;
+        return playerID == player.playerID;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(playerID);
     }
 
     @Override
