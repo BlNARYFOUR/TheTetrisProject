@@ -42,6 +42,24 @@ public class HcBlockRepository implements BlockRepository {
             {true, true, true}
     };
 
+    private static final Boolean[][] PATTERN_CROSS = {
+            {false, true, false},
+            {true, true, true},
+            {false, true, false}
+    };
+
+    private static final Boolean[][] PATTERN_TEA = {
+            {true, true, true},
+            {false, true, false},
+            {false, true, false}
+    };
+    private static final Boolean[][] PATTERN_HORSESHOE = {
+            {true, false, true},
+            {true, true, true}
+    };
+
+
+
     private Set<Block> blocks = new HashSet<>();
 
     public HcBlockRepository() {
@@ -52,6 +70,9 @@ public class HcBlockRepository implements BlockRepository {
         registerBlock(PATTERN_ZIGZAG_1, "ZIGZAG_1");
         registerBlock(PATTERN_ZIGZAG_2, "ZIGZAG_2");
         registerBlock(PATTERN_T, "T");
+        registerBlock(PATTERN_CROSS, "CROSS");
+        registerBlock(PATTERN_TEA, "TEA");
+        registerBlock(PATTERN_HORSESHOE, "HORSESHOE");
     }
 
     @SuppressWarnings("WeakerAccess")
