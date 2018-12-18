@@ -410,11 +410,15 @@ public class Player {
         return fallingBlock;
     }
 
+    private Integer[] createRow() {
+        return new Integer[Game.PLAYING_FIELD_WIDTH];
+    }
+
     private void createPlayingFields() {
         playingField = new Integer[Game.PLAYING_FIELD_HEIGHT][];
 
         for (int y = 0; y < Game.PLAYING_FIELD_HEIGHT; y++) {
-            playingField[y] = new Integer[Game.PLAYING_FIELD_WIDTH];
+            playingField[y] = createRow();
         }
 
         //System.out.println("PLayingfield length: " + playingField.length);
@@ -426,11 +430,11 @@ public class Player {
         }
     }
 
-    void setReady() {
+    public void setReady() {
         ready = true;
     }
 
-    boolean isReady() {
+    public boolean isReady() {
         return ready;
     }
 
@@ -438,7 +442,7 @@ public class Player {
         return session;
     }
 
-    int getPlayerID() {
+    public int getPlayerID() {
         return playerID;
     }
 
