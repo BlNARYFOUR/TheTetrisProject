@@ -16,7 +16,7 @@ function loadHeroes() {
 
     let location = document.getElementById("choose-hero");
     let imgList = "";
-    let heroes = ["donkeykong"];
+    let heroes = ["donkeykong", "pikachu"];
 
     let firstSelected = " selected";
 
