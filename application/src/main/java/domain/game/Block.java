@@ -11,20 +11,24 @@ public class Block {
     private String name;
     private Boolean[][] pattern;
 
-    public Block(int id, Boolean[][] pattern, String name) {
-        setPattern(pattern);
-        setName(name);
-        setId(id);
+    public Block(final int id, final Boolean[][] pattern, final String name) {
+        this.pattern = pattern;
+        this.name = name;
+        this.id = id;
     }
-    public Block(int id, Boolean[][] pattern) {
+    public Block(final int id, final Boolean[]... pattern) {
         this(id, pattern, "[Empty]");
+    }
+
+    private Boolean[] createRow(final int length) {
+        return new Boolean[length];
     }
 
     public Block rotate() {
         final Boolean[][] rotatedPattern = new Boolean[pattern[0].length][];
 
         for (int y = 0; y < pattern[0].length; y++) {
-            rotatedPattern[y] = new Boolean[pattern.length];
+            rotatedPattern[y] = createRow(pattern.length);
 
             for (int x = 0; x < pattern.length; x++) {
                 rotatedPattern[y][x] = pattern[pattern.length - x - 1][y];
@@ -35,10 +39,10 @@ public class Block {
     }
 
     public Boolean[][] getPattern() {
-        return pattern;
+        return this.pattern.clone();
     }
 
-    void setPattern(Boolean[][] pattern) {
+    protected void setPattern(final Boolean[]... pattern) {
         this.pattern = pattern;
     }
 
@@ -46,20 +50,12 @@ public class Block {
         return name;
     }
 
-    private void setName(String name) {
-        this.name = name;
-    }
-
-    int getId() {
+    protected int getId() {
         return id;
     }
 
-    private void setId(int id) {
-        this.id = id;
-    }
-
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) {
             return true;
         }
@@ -82,9 +78,9 @@ public class Block {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder();
+        final StringBuilder sb = new StringBuilder(50);
 
-        sb.append("Block").append('-').append(getId()).append(':').append(getName()).append(" = {");
+        sb.append("Block-").append(getId()).append(':').append(getName()).append(" = {");
 
         for (Boolean[] row : pattern) {
             sb.append("\n\t{");

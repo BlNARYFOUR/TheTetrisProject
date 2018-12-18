@@ -9,7 +9,7 @@ public class FallingBlock extends Block {
     private int x;
     private int y;
 
-    FallingBlock(Block block) {
+    FallingBlock(final Block block) {
         super(block.getId(), block.getPattern(), block.getName());
         x = (int) Math.floor((Game.PLAYING_FIELD_WIDTH - block.getPattern()[0].length) / 2);
         y = 0;
@@ -23,15 +23,15 @@ public class FallingBlock extends Block {
         return x;
     }
 
-    public void setX(int x) {
+    public void setX(final int x) {
         this.x = x;
     }
 
-    void goLeft() {
+    protected void goLeft() {
         x--;
     }
 
-    void goRight() {
+    protected void goRight() {
         x++;
     }
 
@@ -39,15 +39,15 @@ public class FallingBlock extends Block {
         return y;
     }
 
-    public void setY(int y) {
+    public void setY(final int y) {
         this.y = y;
     }
 
-    void fall() {
+    protected void fall() {
         this.y += 1;
     }
 
-    void applyRotation() {
+    protected void applyRotation() {
         final FallingBlock rotatedBlock = new FallingBlock(this.rotate());
         this.setPattern(rotatedBlock.getPattern());
     }

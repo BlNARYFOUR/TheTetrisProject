@@ -22,6 +22,7 @@ import io.vertx.ext.web.handler.*;
 import io.vertx.ext.web.sstore.LocalSessionStore;
 import io.vertx.ext.web.sstore.SessionStore;
 import org.pmw.tinylog.Logger;
+import server.Config;
 import server.webapi.util.SecureFilePath;
 import util.MatchableException;
 
@@ -34,7 +35,7 @@ import java.util.Set;
  * All the communication setup and basic handlers.
  */
 public class WebAPI extends AbstractVerticle {
-    private static final String STATIC_REF = "/static";
+    private static final String SOCKET_URL_DOT = Config.SOCKET_URL.replace('/', '.').substring(1);
 
     private final ObjectMapper objectMapper = new ObjectMapper();
     // private LoginRepository loginRepo = Repositories.getInstance().getLoginRepository();
@@ -61,26 +62,26 @@ public class WebAPI extends AbstractVerticle {
 
         router.route("/").handler(routes::rootHandler);
 
-        router.route("/static*").handler(BodyHandler.create());
-        router.post(STATIC_REF).handler(routes::loginHandler);
-        router.post("/static/pages/register.html").handler(routes::registerHandler);
+        router.route(Config.STATIC_FILE_URL + '*').handler(BodyHandler.create());
+        router.post(Config.STATIC_FILE_URL).handler(routes::loginHandler);
+        router.post(Config.STATIC_FILE_URL + "/pages/register.html").handler(routes::registerHandler);
 
-        router.route(STATIC_REF).handler(routes::rerouteWebrootHandler);
-        router.route("/static/index.html").handler(routes::rerouteHandler);
+        router.route(Config.STATIC_FILE_URL).handler(routes::rerouteWebrootHandler);
+        router.route(Config.STATIC_FILE_URL + "/index.html").handler(routes::rerouteHandler);
 
         for (SecureFilePath secureFilePath : SecureFilePath.values()) {
-            router.route(STATIC_REF + secureFilePath).handler(routingContext ->
+            router.route(Config.STATIC_FILE_URL + secureFilePath).handler(routingContext ->
                     routes.secureHandler(routingContext, secureFilePath));
         }
 
 
-        router.route("/static/*").handler(StaticHandler.create());
-        router.route("/tetris-16/socket/*").handler(new TetrisSockJSHandler(vertx).create());
-        router.route("/logout").handler(routes::logoutHandler);
+        router.route(Config.STATIC_FILE_URL + "/*").handler(StaticHandler.create());
+        router.route(Config.SOCKET_URL + '*').handler(new TetrisSockJSHandler(vertx).create());
+        router.route(Config.REST_ENDPOINT + "logout").handler(routes::logoutHandler);
 
         //router.route("/static/pages/main_menu.html").handler(routes::dailyStreakHandler);
 
-        server.requestHandler(router::accept).listen(8016);
+        server.requestHandler(router::accept).listen(Config.WEB_PORT);
 
         // MATCH_MAKING
         vertx.setPeriodic(7500, this::makeMatchHandler);
@@ -105,7 +106,7 @@ public class WebAPI extends AbstractVerticle {
 
             final Map<String, String> data = new HashMap<>();
 
-            data.put("match", game.getGameAddress());
+            data.put("match", game.genGameAddress());
             data.put("amountOfPlayers", Integer.toString(match.getUsers().size()));
 
             final String json;
@@ -117,8 +118,9 @@ public class WebAPI extends AbstractVerticle {
             }
 
             match.getUsers().forEach(user -> {
-                Logger.warn(user.getUsername() + " tetris-16.socket.client.match." + loggedInRepo.getSessionID(user));
-                vertx.eventBus().publish("tetris-16.socket.client.match." + loggedInRepo.getSessionID(user), json);
+                final String clientMatch = "client.match.";
+                Logger.warn(user.getUsername() + " " + SOCKET_URL_DOT + clientMatch + loggedInRepo.getSessionID(user));
+                vertx.eventBus().publish(SOCKET_URL_DOT + clientMatch + loggedInRepo.getSessionID(user), json);
             });
 
             //game.startGame();
@@ -135,8 +137,7 @@ public class WebAPI extends AbstractVerticle {
 
     private void initGameConsumers() {
         final EventBus eb = vertx.eventBus();
-
-        eb.consumer("tetris-16.socket.server.match", this::matchHandler);
+        eb.consumer(SOCKET_URL_DOT + "server.match", this::matchHandler);
     }
 
     private void matchHandler(final Message message) {

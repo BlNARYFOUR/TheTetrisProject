@@ -3,6 +3,8 @@ package data;
 import org.pmw.tinylog.Logger;
 
 import org.h2.tools.Server;
+import server.Config;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -12,7 +14,7 @@ import java.sql.SQLException;
  */
 public class JdbcInteractor {
     private static final String JDBC_DRIVER = "org.h2.Driver";
-    private static final String DB_URL = "jdbc:h2:~/tetris-16";
+    private static final String DB_URL = Config.DB_CONN_STR;
     private static final String USER = "tetris_user";
     private static final String PASS = USER;
 
@@ -44,7 +46,7 @@ public class JdbcInteractor {
 
             // start een web interface
             //TODO [RULE]: Web client poort MOET 90xx zijn (xx is groepsnummer met leading zero)
-            Server.createWebServer("-webPort", "9016").start();
+            Server.createWebServer("-webPort", Integer.toString(Config.DB_WEBCLIENT_PORT)).start();
         } catch (SQLException e) {
             Logger.warn("Error starting database: {}", e.getLocalizedMessage());
             Logger.debug(e.getStackTrace());

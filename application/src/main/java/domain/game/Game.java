@@ -23,8 +23,8 @@ import java.util.*;
  * Game class.
  */
 public class Game {
-    static final int PLAYING_FIELD_WIDTH = 10;
-    static final int PLAYING_FIELD_HEIGHT = 18;
+    protected static final int PLAYING_FIELD_WIDTH = 10;
+    protected static final int PLAYING_FIELD_HEIGHT = 18;
     private static final String ERROR = "<ERROR>";
 
     private static LoggedInRepository repo = Repositories.getInstance().getLoggedInRepository();
@@ -32,24 +32,24 @@ public class Game {
     private static final String SALT = "A1fj65mg<2eigo";
     private static int nextGameID;
 
-    private int gameID;
+    private final int gameID;
     private int nextPlayerID;
-    private ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
-    private List<Player> players;
+    private final List<Player> players;
     private MessageConsumer<Object> consumer;
 
-    public Game(Match match) {
+    public Game(final Match match) {
         players = new ArrayList<>();
         gameID = nextGameID;
-        nextGameID++;
+        Game.nextGameID++;
         nextPlayerID = 0;
         final Set<User> users = match.getUsers();
 
         setupListener();
 
         users.forEach(user -> {
-            final Player player = new Player(nextPlayerID, user, repo.getSessionID(user), getGameAddress());
+            final Player player = new Player(nextPlayerID, user, repo.getSessionID(user), genGameAddress());
             players.add(player);
             nextPlayerID++;
         });
@@ -58,11 +58,11 @@ public class Game {
     private void setupListener() {
         final Context context = Vertx.currentContext();
         final EventBus eb = context.owner().eventBus();
-        Logger.warn("SETUP: tetris-16.socket.server.ready." + getGameAddress());
-        consumer = eb.consumer("tetris-16.socket.server.ready." + getGameAddress(), this::readyHandler);
+        Logger.warn("SETUP: tetris-16.socket.server.ready." + Hash.md5(SALT + gameID));
+        consumer = eb.consumer("tetris-16.socket.server.ready." + Hash.md5(SALT + gameID), this::readyHandler);
     }
 
-    private int getPlayerIdBySession(String session) {
+    private int getPlayerIdBySession(final String session) {
         int playerId = -1;
 
         for (Player player : players) {
@@ -74,13 +74,13 @@ public class Game {
         return playerId;
     }
 
-    private void readyHandler(Message message) {
+    private void readyHandler(final Message message) {
         Map<String, Object> data = null;
 
         try {
             data = objectMapper.readValue(message.body().toString(), new TypeReference<Map<String, Object>>() { });
         } catch (IOException e) {
-            throw new MatchableException("json in readyHandler not valid!");
+            throw new MatchableException("json in readyHandler not valid!", e);
         }
 
         final String sessionID = String.valueOf(data.getOrDefault("session", ERROR));
@@ -99,7 +99,7 @@ public class Game {
         try {
             json = objectMapper.writeValueAsString(data);
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
+            Logger.warn(e.getMessage());
         }
 
         message.reply(json);
@@ -128,7 +128,7 @@ public class Game {
         consumer.unregister();
     }
 
-    public String getGameAddress() {
+    public String genGameAddress() {
         return Hash.md5(SALT + gameID);
     }
 
@@ -137,7 +137,7 @@ public class Game {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) {
             return true;
         }
