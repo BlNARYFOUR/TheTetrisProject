@@ -21,6 +21,7 @@ import java.util.Map;
  * Player class.
  * Every player runs there own game loop.
  */
+@SuppressWarnings("PMD")
 public class Player {
     private static final int BEGIN_MOVEMENT_TIME = 750;
     private static final int FULL_LINE_POINTS = 10;
