@@ -4,6 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import domain.User;
+import domain.game.events.EventHandler;
+import domain.game.events.SpawnEventHandler;
 import io.vertx.core.Context;
 import io.vertx.core.Vertx;
 import io.vertx.core.eventbus.EventBus;
@@ -303,15 +305,22 @@ public class Player {
         boolean hasScored = false;
         int totalLineScore = 0;
 
+        int totalLines = 0;
+
         for(int i=0; i<playingField.length; i++) {
             totalLineScore = 0;
             isFullLine = true;
             for(int j=0; j<playingField[i].length; j++) {
-                if(0 < playingField[i][j]) {
-                    totalLineScore += playingField[i][j];
+                if (playingField[i][j] != null) {
+                    if(0 < playingField[i][j]) {
+                        totalLineScore += playingField[i][j];
+                    } else {
+                        isFullLine = false;
+                    }
                 } else {
                     isFullLine = false;
                 }
+
             }
 
             if(isFullLine) {
@@ -319,10 +328,29 @@ public class Player {
                 hasScored = true;
                 score += totalLineScore * FULL_LINE_POINTS;
                 amountOfScoredLines++;
+                totalLines ++;
             }
         }
 
+        if (totalLines >= 2) {
+            System.out.println("Proficiat je scoorde zonet 2 lijnen of meer tergelijk!!!!!");
+//            SpawnEventHandler.spawnUnbreakable(user);
+            spawnUnbreakable();
+        }
+
         return hasScored;
+    }
+
+    private void spawnUnbreakable() {
+
+        for (int y = playingField.length - 1; y >= 0; y--) {
+            if (playingField[y][0] != null) {
+                for (int x = 0; x < playingField[0].length; x++) {
+                    playingField[17][x] = null;
+                }
+                return;
+            }
+        }
     }
 
     private void dropTopLayers(int lineHeight) {
@@ -349,7 +377,11 @@ public class Player {
         if(x+MAX_WIDTH <= Game.PLAYING_FIELD_WIDTH && y+MAX_HEIGHT <= Game.PLAYING_FIELD_HEIGHT && x >= 0) {
             for(int i=0; i<MAX_HEIGHT; i++) {
                 for (int j = 0; j < MAX_WIDTH; j++) {
-                    if(blockPattern[i][j] && 0 < playingField[y+i][x+j]) {
+                    if (playingField[y+i][x+j] != null) {
+                        if(blockPattern[i][j] && 0 < playingField[y+i][x+j]) {
+                            collided = true;
+                        }
+                    } else {
                         collided = true;
                     }
                 }

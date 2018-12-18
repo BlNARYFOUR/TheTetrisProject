@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import data.Repositories;
 import data.loggedInRepository.LoggedInRepository;
 import domain.User;
+import domain.game.events.SpawnEventHandler;
 import domain.game.matchmaking.Match;
 import io.vertx.core.Context;
 import io.vertx.core.Vertx;
@@ -34,6 +35,8 @@ public class Game {
 
     private List<Player> players;
     private MessageConsumer<Object> consumer;
+
+//    private SpawnEventHandler eventHandler;
 
     public Game(Match match) {
         Set<User> users = match.getUsers();
