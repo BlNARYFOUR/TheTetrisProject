@@ -1,7 +1,7 @@
 package data.dailyStreakRepository;
 
 import data.JdbcInteractor;
-import domain.dailyStreak.Streak;
+import domain.dailystreak.Streak;
 import domain.User;
 import util.DailyException;
 import util.DateFormat;

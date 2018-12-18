@@ -1,4 +1,4 @@
-package domain.dailyStreak;
+package domain.dailystreak;
 
 /**
  * Streak.
@@ -8,17 +8,17 @@ public class Streak {
     private int day;
     private String reward;
 
-    public Streak(int id) {
+    public Streak(final int id) {
         this.id = id;
     }
 
-    public Streak(int id, int day, String reward) {
+    public Streak(final int id, final int day, final String reward) {
         this.id = id;
         this.day = day;
         this.reward = reward;
     }
 
-    public Streak(int day, String reward) {
+    public Streak(final int day, final String reward) {
         this.day = day;
         this.reward = reward;
     }
@@ -27,7 +27,7 @@ public class Streak {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(final int id) {
         this.id = id;
     }
 
@@ -35,7 +35,7 @@ public class Streak {
         return day;
     }
 
-    public void setDay(int day) {
+    public void setDay(final int day) {
         this.day = day;
     }
 
@@ -43,7 +43,7 @@ public class Streak {
         return reward;
     }
 
-    public void setReward(String reward) {
+    public void setReward(final String reward) {
         this.reward = reward;
     }
 

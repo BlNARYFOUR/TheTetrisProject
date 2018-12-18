@@ -1,7 +1,7 @@
 package data.dailyStreakRepository;
 
 
-import domain.dailyStreak.Streak;
+import domain.dailystreak.Streak;
 import domain.User;
 
 /**
