@@ -8,19 +8,31 @@ import java.util.List;
  */
 public enum GameMode {
 
-    singlePlayer("singlePlayer"),
-    standard("standard"),
-    lastManStanding("lastManStanding"),
-    timeAttack("timeAttack");
+    SINGLE_PLAYER("singlePlayer"),
+    STANDARD("standard"),
+    LAST_MAN_STANDING("lastManStanding"),
+    TIME_ATTACK("timeAttack");
 
     private final String gameMode;
 
-    GameMode(String gameMode) {
+    GameMode(final String gameMode) {
         this.gameMode = gameMode;
     }
 
+    @Override
     public String toString() {
         return gameMode;
+    }
+
+    public static GameMode getGameModeByValue(final String value) {
+        GameMode result = SINGLE_PLAYER;
+        for (GameMode gameMode : values()) {
+            if (gameMode.toString().equals(value)) {
+                result = gameMode;
+            }
+        }
+
+        return result;
     }
 
     public static List<String> getValues() {

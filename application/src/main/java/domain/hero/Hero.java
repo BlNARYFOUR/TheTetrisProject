@@ -12,7 +12,8 @@ public class Hero {
     private boolean heroAbilityNegative;
     private int cost;
 
-    public Hero(int heroID, String heroName, String heroAbility, boolean heroAbilityNegative, int cost) {
+    public Hero(final int heroID, final String heroName, final String heroAbility,
+                final boolean heroAbilityNegative, final int cost) {
         this.heroID = heroID;
         this.heroName = heroName;
         this.heroAbility = heroAbility;
@@ -20,7 +21,7 @@ public class Hero {
         this.cost = cost;
     }
 
-    public Hero(String heroName, String heroAbility, boolean heroAbilityNegative, int cost) {
+    public Hero(final String heroName, final String heroAbility, final boolean heroAbilityNegative, final int cost) {
         this(-1, heroName, heroAbility, heroAbilityNegative, cost);
     }
 
@@ -28,12 +29,9 @@ public class Hero {
         return heroID;
     }
 
-    public boolean setHeroID(int heroID) {
+    public void setHeroID(final int heroID) {
         if (this.heroID < 0) {
             this.heroID = heroID;
-            return true;
-        } else {
-            return false;
         }
     }
 
@@ -41,7 +39,7 @@ public class Hero {
         return heroName;
     }
 
-    public void setHeroName(String heroName) {
+    public void setHeroName(final String heroName) {
         this.heroName = heroName;
     }
 
@@ -49,7 +47,7 @@ public class Hero {
         return heroAbility;
     }
 
-    public void setHeroAbility(String heroAbility) {
+    public void setHeroAbility(final String heroAbility) {
         this.heroAbility = heroAbility;
     }
 
@@ -57,7 +55,7 @@ public class Hero {
         return cost;
     }
 
-    public void setCost(int cost) {
+    public void setCost(final int cost) {
         this.cost = cost;
     }
 
@@ -65,7 +63,7 @@ public class Hero {
         return heroAbilityNegative;
     }
 
-    public void setHeroAbilityNegative(boolean heroAbilityNegative) {
+    public void setHeroAbilityNegative(final boolean heroAbilityNegative) {
         this.heroAbilityNegative = heroAbilityNegative;
     }
 
@@ -77,7 +75,7 @@ public class Hero {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) {
             return true;
         }

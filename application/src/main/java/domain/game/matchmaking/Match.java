@@ -12,9 +12,9 @@ import java.util.Set;
 public class Match {
     private final int maxUsers;
     private GameMode gameMode;
-    private Set<User> users;
+    private final Set<User> users;
 
-    Match(GameMode gameMode, int maxUsers) {
+    Match(final GameMode gameMode, final int maxUsers) {
         setGameMode(gameMode);
         this.maxUsers = maxUsers;
         users = new HashSet<>();
@@ -24,7 +24,7 @@ public class Match {
         return gameMode;
     }
 
-    private void setGameMode(GameMode gameMode) {
+    private void setGameMode(final GameMode gameMode) {
         this.gameMode = gameMode;
     }
 
@@ -32,11 +32,13 @@ public class Match {
         return new HashSet<>(users);
     }
 
-    private void setUsers(Set<User> users) {
+    /*
+    private void setUsers(final Set<User> users) {
         this.users = users;
     }
+    */
 
-    public boolean addUser(User user) {
+    public boolean addUser(final User user) {
         if (maxUsers <= users.size()) {
             return false;
         } else {

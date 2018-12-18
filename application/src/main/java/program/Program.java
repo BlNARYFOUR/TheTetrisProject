@@ -1,18 +1,16 @@
 package program;
 
-import data.heroesRepository.HeroesRepository;
-import data.Repositories;
 
 /**
  * program.Program.
  */
 public class Program {
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         new Program().run();
     }
 
     private void run() {
-        final HeroesRepository repo = Repositories.getInstance().getHeroRepository();
+        //final HeroesRepository repo = Repositories.getInstance().getHeroRepository();
 
 
         /*// ADD user

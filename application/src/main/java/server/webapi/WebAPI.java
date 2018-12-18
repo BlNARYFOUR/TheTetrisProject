@@ -149,8 +149,7 @@ public class WebAPI extends AbstractVerticle {
 
             final User user = loggedInRepo.getLoggedUser((String) jsonMap.get("session"));
             user.selectHero((String) jsonMap.get("hero"));
-            final GameMode gameMode = GameMode.valueOf((String) jsonMap.get("gameMode"));
-
+            final GameMode gameMode = GameMode.getGameModeByValue((String) jsonMap.get("gameMode"));
             MatchHandler.getInstance().addMatchable(user, gameMode);
             Logger.info(MatchHandler.getInstance().getMatchable());
         } catch (IOException e) {

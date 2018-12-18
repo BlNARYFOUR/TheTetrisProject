@@ -1,7 +1,6 @@
 package server;
 
 import io.vertx.core.Vertx;
-import io.vertx.core.eventbus.EventBus;
 import org.pmw.tinylog.Logger;
 import server.webapi.WebAPI;
 
@@ -13,12 +12,12 @@ public final class Tetris {
 
     }
 
-    public static void main(String... args) {
+    public static void main(final String... args) {
         //Logger.warn("Starting server");
-        System.out.println("Starting server");
+        Logger.info("Starting server");
 
         final Vertx vertx = Vertx.vertx();
-        final EventBus eb = vertx.eventBus();
+        //final EventBus eb = vertx.eventBus();
         vertx.deployVerticle(new WebAPI());
 
 

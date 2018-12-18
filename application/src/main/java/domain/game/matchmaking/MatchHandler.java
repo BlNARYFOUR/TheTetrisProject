@@ -29,7 +29,7 @@ public final class MatchHandler implements Matchmaking {
     }
 
     @Override
-    public void addMatchable(User user, GameMode modeSearch) {
+    public void addMatchable(final User user, final GameMode modeSearch) {
         if (matchableContains(user)) {
             throw new MatchableException("User is already searching for a game!");
         }
@@ -41,7 +41,7 @@ public final class MatchHandler implements Matchmaking {
         matchable.get(modeSearch).add(user);
     }
 
-    private boolean matchableContains(User user) {
+    private boolean matchableContains(final User user) {
         boolean found = false;
 
         for (Set<User> users : matchable.values()) {
@@ -52,26 +52,45 @@ public final class MatchHandler implements Matchmaking {
     }
 
     @Override
-    public void deleteMatchable(User user) {
+    public void deleteMatchable(final User user) {
         try {
             matchable.forEach((modeSearch, users) -> {
                 users.remove(user);
             });
         } catch (Exception e) {
-            throw new MatchableException("Unable to remove user from matchable.");
+            throw new MatchableException("Unable to remove user from matchable.", e);
         }
+    }
+
+    private Set<Match> createNewMatchSet() {
+        return new HashSet<>();
+    }
+
+    private Set<User> createNewUserSet() {
+        return new HashSet<>();
+    }
+
+    private void removeUsers(final Set<User> usersToRemove, final GameMode gameMode) {
+        usersToRemove.forEach(user -> {
+            matchable.get(gameMode).remove(user);
+        });
+    }
+
+    private void addMatch(final Set<Match> matches, final Match matchTry, final Set<User> usersToRemove) {
+        matches.add(matchTry);
+        usersToRemove.addAll(matchTry.getUsers());
     }
 
     @Override
     public Set<Match> matchUsers() {
         // todo: based on game ranking
 
-        final Set<Match> matches = new HashSet<>();
+        final Set<Match> matches = createNewMatchSet();
 
         for (GameMode gameMode : matchable.keySet()) {
-            final Set<User> usersToRemove = new HashSet<>();
+            final Set<User> usersToRemove = createNewUserSet();
 
-            Match matchTry = new Match(gameMode, MAX_USERS_PER_MATCH);
+            Match matchTry = createNewMatch(gameMode);
             boolean oneLeft = false;
             int usersToAdd = Math.round((MAX_USERS_PER_MATCH + 1) / 2);
             for (User user : matchable.get(gameMode)) {
@@ -83,11 +102,9 @@ public final class MatchHandler implements Matchmaking {
                 }
 
                 if (!matchTry.addUser(user)) {
-                    matches.add(matchTry);
+                    addMatch(matches, matchTry, usersToRemove);
 
-                    usersToRemove.addAll(matchTry.getUsers());
-
-                    matchTry = new Match(gameMode, MAX_USERS_PER_MATCH);
+                    matchTry = createNewMatch(gameMode);
                     matchTry.addUser(user);
                 }
 
@@ -95,11 +112,9 @@ public final class MatchHandler implements Matchmaking {
                     usersToAdd--;
 
                     if (usersToAdd == 0) {
-                        matches.add(matchTry);
+                        addMatch(matches, matchTry, usersToRemove);
 
-                        usersToRemove.addAll(matchTry.getUsers());
-
-                        matchTry = new Match(gameMode, MAX_USERS_PER_MATCH);
+                        matchTry = createNewMatch(gameMode);
                         usersToAdd = matchable.get(gameMode).size() - usersToRemove.size();
                     }
                 }
@@ -107,17 +122,20 @@ public final class MatchHandler implements Matchmaking {
                 //System.out.println("u to add: " + usersToAdd);
             }
 
-            if (2 <= matchTry.getUsers().size()) {
+            final int two = 2;
+            if (two <= matchTry.getUsers().size()) {
                 matches.add(matchTry);
                 usersToRemove.addAll(matchTry.getUsers());
             }
 
-            usersToRemove.forEach(user -> {
-                matchable.get(gameMode).remove(user);
-            });
+            removeUsers(usersToRemove, gameMode);
         }
 
         return matches;
+    }
+
+    private Match createNewMatch(final GameMode gameMode) {
+        return new Match(gameMode, MAX_USERS_PER_MATCH);
     }
 
     @Override

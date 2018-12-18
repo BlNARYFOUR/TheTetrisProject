@@ -1,7 +1,5 @@
 package server.webapi;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import data.dailyStreakRepository.DailyRepository;
 import data.loggedInRepository.LoggedInRepository;
 import data.Repositories;
 import data.loginRepository.LoginRepository;
@@ -28,16 +26,16 @@ class Routes {
     private static final String LOCATION = "location";
     private static final String SESSION_COOKIE = "vertx-web.session";
     private static final String INDEX_REF = "webroot/index.html";
-    private static final String SPACE = " ";
+    //private static final String SPACE = " ";
     private static final String PASSWORD = "password";
     private static final String USERNAME = "username";
 
-    private static ObjectMapper objectMapper = new ObjectMapper();
-    private LoginRepository loginRepo = Repositories.getInstance().getLoginRepository();
-    private LoggedInRepository loggedInRepo = Repositories.getInstance().getLoggedInRepository();
-    private DailyRepository repo = Repositories.getInstance().getDailyRepository();
+    //private static ObjectMapper objectMapper = new ObjectMapper();
+    private final LoginRepository loginRepo = Repositories.getInstance().getLoginRepository();
+    private final LoggedInRepository loggedInRepo = Repositories.getInstance().getLoggedInRepository();
+    //private final DailyRepository repo = Repositories.getInstance().getDailyRepository();
 
-    void rootHandler(RoutingContext routingContext) {
+    public void rootHandler(final RoutingContext routingContext) {
         final HttpServerResponse response = routingContext.response();
         response.setChunked(true);
         response
@@ -48,7 +46,7 @@ class Routes {
                 .end();
     }
 
-    private User getUserFromBody(String body) {
+    private User getUserFromBody(final String body) {
         final String[] params = body.split("&");
         final String equals = "=";
         final String username = params[0].split(equals)[1];
@@ -57,13 +55,13 @@ class Routes {
         return new User(username, password);
     }
 
-    private void sendRef(RoutingContext routingContext, String ref) {
+    private void sendRef(final RoutingContext routingContext, final String ref) {
         final HttpServerResponse response = routingContext.response();
         response.setChunked(true);
         response.sendFile(ref);
     }
 
-    private String tryLogin(RoutingContext routingContext) throws UnsupportedEncodingException {
+    private String tryLogin(final RoutingContext routingContext) throws UnsupportedEncodingException {
         final String body = routingContext.getBodyAsString();
         String infoBuf = "";
         User user = getUserFromBody(body);
@@ -106,7 +104,7 @@ class Routes {
         return infoBuf;
     }
 
-    public void loginHandler(RoutingContext routingContext) {
+    public void loginHandler(final RoutingContext routingContext) {
         synchronized (this) {
             String info = "";
 
