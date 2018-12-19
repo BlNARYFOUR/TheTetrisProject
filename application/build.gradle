@@ -1,0 +1,63 @@
+plugins {
+    id 'application'
+    id 'java'
+    id "com.github.johnrengelman.shadow" version "4.0.1"
+    id 'ru.vyarus.quality' version '3.2.0'
+    id "com.eriwen.gradle.js" version "2.14.1"
+    id "com.eriwen.gradle.css" version "2.14.0"
+}
+
+
+group 'application'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+processResources{
+    from "src/main/js"
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDirs 'src/main/js'
+        }
+    }
+}
+
+mainClassName = 'io.vertx.core.Launcher'
+def mainVerticleName = 'server.Tetris'
+def vertxVersion = '3.5.4'
+
+dependencies {
+    compile group: 'findbugs', name: 'findbugs', version: '1.0.0'
+    //vertx
+    compile "io.vertx:vertx-core:$vertxVersion"
+    compile "io.vertx:vertx-web:$vertxVersion"
+    compile "io.vertx:vertx-lang-js:$vertxVersion"
+
+    //jackson json
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.4'
+
+    //Logger
+    compile group: 'org.tinylog', name: 'tinylog', version: '1.3.5'
+
+    //Testing
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile "io.vertx:vertx-unit:$vertxVersion"
+
+    //MySQL Database connection
+    // https://mvnrepository.com/artifact/mysql/mysql-connector-java
+    compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.12'
+    compile group: 'com.h2database', name: 'h2', version: '1.4.197'
+}
+
+run {
+    args = ['run', mainVerticleName, "--launcher-class=$mainClassName", "-conf", "./conf/config.json"]
+}
