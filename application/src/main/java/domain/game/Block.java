@@ -12,7 +12,7 @@ public class Block {
     private Boolean[][] pattern;
 
     public Block(final int id, final Boolean[][] pattern, final String name) {
-        this.pattern = pattern;
+        this.pattern = pattern.clone();
         this.name = name;
         this.id = id;
     }

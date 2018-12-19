@@ -45,12 +45,12 @@ public class HcLoggedInRepository implements LoggedInRepository {
             long passedTime = 0;
             String keyBuf = "";
 
-            for (String key : loggedUsers.keySet()) {
-                final User u = loggedUsers.get(key);
+            for (Map.Entry<String, User> entry : loggedUsers.entrySet()) {
+                final User u = loggedUsers.get(entry.getKey());
 
                 if (user.equals(u)) {
-                    passedTime = Math.round((getCurrentTime() - u.getLoginDate().getTime()) / 1000);
-                    keyBuf = key;
+                    passedTime = Math.round((getCurrentTime() - u.getLoginDate().getTime()) / 1000.0);
+                    keyBuf = entry.getKey();
                     break;
                 }
             }

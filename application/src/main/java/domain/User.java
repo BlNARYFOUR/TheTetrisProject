@@ -7,10 +7,7 @@ import util.UserException;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * User class.
@@ -42,6 +39,7 @@ public class User {
         this.id = id;
         this.username = username;
         this.password = password;
+        this.highScores = new HashMap<>();
     }
 
     public User(final String username, final String password) {
@@ -174,11 +172,11 @@ public class User {
     }
 
     public Date getLoginDate() {
-        return loginDate;
+        return Date.from(loginDate.toInstant());
     }
 
     public void setLoginDate(final Date loginDate) {
-        this.loginDate = loginDate;
+        this.loginDate = Date.from(loginDate.toInstant());
     }
 
     @Override

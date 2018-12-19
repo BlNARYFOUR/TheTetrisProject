@@ -31,6 +31,8 @@ sourceSets {
     }
 }
 
+mainClassName = 'io.vertx.core.Launcher'
+def mainVerticleName = 'server.Tetris'
 def vertxVersion = '3.5.4'
 
 dependencies {
@@ -53,4 +55,8 @@ dependencies {
     // https://mvnrepository.com/artifact/mysql/mysql-connector-java
     compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.12'
     compile group: 'com.h2database', name: 'h2', version: '1.4.197'
+}
+
+run {
+    args = ['run', mainVerticleName, "--launcher-class=$mainClassName", "-conf", "./conf/config.json"]
 }

@@ -229,6 +229,7 @@ public class Player {
                 fallingBlock = nextFallingBlock;
                 getNextFallingBlock();
                 final boolean hasScored = checkAndScoreFullRows();
+                Logger.debug(hasScored);
 
                 if (10 * level <= amountOfScoredLines) {
                     level++;
@@ -312,6 +313,7 @@ public class Player {
         Logger.warn("Periodic: " + periodicID);
         context.owner().cancelTimer(periodicID);
         disable();
+        Logger.debug(isDead);
         isDead = true;
     }
 

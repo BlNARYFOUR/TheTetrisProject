@@ -42,7 +42,7 @@ public class Game {
     public Game(final Match match) {
         players = new ArrayList<>();
         gameID = nextGameID;
-        Game.nextGameID++;
+        increaseNextGameID();
         nextPlayerID = 0;
         final Set<User> users = match.getUsers();
 
@@ -53,6 +53,10 @@ public class Game {
             players.add(player);
             nextPlayerID++;
         });
+    }
+
+    private static void increaseNextGameID() {
+        nextGameID++;
     }
 
     private void setupListener() {

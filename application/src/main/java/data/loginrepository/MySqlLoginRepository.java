@@ -10,6 +10,7 @@ import java.util.Date;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
+import java.util.Objects;
 
 /**
  * LoginRepository implemented with MySQL database.
@@ -82,6 +83,8 @@ public class MySqlLoginRepository implements LoginRepository {
     public User authenticateUser(String username, String password, boolean hashPass) {
         User user = null;
 
+        ResultSet rs = null;
+
         try (Connection con = JdbcInteractor.getConnection();
              PreparedStatement prep = con.prepareStatement(SQL_CONTROL_USER);) {
 
@@ -90,7 +93,7 @@ public class MySqlLoginRepository implements LoginRepository {
             prep.setString(1, username);
             prep.setString(2, pass);
 
-            final ResultSet rs = prep.executeQuery();
+            rs = prep.executeQuery();
 
             if (rs.next()) {
                 user = new User(rs.getInt(USER_ID_STR), rs.getString(USERNAME), rs.getString("password"));
@@ -100,6 +103,12 @@ public class MySqlLoginRepository implements LoginRepository {
             }
         } catch (SQLException ex) {
             throw new LoginException("Login has been failed!", ex);
+        } finally {
+            try {
+                Objects.requireNonNull(rs).close();
+            } catch (SQLException e) {
+                Logger.debug(rs);
+            }
         }
         return user;
     }

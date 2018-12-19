@@ -31,7 +31,7 @@
 <p>Project: 
 			</p>
 <h2>Metrics</h2>
-<p>1892 lines of code analyzed,
+<p>1934 lines of code analyzed,
 	in 49 classes, 
 	in 20 packages.</p>
 <table width="500" cellpadding="5" cellspacing="2">
@@ -42,23 +42,23 @@
 </tr>
 <tr class="tablerow0">
 <td>High Priority Warnings</td>
-<td align="right">4</td>
-<td align="right">2.11</td>
+<td align="right">2</td>
+<td align="right">1.03</td>
 </tr>
 <tr class="tablerow1">
 <td>Medium Priority Warnings</td>
-<td align="right">19</td>
-<td align="right">10.04</td>
+<td align="right">3</td>
+<td align="right">1.55</td>
 </tr>
 <tr class="$totalClass">
 <td>
 <b>Total Warnings</b>
 </td>
 <td align="right">
-<b>23</b>
+<b>5</b>
 </td>
 <td align="right">
-<b>12.16</b>
+<b>2.59</b>
 </td>
 </tr>
 </table>
@@ -77,52 +77,28 @@
 </tr>
 <tr class="tablerow0">
 <td>
-<a href="#Warnings_CORRECTNESS">Correctness Warnings</a>
+<a href="#Warnings_I18N">Internationalization Warnings</a>
 </td>
-<td align="right">4</td>
+<td align="right">2</td>
 </tr>
 <tr class="tablerow1">
 <td>
-<a href="#Warnings_EXPERIMENTAL">Experimental Warnings</a>
+<a href="#Warnings_PERFORMANCE">Performance Warnings</a>
 </td>
 <td align="right">1</td>
 </tr>
 <tr class="tablerow0">
 <td>
-<a href="#Warnings_I18N">Internationalization Warnings</a>
-</td>
-<td align="right">3</td>
-</tr>
-<tr class="tablerow1">
-<td>
-<a href="#Warnings_MALICIOUS_CODE">Malicious code vulnerability Warnings</a>
-</td>
-<td align="right">3</td>
-</tr>
-<tr class="tablerow0">
-<td>
-<a href="#Warnings_PERFORMANCE">Performance Warnings</a>
-</td>
-<td align="right">4</td>
-</tr>
-<tr class="tablerow1">
-<td>
 <a href="#Warnings_SECURITY">Security Warnings</a>
 </td>
 <td align="right">2</td>
-</tr>
-<tr class="tablerow0">
-<td>
-<a href="#Warnings_STYLE">Dodgy code Warnings</a>
-</td>
-<td align="right">6</td>
 </tr>
 <tr class="tablerow1">
 <td>
 <b>Total</b>
 </td>
 <td align="right">
-<b>23</b>
+<b>5</b>
 </td>
 </tr>
 </table>
@@ -133,99 +109,6 @@
 <h1>Warnings</h1>
 <p>Click on each warning link to see a full description of the issue, and
 	    details of how to resolve it.</p>
-<h2>
-<a name="Warnings_CORRECTNESS">Correctness Warnings</a>
-</h2>
-<table class="warningtable" width="100%" cellspacing="2" cellpadding="5">
-<tr class="tableheader">
-<th align="left">Warning</th>
-<th align="left">Priority</th>
-<th align="left">Details</th>
-</tr>
-<tr class="tablerow1">
-<td width="20%" valign="top">
-<a href="#ICAST_INT_CAST_TO_FLOAT_PASSED_TO_ROUND">int value cast to float and then passed to Math.round</a>
-</td>
-<td width="10%" valign="top">Medium</td>
-<td width="70%">
-<p>int value cast to float and then passed to Math.round in data.loggedinrepository.HcLoggedInRepository.isUserLogged(User)<br/>
-<br/>
-<br/>In file HcLoggedInRepository.java,
-					
-						line 52<br/>In class data.loggedinrepository.HcLoggedInRepository<br/>In method data.loggedinrepository.HcLoggedInRepository.isUserLogged(User)<br/>At HcLoggedInRepository.java:[line 52]</p>
-</td>
-</tr>
-<tr class="tablerow0">
-<td width="20%" valign="top">
-<a href="#NP_UNWRITTEN_FIELD">Read of unwritten field</a>
-</td>
-<td width="10%" valign="top">Medium</td>
-<td width="70%">
-<p>Read of unwritten field highScores in domain.User.getHighScore(GameMode)<br/>
-<br/>
-<br/>In file User.java,
-					
-						line 125<br/>In class domain.User<br/>In method domain.User.getHighScore(GameMode)<br/>Field domain.User.highScores<br/>At User.java:[line 125]</p>
-</td>
-</tr>
-<tr class="tablerow1">
-<td width="20%" valign="top">
-<a href="#NP_UNWRITTEN_FIELD">Read of unwritten field</a>
-</td>
-<td width="10%" valign="top">Medium</td>
-<td width="70%">
-<p>Read of unwritten field highScores in domain.User.setHighScore(GameMode, int)<br/>
-<br/>
-<br/>In file User.java,
-					
-						line 129<br/>In class domain.User<br/>In method domain.User.setHighScore(GameMode, int)<br/>Field domain.User.highScores<br/>At User.java:[line 129]</p>
-</td>
-</tr>
-<tr class="tablerow0">
-<td width="20%" valign="top">
-<a href="#UWF_UNWRITTEN_FIELD">Unwritten field</a>
-</td>
-<td width="10%" valign="top">Medium</td>
-<td width="70%">
-<p>Unwritten field: domain.User.highScores<br/>
-<br/>
-<br/>In file User.java,
-					
-						line 121<br/>In class domain.User<br/>Field domain.User.highScores<br/>At User.java:[line 121]</p>
-</td>
-</tr>
-</table>
-<p>
-<br/>
-<br/>
-</p>
-<h2>
-<a name="Warnings_EXPERIMENTAL">Experimental Warnings</a>
-</h2>
-<table class="warningtable" width="100%" cellspacing="2" cellpadding="5">
-<tr class="tableheader">
-<th align="left">Warning</th>
-<th align="left">Priority</th>
-<th align="left">Details</th>
-</tr>
-<tr class="tablerow1">
-<td width="20%" valign="top">
-<a href="#OBL_UNSATISFIED_OBLIGATION">Method may fail to clean up stream or resource</a>
-</td>
-<td width="10%" valign="top">Medium</td>
-<td width="70%">
-<p>data.loginrepository.MySqlLoginRepository.authenticateUser(String, String, boolean) may fail to clean up java.sql.ResultSet<br/>
-<br/>
-<br/>In file MySqlLoginRepository.java,
-					
-						line 93<br/>In class data.loginrepository.MySqlLoginRepository<br/>In method data.loginrepository.MySqlLoginRepository.authenticateUser(String, String, boolean)<br/>Reference type java.sql.ResultSet<br/>1 instances of obligation remaining<br/>Obligation to clean up resource created at MySqlLoginRepository.java:[line 93] is not discharged<br/>Path continues at MySqlLoginRepository.java:[line 95]<br/>Path continues at MySqlLoginRepository.java:[line 99]<br/>Path continues at MySqlLoginRepository.java:[line 101]<br/>Path continues at MySqlLoginRepository.java:[line 103]<br/>Path continues at MySqlLoginRepository.java:[line 104]<br/>Remaining obligations: {ResultSet x 1}</p>
-</td>
-</tr>
-</table>
-<p>
-<br/>
-<br/>
-</p>
 <h2>
 <a name="Warnings_I18N">Internationalization Warnings</a>
 </h2>
@@ -261,72 +144,6 @@
 						line 16<br/>In class cli.util.CommandLineMenu<br/>In method new cli.util.CommandLineMenu()<br/>Called method new java.util.Scanner(InputStream)<br/>At CommandLineMenu.java:[line 16]</p>
 </td>
 </tr>
-<tr class="tablerow1">
-<td width="20%" valign="top">
-<a href="#DM_DEFAULT_ENCODING">Reliance on default encoding</a>
-</td>
-<td width="10%" valign="top">High</td>
-<td width="70%">
-<p>Found reliance on default encoding in util.Hash.md5(String): String.getBytes()<br/>
-<br/>
-<br/>In file Hash.java,
-					
-						line 25<br/>In class util.Hash<br/>In method util.Hash.md5(String)<br/>Called method String.getBytes()<br/>At Hash.java:[line 25]</p>
-</td>
-</tr>
-</table>
-<p>
-<br/>
-<br/>
-</p>
-<h2>
-<a name="Warnings_MALICIOUS_CODE">Malicious code vulnerability Warnings</a>
-</h2>
-<table class="warningtable" width="100%" cellspacing="2" cellpadding="5">
-<tr class="tableheader">
-<th align="left">Warning</th>
-<th align="left">Priority</th>
-<th align="left">Details</th>
-</tr>
-<tr class="tablerow1">
-<td width="20%" valign="top">
-<a href="#EI_EXPOSE_REP">May expose internal representation by returning reference to mutable object</a>
-</td>
-<td width="10%" valign="top">Medium</td>
-<td width="70%">
-<p>domain.User.getLoginDate() may expose internal representation by returning User.loginDate<br/>
-<br/>
-<br/>In file User.java,
-					
-						line 177<br/>In class domain.User<br/>In method domain.User.getLoginDate()<br/>Field domain.User.loginDate<br/>At User.java:[line 177]</p>
-</td>
-</tr>
-<tr class="tablerow0">
-<td width="20%" valign="top">
-<a href="#EI_EXPOSE_REP2">May expose internal representation by incorporating reference to mutable object</a>
-</td>
-<td width="10%" valign="top">Medium</td>
-<td width="70%">
-<p>new domain.game.Block(int, Boolean[][], String) may expose internal representation by storing an externally mutable object into Block.pattern<br/>
-<br/>
-<br/>In file Block.java,
-					
-						line 15<br/>In class domain.game.Block<br/>In method new domain.game.Block(int, Boolean[][], String)<br/>Field domain.game.Block.pattern<br/>Local variable named pattern<br/>At Block.java:[line 15]</p>
-</td>
-</tr>
-<tr class="tablerow1">
-<td width="20%" valign="top">
-<a href="#EI_EXPOSE_REP2">May expose internal representation by incorporating reference to mutable object</a>
-</td>
-<td width="10%" valign="top">Medium</td>
-<td width="70%">
-<p>domain.User.setLoginDate(Date) may expose internal representation by storing an externally mutable object into User.loginDate<br/>
-<br/>
-<br/>In file User.java,
-					
-						line 181<br/>In class domain.User<br/>In method domain.User.setLoginDate(Date)<br/>Field domain.User.loginDate<br/>Local variable named loginDate<br/>At User.java:[line 181]</p>
-</td>
-</tr>
 </table>
 <p>
 <br/>
@@ -343,19 +160,6 @@
 </tr>
 <tr class="tablerow1">
 <td width="20%" valign="top">
-<a href="#URF_UNREAD_FIELD">Unread field</a>
-</td>
-<td width="10%" valign="top">Medium</td>
-<td width="70%">
-<p>Unread field: domain.game.Player.isDead<br/>
-<br/>
-<br/>In file Player.java,
-					
-						line 72<br/>In class domain.game.Player<br/>Field domain.game.Player.isDead<br/>At Player.java:[line 72]</p>
-</td>
-</tr>
-<tr class="tablerow0">
-<td width="20%" valign="top">
 <a href="#UUF_UNUSED_FIELD">Unused field</a>
 </td>
 <td width="10%" valign="top">Medium</td>
@@ -366,32 +170,6 @@
 					
 						lines 
 						    to <br/>In class domain.game.Player<br/>Field domain.game.Player.holdFallingBlock<br/>In Player.java</p>
-</td>
-</tr>
-<tr class="tablerow1">
-<td width="20%" valign="top">
-<a href="#WMI_WRONG_MAP_ITERATOR">Inefficient use of keySet iterator instead of entrySet iterator</a>
-</td>
-<td width="10%" valign="top">Medium</td>
-<td width="70%">
-<p>data.loggedinrepository.HcLoggedInRepository.isUserLogged(User) makes inefficient use of keySet iterator instead of entrySet iterator<br/>
-<br/>
-<br/>In file HcLoggedInRepository.java,
-					
-						line 49<br/>In class data.loggedinrepository.HcLoggedInRepository<br/>In method data.loggedinrepository.HcLoggedInRepository.isUserLogged(User)<br/>Field data.loggedinrepository.HcLoggedInRepository.loggedUsers<br/>At HcLoggedInRepository.java:[line 49]</p>
-</td>
-</tr>
-<tr class="tablerow0">
-<td width="20%" valign="top">
-<a href="#WMI_WRONG_MAP_ITERATOR">Inefficient use of keySet iterator instead of entrySet iterator</a>
-</td>
-<td width="10%" valign="top">Medium</td>
-<td width="70%">
-<p>domain.game.matchmaking.MatchHandler.matchUsers() makes inefficient use of keySet iterator instead of entrySet iterator<br/>
-<br/>
-<br/>In file MatchHandler.java,
-					
-						line 96<br/>In class domain.game.matchmaking.MatchHandler<br/>In method domain.game.matchmaking.MatchHandler.matchUsers()<br/>Field domain.game.matchmaking.MatchHandler.matchable<br/>At MatchHandler.java:[line 96]</p>
 </td>
 </tr>
 </table>
@@ -439,98 +217,6 @@
 <br/>
 <br/>
 </p>
-<h2>
-<a name="Warnings_STYLE">Dodgy code Warnings</a>
-</h2>
-<table class="warningtable" width="100%" cellspacing="2" cellpadding="5">
-<tr class="tableheader">
-<th align="left">Warning</th>
-<th align="left">Priority</th>
-<th align="left">Details</th>
-</tr>
-<tr class="tablerow1">
-<td width="20%" valign="top">
-<a href="#ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD">Write to static field from instance method</a>
-</td>
-<td width="10%" valign="top">High</td>
-<td width="70%">
-<p>Write to static field domain.game.matchmaking.MatchHandler.matchable from instance method domain.game.matchmaking.MatchHandler.resetMatchable()<br/>
-<br/>
-<br/>In file MatchHandler.java,
-					
-						line 143<br/>In class domain.game.matchmaking.MatchHandler<br/>In method domain.game.matchmaking.MatchHandler.resetMatchable()<br/>Field domain.game.matchmaking.MatchHandler.matchable<br/>At MatchHandler.java:[line 143]</p>
-</td>
-</tr>
-<tr class="tablerow0">
-<td width="20%" valign="top">
-<a href="#DLS_DEAD_LOCAL_STORE">Dead store to local variable</a>
-</td>
-<td width="10%" valign="top">Medium</td>
-<td width="70%">
-<p>Dead store to hasScored in domain.game.Player.nextBlockFall()<br/>
-<br/>
-<br/>In file Player.java,
-					
-						line 231<br/>In class domain.game.Player<br/>In method domain.game.Player.nextBlockFall()<br/>Local variable named hasScored<br/>At Player.java:[line 231]</p>
-</td>
-</tr>
-<tr class="tablerow1">
-<td width="20%" valign="top">
-<a href="#DLS_DEAD_LOCAL_STORE">Dead store to local variable</a>
-</td>
-<td width="10%" valign="top">Medium</td>
-<td width="70%">
-<p>Dead store to info in server.webapi.Routes.loginHandler(RoutingContext)<br/>
-<br/>
-<br/>In file Routes.java,
-					
-						line 111<br/>In class server.webapi.Routes<br/>In method server.webapi.Routes.loginHandler(RoutingContext)<br/>Local variable named info<br/>At Routes.java:[line 111]</p>
-</td>
-</tr>
-<tr class="tablerow0">
-<td width="20%" valign="top">
-<a href="#EQ_DOESNT_OVERRIDE_EQUALS">Class doesn't override equals in superclass</a>
-</td>
-<td width="10%" valign="top">Medium</td>
-<td width="70%">
-<p>domain.game.FallingBlock doesn't override Block.equals(Object)<br/>
-<br/>
-<br/>In file FallingBlock.java,
-					
-						line 1<br/>In class domain.game.FallingBlock<br/>At FallingBlock.java:[line 1]<br/>Did you intend to override domain.game.Block.equals(Object)</p>
-</td>
-</tr>
-<tr class="tablerow1">
-<td width="20%" valign="top">
-<a href="#ICAST_IDIV_CAST_TO_DOUBLE">Integral division result cast to double or float</a>
-</td>
-<td width="10%" valign="top">Medium</td>
-<td width="70%">
-<p>Integral division result cast to double or float in new domain.game.FallingBlock(Block)<br/>
-<br/>
-<br/>In file FallingBlock.java,
-					
-						line 14<br/>In class domain.game.FallingBlock<br/>In method new domain.game.FallingBlock(Block)<br/>At FallingBlock.java:[line 14]</p>
-</td>
-</tr>
-<tr class="tablerow0">
-<td width="20%" valign="top">
-<a href="#ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD">Write to static field from instance method</a>
-</td>
-<td width="10%" valign="top">Medium</td>
-<td width="70%">
-<p>Write to static field domain.game.Game.nextGameID from instance method new domain.game.Game(Match)<br/>
-<br/>
-<br/>In file Game.java,
-					
-						line 45<br/>In class domain.game.Game<br/>In method new domain.game.Game(Match)<br/>Field domain.game.Game.nextGameID<br/>At Game.java:[line 45]</p>
-</td>
-</tr>
-</table>
-<p>
-<br/>
-<br/>
-</p>
 <p>
 <br/>
 <br/>
@@ -538,27 +224,6 @@
 <h1>
 <a name="Details">Warning Types</a>
 </h1>
-<h2>
-<a name="DLS_DEAD_LOCAL_STORE">Dead store to local variable</a>
-</h2>
-
-<p>
-This instruction assigns a value to a local variable,
-but the value is not read or used in any subsequent instruction.
-Often, this indicates an error, because the value computed is never
-used.
-</p>
-<p>
-Note that Sun's javac compiler often generates dead stores for
-final local variables.  Because SpotBugs is a bytecode-based tool,
-there is no easy way to eliminate these false positives.
-</p>
-
-    
-<p>
-<br/>
-<br/>
-</p>
 <h2>
 <a name="DMI_CONSTANT_DB_PASSWORD">Hardcoded constant database password</a>
 </h2>
@@ -585,225 +250,12 @@ there is no easy way to eliminate these false positives.
 <br/>
 </p>
 <h2>
-<a name="EI_EXPOSE_REP">May expose internal representation by returning reference to mutable object</a>
-</h2>
-
-  <p> Returning a reference to a mutable object value stored in one of the object's fields
-  exposes the internal representation of the object.&nbsp;
-   If instances
-   are accessed by untrusted code, and unchecked changes to
-   the mutable object would compromise security or other
-   important properties, you will need to do something different.
-  Returning a new copy of the object is better approach in many situations.</p>
-
-    
-<p>
-<br/>
-<br/>
-</p>
-<h2>
-<a name="EI_EXPOSE_REP2">May expose internal representation by incorporating reference to mutable object</a>
-</h2>
-
-  <p> This code stores a reference to an externally mutable object into the
-  internal representation of the object.&nbsp;
-   If instances
-   are accessed by untrusted code, and unchecked changes to
-   the mutable object would compromise security or other
-   important properties, you will need to do something different.
-  Storing a copy of the object is better approach in many situations.</p>
-
-    
-<p>
-<br/>
-<br/>
-</p>
-<h2>
-<a name="EQ_DOESNT_OVERRIDE_EQUALS">Class doesn't override equals in superclass</a>
-</h2>
-
-  <p> This class extends a class that defines an equals method and adds fields, but doesn't
-define an equals method itself. Thus, equality on instances of this class will
-ignore the identity of the subclass and the added fields. Be sure this is what is intended,
-and that you don't need to override the equals method. Even if you don't need to override
-the equals method, consider overriding it anyway to document the fact
-that the equals method for the subclass just return the result of
-invoking super.equals(o).
-  </p>
-
-    
-<p>
-<br/>
-<br/>
-</p>
-<h2>
-<a name="ICAST_IDIV_CAST_TO_DOUBLE">Integral division result cast to double or float</a>
-</h2>
-
-<p>
-This code casts the result of an integral division (e.g., int or long division)
-operation to double or
-float.
-Doing division on integers truncates the result
-to the integer value closest to zero.  The fact that the result
-was cast to double suggests that this precision should have been retained.
-What was probably meant was to cast one or both of the operands to
-double <em>before</em> performing the division.  Here is an example:
-</p>
-<pre><code>int x = 2;
-int y = 5;
-// Wrong: yields result 0.0
-double value1 = x / y;
-
-// Right: yields result 0.4
-double value2 = x / (double) y;
-</code></pre>
-
-    
-<p>
-<br/>
-<br/>
-</p>
-<h2>
-<a name="ICAST_INT_CAST_TO_FLOAT_PASSED_TO_ROUND">int value cast to float and then passed to Math.round</a>
-</h2>
-
-<p>
-This code converts an int value to a float precision
-floating point number and then
-passing the result to the Math.round() function, which returns the int/long closest
-to the argument. This operation should always be a no-op,
-since the converting an integer to a float should give a number with no fractional part.
-It is likely that the operation that generated the value to be passed
-to Math.round was intended to be performed using
-floating point arithmetic.
-</p>
-
-
-    
-<p>
-<br/>
-<br/>
-</p>
-<h2>
-<a name="NP_UNWRITTEN_FIELD">Read of unwritten field</a>
-</h2>
-
-  <p> The program is dereferencing a field that does not seem to ever have a non-null value written to it.
-Unless the field is initialized via some mechanism not seen by the analysis,
-dereferencing this value will generate a null pointer exception.
-</p>
-
-    
-<p>
-<br/>
-<br/>
-</p>
-<h2>
-<a name="OBL_UNSATISFIED_OBLIGATION">Method may fail to clean up stream or resource</a>
-</h2>
-          
-          <p>
-          This method may fail to clean up (close, dispose of) a stream,
-          database object, or other
-          resource requiring an explicit cleanup operation.
-          </p>
-
-          <p>
-          In general, if a method opens a stream or other resource,
-          the method should use a try/finally block to ensure that
-          the stream or resource is cleaned up before the method
-          returns.
-          </p>
-
-          <p>
-          This bug pattern is essentially the same as the
-          OS_OPEN_STREAM and ODR_OPEN_DATABASE_RESOURCE
-          bug patterns, but is based on a different
-          (and hopefully better) static analysis technique.
-          We are interested is getting feedback about the
-          usefulness of this bug pattern.
-          For sending feedback, check:
-          </p>
-          <ul>
-            <li><a href="https://github.com/spotbugs/spotbugs/blob/master/CONTRIBUTING.md">contributing guideline</a></li>
-            <li><a href="https://github.com/spotbugs/discuss/issues?q=">malinglist</a></li>
-          </ul>
-
-          <p>
-          In particular,
-          the false-positive suppression heuristics for this
-          bug pattern have not been extensively tuned, so
-          reports about false positives are helpful to us.
-          </p>
-
-          <p>
-          See Weimer and Necula, <i>Finding and Preventing Run-Time Error Handling Mistakes</i>, for
-          a description of the analysis technique.
-          </p>
-          
-      
-<p>
-<br/>
-<br/>
-</p>
-<h2>
-<a name="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD">Write to static field from instance method</a>
-</h2>
-
-  <p> This instance method writes to a static field. This is tricky to get
-correct if multiple instances are being manipulated,
-and generally bad practice.
-</p>
-
-    
-<p>
-<br/>
-<br/>
-</p>
-<h2>
-<a name="URF_UNREAD_FIELD">Unread field</a>
-</h2>
-
-  <p> This field is never read.&nbsp; Consider removing it from the class.</p>
-
-    
-<p>
-<br/>
-<br/>
-</p>
-<h2>
 <a name="UUF_UNUSED_FIELD">Unused field</a>
 </h2>
 
   <p> This field is never used.&nbsp; Consider removing it from the class.</p>
 
     
-<p>
-<br/>
-<br/>
-</p>
-<h2>
-<a name="UWF_UNWRITTEN_FIELD">Unwritten field</a>
-</h2>
-
-  <p> This field is never written.&nbsp; All reads of it will return the default
-value. Check for errors (should it have been initialized?), or remove it if it is useless.</p>
-
-    
-<p>
-<br/>
-<br/>
-</p>
-<h2>
-<a name="WMI_WRONG_MAP_ITERATOR">Inefficient use of keySet iterator instead of entrySet iterator</a>
-</h2>
-
-<p> This method accesses the value of a Map entry, using a key that was retrieved from
-a keySet iterator. It is more efficient to use an iterator on the entrySet of the map, to avoid the
-Map.get(key) lookup.</p>
-
-        
 <p>
 <br/>
 <br/>

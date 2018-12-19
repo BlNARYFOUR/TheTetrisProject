@@ -109,6 +109,7 @@ class Routes {
 
             try {
                 info = tryLogin(routingContext);
+                cookieHandler(INFO_COOKIE, info, routingContext);
             } catch (Exception ex) {
                 info = "Something went wrong.";
                 try {

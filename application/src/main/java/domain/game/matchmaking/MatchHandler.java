@@ -24,6 +24,10 @@ public final class MatchHandler implements Matchmaking {
         return instance;
     }
 
+    private static void clearMatchable() {
+        MatchHandler.matchable = new HashMap<>();
+    }
+
     public Map<GameMode, Set<User>> getMatchable() {
         return matchable;
     }
@@ -87,16 +91,17 @@ public final class MatchHandler implements Matchmaking {
 
         final Set<Match> matches = createNewMatchSet();
 
-        for (GameMode gameMode : matchable.keySet()) {
+        for (Map.Entry<GameMode, Set<User>> entry : matchable.entrySet()) {
             final Set<User> usersToRemove = createNewUserSet();
 
-            Match matchTry = createNewMatch(gameMode);
+            Match matchTry = createNewMatch(entry.getKey());
             boolean oneLeft = false;
             int usersToAdd = Math.round((MAX_USERS_PER_MATCH + 1) / 2);
-            for (User user : matchable.get(gameMode)) {
+
+            for (User user : matchable.get(entry.getKey())) {
                 //System.out.println(matchable.get(gameMode).size() - usersToRemove.size());
 
-                if (matchable.get(gameMode).size() - usersToRemove.size() == MAX_USERS_PER_MATCH + 1) {
+                if (matchable.get(entry.getKey()).size() - usersToRemove.size() == MAX_USERS_PER_MATCH + 1) {
                     //System.out.println("one left");
                     oneLeft = true;
                 }
@@ -104,7 +109,7 @@ public final class MatchHandler implements Matchmaking {
                 if (!matchTry.addUser(user)) {
                     addMatch(matches, matchTry, usersToRemove);
 
-                    matchTry = createNewMatch(gameMode);
+                    matchTry = createNewMatch(entry.getKey());
                     matchTry.addUser(user);
                 }
 
@@ -114,8 +119,8 @@ public final class MatchHandler implements Matchmaking {
                     if (usersToAdd == 0) {
                         addMatch(matches, matchTry, usersToRemove);
 
-                        matchTry = createNewMatch(gameMode);
-                        usersToAdd = matchable.get(gameMode).size() - usersToRemove.size();
+                        matchTry = createNewMatch(entry.getKey());
+                        usersToAdd = matchable.get(entry.getKey()).size() - usersToRemove.size();
                     }
                 }
 
@@ -128,7 +133,7 @@ public final class MatchHandler implements Matchmaking {
                 usersToRemove.addAll(matchTry.getUsers());
             }
 
-            removeUsers(usersToRemove, gameMode);
+            removeUsers(usersToRemove, entry.getKey());
         }
 
         return matches;
@@ -140,6 +145,6 @@ public final class MatchHandler implements Matchmaking {
 
     @Override
     public void resetMatchable() {
-        matchable = new HashMap<>();
+        clearMatchable();
     }
 }

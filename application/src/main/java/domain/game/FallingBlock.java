@@ -2,6 +2,8 @@ package domain.game;
 
 import data.Repositories;
 
+import java.util.Objects;
+
 /**
  * A block that falls.
  */
@@ -11,7 +13,7 @@ public class FallingBlock extends Block {
 
     FallingBlock(final Block block) {
         super(block.getId(), block.getPattern(), block.getName());
-        x = (int) Math.floor((Game.PLAYING_FIELD_WIDTH - block.getPattern()[0].length) / 2);
+        x = (int) Math.floor((Game.PLAYING_FIELD_WIDTH - block.getPattern()[0].length) / 2.0);
         y = 0;
     }
 
@@ -50,5 +52,26 @@ public class FallingBlock extends Block {
     protected void applyRotation() {
         final FallingBlock rotatedBlock = new FallingBlock(this.rotate());
         this.setPattern(rotatedBlock.getPattern());
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof FallingBlock)) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
+        final FallingBlock that = (FallingBlock) o;
+        return getX() == that.getX() && getY() == that.getY();
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(super.hashCode(), getX(), getY());
     }
 }
