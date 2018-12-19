@@ -35,6 +35,10 @@ mainClassName = 'io.vertx.core.Launcher'
 def mainVerticleName = 'server.Tetris'
 def vertxVersion = '3.5.4'
 
+configurations {
+    htmlValidation
+}
+
 dependencies {
     compile group: 'findbugs', name: 'findbugs', version: '1.0.0'
     //vertx
@@ -56,8 +60,40 @@ dependencies {
     // https://mvnrepository.com/artifact/mysql/mysql-connector-java
     compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.12'
     compile group: 'com.h2database', name: 'h2', version: '1.4.197'
+
+    htmlValidation group: 'nu.validator', name: 'validator', version: '18.11.5'
 }
 
 run {
     args = ['run', mainVerticleName, "--launcher-class=$mainClassName", "-conf", "./conf/config.json"]
+}
+
+shadowJar {
+    classifier = 'fat'
+    manifest {
+        attributes 'Main-Verticle': "$mainVerticleName"
+    }
+    mergeServiceFiles {
+        include 'META-INF/services/io.vertx.core.spi.VerticleFactory'
+    }
+}
+
+quality {
+    spotbugsVersion = '3.1.8'
+}
+
+task validateHTML(type: JavaExec) {
+    workingDir = 'src/main/resources/webroot'
+    main 'nu.validator.client.SimpleCommandLineValidator'
+    classpath configurations.htmlValidation
+    args '--skip-non-html', './'
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.10'
+}
+
+configure(validateHTML) {
+    group = 'verification'
+    description = 'Verify and validate HTML'
 }
