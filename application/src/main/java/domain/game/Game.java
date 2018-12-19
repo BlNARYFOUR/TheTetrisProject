@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import data.Repositories;
 import data.loggedinrepository.LoggedInRepository;
 import domain.User;
+import domain.game.events.EventHandler;
 import domain.game.matchmaking.Match;
 import io.vertx.core.Context;
 import io.vertx.core.Vertx;
@@ -39,7 +40,10 @@ public class Game {
     private final List<Player> players;
     private MessageConsumer<Object> consumer;
 
-    public Game(final Match match) {
+    private EventHandler eventHandler;
+
+    public Game(Match match) {
+        Set<User> users = match.getUsers();
         players = new ArrayList<>();
         gameID = nextGameID;
         increaseNextGameID();
@@ -48,11 +52,14 @@ public class Game {
 
         setupListener();
 
+        this.eventHandler = new EventHandler(players);
+
         users.forEach(user -> {
-            final Player player = new Player(nextPlayerID, user, repo.getSessionID(user), genGameAddress());
+            Player player = new Player(nextPlayerID, user, repo.getSessionID(user), getGameAddress(), eventHandler);
             players.add(player);
             nextPlayerID++;
         });
+
     }
 
     private static void increaseNextGameID() {
