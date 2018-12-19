@@ -36,6 +36,7 @@ import java.util.Set;
  */
 public class WebAPI extends AbstractVerticle {
     private static final String SOCKET_URL_DOT = "tetris.events.";
+    private static final String REGISTER = "/pages/register.html";
 
     private final ObjectMapper objectMapper = new ObjectMapper();
     // private LoginRepository loginRepo = Repositories.getInstance().getLoginRepository();
@@ -64,9 +65,14 @@ public class WebAPI extends AbstractVerticle {
 
         router.route(Config.STATIC_FILE_URL + '*').handler(BodyHandler.create());
         router.post(Config.STATIC_FILE_URL).handler(routes::loginHandler);
-        router.post(Config.STATIC_FILE_URL + "/pages/register.html").handler(routes::registerHandler);
+        router.post(Config.STATIC_FILE_URL + REGISTER).handler(routes::registerHandler);
 
-        router.route(Config.STATIC_FILE_URL).handler(routes::rerouteWebrootHandler);
+        router.route(Config.STATIC_FILE_URL).handler(
+            routingContext -> routes.rerouteSpecificHandler(routingContext, Routes.INDEX_REF)
+        );
+        router.route(Config.STATIC_FILE_URL + REGISTER).handler(
+            routingContext -> routes.rerouteSpecificHandler(routingContext, Routes.REGISTER_REF)
+        );
         router.route(Config.STATIC_FILE_URL + "/index.html").handler(routes::rerouteHandler);
 
         for (SecureFilePath secureFilePath : SecureFilePath.values()) {

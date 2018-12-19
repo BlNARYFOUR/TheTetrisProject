@@ -1,7 +1,5 @@
 "use strict";
 
-import {PATTERNS} from "./blockPatterns.js";
-
 document.addEventListener("DOMContentLoaded", init);
 
 const COLORS = {
