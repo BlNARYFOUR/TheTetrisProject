@@ -60,7 +60,7 @@ public class WebAPI extends AbstractVerticle {
         // Make sure all requests are routed through the session handler too
         router.route().handler(sessionHandler);
 
-        router.route("/").handler(routes::rootHandler);
+        //router.route("/").handler(routes::rootHandler);
 
         router.route(Config.STATIC_FILE_URL + '*').handler(BodyHandler.create());
         router.post(Config.STATIC_FILE_URL).handler(routes::loginHandler);
