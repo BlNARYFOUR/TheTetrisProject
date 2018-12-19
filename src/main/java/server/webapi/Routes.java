@@ -20,13 +20,13 @@ import java.util.Objects;
  * all the rout handlers are initialized here.
  */
 class Routes {
+    protected static final String INDEX_REF = "webroot/index.html";
+    protected static final String REGISTER_REF = "webroot/pages/register.html";
     private static final String INFO_COOKIE = "info";
     private static final String STATIC_REF = "/static";
     private static final String MAIN_REF = "/static/pages/main_menu.html";
     private static final String LOCATION = "location";
     private static final String SESSION_COOKIE = "vertx-web.session";
-    static final String INDEX_REF = "webroot/index.html";
-    static final String REGISTER_REF = "webroot/pages/register.html";
     //private static final String SPACE = " ";
     private static final String PASSWORD = "password";
     private static final String USERNAME = "username";
@@ -95,7 +95,6 @@ class Routes {
 
             cookieHandler(INFO_COOKIE, infoBuf, routingContext);
 
-            final HttpServerResponse response = routingContext.response();
             routingContext.reroute(MAIN_REF);
         }
 
@@ -151,7 +150,7 @@ class Routes {
             } catch (Exception ex) {
                 final HttpServerResponse response = routingContext.response();
                 response.setChunked(true);
-                response.sendFile("webroot/pages/register.html");
+                response.sendFile(REGISTER_REF);
             }
         }
     }
