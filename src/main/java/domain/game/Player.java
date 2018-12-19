@@ -129,7 +129,7 @@ public class Player {
     }
 
     private void dropFaster() {
-        System.out.println("You did a 360°!! whuuut");
+        System.out.println("You did a 360°!!");
     }
 
     private void switchOnKeyUp(String key) {
