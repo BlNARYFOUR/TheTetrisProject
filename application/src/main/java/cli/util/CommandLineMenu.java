@@ -1,5 +1,7 @@
 package cli.util;
 
+import org.pmw.tinylog.Logger;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -14,7 +16,7 @@ public class CommandLineMenu {
     private final Scanner in = new Scanner(System.in);
 
 
-    public void add(String item, Runnable action) {
+    public void add(final String item, final Runnable action) {
         items.add(item);
         actions.add(action);
     }
@@ -28,18 +30,16 @@ public class CommandLineMenu {
 
     private void show() {
         for (int i = 0; i < items.size(); i++) {
-            System.out.printf("%3d.\t%s\n", i + 1, items.get(i));
+            Logger.info(String.format("%3d.\t%s", i + 1, items.get(i)));
         }
     }
 
     private int read() {
-        System.out.print("Make your choice: ");
-        final int i = in.nextInt();
-
-        return i;
+        Logger.info("Make your choice: ");
+        return in.nextInt();
     }
 
-    private void execute(int i) {
+    private void execute(final int i) {
         actions.get(i).run();
     }
 

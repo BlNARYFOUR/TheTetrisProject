@@ -1,6 +1,7 @@
-package data.loggedInRepository;
+package data.loggedinrepository;
 
 import domain.User;
+import org.pmw.tinylog.Logger;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -13,7 +14,7 @@ public class HcLoggedInRepository implements LoggedInRepository {
     private static Map<String, User> loggedUsers = new HashMap<>();
 
     @Override
-    public boolean addLoggedUser(String sessionID, User user) {
+    public boolean addLoggedUser(final String sessionID, final User user) {
         try {
             if (!loggedUsers.containsValue(user)) {
                 user.setLoginDate(new Date());
@@ -21,21 +22,25 @@ public class HcLoggedInRepository implements LoggedInRepository {
                 return true;
             }
         } catch (Exception ex) {
-            // just go further
+            Logger.warn(ex.getMessage());
         }
 
         return false;
     }
 
     @Override
-    public boolean deleteLoggedUser(String sessionID) {
+    public boolean deleteLoggedUser(final String sessionID) {
         loggedUsers.remove(sessionID);
 
         return false;
     }
 
+    private long getCurrentTime() {
+        return new Date().getTime();
+    }
+
     @Override
-    public boolean isUserLogged(User user) {
+    public boolean isUserLogged(final User user) {
         if (loggedUsers.containsValue(user)) {
             long passedTime = 0;
             String keyBuf = "";
@@ -44,7 +49,7 @@ public class HcLoggedInRepository implements LoggedInRepository {
                 final User u = loggedUsers.get(key);
 
                 if (user.equals(u)) {
-                    passedTime = Math.round((new Date().getTime() - u.getLoginDate().getTime()) / 1000);
+                    passedTime = Math.round((getCurrentTime() - u.getLoginDate().getTime()) / 1000);
                     keyBuf = key;
                     break;
                 }
@@ -62,17 +67,17 @@ public class HcLoggedInRepository implements LoggedInRepository {
     }
 
     @Override
-    public boolean isUserLogged(String sessionID, User user) {
+    public boolean isUserLogged(final String sessionID, final User user) {
         return user.equals(loggedUsers.getOrDefault(sessionID, null));
     }
 
     @Override
-    public User getLoggedUser(String sessionID) {
+    public User getLoggedUser(final String sessionID) {
         return loggedUsers.getOrDefault(sessionID, null);
     }
 
     @Override
-    public String getSessionID(User user) {
+    public String getSessionID(final User user) {
         final String[] sessionID = {null};
 
         loggedUsers.forEach((k, u) -> setSessionID(k, user, sessionID));
@@ -80,7 +85,7 @@ public class HcLoggedInRepository implements LoggedInRepository {
         return sessionID[0];
     }
 
-    private void setSessionID(String key, User user, String[] sessionID) {
+    private void setSessionID(final String key, final User user, String... sessionID) {
         if (loggedUsers.get(key).equals(user)) {
             sessionID[0] = key;
         }

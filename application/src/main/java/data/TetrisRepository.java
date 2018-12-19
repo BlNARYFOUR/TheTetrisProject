@@ -1,22 +1,20 @@
 package data;
 
 import org.pmw.tinylog.Logger;
-import util.DateFormat;
 
 import java.sql.*;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+//import java.util.Date;
 
 /**
  * A TetrisRepo.
  */
 public final class TetrisRepository {
-
-    private static java.util.Date now = new java.util.Date();
-    private static java.util.Date tomorrow = new Date(now.getTime() + (1000 * 60 * 60 * 24));
-    private static SimpleDateFormat dateFormat = new SimpleDateFormat(DateFormat.YODA_TIME.toString());
-    private static String dateToday = dateFormat.format(now);
-    private static String dateTomorrow = dateFormat.format(tomorrow);
+    //private static Date now = new Date();
+    //private static Date tomorrow = new Date(now.getTime() + (1000 * 60 * 60 * 24));
+    //private static SimpleDateFormat dateFormat = new SimpleDateFormat(DateFormat.YODA_TIME.toString(),
+    // Locale.GERMANY);
+    //private static String dateToday = dateFormat.format(now);
+    //private static String dateTomorrow = dateFormat.format(tomorrow);
 
     private static final String SQL_USER_DB =
             "CREATE TABLE IF NOT EXISTS user (\n"

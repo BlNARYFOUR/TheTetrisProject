@@ -1,6 +1,6 @@
 package server.webapi;
 
-import data.loggedInRepository.LoggedInRepository;
+import data.loggedinrepository.LoggedInRepository;
 import data.Repositories;
 import data.loginrepository.LoginRepository;
 import domain.User;

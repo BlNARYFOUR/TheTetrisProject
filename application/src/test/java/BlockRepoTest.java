@@ -1,4 +1,4 @@
-import data.BlockRepository.BlockRepository;
+import data.blockrepository.BlockRepository;
 import data.Repositories;
 import org.junit.Test;
 

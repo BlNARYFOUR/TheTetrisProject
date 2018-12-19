@@ -1,8 +1,9 @@
-package data.dailyStreakRepository;
+package data.dailystreakrepository;
 
 import data.JdbcInteractor;
 import domain.dailystreak.Streak;
 import domain.User;
+import org.pmw.tinylog.Logger;
 import util.DailyException;
 import util.DateFormat;
 
@@ -12,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Implementation of DailyRepository.
@@ -40,17 +42,17 @@ public class MySqlDailyRepository implements DailyRepository {
     private static final String UNABLE_TO_UPDATE_STR = "Unable to update song from DB.";
 
 
-    private Date now = new Date();
-    private Date tomorrow = new Date(now.getTime() + (1000 * 60 * 60 * 24));
-    private SimpleDateFormat dateFormat = new SimpleDateFormat(DateFormat.YODA_TIME.toString());
-    private String dateToday = dateFormat.format(now);
-    private String dateTomorrow = dateFormat.format(tomorrow);
+    private final Date now = new Date();
+    private final Date tomorrow = new Date(now.getTime() + (1000 * 60 * 60 * 24));
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat(DateFormat.YODA_TIME.toString(), Locale.GERMANY);
+    private final String dateToday = dateFormat.format(now);
+    private final String dateTomorrow = dateFormat.format(tomorrow);
 
 
 
     // user heeft al ingelogd wordt in databank opgeslagen als true
     @Override
-    public void updateAlreaddyLoggedIn(Boolean alreadyLoggedIn, String username) {
+    public void updateAlreadyLoggedIn(final Boolean alreadyLoggedIn, final String username) {
         try (Connection con = JdbcInteractor.getConnection();
              PreparedStatement prep = con.prepareStatement(SQL_SET_USER_ALREADY_LOGGED_IN)) {
 
@@ -66,14 +68,14 @@ public class MySqlDailyRepository implements DailyRepository {
 
     // zet daily_streakID back to 1
     @Override
-    public void resetDailyStreak(String username) {
+    public void resetDailyStreak(final String username) {
         try (Connection con = JdbcInteractor.getConnection();
              PreparedStatement prep = con.prepareStatement(SQL_RESET_DAILY_STREAK)) {
 
             prep.setString(1, username);
 
             prep.executeUpdate();
-            System.out.println("reset");
+            Logger.warn("reset");
 
         } catch (SQLException ex) {
             throw new DailyException(UNABLE_TO_UPDATE_STR, ex);
@@ -82,13 +84,13 @@ public class MySqlDailyRepository implements DailyRepository {
 
     // wijzigen van begin_date
     @Override
-    public void setBeginDate(String username) {
+    public void setBeginDate(final String username) {
         try (Connection con = JdbcInteractor.getConnection();
              PreparedStatement prep = con.prepareStatement(SQL_SET_BEGIN_DATE)) {
 
             prep.setString(1, dateToday);
             prep.setString(2, username);
-            System.out.println("begin: " + dateToday);
+            Logger.info("begin: " + dateToday);
 
             prep.executeUpdate();
 
@@ -99,13 +101,13 @@ public class MySqlDailyRepository implements DailyRepository {
 
     // wijzigen van next_date
     @Override
-    public void setNewNextDate(String username) {
+    public void setNewNextDate(final String username) {
         try (Connection con = JdbcInteractor.getConnection();
              PreparedStatement prep = con.prepareStatement(SQL_SET_NEXT_DATE)) {
 
             prep.setString(1, dateTomorrow);
             prep.setString(2, username);
-            System.out.println("tomorrow: " + dateTomorrow);
+            Logger.info("tomorrow: " + dateTomorrow);
 
             prep.executeUpdate();
 
@@ -116,7 +118,7 @@ public class MySqlDailyRepository implements DailyRepository {
 
     // wijzigen van daily_streakID
     @Override
-    public void setDailyStreakID(String username, int dailyStreak) {
+    public void setDailyStreakID(final String username, final int dailyStreak) {
         try (Connection con = JdbcInteractor.getConnection();
              PreparedStatement prep = con.prepareStatement(SQL_SET_DAILY_STREAK)) {
 
@@ -132,7 +134,7 @@ public class MySqlDailyRepository implements DailyRepository {
 
     // user toevoegen
     @Override
-    public void addUser(User u) {
+    public void addUser(final User u) {
         try (Connection con = JdbcInteractor.getConnection();
              PreparedStatement prep = con.prepareStatement(SQL_ADD_USER)) {
             prep.setString(1, u.getUsername());
@@ -143,7 +145,7 @@ public class MySqlDailyRepository implements DailyRepository {
             prep.setBoolean(6, false);
 
             prep.executeUpdate();
-            System.out.println("User has been added.");
+            Logger.info("User has been added.");
         } catch (SQLException ex) {
             throw new DailyException("Unable to add user to DB.", ex);
         }
@@ -152,7 +154,7 @@ public class MySqlDailyRepository implements DailyRepository {
 
     // user weergeven
     @Override
-    public User getUser(String username) {
+    public User getUser(final String username) {
         try (Connection con = JdbcInteractor.getConnection();
              PreparedStatement prep = con.prepareStatement(SQL_GET_USERNAME)) {
             prep.setString(1, username);
@@ -169,10 +171,10 @@ public class MySqlDailyRepository implements DailyRepository {
         }
     }
 
-    private User createUser(ResultSet rs) throws SQLException {
+    private User createUser(final ResultSet rs) throws SQLException {
         final int id = rs.getInt("userid");
         final String username = rs.getString("name");
-        final String password = rs.getString("password");
+        //final String password = rs.getString("password");
         final String registerDate = rs.getString("register_date");
         final String beginDate = rs.getString("begin_date");
         final String nextDate = rs.getString("next_date");
@@ -182,14 +184,14 @@ public class MySqlDailyRepository implements DailyRepository {
     }
 
     @Override
-    public void addReward(Streak s) {
+    public void addReward(final Streak s) {
         //TODO
     }
 
 
     // show reward
     @Override
-    public Streak getStreak(int streakId) {
+    public Streak getStreak(final int streakId) {
         try (Connection con = JdbcInteractor.getConnection();
              PreparedStatement prep = con.prepareStatement(SQL_GET_REWARD)) {
             prep.setInt(1, streakId);
@@ -206,7 +208,7 @@ public class MySqlDailyRepository implements DailyRepository {
         }
     }
 
-    private Streak createDailyStreak(ResultSet rs) throws SQLException {
+    private Streak createDailyStreak(final ResultSet rs) throws SQLException {
         final int id = rs.getInt("streakId");
         final int day = rs.getInt("day");
         final String reward = rs.getString("reward");

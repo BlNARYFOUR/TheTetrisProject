@@ -1,4 +1,4 @@
-package data.heroesRepository;
+package data.heroesrepository;
 
 import domain.hero.Hero;
 

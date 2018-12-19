@@ -2,10 +2,9 @@ package cli;
 
 import cli.util.Ansi;
 import cli.util.CommandLineMenu;
-import data.TetrisRepository;
 import data.loginrepository.LoginRepository;
 import data.Repositories;
-import domain.User;
+import org.pmw.tinylog.Logger;
 import util.Hash;
 
 import java.util.Scanner;
@@ -15,11 +14,11 @@ import java.util.Scanner;
  */
 public final class CLI {
     private static final String ENTER_A_PASS_STR = "Enter a password: ";
-    private CommandLineMenu loginMenu = new CommandLineMenu();
-    private CommandLineMenu mainMenu = new CommandLineMenu();
-    private CommandLineMenu gameModes = new CommandLineMenu();
-    private LoginRepository repo = Repositories.getInstance().getLoginRepository();
-    private TetrisRepository tetrisRepo;
+    private final CommandLineMenu loginMenu = new CommandLineMenu();
+    private final CommandLineMenu mainMenu = new CommandLineMenu();
+    private final CommandLineMenu gameModes = new CommandLineMenu();
+    private final LoginRepository repo = Repositories.getInstance().getLoginRepository();
+    //private TetrisRepository tetrisRepo;
     private final Scanner in = new Scanner(System.in);
     private boolean cont = true;
 
@@ -40,7 +39,7 @@ public final class CLI {
 
     }
 
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         new CLI().run();
     }
 
@@ -50,33 +49,35 @@ public final class CLI {
         }
     }
 
+    /*
     private void backToMainMenu() {
         // do nothing
     }
+    */
 
     private void stop() {
         cont = false;
-        System.out.println(Ansi.RED + "shutting down" + Ansi.RESET);
+        Logger.info(Ansi.RED + "shutting down" + Ansi.RESET);
     }
     
 
     private void register() {
-        System.out.println("REGISTER");
-        System.out.println("Enter an username : ");
-        final String username = in.nextLine();
-        System.out.println(ENTER_A_PASS_STR);
-        final String password = in.nextLine();
-        final User u = new User(username, password);
+        Logger.info("REGISTER");
+        //Logger.info("Enter an username : ");
+        //final String username = in.nextLine();
+        //Logger.info(ENTER_A_PASS_STR);
+        //final String password = in.nextLine();
+        //final User u = new User(username, password);
         //TetrisRepository.addUser(u);
-        System.out.println(Ansi.RED + "User added." + Ansi.RESET);
+        Logger.info(Ansi.RED + "User added." + Ansi.RESET);
     }
     
 
     private void login() {
-        System.out.println("LOGIN");
-        System.out.println("Enter an username: ");
+        Logger.info("LOGIN");
+        Logger.info("Enter an username: ");
         final String username = in.nextLine();
-        System.out.println(ENTER_A_PASS_STR);
+        Logger.info(ENTER_A_PASS_STR);
         final String password = in.nextLine();
         repo.getUser(username);
         repo.authenticateUser(username, password);
@@ -87,35 +88,35 @@ public final class CLI {
     }
 
     private void highScore() {
-        System.out.println("HIGH SCORE");
+        Logger.info("HIGH SCORE");
     }
 
     private void shop() {
-        System.out.println("SHOP");
+        Logger.info("SHOP");
     }
 
     private void clan() {
-        System.out.println("CLAN");
+        Logger.info("CLAN");
     }
 
     private void chooseGameMode() {
-        System.out.println("GAMEMODES");
+        Logger.info("GAMEMODES");
         gameModes.run();
     }
 
     private void lastManStanding() {
-        System.out.println("LAST MAN STANDING");
+        Logger.info("LAST MAN STANDING");
     }
 
     private void timeAttack() {
-        System.out.println("TIME ATTACK");
+        Logger.info("TIME ATTACK");
     }
 
     private void multiPlayer() {
-        System.out.println("MULTI PLAYER");
+        Logger.info("MULTI PLAYER");
     }
 
     private void singlePlayer() {
-        System.out.println("SINGLE PLAYER");
+        Logger.info("SINGLE PLAYER");
     }
 }

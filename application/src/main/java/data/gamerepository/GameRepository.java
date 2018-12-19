@@ -1,4 +1,4 @@
-package data.GameRepository;
+package data.gamerepository;
 
 import domain.game.Game;
 

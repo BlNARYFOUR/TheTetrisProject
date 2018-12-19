@@ -17,11 +17,11 @@ public enum Ansi {
 
     private final String code;
 
-    Ansi(String code) {
+    Ansi(final String code) {
         this.code = code;
     }
 
-
+    @Override
     public String toString() {
         return code;
     }

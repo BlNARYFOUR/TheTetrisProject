@@ -1,4 +1,4 @@
-package data.loggedInRepository;
+package data.loggedinrepository;
 
 import domain.User;
 

@@ -1,4 +1,4 @@
-package data.BlockRepository;
+package data.blockrepository;
 
 import domain.game.Block;
 
@@ -44,7 +44,7 @@ public class HcBlockRepository implements BlockRepository {
     };
 
     private int nextID = 1;
-    private Set<Block> blocks = new HashSet<>();
+    private final Set<Block> blocks = new HashSet<>();
 
     public HcBlockRepository() {
         registerBlock(PATTERN_LINE, "LINE");
@@ -57,7 +57,7 @@ public class HcBlockRepository implements BlockRepository {
     }
 
     @SuppressWarnings("WeakerAccess")
-    public void registerBlock(Boolean[][] pattern, String name) {
+    public void registerBlock(final Boolean[][] pattern, final String name) {
         blocks.add(new Block(nextID, pattern, name));
         nextID++;
     }

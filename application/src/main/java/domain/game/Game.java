@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import data.Repositories;
-import data.loggedInRepository.LoggedInRepository;
+import data.loggedinrepository.LoggedInRepository;
 import domain.User;
 import domain.game.matchmaking.Match;
 import io.vertx.core.Context;

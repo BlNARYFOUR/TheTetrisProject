@@ -22,7 +22,7 @@ public final class MySqlConnection {
         try {
             return DriverManager.getConnection(URL, UID, PWD);
         } catch (SQLException ex) {
-            throw new LoginException("Cannot connect to DB.");
+            throw new LoginException("Cannot connect to DB.", ex);
         }
     }
 }

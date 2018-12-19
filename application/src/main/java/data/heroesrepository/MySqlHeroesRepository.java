@@ -1,7 +1,8 @@
-package data.heroesRepository;
+package data.heroesrepository;
 
 import data.MySqlConnection;
 import domain.hero.Hero;
+import org.pmw.tinylog.Logger;
 import util.HeroException;
 
 import java.sql.Connection;
@@ -22,7 +23,7 @@ public class MySqlHeroesRepository implements HeroesRepository {
     private static final String SQL_GET_ALL_HEROES = "select * from heroes";
 
     @Override
-    public void addHero(Hero h) {
+    public void addHero(final Hero h) {
         try (Connection con = MySqlConnection.getConnection();
              PreparedStatement prep = con.prepareStatement(SQL_ADD_HERO)) {
 
@@ -32,7 +33,7 @@ public class MySqlHeroesRepository implements HeroesRepository {
             prep.setInt(4, h.getCost());
 
             prep.executeUpdate();
-            System.out.println("Hero has been added.");
+            Logger.info("Hero has been added.");
 
         } catch (SQLException ex) {
             throw new HeroException("Unable to add hero to DB.", ex);
@@ -40,7 +41,7 @@ public class MySqlHeroesRepository implements HeroesRepository {
     }
 
     @Override
-    public Hero getHero(String name) {
+    public Hero getHero(final String name) {
         try (Connection con = MySqlConnection.getConnection();
              PreparedStatement prep = con.prepareStatement(SQL_GET_HERO)) {
             prep.setString(1, name);
@@ -57,7 +58,7 @@ public class MySqlHeroesRepository implements HeroesRepository {
         }
     }
 
-    private Hero createHero(ResultSet rs) throws SQLException {
+    private Hero createHero(final ResultSet rs) throws SQLException {
         final int id = rs.getInt("heroID");
         final String heroName = rs.getString("heroName");
         final String heroAbility = rs.getString("heroAbility");
@@ -67,13 +68,13 @@ public class MySqlHeroesRepository implements HeroesRepository {
     }
 
     @Override
-    public Hero deleteHero(String name) {
+    public Hero deleteHero(final String name) {
         try (Connection con = MySqlConnection.getConnection();
              PreparedStatement prep = con.prepareStatement(SQL_DELETE_HERO)) {
             prep.setString(1, name);
 
             prep.executeUpdate();
-            System.out.println("Hero has been deleted!");
+            Logger.info("Hero has been deleted!");
         } catch (SQLException ex) {
             throw new HeroException("Can't delete hero", ex);
         }

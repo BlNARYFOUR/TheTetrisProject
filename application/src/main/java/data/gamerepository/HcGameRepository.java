@@ -1,4 +1,4 @@
-package data.GameRepository;
+package data.gamerepository;
 
 import domain.game.Game;
 import domain.game.Player;
@@ -18,7 +18,7 @@ public class HcGameRepository implements GameRepository {
     }
 
     @Override
-    public boolean addActiveGame(Game game) {
+    public boolean addActiveGame(final Game game) {
         if (games.contains(game)) {
             return false;
         } else {
@@ -28,7 +28,7 @@ public class HcGameRepository implements GameRepository {
     }
 
     @Override
-    public boolean disableGame(Game game) {
+    public boolean disableGame(final Game game) {
         if (games.contains(game)) {
             games.forEach(g -> {
                 if (g.equals(game)) {
@@ -41,7 +41,7 @@ public class HcGameRepository implements GameRepository {
     }
 
     @Override
-    public boolean isSessionInActiveGame(String session) {
+    public boolean isSessionInActiveGame(final String session) {
         boolean found = false;
 
         for (Game game : games) {
@@ -54,7 +54,7 @@ public class HcGameRepository implements GameRepository {
     }
 
     @Override
-    public Game getActiveGameOfSession(String session) {
+    public Game getActiveGameOfSession(final String session) {
         Game gameOfSession = null;
 
         for (Game game : games) {

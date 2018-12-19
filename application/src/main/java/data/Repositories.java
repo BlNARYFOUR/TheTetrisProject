@@ -1,15 +1,15 @@
 package data;
 
-import data.BlockRepository.BlockRepository;
-import data.BlockRepository.HcBlockRepository;
-import data.GameRepository.GameRepository;
-import data.GameRepository.HcGameRepository;
-import data.dailyStreakRepository.DailyRepository;
-import data.dailyStreakRepository.MySqlDailyRepository;
-import data.heroesRepository.HeroesRepository;
-import data.heroesRepository.MySqlHeroesRepository;
-import data.loggedInRepository.HcLoggedInRepository;
-import data.loggedInRepository.LoggedInRepository;
+import data.blockrepository.BlockRepository;
+import data.blockrepository.HcBlockRepository;
+import data.gamerepository.GameRepository;
+import data.gamerepository.HcGameRepository;
+import data.dailystreakrepository.DailyRepository;
+import data.dailystreakrepository.MySqlDailyRepository;
+import data.heroesrepository.HeroesRepository;
+import data.heroesrepository.MySqlHeroesRepository;
+import data.loggedinrepository.HcLoggedInRepository;
+import data.loggedinrepository.LoggedInRepository;
 import data.loginrepository.LoginRepository;
 import data.loginrepository.MySqlLoginRepository;
 
