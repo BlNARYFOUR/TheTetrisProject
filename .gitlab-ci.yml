@@ -8,30 +8,30 @@ stages:
 
 build-jar:
   stage: build
-  script: ./application/gradlew shadowJar
+  script: ./gradlew shadowJar
   artifacts:
     paths:
       - build/libs/
 
 validate-html:
   stage: build
-  script: ./application/gradlew validateHTML
+  script: ./gradlew validateHTML
 
 check-js:
   stage: codequality
-  script: ./application/gradlew jshint
+  script: ./gradlew jshint
 
 check-main-code:
   stage: codequality
-  script: ./application/gradlew checkQualityMain
+  script: ./gradlew checkQualityMain
 
 check-test-code:
   stage: codequality
-  script: ./application/gradlew checkQualityTest
+  script: ./gradlew checkQualityTest
 
 test:
   stage: test
-  script: ./application/gradlew test
+  script: ./gradlew test
 
 deploy:
   image: debian:latest
