@@ -36,6 +36,7 @@ def mainVerticleName = 'server.Tetris'
 def vertxVersion = '3.5.4'
 
 dependencies {
+    compile group: 'findbugs', name: 'findbugs', version: '1.0.0'
     //vertx
     compile "io.vertx:vertx-core:$vertxVersion"
     compile "io.vertx:vertx-web:$vertxVersion"

@@ -19,7 +19,7 @@ public final class CLI {
     private final CommandLineMenu gameModes = new CommandLineMenu();
     private final LoginRepository repo = Repositories.getInstance().getLoginRepository();
     //private TetrisRepository tetrisRepo;
-    private final Scanner in = new Scanner(System.in);
+    private final Scanner in = new Scanner(System.in, "UTF8");
     private boolean cont = true;
 
     private CLI() {

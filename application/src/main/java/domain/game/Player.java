@@ -43,7 +43,7 @@ public class Player {
     private boolean isDead;
     private Integer[][] playingField;
 
-    private FallingBlock holdFallingBlock;
+    //private FallingBlock holdFallingBlock;
     private FallingBlock nextFallingBlock;
     private FallingBlock fallingBlock;
 

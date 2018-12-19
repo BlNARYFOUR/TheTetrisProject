@@ -13,7 +13,7 @@ public class CommandLineMenu {
 
     private final List<String> items = new ArrayList<>();
     private final List<Runnable> actions = new ArrayList<>();
-    private final Scanner in = new Scanner(System.in);
+    private final Scanner in = new Scanner(System.in, "UTF8");
 
 
     public void add(final String item, final Runnable action) {

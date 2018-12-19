@@ -1,5 +1,6 @@
 package data;
 
+import edu.umd.cs.findbugs.annotations.SuppressWarnings;
 import org.pmw.tinylog.Logger;
 
 import org.h2.tools.Server;
@@ -12,6 +13,7 @@ import java.sql.SQLException;
 /**
  * JdbcInteractor.
  */
+@SuppressWarnings("DMI_CONSTANT_DB_PASSWORD")
 public class JdbcInteractor {
     private static final String JDBC_DRIVER = "org.h2.Driver";
     private static final String DB_URL = Config.DB_CONN_STR;

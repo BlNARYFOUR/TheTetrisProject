@@ -1,77 +1,28 @@
-±[User1 is logged in (with password:  ), User2 is logged in (with password:  ), User3 is logged in (with password:  ), User4 is logged in (with password:  ), User5 is logged in (with password:  ), User6 is logged in (with password:  ), User7 is logged in (with password:  ), User8 is logged in (with password:  ), User9 is logged in (with password:  ), User10 is logged in (with password:  ), User11 is logged in (with password:  )]
-11
-u to add: 3
-11
-u to add: 3
-11
-u to add: 3
-11
-u to add: 3
-11
-u to add: 3
-11
-u to add: 3
-6
-
-one left
-u to add: 2
-6
-
-one left
-u to add: 1
-6
-
-one left
-u to add: 2
-2
-u to add: 1
-2
-u to add: 0
-{standard=[]}
-¾[Match{MAX_USERS=5, gameMode=standard, users=[User1 is logged in (with password:  ), User2 is logged in (with password:  ), User3 is logged in (with password:  ), User4 is logged in (with password:  ), User5 is logged in (with password:  )]}, Match{MAX_USERS=5, gameMode=standard, users=[User10 is logged in (with password:  ), User11 is logged in (with password:  )]}, Match{MAX_USERS=5, gameMode=standard, users=[User6 is logged in (with password:  ), User7 is logged in (with password:  ), User8 is logged in (with password:  ), User9 is logged in (with password:  )]}]
-PLayingfield length: 18
-PLayingfield length: 18
-PLayingfield length: 18
-PLayingfield length: 18
-PLayingfield length: 18
-\Player{user=User1 is logged in (with password:  ), address='tetris-16.socket.client.null'}
-\Player{user=User2 is logged in (with password:  ), address='tetris-16.socket.client.null'}
-\Player{user=User3 is logged in (with password:  ), address='tetris-16.socket.client.null'}
-\Player{user=User4 is logged in (with password:  ), address='tetris-16.socket.client.null'}
-\Player{user=User5 is logged in (with password:  ), address='tetris-16.socket.client.null'}
-
-PLayingfield length: 18
-PLayingfield length: 18
-]Player{user=User10 is logged in (with password:  ), address='tetris-16.socket.client.null'}
-]Player{user=User11 is logged in (with password:  ), address='tetris-16.socket.client.null'}
-
-PLayingfield length: 18
-PLayingfield length: 18
-PLayingfield length: 18
-PLayingfield length: 18
-\Player{user=User6 is logged in (with password:  ), address='tetris-16.socket.client.null'}
-\Player{user=User7 is logged in (with password:  ), address='tetris-16.socket.client.null'}
-\Player{user=User8 is logged in (with password:  ), address='tetris-16.socket.client.null'}
-\Player{user=User9 is logged in (with password:  ), address='tetris-16.socket.client.null'}
-ì[User1 is logged in (with password:  ), User2 is logged in (with password:  ), User3 is logged in (with password:  ), User4 is logged in (with password:  ), User5 is logged in (with password:  ), User6 is logged in (with password:  )]
-6
-
-one left
-u to add: 2
-6
-
-one left
-u to add: 1
-6
-
-one left
-u to add: 3
-3
-u to add: 2
-3
-u to add: 1
-3
-u to add: 0
-Ê[Match{MAX_USERS=5, gameMode=standard, users=[User1 is logged in (with password:  ), User2 is logged in (with password:  ), User3 is logged in (with password:  )]}, Match{MAX_USERS=5, gameMode=standard, users=[User4 is logged in (with password:  ), User5 is logged in (with password:  ), User6 is logged in (with password:  )]}]
-<["singlePlayer","standard","lastManStanding","timeAttack"]
-+{"name":"random","message":"new message"}
+G2018-12-19 04:20:22 [Test worker] tests.BlockTest.testBlockToString()
+INFO: Block-0:[Empty] = {
+	{0, 0, 1}
+	{1, 1, 1}
+}
+G2018-12-19 04:20:22 [Test worker] tests.BlockTest.testBlockToString()
+INFO: Block-0:[Empty] = {
+	{1, 0}
+	{1, 0}
+	{1, 1}
+}
+G2018-12-19 04:20:22 [Test worker] tests.BlockTest.testBlockToString()
+4INFO: [[true, false], [true, false], [true, true]]
+G2018-12-19 04:20:22 [Test worker] tests.BlockTest.testBlockToString()
+4INFO: [[true, false], [true, false], [true, true]]
+A2018-12-19 04:20:22 [Test worker] tests.GameTest.testInitGame()
+·INFO: [User1 is logged in (with password:  ), User2 is logged in (with password:  ), User3 is logged in (with password:  ), User4 is logged in (with password:  ), User5 is logged in (with password:  ), User6 is logged in (with password:  ), User7 is logged in (with password:  ), User8 is logged in (with password:  ), User9 is logged in (with password:  ), User10 is logged in (with password:  ), User11 is logged in (with password:  )]
+A2018-12-19 04:20:22 [Test worker] tests.GameTest.testInitGame()
+INFO: {standard=[]}
+A2018-12-19 04:20:22 [Test worker] tests.GameTest.testInitGame()
+ÁINFO: [Match{maxUsers=5, gameMode=standard, users=[User6 is logged in (with password:  ), User7 is logged in (with password:  ), User8 is logged in (with password:  ), User9 is logged in (with password:  )]}, Match{maxUsers=5, gameMode=standard, users=[User1 is logged in (with password:  ), User2 is logged in (with password:  ), User3 is logged in (with password:  ), User4 is logged in (with password:  ), User5 is logged in (with password:  )]}, Match{maxUsers=5, gameMode=standard, users=[User10 is logged in (with password:  ), User11 is logged in (with password:  )]}]
+K2018-12-19 04:20:22 [Test worker] tests.MatchHandlerTest.testMatchUsers()
+òINFO: [User1 is logged in (with password:  ), User2 is logged in (with password:  ), User3 is logged in (with password:  ), User4 is logged in (with password:  ), User5 is logged in (with password:  ), User6 is logged in (with password:  )]
+K2018-12-19 04:20:22 [Test worker] tests.MatchHandlerTest.testMatchUsers()
+ÎINFO: [Match{maxUsers=5, gameMode=standard, users=[User4 is logged in (with password:  ), User5 is logged in (with password:  ), User6 is logged in (with password:  )]}, Match{maxUsers=5, gameMode=standard, users=[User1 is logged in (with password:  ), User2 is logged in (with password:  ), User3 is logged in (with password:  )]}]
+M2018-12-19 04:20:23 [Test worker] tests.MatchHandlerTest.testAddMatchable()
+BINFO: ["singlePlayer","standard","lastManStanding","timeAttack"]
+	+{"name":"random","message":"new message"}

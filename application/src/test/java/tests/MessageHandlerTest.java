@@ -1,3 +1,5 @@
+package tests;
+
 import io.vertx.core.Vertx;
 import io.vertx.core.eventbus.EventBus;
 import io.vertx.core.json.JsonObject;
@@ -11,9 +13,16 @@ import org.junit.runner.RunWith;
 
 import java.io.IOException;
 
+/**
+ * Test.
+ */
 @RunWith(VertxUnitRunner.class)
 public class MessageHandlerTest {
 
+    private static final String NEW_MESSAGE = "new message";
+    private static final String MESSAGE = "message";
+    private static final String RANDOM = "random";
+    private static final String NAME = "name";
     private Vertx vertx;
     private EventBus eb;
 
@@ -24,13 +33,14 @@ public class MessageHandlerTest {
         eb = vertx.eventBus();
     }
 
-    private void testMessage(Object message, TestContext context) {
+    private void testMessage(final Object message, final TestContext context) {
         if (!(message instanceof JsonObject)) {
             context.fail();
         }
-        JsonObject json = (JsonObject)message;
-        context.assertEquals(json.getString("name"), "random");
-        context.assertEquals(json.getString("message"), "new message");
+        //noinspection ConstantConditions
+        final JsonObject json = (JsonObject) message;
+        context.assertEquals(json.getString(NAME), RANDOM);
+        context.assertEquals(json.getString(MESSAGE), NEW_MESSAGE);
     }
 
     @Test
@@ -48,11 +58,11 @@ public class MessageHandlerTest {
             async.countDown();
         });
         eb.send("login.events.message",
-                new JsonObject().put("name", "random").put("message", "new message"),
-                reply -> {
-                    context.assertEquals("OK", reply.result().body());
-                    async.countDown();
-                });
+            new JsonObject().put(NAME, RANDOM).put(MESSAGE, NEW_MESSAGE),
+            reply -> {
+                context.assertEquals("OK", reply.result().body());
+                async.countDown();
+            });
         async.await(2000);
     }
 
