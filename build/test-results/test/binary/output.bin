@@ -1,27 +1,27 @@
-G2018-12-19 12:41:57 [Test worker] tests.BlockTest.testBlockToString()
+G2018-12-19 08:49:29 [Test worker] tests.BlockTest.testBlockToString()
 INFO: Block-0:[Empty] = {
 	{0, 0, 1}
 	{1, 1, 1}
 }
-G2018-12-19 12:41:57 [Test worker] tests.BlockTest.testBlockToString()
+G2018-12-19 08:49:29 [Test worker] tests.BlockTest.testBlockToString()
 INFO: Block-0:[Empty] = {
 	{1, 0}
 	{1, 0}
 	{1, 1}
 }
-G2018-12-19 12:41:57 [Test worker] tests.BlockTest.testBlockToString()
+G2018-12-19 08:49:29 [Test worker] tests.BlockTest.testBlockToString()
 4INFO: [[true, false], [true, false], [true, true]]
-G2018-12-19 12:41:57 [Test worker] tests.BlockTest.testBlockToString()
+G2018-12-19 08:49:29 [Test worker] tests.BlockTest.testBlockToString()
 4INFO: [[true, false], [true, false], [true, true]]
-A2018-12-19 12:41:57 [Test worker] tests.GameTest.testInitGame()
+A2018-12-19 08:49:29 [Test worker] tests.GameTest.testInitGame()
 ·INFO: [User1 is logged in (with password:  ), User2 is logged in (with password:  ), User3 is logged in (with password:  ), User4 is logged in (with password:  ), User5 is logged in (with password:  ), User6 is logged in (with password:  ), User7 is logged in (with password:  ), User8 is logged in (with password:  ), User9 is logged in (with password:  ), User10 is logged in (with password:  ), User11 is logged in (with password:  )]
-A2018-12-19 12:41:57 [Test worker] tests.GameTest.testInitGame()
+A2018-12-19 08:49:29 [Test worker] tests.GameTest.testInitGame()
 INFO: {standard=[]}
-A2018-12-19 12:41:57 [Test worker] tests.GameTest.testInitGame()
+A2018-12-19 08:49:29 [Test worker] tests.GameTest.testInitGame()
 ÁINFO: [Match{maxUsers=5, gameMode=standard, users=[User6 is logged in (with password:  ), User7 is logged in (with password:  ), User8 is logged in (with password:  ), User9 is logged in (with password:  )]}, Match{maxUsers=5, gameMode=standard, users=[User1 is logged in (with password:  ), User2 is logged in (with password:  ), User3 is logged in (with password:  ), User4 is logged in (with password:  ), User5 is logged in (with password:  )]}, Match{maxUsers=5, gameMode=standard, users=[User10 is logged in (with password:  ), User11 is logged in (with password:  )]}]
-K2018-12-19 12:41:57 [Test worker] tests.MatchHandlerTest.testMatchUsers()
+K2018-12-19 08:49:29 [Test worker] tests.MatchHandlerTest.testMatchUsers()
 òINFO: [User1 is logged in (with password:  ), User2 is logged in (with password:  ), User3 is logged in (with password:  ), User4 is logged in (with password:  ), User5 is logged in (with password:  ), User6 is logged in (with password:  )]
-K2018-12-19 12:41:57 [Test worker] tests.MatchHandlerTest.testMatchUsers()
+K2018-12-19 08:49:29 [Test worker] tests.MatchHandlerTest.testMatchUsers()
 ÎINFO: [Match{maxUsers=5, gameMode=standard, users=[User4 is logged in (with password:  ), User5 is logged in (with password:  ), User6 is logged in (with password:  )]}, Match{maxUsers=5, gameMode=standard, users=[User1 is logged in (with password:  ), User2 is logged in (with password:  ), User3 is logged in (with password:  )]}]
-M2018-12-19 12:41:57 [Test worker] tests.MatchHandlerTest.testAddMatchable()
+M2018-12-19 08:49:30 [Test worker] tests.MatchHandlerTest.testAddMatchable()
 BINFO: ["singlePlayer","standard","lastManStanding","timeAttack"]

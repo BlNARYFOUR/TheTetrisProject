@@ -222,7 +222,7 @@ class Routes {
 
         final HttpServerResponse response = routingContext.response();
         response.setChunked(true);
-        response.headers().add(LOCATION, STATIC_REF);
+        response.headers().add(LOCATION, STATIC_REF + '/');
         response.setStatusCode(302).end();
     }
 }
