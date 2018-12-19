@@ -5,41 +5,23 @@ document.addEventListener("DOMContentLoaded", init);
 let elementSelectables;
 let selectedHero;
 
-const SOUNDS = {
-    pikachu: createAudioObj("pikachu.mp3"),
-    donkeyKong: createAudioObj("donkeykong.wav")
-};
-
 function init() {
     document.getElementById("back").addEventListener("click", goBack);
     document.getElementById("playGame").addEventListener("click", play);
     loadHeroes();
-}
 
-function createAudioObj(fileName) {
-    let audio = document.createElement("audio");
-    audio.src = "../assets/sounds/" + fileName;
-    return audio;
-}
-
-function playSounds(hero) {
-    if (hero === "pikachu") {
-        SOUNDS.pikachu.play();
-    } else if (hero === "donkeykong") {
-        SOUNDS.donkeyKong.play();
-    }
 }
 
 function loadHeroes() {
 
     let location = document.getElementById("choose-hero");
     let imgList = "";
-    let heroes = ["donkeykong", "pikachu"];
+    let heroes = ["donkeykong"];
 
     let firstSelected = " selected";
 
     for (let i = 0; i < heroes.length; i++) {
-        imgList += "<li id='heroes' class='selectable hero-" + heroes[i] + firstSelected + "' data-heroname='" + heroes[i] + "'>" +
+        imgList += "<li class='selectable hero-" + heroes[i] + firstSelected + "' data-heroname='" + heroes[i] + "'>" +
             "<img data-heroname='" + heroes[i] + "' src= ../assets/media/" + heroes[i] + ".gif class='"+ heroes[i] +"' title='"+ heroes[i] +"' alt='"+ heroes[i] +"'>" +
             "<p data-heroname='" + heroes[i] + "'>"+ heroes[i] +"</p>" +
             "</li>";
@@ -71,7 +53,6 @@ function changeSelected(e) {
 
         selectedHero = e.target.dataset.heroname;
 
-        playSounds(selectedHero);
         storeHero();
         retrieveHero();
     }
@@ -113,6 +94,7 @@ function storeHero() {
 function retrieveHero() {
     if (isLocalStorageSupported()){
         let heroAsString = localStorage.getItem("hero");
+        console.log(heroAsString);
     } else {
         console.log("Somthing went wrong!");
     }
