@@ -2,12 +2,18 @@ package domain.game;
 
 import data.Repositories;
 
-public class FallingBlock extends Block {
-    private int x, y;
+import java.util.Objects;
 
-    public FallingBlock(Block block) {
-        super(block.getID(), block.getPattern(), block.getName());
-        x = (int) Math.floor((Game.PLAYING_FIELD_WIDTH - block.getPattern()[0].length) / 2);
+/**
+ * A block that falls.
+ */
+public class FallingBlock extends Block {
+    private int x;
+    private int y;
+
+    FallingBlock(final Block block) {
+        super(block.getId(), block.getPattern(), block.getName());
+        x = (int) Math.floor((Game.PLAYING_FIELD_WIDTH - block.getPattern()[0].length) / 2.0);
         y = 0;
     }
 
@@ -19,15 +25,15 @@ public class FallingBlock extends Block {
         return x;
     }
 
-    public void setX(int x) {
+    public void setX(final int x) {
         this.x = x;
     }
 
-    public void goLeft() {
+    protected void goLeft() {
         x--;
     }
 
-    public void goRight() {
+    protected void goRight() {
         x++;
     }
 
@@ -35,18 +41,37 @@ public class FallingBlock extends Block {
         return y;
     }
 
-    public void setY(int y) {
+    public void setY(final int y) {
         this.y = y;
     }
 
-    public void fall() {
+    protected void fall() {
         this.y += 1;
     }
 
-    public Block applyRotation() {
-        FallingBlock rotatedBlock = new FallingBlock(this.rotate());
+    protected void applyRotation() {
+        final FallingBlock rotatedBlock = new FallingBlock(this.rotate());
         this.setPattern(rotatedBlock.getPattern());
+    }
 
-        return this;
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof FallingBlock)) {
+            return false;
+        }
+        if (!super.equals(o)) {
+            return false;
+        }
+        final FallingBlock that = (FallingBlock) o;
+        return getX() == that.getX() && getY() == that.getY();
+    }
+
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(super.hashCode(), getX(), getY());
     }
 }

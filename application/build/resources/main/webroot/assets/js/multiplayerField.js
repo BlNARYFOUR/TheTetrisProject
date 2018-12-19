@@ -34,8 +34,11 @@ const IMAGES = {
     yellowTile: createImageObj("yellowTile.png"),
     greenTile: createImageObj("greenTile.png"),
     purpleTile: createImageObj("purpleTile.png"),
-    pikachuTile: createImageObj("pikachu.png")
-
+    pikachuTile: createImageObj("pikachu.png"),
+    unbreakableTile: createImageObj("unbreakableBlock.png"),
+    pinkTile: createImageObj("pinkTile.png"),
+    shitBrownTile: createImageObj("shitBrownTile.png"),
+    shitGreenTile: createImageObj("shitGreenTile.png")
 };
 
 const COLORS = {
@@ -46,7 +49,10 @@ const COLORS = {
     YELLOW: 4,
     LIGHT_BLUE: 5,
     GREEN: 6,
-    PURPLE: 7
+    PURPLE: 7,
+    PINK: 8,
+    SHITBROWN: 9,
+    SHITGREEN: 10
 };
 
 let c;
@@ -63,7 +69,10 @@ let progressIntervals = [0,0,0,0,0];
 let AMOUNT_OF_PLAYERS = 0;
 
 function init(e) {
-    AMOUNT_OF_PLAYERS = 5;
+    let data = [0];
+    // noinspection JSIgnoredPromiseFromCall
+    gameCommunication.sendReadyStatus();
+    AMOUNT_OF_PLAYERS = localStorage.getItem("amountOfPlayers");
 
     tiles = new Map();
     tiles.set(COLORS.TRANSPARENT, IMAGES.retroBackgroundTile);
@@ -74,19 +83,42 @@ function init(e) {
     tiles.set(COLORS.YELLOW, IMAGES.yellowTile);
     tiles.set(COLORS.GREEN, IMAGES.greenTile);
     tiles.set(COLORS.PURPLE, IMAGES.purpleTile);
-    tiles.set(COLORS.PIKA, IMAGES.pikachuTile);
+    tiles.set(COLORS.PINK, IMAGES.pinkTile);
+    tiles.set(COLORS.SHITBROWN, IMAGES.shitBrownTile);
+    tiles.set(COLORS.SHITGREEN, IMAGES.shitGreenTile);
+    //tiles.set(COLORS.PIKA, IMAGES.pikachuTile);
 
     createGameBoard();
 
-    window.addEventListener("resize", onResize);
-
     gameLoop();
+
+    window.addEventListener("resize", onResize);
+    document.addEventListener("keydown", onKeyDown);
+    document.addEventListener("keyup", onKeyUp);
 }
 
 function gameLoop() {
+    let gameBoardBuf = gameCommunication.getGameBoards();
+
+    //console.log(gameBoardBuf);
+
+    for(let i=0; i<gameBoardBuf.length; i++) {
+        GAME_BOARDS[i] = gameBoardBuf[i].slice();
+    }
+
     drawFields();
 
     window.requestAnimationFrame(gameLoop);
+}
+
+function onKeyDown(e) {
+    // noinspection JSIgnoredPromiseFromCall
+    gameCommunication.sendKey(e.code, true);
+}
+
+function onKeyUp(e) {
+    // noinspection JSIgnoredPromiseFromCall
+    gameCommunication.sendKey(e.code, false);
 }
 
 function onResize(e) {
@@ -113,6 +145,7 @@ function setSizeStuff(playerId) {
 function drawFields() {
     for (let i = 0; i < AMOUNT_OF_PLAYERS; i++) {
         c = document.getElementById("userField_" + (i+1).toString());
+        c.classList.remove("hidden");
         ctx = c.getContext("2d");
 
         setSizeStuff(i+1);
@@ -160,7 +193,11 @@ function createGameBoard() {
 function drawGameBoard(playerID) {
      for (let i = 0; i < GAME_BOARD_HEIGHT; i ++) {
          for (let j = 0; j < GAME_BOARD_WIDTH; j ++) {
-            ctx.drawImage(tiles.get(GAME_BOARDS[playerID][i][j]), j * BLOCK + GAME_BOARD_SPACING, i * BLOCK, BLOCK, BLOCK)
+           if (GAME_BOARDS[playerID][i][j] !== null) {
+               ctx.drawImage(tiles.get(GAME_BOARDS[playerID][i][j]), j * BLOCK + GAME_BOARD_SPACING, i * BLOCK, BLOCK, BLOCK)
+           } else {
+               ctx.drawImage(IMAGES.unbreakableTile, j * BLOCK + GAME_BOARD_SPACING, i * BLOCK, BLOCK, BLOCK)
+           }
          }
      }
 }

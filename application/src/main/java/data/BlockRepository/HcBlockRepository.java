@@ -1,66 +1,66 @@
-package data.BlockRepository;
+package data.blockrepository;
 
 import domain.game.Block;
 
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Implementation of BlockRepository.
+ */
 public class HcBlockRepository implements BlockRepository {
-    private int nextID = 1;
-
     private static final Boolean[][] PATTERN_LINE = {
-            {true, true, true, true}
+            {true, true, true, true},
     };
 
     private static final Boolean[][] PATTERN_L_1 = {
             {true, false, false},
-            {true, true, true}
+            {true, true, true},
     };
 
     private static final Boolean[][] PATTERN_L_2 = {
             {false, false, true},
-            {true, true, true}
+            {true, true, true},
     };
 
     private static final Boolean[][] PATTERN_SQUARE = {
             {true, true},
-            {true, true}
+            {true, true},
     };
 
     private static final Boolean[][] PATTERN_ZIGZAG_1 = {
             {false, true, true},
-            {true, true, false}
+            {true, true, false},
     };
 
     private static final Boolean[][] PATTERN_ZIGZAG_2 = {
             {true, true, false},
-            {false, true, true}
+            {false, true, true},
     };
 
     private static final Boolean[][] PATTERN_T = {
             {false, true, false},
-            {true, true, true}
+            {true, true, true},
     };
 
     private static final Boolean[][] PATTERN_CROSS = {
             {false, true, false},
             {true, true, true},
-            {false, true, false}
+            {false, true, false},
     };
 
     private static final Boolean[][] PATTERN_TEA = {
             {true, true, true},
             {false, true, false},
-            {false, true, false}
+            {false, true, false},
     };
     private static final Boolean[][] PATTERN_HORSESHOE = {
             {true, false, true},
-            {true, true, true}
+            {true, true, true},
     };
 
-
-
-    private Set<Block> blocks = new HashSet<>();
+    private int nextID = 1;
+    private final Set<Block> blocks = new HashSet<>();
 
     public HcBlockRepository() {
         registerBlock(PATTERN_LINE, "LINE");
@@ -75,8 +75,7 @@ public class HcBlockRepository implements BlockRepository {
         registerBlock(PATTERN_HORSESHOE, "HORSESHOE");
     }
 
-    @SuppressWarnings("WeakerAccess")
-    public void registerBlock(Boolean[][] pattern, String name) {
+    public void registerBlock(final Boolean[][] pattern, final String name) {
         blocks.add(new Block(nextID, pattern, name));
         nextID++;
     }
@@ -88,7 +87,7 @@ public class HcBlockRepository implements BlockRepository {
 
     @Override
     public Block getRandomBlock() {
-        double r = Math.random();
+        final double r = Math.random();
 
         return (Block) blocks.toArray()[Math.toIntExact(Math.round(r * (blocks.size() - 1)))];
     }

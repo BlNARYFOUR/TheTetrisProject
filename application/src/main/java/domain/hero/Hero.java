@@ -2,6 +2,9 @@ package domain.hero;
 
 import java.util.Objects;
 
+/**
+ * Hero class.
+ */
 public class Hero {
     private int heroID;
     private String heroName;
@@ -9,7 +12,8 @@ public class Hero {
     private boolean heroAbilityNegative;
     private int cost;
 
-    public Hero(int heroID, String heroName, String heroAbility, boolean heroAbilityNegative, int cost) {
+    public Hero(final int heroID, final String heroName, final String heroAbility,
+                final boolean heroAbilityNegative, final int cost) {
         this.heroID = heroID;
         this.heroName = heroName;
         this.heroAbility = heroAbility;
@@ -17,20 +21,17 @@ public class Hero {
         this.cost = cost;
     }
 
-    public Hero(String heroName, String heroAbility,  boolean heroAbilityNegative, int cost) {
+    public Hero(final String heroName, final String heroAbility, final boolean heroAbilityNegative, final int cost) {
         this(-1, heroName, heroAbility, heroAbilityNegative, cost);
     }
 
-    public int getHeroID() {
+    private int getHeroID() {
         return heroID;
     }
 
-    public boolean setHeroID(int heroID) {
-        if(this.heroID < 0) {
+    public void setHeroID(final int heroID) {
+        if (this.heroID < 0) {
             this.heroID = heroID;
-            return true;
-        } else {
-            return false;
         }
     }
 
@@ -38,7 +39,7 @@ public class Hero {
         return heroName;
     }
 
-    public void setHeroName(String heroName) {
+    public void setHeroName(final String heroName) {
         this.heroName = heroName;
     }
 
@@ -46,7 +47,7 @@ public class Hero {
         return heroAbility;
     }
 
-    public void setHeroAbility(String heroAbility) {
+    public void setHeroAbility(final String heroAbility) {
         this.heroAbility = heroAbility;
     }
 
@@ -54,7 +55,7 @@ public class Hero {
         return cost;
     }
 
-    public void setCost(int cost) {
+    public void setCost(final int cost) {
         this.cost = cost;
     }
 
@@ -62,25 +63,29 @@ public class Hero {
         return heroAbilityNegative;
     }
 
-    public void setHeroAbilityNegative(boolean heroAbilityNegative) {
+    public void setHeroAbilityNegative(final boolean heroAbilityNegative) {
         this.heroAbilityNegative = heroAbilityNegative;
     }
 
     @Override
     public String toString() {
         return "Selected " + getHeroID() + " hero: " + getHeroName() + " ability: "
-                + getHeroAbility() + " heroAbilityNegative? : " + isHeroAbilityNegative() +
-                " cost: " + getCost();
+                + getHeroAbility() + " heroAbilityNegative? : " + isHeroAbilityNegative()
+                + " cost: " + getCost();
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Hero hero = (Hero) o;
-        return heroID == hero.heroID &&
-                Objects.equals(heroName, hero.heroName) &&
-                Objects.equals(heroAbility, hero.heroAbility);
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        final Hero hero = (Hero) o;
+        return heroID == hero.heroID
+                && Objects.equals(heroName, hero.heroName)
+                && Objects.equals(heroAbility, hero.heroAbility);
     }
 
     @Override

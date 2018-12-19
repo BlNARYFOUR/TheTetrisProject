@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import data.Repositories;
-import data.loggedInRepository.LoggedInRepository;
+import data.loggedinrepository.LoggedInRepository;
 import domain.User;
 import domain.game.events.EventHandler;
 import domain.game.matchmaking.Match;
@@ -20,55 +20,64 @@ import util.MatchableException;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * Game class.
+ */
 public class Game {
-    static final int PLAYING_FIELD_WIDTH = 10;
-    static final int PLAYING_FIELD_HEIGHT = 18;
+    protected static final int PLAYING_FIELD_WIDTH = 10;
+    protected static final int PLAYING_FIELD_HEIGHT = 18;
+    private static final String ERROR = "<ERROR>";
 
     private static LoggedInRepository repo = Repositories.getInstance().getLoggedInRepository();
 
     private static final String SALT = "A1fj65mg<2eigo";
-    private static int nextGameID = 0;
+    private static int nextGameID;
 
-    private int gameID;
+    private final int gameID;
     private int nextPlayerID;
-    private ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
-    private List<Player> players;
+    private final List<Player> players;
     private MessageConsumer<Object> consumer;
 
-    private EventHandler eventHandler;
+    private final EventHandler eventHandler;
 
-    public Game(Match match) {
-        Set<User> users = match.getUsers();
+    public Game(final Match match) {
         players = new ArrayList<>();
         gameID = nextGameID;
-        nextGameID++;
+        increaseNextGameID();
         nextPlayerID = 0;
+        final Set<User> users = match.getUsers();
 
         setupListener();
 
         this.eventHandler = new EventHandler(players);
 
         users.forEach(user -> {
-            Player player = new Player(nextPlayerID, user, repo.getSessionID(user), getGameAddress(), eventHandler);
+            final Player player = new Player(nextPlayerID, user, repo.getSessionID(user),
+                    genGameAddress(), eventHandler);
             players.add(player);
             nextPlayerID++;
         });
 
     }
 
-    private void setupListener() {
-        Context context = Vertx.currentContext();
-        EventBus eb = context.owner().eventBus();
-        Logger.warn("SETUP: tetris-16.socket.server.ready." + getGameAddress());
-        consumer = eb.consumer("tetris-16.socket.server.ready." + getGameAddress(), this::readyHandler);
+    private static void increaseNextGameID() {
+        nextGameID++;
     }
 
-    private int getPlayerIdBySession(String session) {
+    private void setupListener() {
+        final Context context = Vertx.currentContext();
+        final EventBus eb = context.owner().eventBus();
+        Logger.warn("SETUP: tetris-16.socket.server.ready." + Hash.md5(SALT + gameID));
+        consumer = eb.consumer("tetris-16.socket.server.ready." + Hash.md5(SALT + gameID), this::readyHandler);
+    }
+
+    private int getPlayerIdBySession(final String session) {
         int playerId = -1;
 
-        for(Player player : players) {
-            if(player.getSession().equals(session)) {
+        for (Player player : players) {
+            if (player.getSession().equals(session)) {
                 playerId = player.getPlayerID();
             }
         }
@@ -76,16 +85,16 @@ public class Game {
         return playerId;
     }
 
-    private void readyHandler(Message message) {
+    private void readyHandler(final Message message) {
         Map<String, Object> data = null;
 
         try {
-            data = objectMapper.readValue(message.body().toString(), new TypeReference<Map<String, Object>>(){});
+            data = objectMapper.readValue(message.body().toString(), new TypeReference<Map<String, Object>>() { });
         } catch (IOException e) {
-            throw new MatchableException("json in readyHandler not valid!");
+            throw new MatchableException("json in readyHandler not valid!", e);
         }
 
-        String sessionID = String.valueOf(data.getOrDefault("session", "<ERROR>"));
+        final String sessionID = String.valueOf(data.getOrDefault("session", ERROR));
 
         Logger.info("Game " + gameID + " got a ready-state for " + sessionID);
 
@@ -96,26 +105,26 @@ public class Game {
         data.put("playerId", getPlayerIdBySession(sessionID));
         //data.put("amountOfPlayers", players.size());
 
-        String json = "<ERROR>";
+        String json = ERROR;
 
         try {
             json = objectMapper.writeValueAsString(data);
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
+            Logger.warn(e.getMessage());
         }
 
         message.reply(json);
 
         boolean allReady = true;
 
-        for(Player player : players) {
-            if(!player.isReady()) {
+        for (Player player : players) {
+            if (!player.isReady()) {
                 allReady = false;
                 break;
             }
         }
 
-        if(allReady) {
+        if (allReady) {
             Logger.info("All ready!!");
             startGame();
             disableReadyHandler();
@@ -130,7 +139,7 @@ public class Game {
         consumer.unregister();
     }
 
-    public String getGameAddress() {
+    public String genGameAddress() {
         return Hash.md5(SALT + gameID);
     }
 
@@ -139,10 +148,14 @@ public class Game {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Game game = (Game) o;
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        final Game game = (Game) o;
         return gameID == game.gameID;
     }
 

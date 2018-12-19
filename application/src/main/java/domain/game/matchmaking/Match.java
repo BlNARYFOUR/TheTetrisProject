@@ -6,14 +6,17 @@ import domain.game.modes.GameMode;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Match used for matchHandling.
+ */
 public class Match {
-    private final int MAX_USERS;
+    private final int maxUsers;
     private GameMode gameMode;
-    private Set<User> users;
+    private final Set<User> users;
 
-    public Match(GameMode gameMode, int maxUsers) {
+    Match(final GameMode gameMode, final int maxUsers) {
         setGameMode(gameMode);
-        MAX_USERS = maxUsers;
+        this.maxUsers = maxUsers;
         users = new HashSet<>();
     }
 
@@ -21,7 +24,7 @@ public class Match {
         return gameMode;
     }
 
-    private void setGameMode(GameMode gameMode) {
+    private void setGameMode(final GameMode gameMode) {
         this.gameMode = gameMode;
     }
 
@@ -29,12 +32,14 @@ public class Match {
         return new HashSet<>(users);
     }
 
-    private void setUsers(Set<User> users) {
+    /*
+    private void setUsers(final Set<User> users) {
         this.users = users;
     }
+    */
 
-    public boolean addUser(User user) {
-        if(MAX_USERS <= users.size()) {
+    public boolean addUser(final User user) {
+        if (maxUsers <= users.size()) {
             return false;
         } else {
             users.add(user);
@@ -44,10 +49,10 @@ public class Match {
 
     @Override
     public String toString() {
-        return "Match{" +
-                "MAX_USERS=" + MAX_USERS +
-                ", gameMode=" + gameMode +
-                ", users=" + users +
-                '}';
+        return "Match{"
+                + "maxUsers=" + maxUsers
+                + ", gameMode=" + gameMode
+                + ", users=" + users
+                + '}';
     }
 }

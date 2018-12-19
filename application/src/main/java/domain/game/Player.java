@@ -19,12 +19,20 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * Player class.
+ * Every player runs there own game loop.
+ */
+@SuppressWarnings("PMD")
 public class Player {
     private static final int BEGIN_MOVEMENT_TIME = 750;
     private static final int FULL_LINE_POINTS = 10;
     private static final int SUPER_SONIC_POINTS = 5;
 
     private static final long FAST_MOVEMENT_TIME = 25;
+
+    private static final String ARROW_DOWN = "ArrowDown";
+    private static final String KEY_S = "KeyS";
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
@@ -37,7 +45,7 @@ public class Player {
     private boolean isDead;
     private Integer[][] playingField;
 
-    private FallingBlock holdFallingBlock;
+    //private FallingBlock holdFallingBlock;
     private FallingBlock nextFallingBlock;
     private FallingBlock fallingBlock;
 
@@ -75,17 +83,54 @@ public class Player {
     }
 
     void startPlaying() {
-        Context context = Vertx.currentContext();
+        final Context context = Vertx.currentContext();
         periodicID = context.owner().setPeriodic(Math.round(normalMovementTime), this::updateCycle);
         //updateCycle(0);
         setupListener();
     }
 
     private void setupListener() {
-        Context context = Vertx.currentContext();
-        EventBus eb = context.owner().eventBus();
+        final Context context = Vertx.currentContext();
+        final EventBus eb = context.owner().eventBus();
         Logger.warn(address);
         consumer = eb.consumer(address, this::gameHandler);
+    }
+
+    private void switchOnKeyDown(String key) {
+        switch (key) {
+            case "ArrowLeft":
+            case "KeyA":
+                goLeft();
+                break;
+            case "ArrowRight":
+            case "KeyD":
+                goRight();
+                break;
+            case "KeyW":
+            case "ArrowUp":
+                rotate();
+                break;
+            case KEY_S:
+            case ARROW_DOWN:
+                goSonic();
+                break;
+            case "Space":
+                goSuperSonic();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void switchOnKeyUp(String key) {
+        switch (key) {
+            case KEY_S:
+            case ARROW_DOWN:
+                stopSonic();
+                break;
+            default:
+                break;
+        }
     }
 
     private void gameHandler(Message message) {
@@ -96,48 +141,19 @@ public class Player {
         Map<String, Object> data = null;
 
         try {
-            data = objectMapper.readValue(message.body().toString(), new TypeReference<Map<String, Object>>(){});
+            data = objectMapper.readValue(message.body().toString(), new TypeReference<Map<String, Object>>() { });
         } catch (IOException e) {
             throw new MatchableException("json in readyHandler not valid!");
         }
 
         try {
-            String key = (String) data.get("key");
-            Boolean isKeyDown = (Boolean) data.get("state");
+            final String key = (String) data.get("key");
+            final Boolean isKeyDown = (Boolean) data.get("state");
 
-            if(!this.isKeyDown) {
-                switch (key) {
-                    case "ArrowLeft":
-                    case "KeyA":
-                        goLeft();
-                        break;
-                    case "ArrowRight":
-                    case "KeyD":
-                        goRight();
-                        break;
-                    case "KeyW":
-                    case "ArrowUp":
-                        rotate();
-                        break;
-                    case "KeyS":
-                    case "ArrowDown":
-                        goSonic();
-                        break;
-                    case "Space":
-                        goSuperSonic();
-                        break;
-                    default:
-                        break;
-                }
+            if (!this.isKeyDown) {
+                switchOnKeyDown(key);
             } else {
-                switch (key) {
-                    case "KeyS":
-                    case "ArrowDown":
-                        stopSonic();
-                        break;
-                    default:
-                        break;
-                }
+                switchOnKeyUp(key);
             }
 
             this.isKeyDown = isKeyDown;
@@ -150,21 +166,21 @@ public class Player {
     }
 
     private void goRight() {
-        if(!checkCollision(fallingBlock, fallingBlock.getX()+1, fallingBlock.getY())) {
+        if (!checkCollision(fallingBlock, fallingBlock.getX() + 1, fallingBlock.getY())) {
             fallingBlock.goRight();
         }
     }
 
     private void goLeft() {
-        if(!checkCollision(fallingBlock, fallingBlock.getX()-1, fallingBlock.getY())) {
+        if (!checkCollision(fallingBlock, fallingBlock.getX() - 1, fallingBlock.getY())) {
             fallingBlock.goLeft();
         }
     }
 
     private void rotate() {
-        FallingBlock rotatedBlock = new FallingBlock(fallingBlock.rotate());
+        final FallingBlock rotatedBlock = new FallingBlock(fallingBlock.rotate());
 
-        if(!checkCollision(rotatedBlock, fallingBlock.getX(), fallingBlock.getY())) {
+        if (!checkCollision(rotatedBlock, fallingBlock.getX(), fallingBlock.getY())) {
             //Logger.warn("Rotate: did not collide!");
             fallingBlock.applyRotation();
         }
@@ -187,7 +203,7 @@ public class Player {
         do {
             placed = nextBlockFall();
             levels++;
-        } while(!placed);
+        } while (!placed);
 
         score += levels * SUPER_SONIC_POINTS;
     }
@@ -209,18 +225,19 @@ public class Player {
     public boolean nextBlockFall() {
         boolean isNew = false;
 
-        if(checkCollision(fallingBlock, fallingBlock.getX(), fallingBlock.getY() + 1)) {
+        if (checkCollision(fallingBlock, fallingBlock.getX(), fallingBlock.getY() + 1)) {
             isNew = true;
-            placeBlock(fallingBlock, fallingBlock.getX(), fallingBlock.getY(), fallingBlock.getID());
+            placeBlock(fallingBlock, fallingBlock.getX(), fallingBlock.getY(), fallingBlock.getId());
 
-            if(fallingBlock.getY() <= 0) {
+            if (fallingBlock.getY() <= 0) {
                 die();
             } else {
                 fallingBlock = nextFallingBlock;
                 getNextFallingBlock();
-                boolean hasScored = checkAndScoreFullRows();
+                final boolean hasScored = checkAndScoreFullRows();
+                Logger.debug(hasScored);
 
-                if(10*level <= amountOfScoredLines) {
+                if (10 * level <= amountOfScoredLines) {
                     level++;
                     normalMovementTime /= 1.5;
                     updateSpeed();
@@ -234,25 +251,25 @@ public class Player {
     }
 
     private Integer[][] getPlayingFieldWithFallingBlock() {
-        Integer[][] pwfb = new Integer[playingField.length][];
-        boolean collided = checkCollision(fallingBlock, fallingBlock.getX(), fallingBlock.getY());
+        final Integer[][] pwfb = new Integer[playingField.length][];
+        final boolean collided = checkCollision(fallingBlock, fallingBlock.getX(), fallingBlock.getY());
 
-        final int MAX_HEIGHT = fallingBlock.getPattern().length;
-        final int MAX_WIDTH = fallingBlock.getPattern()[0].length;
+        final int maxHeight = fallingBlock.getPattern().length;
+        final int maxWidth = fallingBlock.getPattern()[0].length;
 
         for (int i = 0; i < playingField.length; i++) {
             pwfb[i] = new Integer[playingField[i].length];
 
             for (int j = 0; j < playingField[i].length; j++) {
-                int yDiff = i - fallingBlock.getY();
-                int xDiff = j - fallingBlock.getX();
+                final int yDiff = i - fallingBlock.getY();
+                final int xDiff = j - fallingBlock.getX();
 
                 //System.out.println(yDiff + " " + xDiff);
 
-                if((0 <= yDiff && 0 <= xDiff) && (yDiff < MAX_HEIGHT && xDiff < MAX_WIDTH)) {
+                if ((0 <= yDiff && 0 <= xDiff) && (yDiff < maxHeight && xDiff < maxWidth)) {
                     //System.out.println("Gets here");
                     if (fallingBlock.getPattern()[yDiff][xDiff] && !collided) {
-                        pwfb[i][j] = fallingBlock.getID();
+                        pwfb[i][j] = fallingBlock.getId();
                     } else {
                         pwfb[i][j] = playingField[i][j];
                     }
@@ -266,10 +283,10 @@ public class Player {
     }
 
     private void sendUpdate() {
-        Context context = Vertx.currentContext();
-        EventBus eb = context.owner().eventBus();
+        final Context context = Vertx.currentContext();
+        final EventBus eb = context.owner().eventBus();
 
-        Map<String, Object> data = new HashMap<>();
+        final Map<String, Object> data = new HashMap<>();
         data.put("playingField", getPlayingFieldWithFallingBlock());
         data.put("playerId", playerID);
 
@@ -287,6 +304,7 @@ public class Player {
     }
 
     private void updateSpeed() {
+        Logger.warn("Speed updated! Lines scored: " + amountOfScoredLines + " Level: " + level);
         Vertx.currentContext().owner().cancelTimer(periodicID);
         periodicID = Vertx.currentContext().owner().setPeriodic(Math.round(normalMovementTime), this::updateCycle);
     }
@@ -297,10 +315,11 @@ public class Player {
 
     private void die() {
         Logger.warn("Die NYI");
-        Context context = Vertx.currentContext();
+        final Context context = Vertx.currentContext();
         Logger.warn("Periodic: " + periodicID);
         context.owner().cancelTimer(periodicID);
         disable();
+        Logger.debug(isDead);
         isDead = true;
     }
 
@@ -311,12 +330,12 @@ public class Player {
 
         int totalLines = 0;
 
-        for(int i=0; i<playingField.length; i++) {
+        for (int i = 0; i < playingField.length; i++) {
             totalLineScore = 0;
             isFullLine = true;
-            for(int j=0; j<playingField[i].length; j++) {
+            for (int j = 0; j < playingField[i].length; j++) {
                 if (playingField[i][j] != null) {
-                    if(0 < playingField[i][j]) {
+                    if (0 < playingField[i][j]) {
                         totalLineScore += playingField[i][j];
                     } else {
                         isFullLine = false;
@@ -327,12 +346,12 @@ public class Player {
 
             }
 
-            if(isFullLine) {
+            if (isFullLine) {
                 dropTopLayers(i);
                 hasScored = true;
                 score += totalLineScore * FULL_LINE_POINTS;
                 amountOfScoredLines++;
-                totalLines ++;
+                totalLines++;
             }
         }
 
@@ -352,24 +371,24 @@ public class Player {
     private void emptyLine(int lineHeight) {
         playingField[lineHeight] = new Integer[Game.PLAYING_FIELD_WIDTH];
 
-        for(int j=0; j<Game.PLAYING_FIELD_WIDTH; j++) {
+        for (int j = 0; j < Game.PLAYING_FIELD_WIDTH; j++) {
             playingField[lineHeight][j] = 0;
         }
     }
 
-    private boolean checkCollision (Block block, int x, int y) {
+    private boolean checkCollision(Block block, int x, int y) {
         boolean collided = false;
 
-        Boolean[][] blockPattern = block.getPattern();
+        final Boolean[][] blockPattern = block.getPattern();
 
-        final int MAX_HEIGHT = blockPattern.length;
-        final int MAX_WIDTH = blockPattern[0].length;
+        final int maxHeight = blockPattern.length;
+        final int maxWidth = blockPattern[0].length;
 
-        if(x+MAX_WIDTH <= Game.PLAYING_FIELD_WIDTH && y+MAX_HEIGHT <= Game.PLAYING_FIELD_HEIGHT && x >= 0) {
-            for(int i=0; i<MAX_HEIGHT; i++) {
-                for (int j = 0; j < MAX_WIDTH; j++) {
-                    if (playingField[y+i][x+j] != null) {
-                        if(blockPattern[i][j] && 0 < playingField[y+i][x+j]) {
+        if (x + maxWidth <= Game.PLAYING_FIELD_WIDTH && y + maxHeight <= Game.PLAYING_FIELD_HEIGHT && x >= 0) {
+            for (int i = 0; i < maxHeight; i++) {
+                for (int j = 0; j < maxWidth; j++) {
+                    if (playingField[y + i][x + j] != null) {
+                        if (blockPattern[i][j] && 0 < playingField[y + i][x + j]) {
                             collided = true;
                         }
                     } else {
@@ -385,13 +404,13 @@ public class Player {
     }
 
     private void placeBlock(Block block, int x, int y, int colorIndex) {
-        final int MAX_HEIGHT = block.getPattern().length;
-        final int MAX_WIDTH = block.getPattern()[0].length;
+        final int maxHeight = block.getPattern().length;
+        final int maxWidth = block.getPattern()[0].length;
 
-        if(!checkCollision(block, x, y)) {
+        if (!checkCollision(block, x, y)) {
             //System.out.println("Placed!");
-            for (int i = 0; i < MAX_HEIGHT; i++) {
-                for (int j = 0; j < MAX_WIDTH; j++) {
+            for (int i = 0; i < maxHeight; i++) {
+                for (int j = 0; j < maxWidth; j++) {
                     if (block.getPattern()[i][j]) {
                         //System.out.println("Gets here: " + (y + i) + " " + (x + j) + " ID: " + colorIndex);
                         playingField[y + i][x + j] = colorIndex;
@@ -417,11 +436,15 @@ public class Player {
         return fallingBlock;
     }
 
+    private Integer[] createRow() {
+        return new Integer[Game.PLAYING_FIELD_WIDTH];
+    }
+
     private void createPlayingFields() {
         playingField = new Integer[Game.PLAYING_FIELD_HEIGHT][];
 
         for (int y = 0; y < Game.PLAYING_FIELD_HEIGHT; y++) {
-            playingField[y] = new Integer[Game.PLAYING_FIELD_WIDTH];
+            playingField[y] = createRow();
         }
 
         //System.out.println("PLayingfield length: " + playingField.length);
@@ -450,14 +473,22 @@ public class Player {
     }
 
     public Integer[][] getPlayingField() {
-        return playingField;
+        return playingField.clone();
+    }
+
+    public void setPlayingField(int x, int y, Integer value) {
+        playingField[y][x] = value;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Player player = (Player) o;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        final Player player = (Player) o;
         return playerID == player.playerID;
     }
 
@@ -468,26 +499,26 @@ public class Player {
 
     @Override
     public String toString() {
-        return "Player{" +
-                "user=" + user +
-                ", address='" + address + '\'' +
-                '}';
+        return "Player{"
+                + "user=" + user
+                + ", address='" + address + '\''
+                + '}';
     }
 
     public String playingFieldWithFallingBlock() {
-        StringBuilder sb = new StringBuilder();
+        final StringBuilder sb = new StringBuilder();
 
-        final int MAX_HEIGHT = fallingBlock.getPattern().length;
-        final int MAX_WIDTH = fallingBlock.getPattern()[0].length;
+        final int maxHeight = fallingBlock.getPattern().length;
+        final int maxWidth = fallingBlock.getPattern()[0].length;
 
         for (int i = 0; i < playingField.length; i++) {
             for (int j = 0; j < playingField[i].length; j++) {
-                int yDiff = i - fallingBlock.getY();
-                int xDiff = j - fallingBlock.getX();
+                final int yDiff = i - fallingBlock.getY();
+                final int xDiff = j - fallingBlock.getX();
 
                 //System.out.println(yDiff + " " + xDiff);
 
-                if((0 <= yDiff && 0 <= xDiff) && (yDiff < MAX_HEIGHT && xDiff < MAX_WIDTH)) {
+                if ((0 <= yDiff && 0 <= xDiff) && (yDiff < maxHeight && xDiff < maxWidth)) {
                     //System.out.println("Gets here");
                     if (fallingBlock.getPattern()[yDiff][xDiff]) {
                         sb.append('F');
