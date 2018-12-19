@@ -29,13 +29,13 @@ function showDailyRewards(e) {
 
             // TODO dit is momenteel totdat ik alle foto's heb dan maak ik 1 path
             if (rewards[i] === "cubes"){
-                photo = "../assets/media/daily_streaks/cubes.png";
+                photo = "/static/assets/media/daily_streaks/cubes.png";
             } else if (rewards[i] === "xp"){
-                photo = "../assets/media/daily_streaks/xp.png";
+                photo = "/static/assets/media/daily_streaks/xp.png";
             } else if (rewards[i] === "scratch_card"){
-                photo = "../assets/media/daily_streaks/retroBlocks.png";
+                photo = "/static/assets/media/daily_streaks/retroBlocks.png";
             } else if (rewards[i] === "mystery_box"){
-                photo = "../assets/media/daily_streaks/retroBlocks.png";
+                photo = "/static/assets/media/daily_streaks/retroBlocks.png";
             }
 
             if (severalDaysLoggedIn >= i){
