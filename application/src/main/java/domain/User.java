@@ -8,6 +8,7 @@ import util.UserException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
@@ -15,9 +16,8 @@ import java.util.Objects;
  * User class.
  */
 public class User {
-    private Date now = new Date();
-    private SimpleDateFormat dateFormat = new SimpleDateFormat(DateFormat.YODA_TIME.toString());
-
+    //private final Date now = new Date();
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat(DateFormat.YODA_TIME.toString(), Locale.GERMANY);
 
     private int id;
     private String username;
@@ -38,13 +38,13 @@ public class User {
 
     private String heroName;
 
-    public User(int id, String username, String password) {
+    public User(final int id, final String username, final String password) {
         this.id = id;
         this.username = username;
         this.password = password;
     }
 
-    public User(String username, String password) {
+    public User(final String username, final String password) {
         this(-1, username, password);
     }
 
@@ -52,8 +52,8 @@ public class User {
         this("TEST", "TESTIE");
     }
 
-    public User(int id, String username, String registerDate, String beginDate,
-                String nextDate, int dailyStreakId, boolean alreadyLoggedIn) {
+    public User(final int id, final String username, final String registerDate, final String beginDate,
+                final String nextDate, final int dailyStreakId, final boolean alreadyLoggedIn) {
         this.id = id;
         this.username = username;
         this.dailyStreakId = dailyStreakId;
@@ -87,14 +87,18 @@ public class User {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(final int id) {
         if (this.id < 0) {
             this.id = id;
         }
     }
 
-    public void selectHero(String heroName) {
+    public void selectHero(final String heroName) {
         this.heroName = heroName;
+    }
+
+    public String getHeroName() {
+        return this.heroName;
     }
 
     public String getUsername() {
@@ -105,11 +109,11 @@ public class User {
         return password;
     }
 
-    public void setUsername(String username) {
+    public void setUsername(final String username) {
         this.username = username;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(final String password) {
         this.password = password;
     }
 
@@ -117,11 +121,11 @@ public class User {
         return highScores;
     }
 
-    public int getHighScore(GameMode gameMode) {
+    public int getHighScore(final GameMode gameMode) {
         return highScores.getOrDefault(gameMode, -1);
     }
 
-    public void setHighScore(GameMode gameMode, int highScore) {
+    public void setHighScore(final GameMode gameMode, final int highScore) {
         if (!highScores.containsKey(gameMode)) {
             highScores.put(gameMode, highScore);
         } else {
@@ -136,7 +140,7 @@ public class User {
         return gameRanking;
     }
 
-    public void setGameRanking(int gameRanking) {
+    public void setGameRanking(final int gameRanking) {
         this.gameRanking = gameRanking;
     }
 
@@ -157,7 +161,7 @@ public class User {
         return dailyStreakId;
     }
 
-    public void setDailyStreakId(int dailyStreakId) {
+    public void setDailyStreakId(final int dailyStreakId) {
         this.dailyStreakId = dailyStreakId;
     }
 
@@ -165,7 +169,7 @@ public class User {
         return alreadyLoggedIn;
     }
 
-    public void setAlreadyLoggedIn(boolean alreadyLoggedIn) {
+    public void setAlreadyLoggedIn(final boolean alreadyLoggedIn) {
         this.alreadyLoggedIn = alreadyLoggedIn;
     }
 
@@ -173,7 +177,7 @@ public class User {
         return loginDate;
     }
 
-    public void setLoginDate(Date loginDate) {
+    public void setLoginDate(final Date loginDate) {
         this.loginDate = loginDate;
     }
 
@@ -183,7 +187,7 @@ public class User {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) {
             return true;
         }

@@ -10,8 +10,8 @@ import data.heroesRepository.HeroesRepository;
 import data.heroesRepository.MySqlHeroesRepository;
 import data.loggedInRepository.HcLoggedInRepository;
 import data.loggedInRepository.LoggedInRepository;
-import data.loginRepository.LoginRepository;
-import data.loginRepository.MySqlLoginRepository;
+import data.loginrepository.LoginRepository;
+import data.loginrepository.MySqlLoginRepository;
 
 /**
  * Instance with all Usable Repositories.

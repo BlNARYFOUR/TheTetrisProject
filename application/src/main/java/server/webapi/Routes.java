@@ -2,7 +2,7 @@ package server.webapi;
 
 import data.loggedInRepository.LoggedInRepository;
 import data.Repositories;
-import data.loginRepository.LoginRepository;
+import data.loginrepository.LoginRepository;
 import domain.User;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.ext.web.Cookie;
@@ -71,7 +71,6 @@ class Routes {
         session.put(PASSWORD, Hash.md5(user.getPassword()));
 
         //System.out.println("L " + session.get(USERNAME) + SPACE + session.get(PASSWORD));
-
         user = loginRepo.authenticateUser(session.get(USERNAME), session.get(PASSWORD), false);
 
         //System.out.println(user + " : " + loggedInRepo.getLoggedUser(session.id()));

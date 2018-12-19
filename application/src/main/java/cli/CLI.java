@@ -3,7 +3,7 @@ package cli;
 import cli.util.Ansi;
 import cli.util.CommandLineMenu;
 import data.TetrisRepository;
-import data.loginRepository.LoginRepository;
+import data.loginrepository.LoginRepository;
 import data.Repositories;
 import domain.User;
 import util.Hash;
@@ -80,6 +80,7 @@ public final class CLI {
         final String password = in.nextLine();
         repo.getUser(username);
         repo.authenticateUser(username, password);
+
         if (repo.getUser(username).getPassword().equals(Hash.md5(password))) {
             mainMenu.run();
         }
