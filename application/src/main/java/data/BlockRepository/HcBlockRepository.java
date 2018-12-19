@@ -1,4 +1,4 @@
-package data.BlockRepository;
+package data.blockrepository;
 
 import domain.game.Block;
 
