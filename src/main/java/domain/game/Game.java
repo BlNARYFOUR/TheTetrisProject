@@ -69,8 +69,8 @@ public class Game {
     private void setupListener() {
         final Context context = Vertx.currentContext();
         final EventBus eb = context.owner().eventBus();
-        Logger.warn("SETUP: tetris-16.socket.server.ready." + Hash.md5(SALT + gameID));
-        consumer = eb.consumer("tetris-16.socket.server.ready." + Hash.md5(SALT + gameID), this::readyHandler);
+        Logger.warn("SETUP: tetris.events.server.ready." + Hash.md5(SALT + gameID));
+        consumer = eb.consumer("tetris.events.server.ready." + Hash.md5(SALT + gameID), this::readyHandler);
     }
 
     private int getPlayerIdBySession(final String session) {

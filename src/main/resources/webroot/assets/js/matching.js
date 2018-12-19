@@ -6,8 +6,8 @@ let matching = function () {
     eb.onopen = function () {
         console.log("Connection Open");
 
-        console.warn("tetris.client.match." + cookies.getCookie("vertx-web.session"));
-        eb.registerHandler("tetris.client.match." + cookies.getCookie("vertx-web.session"), matchHandler);
+        console.warn("tetris.events.client.match." + cookies.getCookie("vertx-web.session"));
+        eb.registerHandler("tetris.events.client.match." + cookies.getCookie("vertx-web.session"), matchHandler);
     };
 
     function sendMatchRequest() {
@@ -21,7 +21,7 @@ let matching = function () {
             console.log("Match: reply: " + JSON.stringify(reply));
         };
 
-        eb.send("tetris.server.match", data, DONE_FUNC);
+        eb.send("tetris.events.server.match", data, DONE_FUNC);
     }
 
     eb.onclose = function () {

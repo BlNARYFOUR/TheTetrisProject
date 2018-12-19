@@ -12,9 +12,9 @@ let gameCommunication = function () {
 
     eb.onopen = function () {
         console.log("Connection Open");
-        console.warn("tetris.server.ready." + localStorage.getItem("game-address"));
+        console.warn("tetris.events.server.ready." + localStorage.getItem("game-address"));
 
-        eb.registerHandler("tetris.client.game." + localStorage.getItem("game-address"), gameHandler);
+        eb.registerHandler("tetris.events.client.game." + localStorage.getItem("game-address"), gameHandler);
     };
 
     function getGameBoards() {
@@ -74,7 +74,7 @@ let gameCommunication = function () {
             GAME.AMOUNT_OF_PLAYERS = localStorage.getItem("amountOfPlayers");
         };
 
-        eb.send("tetris.server.ready." + localStorage.getItem("game-address"), d, DONE_FUNC);
+        eb.send("tetris.events.server.ready." + localStorage.getItem("game-address"), d, DONE_FUNC);
         console.warn("SEND READY");
     }
 
@@ -91,7 +91,7 @@ let gameCommunication = function () {
             //console.warn("Ready: reply: " + JSON.stringify(reply));
         };
 
-        eb.send("tetris.server.game." + cookies.getCookie("vertx-web.session"), d, DONE_FUNC);
+        eb.send("tetris.events.server.game." + cookies.getCookie("vertx-web.session"), d, DONE_FUNC);
         //console.warn("SEND READY");
     }
 
