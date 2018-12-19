@@ -66,8 +66,13 @@ public class WebAPI extends AbstractVerticle {
         router.post(Config.STATIC_FILE_URL).handler(routes::loginHandler);
         router.post(Config.STATIC_FILE_URL + "/pages/register.html").handler(routes::registerHandler);
 
-        router.route(Config.STATIC_FILE_URL).handler(routes::rerouteWebrootHandler);
-        //router.route(Config.STATIC_FILE_URL + "/index.html").handler(routes::loginHandler);
+        router.route(Config.STATIC_FILE_URL).handler(
+                routingContext -> routes.rerouteSpecificHandler(routingContext, Routes.INDEX_REF)
+        );
+        router.route(Config.STATIC_FILE_URL + "/pages/register.html").handler(
+                routingContext -> routes.rerouteSpecificHandler(routingContext, Routes.REGISTER_REF)
+        );
+        router.route(Config.STATIC_FILE_URL + "/index.html").handler(routes::rerouteHandler);
 
         for (SecureFilePath secureFilePath : SecureFilePath.values()) {
             router.route(Config.STATIC_FILE_URL + secureFilePath).handler(routingContext ->
