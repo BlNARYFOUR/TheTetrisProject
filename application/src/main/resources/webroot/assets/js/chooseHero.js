@@ -6,7 +6,8 @@ let elementSelectables;
 let selectedHero;
 
 const SOUNDS = {
-    pikachu: createAudioObj("pikachu.mp3")
+    pikachu: createAudioObj("pikachu.mp3"),
+    donkeyKong: createAudioObj("donkeykong.wav")
 };
 
 function init() {
@@ -33,8 +34,8 @@ function createAudioObj(fileName) {
 function playSounds(hero) {
     if (hero === "pikachu") {
         SOUNDS.pikachu.play();
-    } else {
-        console.log("This is not pikachu!");
+    } else if (hero === "donkeykong") {
+        SOUNDS.donkeyKong.play();
     }
 }
 
