@@ -35,7 +35,7 @@ import java.util.Set;
  * All the communication setup and basic handlers.
  */
 public class WebAPI extends AbstractVerticle {
-    private static final String SOCKET_URL_DOT = Config.SOCKET_URL.replace('/', '.').substring(1);
+    private static final String SOCKET_URL_DOT = "tetris.events.";
 
     private final ObjectMapper objectMapper = new ObjectMapper();
     // private LoginRepository loginRepo = Repositories.getInstance().getLoginRepository();
@@ -60,7 +60,7 @@ public class WebAPI extends AbstractVerticle {
         // Make sure all requests are routed through the session handler too
         router.route().handler(sessionHandler);
 
-        //router.route("/").handler(routes::rootHandler);
+        router.route("/").handler(routes::rootHandler);
 
         router.route(Config.STATIC_FILE_URL + '*').handler(BodyHandler.create());
         router.post(Config.STATIC_FILE_URL).handler(routes::loginHandler);
@@ -76,7 +76,7 @@ public class WebAPI extends AbstractVerticle {
 
 
         router.route(Config.STATIC_FILE_URL + "/*").handler(StaticHandler.create());
-        router.route(Config.SOCKET_URL + '*').handler(new TetrisSockJSHandler(vertx).create());
+        router.route("/tetris-16/socket/*").handler(new TetrisSockJSHandler(vertx).create("tetris\\.events\\..+"));
         router.route(Config.REST_ENDPOINT + "logout").handler(routes::logoutHandler);
 
         //router.route("/static/pages/main_menu.html").handler(routes::dailyStreakHandler);

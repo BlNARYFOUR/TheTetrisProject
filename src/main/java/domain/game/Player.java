@@ -298,9 +298,9 @@ public class Player {
             e.printStackTrace();
         }
 
-        // Logger.info("Update to client! <3 : tetris-16.socket.client.game." + gameAddress);
+        // Logger.info("Update to client! <3 : tetris.events.client.game." + gameAddress);
 
-        eb.publish("tetris-16.socket.client.game." + gameAddress, json);
+        eb.publish("tetris.events.client.game." + gameAddress, json);
     }
 
     private void updateSpeed() {
@@ -429,7 +429,7 @@ public class Player {
     }
 
     private void setAddress(String sessionID) {
-        this.address = "tetris-16.socket.server.game." + sessionID;
+        this.address = "tetris.events.server.game." + sessionID;
     }
 
     public FallingBlock getFallingBlock() {
