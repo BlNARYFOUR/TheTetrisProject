@@ -1,0 +1,9 @@
+{
+  "components": {
+    "webapi.WebAPI": {
+      "options": {
+        "config": {"http.port": 8080}
+      }
+    }
+  }
+}
