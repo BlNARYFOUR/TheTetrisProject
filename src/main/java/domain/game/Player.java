@@ -60,6 +60,7 @@ public class Player {
     private MessageConsumer<Object> consumer;
 
     private EventHandler eventHandler;
+    private int timerAbility = HeroAbility.getTimerAbility();
 
     public Player(int playerID, User user, String sessionID, String gameAddress, EventHandler eventHandler) {
         setUser(user);
@@ -96,7 +97,7 @@ public class Player {
         consumer = eb.consumer(address, this::gameHandler);
     }
 
-    private void switchOnKeyDown(String key) {
+    private void switchOnKeyDown(String key, boolean heroActivated) {
         switch (key) {
             case "ArrowLeft":
             case "KeyA":
@@ -117,7 +118,13 @@ public class Player {
             case "Space":
                 goSuperSonic();
                 break;
-            default:
+            case "KeyR":
+                if (!heroActivated) {
+                    System.out.println("CAN");
+                    controleIfHeroCanBeActivated();
+                    break;
+                }
+                    default:
                 break;
         }
     }
@@ -151,10 +158,40 @@ public class Player {
             final Boolean isKeyDown = (Boolean) data.get("state");
 
             if (!this.isKeyDown) {
-                switchOnKeyDown(key);
+                switchOnKeyDown(key, true);
             } else {
                 switchOnKeyUp(key);
             }
+
+           /* if (HeroAbility.isSwitchingControls()){
+                if (HeroAbility.activatedID() == this.user.getId()){
+                    System.out.println("ACTIVATED");
+                    if (!this.isKeyDown) {
+                        switchOnKeyDown(key, true);
+                    } else {
+                        switchOnKeyUp(key);
+                    }
+                }else {
+                    timerAbility --;
+
+                    if (timerAbility == 0){
+                        HeroAbility.setActivatedHero(-1);
+                        HeroAbility.setSwitchingControls(false);
+                        timerAbility = 30;
+                    }
+
+                    System.out.println("Mixed");
+                    mixedControls(key);
+
+                }
+            }else {
+                System.out.println("NOT ACTIVATED");
+                if (!this.isKeyDown) {
+                    switchOnKeyDown(key, false);
+                } else {
+                    switchOnKeyUp(key);
+                }
+            }*/
 
             this.isKeyDown = isKeyDown;
         } catch (Exception e) {
@@ -164,6 +201,60 @@ public class Player {
         message.reply("GOT IT");
         sendUpdate();
     }
+
+    private void mixedControls(String key) {
+        if(!this.isKeyDown) {
+            switch (key) {
+                case "ArrowLeft":
+                case "KeyA":
+                    goRight();
+                    break;
+                case "ArrowRight":
+                case "KeyD":
+                    goLeft();
+                    break;
+                case "KeyW":
+                case "ArrowUp":
+                    goSuperSonic();
+                    break;
+                case "KeyS":
+                case "ArrowDown":
+                    rotate();
+                    break;
+                case "Space":
+                    stopSonic();
+                    break;
+                default:
+                    break;
+            }
+        } else {
+            switch (key) {
+                case "KeyS":
+                case "ArrowDown":
+                    goSonic();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+    }
+
+    private void controleIfHeroCanBeActivated() {
+        System.out.println("pressed on R");
+        System.out.println(score);
+
+        if (score < 500){
+            System.out.println("Not enough points to use hero ability");
+        }else {
+            System.out.println("Hero ability is activated");
+            score = score - 500;
+            HeroAbility.setSwitchingControls(true);
+            HeroAbility.setActivatedHero(this.user.getId());
+
+        }
+    }
+
 
     private void goRight() {
         if (!checkCollision(fallingBlock, fallingBlock.getX() + 1, fallingBlock.getY())) {
