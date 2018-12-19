@@ -69,11 +69,12 @@ public class WebAPI extends AbstractVerticle {
         router.route(Config.STATIC_FILE_URL).handler(routes::rerouteWebrootHandler);
         //router.route(Config.STATIC_FILE_URL + "/index.html").handler(routes::loginHandler);
 
+        router.route("/tetris-16/api/getHeroes").handler(routes::heroHandler);
+
         for (SecureFilePath secureFilePath : SecureFilePath.values()) {
             router.route(Config.STATIC_FILE_URL + secureFilePath).handler(routingContext ->
                     routes.secureHandler(routingContext, secureFilePath));
         }
-
 
         router.route(Config.STATIC_FILE_URL + "/*").handler(StaticHandler.create());
         router.route("/tetris-16/socket/*").handler(new TetrisSockJSHandler(vertx).create("tetris\\.events\\..+"));
