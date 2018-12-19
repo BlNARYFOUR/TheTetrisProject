@@ -19,14 +19,12 @@ repositories {
     mavenCentral()
 }
 
-processResources{
-    from "src/main/js"
-}
-
-sourceSets {
-    main {
-        resources {
-            srcDirs 'src/main/js'
+javascript.source {
+    dev {
+        js {
+            srcDir "src/main/resources/webroot/js"
+            include "*.js"
+            exclude "*.min.js"
         }
     }
 }
