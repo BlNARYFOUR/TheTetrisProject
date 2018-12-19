@@ -18,14 +18,14 @@ class TetrisSockJSHandler {
     }
 
     @SuppressWarnings("SameParameterValue")
-    protected SockJSHandler create(final String permittedAddress) {
+    SockJSHandler create(String permittedAddress) {
         addBridgeOptions(permittedAddress);
 
         Logger.info("Listening to socket");
         return sockJSHandler;
     }
 
-    private void addBridgeOptions(final String permittedAddress) {
+    private void addBridgeOptions(String permittedAddress) {
         // enkel regels op dit adres toestaan van front end naar back end
         final PermittedOptions inbound = new PermittedOptions().setAddressRegex(permittedAddress);
 

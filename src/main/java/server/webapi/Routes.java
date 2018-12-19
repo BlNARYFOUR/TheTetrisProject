@@ -42,7 +42,7 @@ class Routes {
                 .putHeader("content-type", "text/html")
                 .write("<h1>Wrong page amigo...</h1>"
                         + "<img src=static/images/facepalm.jpg>"
-                        + "<p>Goto <a href=static>here</a> instead</p>")
+                        + "<p>Goto <a href='static/'>here</a> instead</p>")
                 .end();
     }
 
@@ -169,13 +169,13 @@ class Routes {
             //System.out.println(session.id());
             final User user = loginRepo.authenticateUser(session.get(USERNAME), session.get(PASSWORD), false);
             if (!loggedInRepo.isUserLogged(session.id(), user) || user == null) {
-                response.headers().add(LOCATION, STATIC_REF);
+                response.headers().add(LOCATION, STATIC_REF + '/');
                 response.setStatusCode(302).end();
             } else {
                 response.sendFile("webroot" + filePath);
             }
         } catch (Exception ex) {
-            response.headers().add(LOCATION, STATIC_REF);
+            response.headers().add(LOCATION, STATIC_REF + '/');
             response.setStatusCode(302).end();
         }
     }
@@ -189,12 +189,12 @@ class Routes {
             final User user = loginRepo.authenticateUser(session.get(USERNAME), session.get(PASSWORD), false);
 
             if (!loggedInRepo.isUserLogged(session.id(), user) || user == null) {
-                response.headers().add(LOCATION, STATIC_REF);
+                response.headers().add(LOCATION, STATIC_REF + '/');
             } else {
                 response.headers().add(LOCATION, STATIC_REF + SecureFilePath.MAIN_MENU);
             }
         } catch (Exception ex) {
-            response.headers().add(LOCATION, STATIC_REF);
+            response.headers().add(LOCATION, STATIC_REF + '/');
         }
 
         response.setStatusCode(302).end();
@@ -226,7 +226,7 @@ class Routes {
 
         final HttpServerResponse response = routingContext.response();
         response.setChunked(true);
-        response.headers().add(LOCATION, STATIC_REF);
+        response.headers().add(LOCATION, STATIC_REF + '/');
         response.setStatusCode(302).end();
     }
 }
