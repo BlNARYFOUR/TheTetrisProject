@@ -330,12 +330,12 @@ public class Player {
 
         int totalLines = 0;
 
-        for(int i=0; i<playingField.length; i++) {
+        for (int i = 0; i < playingField.length; i++) {
             totalLineScore = 0;
             isFullLine = true;
-            for(int j=0; j<playingField[i].length; j++) {
+            for (int j = 0; j < playingField[i].length; j++) {
                 if (playingField[i][j] != null) {
-                    if(0 < playingField[i][j]) {
+                    if (0 < playingField[i][j]) {
                         totalLineScore += playingField[i][j];
                     } else {
                         isFullLine = false;
@@ -351,7 +351,7 @@ public class Player {
                 hasScored = true;
                 score += totalLineScore * FULL_LINE_POINTS;
                 amountOfScoredLines++;
-                totalLines ++;
+                totalLines++;
             }
         }
 
@@ -384,11 +384,11 @@ public class Player {
         final int maxHeight = blockPattern.length;
         final int maxWidth = blockPattern[0].length;
 
-        if(x+MAX_WIDTH <= Game.PLAYING_FIELD_WIDTH && y+MAX_HEIGHT <= Game.PLAYING_FIELD_HEIGHT && x >= 0) {
-            for(int i=0; i<MAX_HEIGHT; i++) {
-                for (int j = 0; j < MAX_WIDTH; j++) {
-                    if (playingField[y+i][x+j] != null) {
-                        if(blockPattern[i][j] && 0 < playingField[y+i][x+j]) {
+        if (x + maxWidth <= Game.PLAYING_FIELD_WIDTH && y + maxHeight <= Game.PLAYING_FIELD_HEIGHT && x >= 0) {
+            for (int i = 0; i < maxHeight; i++) {
+                for (int j = 0; j < maxWidth; j++) {
+                    if (playingField[y + i][x + j] != null) {
+                        if (blockPattern[i][j] && 0 < playingField[y + i][x + j]) {
                             collided = true;
                         }
                     } else {
@@ -473,14 +473,22 @@ public class Player {
     }
 
     public Integer[][] getPlayingField() {
-        return playingField;
+        return playingField.clone();
+    }
+
+    public void setPlayingField(int x, int y, Integer value) {
+        playingField[y][x] = value;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Player player = (Player) o;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        final Player player = (Player) o;
         return playerID == player.playerID;
     }
 

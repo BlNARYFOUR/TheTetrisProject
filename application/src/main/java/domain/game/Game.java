@@ -40,10 +40,9 @@ public class Game {
     private final List<Player> players;
     private MessageConsumer<Object> consumer;
 
-    private EventHandler eventHandler;
+    private final EventHandler eventHandler;
 
-    public Game(Match match) {
-        Set<User> users = match.getUsers();
+    public Game(final Match match) {
         players = new ArrayList<>();
         gameID = nextGameID;
         increaseNextGameID();
@@ -55,7 +54,8 @@ public class Game {
         this.eventHandler = new EventHandler(players);
 
         users.forEach(user -> {
-            Player player = new Player(nextPlayerID, user, repo.getSessionID(user), getGameAddress(), eventHandler);
+            final Player player = new Player(nextPlayerID, user, repo.getSessionID(user),
+                    genGameAddress(), eventHandler);
             players.add(player);
             nextPlayerID++;
         });
