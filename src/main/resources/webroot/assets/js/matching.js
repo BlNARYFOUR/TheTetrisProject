@@ -1,13 +1,13 @@
 "use strict";
 
 let matching = function () {
-    let eb = new EventBus("http://localhost:8016/tetris-16/socket");
+    let eb = new EventBus("/tetris-16/socket/");
 
     eb.onopen = function () {
         console.log("Connection Open");
 
-        console.warn("tetris-16.socket.client.match." + cookies.getCookie("vertx-web.session"));
-        eb.registerHandler("tetris-16.socket.client.match." + cookies.getCookie("vertx-web.session"), matchHandler);
+        console.warn("tetris.client.match." + cookies.getCookie("vertx-web.session"));
+        eb.registerHandler("tetris.client.match." + cookies.getCookie("vertx-web.session"), matchHandler);
     };
 
     function sendMatchRequest() {
@@ -21,7 +21,7 @@ let matching = function () {
             console.log("Match: reply: " + JSON.stringify(reply));
         };
 
-        eb.send("tetris-16.socket.server.match", data, DONE_FUNC);
+        eb.send("tetris.server.match", data, DONE_FUNC);
     }
 
     eb.onclose = function () {
