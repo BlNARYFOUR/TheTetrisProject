@@ -4,6 +4,7 @@ import io.vertx.core.Vertx;
 import io.vertx.ext.bridge.PermittedOptions;
 import io.vertx.ext.web.handler.sockjs.BridgeOptions;
 import io.vertx.ext.web.handler.sockjs.SockJSHandler;
+import org.pmw.tinylog.Logger;
 
 /**
  * SockJSHandler for the Tetris Project for
@@ -16,19 +17,24 @@ class TetrisSockJSHandler {
         sockJSHandler = SockJSHandler.create(vertx);
     }
 
-    private void addBridgeOptions() {
-        final PermittedOptions inbound = new PermittedOptions()
-                .setAddressRegex("tetris-16\\.socket\\..+");
-        //noinspection UnnecessaryLocalVariable
-        final PermittedOptions outbound = inbound;
-        final BridgeOptions options = new BridgeOptions()
-                .addInboundPermitted(inbound)
-                .addOutboundPermitted(outbound);
-        sockJSHandler.bridge(options);
+    @SuppressWarnings("SameParameterValue")
+    protected SockJSHandler create(final String permittedAddress) {
+        addBridgeOptions(permittedAddress);
+
+        Logger.info("Listening to socket");
+        return sockJSHandler;
     }
 
-    public SockJSHandler create() {
-        addBridgeOptions();
-        return sockJSHandler;
+    private void addBridgeOptions(final String permittedAddress) {
+        // enkel regels op dit adres toestaan van front end naar back end
+        final PermittedOptions inbound = new PermittedOptions().setAddressRegex(permittedAddress);
+
+        // gelijke adresregels voor van en naar front end
+        //noinspection UnnecessaryLocalVariable
+        final PermittedOptions outbound = inbound;
+
+        final BridgeOptions options = new BridgeOptions().addInboundPermitted(inbound).addOutboundPermitted(outbound);
+        sockJSHandler.bridge(options);
+
     }
 }
