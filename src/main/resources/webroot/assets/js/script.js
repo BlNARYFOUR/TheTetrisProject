@@ -3,7 +3,7 @@
 "use strict";
 
 // [RULE]: Socket url MOET tetris-xx/socket/ zijn (xx is groepsnummer met leading zero) zijn
-let eb = new EventBus("/tetris-00/socket/");
+let eb = new EventBus("/tetris-16/socket/");
 
 document.addEventListener('DOMContentLoaded',init);
 
