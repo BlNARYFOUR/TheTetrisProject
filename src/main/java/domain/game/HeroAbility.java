@@ -10,6 +10,8 @@ public class HeroAbility {
     private static int timerAbility = 30;
     private String name;
 
+    public HeroAbility(){}
+
     public HeroAbility(String name) {
         this.name = name;
     }

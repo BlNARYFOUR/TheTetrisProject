@@ -62,9 +62,10 @@ public class Player {
     private MessageConsumer<Object> consumer;
 
     private EventHandler eventHandler;
-    private int timerAbility = HeroAbility.getTimerAbility();
 
     private String hero;
+    HeroAbility heroAbility = new HeroAbility();
+    private int timerAbility = heroAbility.getTimerAbility();
     private int countAmountBlocksDonkeyKong = 0;
 
 
@@ -167,11 +168,11 @@ public class Player {
 
             System.out.println(score);
 
-            if (HeroAbility.isHeroAbilityIsActivated()) {
-                switch (HeroAbility.getHeroAttack()) {
+            if (heroAbility.isHeroAbilityIsActivated()) {
+                switch (heroAbility.getHeroAttack()) {
                     case "Pikachu":
                         //pikachuAbility();
-                        if (HeroAbility.activatedID() == this.user.getId()) {
+                        if (heroAbility.activatedID() == this.user.getId()) {
                             System.out.println("ACTIVATED");
                             if (!this.isKeyDown) {
                                 switchOnKeyDown(key, true);
@@ -186,7 +187,7 @@ public class Player {
                         break;
                     case "Donkey_Kong":
                         //donkeyKongAbility();
-                        if (HeroAbility.activatedID() == this.user.getId()) {
+                        if (heroAbility.activatedID() == this.user.getId()) {
                             System.out.println("ACTIVATED");
                             if (!this.isKeyDown) {
                                 switchOnKeyDown(key, true);
@@ -285,21 +286,21 @@ public class Player {
             System.out.println("Hero ability is activated");
             score = score - maxScore;
 
-            HeroAbility.setActivatedHero(this.user.getId());
+            heroAbility.setActivatedHero(this.user.getId());
             hero = user.getHeroName();
 
             switch (hero){
                 case "Pikachu":
                     System.out.println("Pika Pika bitch");
-                    HeroAbility.setHeroAbilityIsActivated(true);
-                    HeroAbility.setHeroAttack(hero);
+                    heroAbility.setHeroAbilityIsActivated(true);
+                    heroAbility.setHeroAttack(hero);
                     //HeroAbility.setSwitchingControls(true);
                     break;
 
                 case "Donkey_Kong":
                     System.out.println("I want to kill Mario");
-                    HeroAbility.setHeroAbilityIsActivated(true);
-                    HeroAbility.setHeroAttack(hero);
+                    heroAbility.setHeroAbilityIsActivated(true);
+                    heroAbility.setHeroAttack(hero);
                     break;
 
                 default :
@@ -400,13 +401,13 @@ public class Player {
     }
 
     private void countTimerPikachu() {
-        if (HeroAbility.isHeroAbilityIsActivated()){
-            if (HeroAbility.getHeroAttack().equals("Pikachu")){
+        if (heroAbility.isHeroAbilityIsActivated()){
+            if (heroAbility.getHeroAttack().equals("Pikachu")){
                 System.out.println("TIMER " + timerAbility);
 
                 if (timerAbility == 0) {
-                    HeroAbility.setActivatedHero(-1);
-                    HeroAbility.setHeroAbilityIsActivated(false);
+                    heroAbility.setActivatedHero(-1);
+                    heroAbility.setHeroAbilityIsActivated(false);
                     timerAbility = 30;
                 }
 
@@ -417,13 +418,13 @@ public class Player {
     }
 
     private void countNumberOfBlocksDK() {
-        if (HeroAbility.isHeroAbilityIsActivated()){
-            if (HeroAbility.getHeroAttack().equals("Donkey_Kong")){
+        if (heroAbility.isHeroAbilityIsActivated()){
+            if (heroAbility.getHeroAttack().equals("Donkey_Kong")){
                 System.out.println("AMOUNT " + countAmountBlocksDonkeyKong);
 
                 if (countAmountBlocksDonkeyKong == 2) {
-                    HeroAbility.setActivatedHero(-1);
-                    HeroAbility.setHeroAbilityIsActivated(false);
+                    heroAbility.setActivatedHero(-1);
+                    heroAbility.setHeroAbilityIsActivated(false);
                     countAmountBlocksDonkeyKong = 0;
                     stopSonic();
                 }
