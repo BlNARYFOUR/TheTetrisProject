@@ -20,12 +20,13 @@ import java.util.Objects;
  * all the rout handlers are initialized here.
  */
 class Routes {
+    protected static final String INDEX_REF = "webroot/index.html";
+    protected static final String REGISTER_REF = "webroot/pages/register.html";
     private static final String INFO_COOKIE = "info";
     private static final String STATIC_REF = "/static";
     private static final String MAIN_REF = "/static/pages/main_menu.html";
     private static final String LOCATION = "location";
     private static final String SESSION_COOKIE = "vertx-web.session";
-    private static final String INDEX_REF = "webroot/index.html";
     //private static final String SPACE = " ";
     private static final String PASSWORD = "password";
     private static final String USERNAME = "username";
@@ -42,7 +43,7 @@ class Routes {
                 .putHeader("content-type", "text/html")
                 .write("<h1>Wrong page amigo...</h1>"
                         + "<img src=static/images/facepalm.jpg>"
-                        + "<p>Goto <a href=static>here</a> instead</p>")
+                        + "<p>Goto <a href='static/'>here</a> instead</p>")
                 .end();
     }
 
@@ -75,7 +76,7 @@ class Routes {
 
         //System.out.println(user + " : " + loggedInRepo.getLoggedUser(session.id()));
 
-        if (loggedInRepo.isUserLogged(user) || user == null) {
+        if ((loggedInRepo.isUserLogged(user) && !loggedInRepo.isUserLogged(session.id(), user)) || user == null) {
             if (loggedInRepo.isUserLogged(user)) {
                 Logger.warn("User already logged in: " + Objects.requireNonNull(user).getUsername());
                 infoBuf = "User '" + Objects.requireNonNull(user).getUsername() + "' has already logged in.";
@@ -94,10 +95,7 @@ class Routes {
 
             cookieHandler(INFO_COOKIE, infoBuf, routingContext);
 
-            final HttpServerResponse response = routingContext.response();
-            response.setChunked(true);
-            response.headers().add(LOCATION, MAIN_REF);
-            response.setStatusCode(302).end();
+            routingContext.reroute(MAIN_REF);
         }
 
         return infoBuf;
@@ -148,14 +146,11 @@ class Routes {
 
                 loggedInRepo.addLoggedUser(session.id(), user);
 
-                final HttpServerResponse response = routingContext.response();
-                response.setChunked(true);
-                response.headers().add(LOCATION, MAIN_REF);
-                response.setStatusCode(302).end();
+                routingContext.reroute(MAIN_REF);
             } catch (Exception ex) {
                 final HttpServerResponse response = routingContext.response();
                 response.setChunked(true);
-                response.sendFile("webroot/pages/register.html");
+                response.sendFile(REGISTER_REF);
             }
         }
     }
@@ -169,13 +164,13 @@ class Routes {
             //System.out.println(session.id());
             final User user = loginRepo.authenticateUser(session.get(USERNAME), session.get(PASSWORD), false);
             if (!loggedInRepo.isUserLogged(session.id(), user) || user == null) {
-                response.headers().add(LOCATION, STATIC_REF);
+                response.headers().add(LOCATION, STATIC_REF + '/');
                 response.setStatusCode(302).end();
             } else {
                 response.sendFile("webroot" + filePath);
             }
         } catch (Exception ex) {
-            response.headers().add(LOCATION, STATIC_REF);
+            response.headers().add(LOCATION, STATIC_REF + '/');
             response.setStatusCode(302).end();
         }
     }
@@ -189,18 +184,18 @@ class Routes {
             final User user = loginRepo.authenticateUser(session.get(USERNAME), session.get(PASSWORD), false);
 
             if (!loggedInRepo.isUserLogged(session.id(), user) || user == null) {
-                response.headers().add(LOCATION, STATIC_REF);
+                response.headers().add(LOCATION, STATIC_REF + '/');
             } else {
                 response.headers().add(LOCATION, STATIC_REF + SecureFilePath.MAIN_MENU);
             }
         } catch (Exception ex) {
-            response.headers().add(LOCATION, STATIC_REF);
+            response.headers().add(LOCATION, STATIC_REF + '/');
         }
 
         response.setStatusCode(302).end();
     }
 
-    public void rerouteWebrootHandler(final RoutingContext routingContext) {
+    public void rerouteSpecificHandler(final RoutingContext routingContext, final String fileName) {
         final Session session = routingContext.session();
         final HttpServerResponse response = routingContext.response();
         response.setChunked(true);
@@ -209,13 +204,13 @@ class Routes {
             final User user = loginRepo.authenticateUser(session.get(USERNAME), session.get(PASSWORD), false);
 
             if (!loggedInRepo.isUserLogged(session.id(), user) || user == null) {
-                response.sendFile(INDEX_REF);
+                response.sendFile(fileName);
             } else {
                 response.headers().add(LOCATION, STATIC_REF + SecureFilePath.MAIN_MENU);
                 response.setStatusCode(302).end();
             }
         } catch (Exception ex) {
-            response.sendFile(INDEX_REF);
+            response.sendFile(fileName);
         }
     }
 
@@ -226,7 +221,7 @@ class Routes {
 
         final HttpServerResponse response = routingContext.response();
         response.setChunked(true);
-        response.headers().add(LOCATION, STATIC_REF);
+        response.headers().add(LOCATION, STATIC_REF + '/');
         response.setStatusCode(302).end();
     }
 }
