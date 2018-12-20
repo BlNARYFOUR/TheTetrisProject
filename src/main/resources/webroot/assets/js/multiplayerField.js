@@ -19,7 +19,8 @@ let SPACE_TOP = 10 + BLOCK;
 let HOLD_WIDTH = 4;
 let HOLD_HEIGHT = 4;
 
-let MOCK_PROGRESS = 20;
+let MOCK_SCORE = 100;
+let MOCK_MAX_SCORE = 500;
 
 const IMAGES = {
     backgroundStartScreen: createImageObj("backgroundStartScreen.png"),
@@ -60,6 +61,8 @@ let ctx;
 
 let tiles;
 let GAME_BOARDS = [];
+let SCORES = [];
+let ABILITY_COST;
 let hold;
 
 let CIRCLE = BLOCK * 1.5;
@@ -99,6 +102,8 @@ function init(e) {
 
 function gameLoop() {
     let gameBoardBuf = gameCommunication.getGameBoards();
+    SCORES = gameCommunication.getScores();
+    ABILITY_COST = gameCommunication.getAbilityCost();
 
     //console.log(gameBoardBuf);
 
@@ -174,8 +179,8 @@ function drawUserField(ctx, playerId) {
     drawCircle(ctx, BLOCK * 2.5, SPACE_TOP + 14 * BLOCK,CIRCLE,0,2*Math.PI);
     //drawCircle(SPACE + 2.0 * BLOCK + GAME_BOARD_SPACING + GAME_BOARD_WIDTH * BLOCK, SPACE_TOP + 14 * BLOCK,50,0,2*Math.PI);
 
-    //MOCK_PROGRESS += 20;
-    drawProgressBar(playerId, ctx, SPACE + 2.0 * BLOCK + GAME_BOARD_SPACING + GAME_BOARD_WIDTH * BLOCK, SPACE_TOP + 14 * BLOCK, MOCK_PROGRESS, 0, 2*Math.PI, 0.5);
+    //MOCK_SCORE += 20;
+    drawProgressBar(playerId, ctx, SPACE + 2.0 * BLOCK + GAME_BOARD_SPACING + GAME_BOARD_WIDTH * BLOCK, SPACE_TOP + 14 * BLOCK, 0, 2*Math.PI, 0.5);
 }
 
 function createGameBoard() {
@@ -261,17 +266,18 @@ function drawCircle(ctx, x, y, radius, startAngle, endAngle, counterClockWise) {
     ctx.stroke();
 }
 
-function drawProgressBar(id, ctx, x, y, radius, startAngle, endAngle, animationDuration) {
-    let playerId = id;
+function drawProgressBar(playerId, ctx, x, y, startAngle, endAngle, animationDuration) {
+    let score = SCORES[playerId];
+    let radiusPercent = (score / ABILITY_COST);
 
-    if(100 < radius) {
-        radius = 100;
+    if(1 < radiusPercent) {
+        radiusPercent = 1;
     }
 
     let circle = CIRCLE;
     let block = BLOCK;
 
-    radius = circle * radius/100;
+    let radius = circle * radiusPercent;
 
     let color = {
         R: 255,
@@ -296,7 +302,7 @@ function drawProgressBar(id, ctx, x, y, radius, startAngle, endAngle, animationD
     ctx.fill();
     ctx.globalAlpha = 1;
 
-    createText(ctx, "3898", x-0.7*block, y+0.2*block, block);
+    createText(ctx, score, x-0.7*block, y+0.2*block, block);
 }
 
 /*
