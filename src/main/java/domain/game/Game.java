@@ -8,6 +8,7 @@ import data.loggedinrepository.LoggedInRepository;
 import domain.User;
 import domain.game.events.EventHandler;
 import domain.game.matchmaking.Match;
+import domain.hero.HeroAbilities;
 import io.vertx.core.Context;
 import io.vertx.core.Vertx;
 import io.vertx.core.eventbus.EventBus;
@@ -41,6 +42,7 @@ public class Game {
     private MessageConsumer<Object> consumer;
 
     private final EventHandler eventHandler;
+    private final HeroAbilities heroAbilities;
 
     public Game(final Match match) {
         players = new ArrayList<>();
@@ -52,10 +54,11 @@ public class Game {
         setupListener();
 
         this.eventHandler = new EventHandler(players);
+        this.heroAbilities = new HeroAbilities(players);
 
         users.forEach(user -> {
             final Player player = new Player(nextPlayerID, user, repo.getSessionID(user),
-                    genGameAddress(), eventHandler);
+                    genGameAddress(), eventHandler, heroAbilities);
             players.add(player);
             nextPlayerID++;
         });
