@@ -50,10 +50,6 @@ public class HeroAbility {
         return timerAbility;
     }
 
-    public static boolean activated(){
-        System.out.println("switch " + switchingControls);
-        return switchingControls;
-    }
 
     public static int activatedID(){
         return activatedHero;

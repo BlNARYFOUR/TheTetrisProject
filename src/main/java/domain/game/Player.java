@@ -178,15 +178,6 @@ public class Player {
                                 switchOnKeyUp(key);
                             }
                         } else {
-                            timerAbility--;
-
-                            if (timerAbility == 0) {
-                                HeroAbility.setActivatedHero(-1);
-                                //HeroAbility.setSwitchingControls(false);
-                                HeroAbility.setHeroAbilityIsActivated(false);
-                                timerAbility = 30;
-                            }
-
                             System.out.println("Mixed");
                             mixedControls(key);
 
@@ -216,37 +207,6 @@ public class Player {
                     switchOnKeyUp(key);
                 }
             }
-
-
-            /*if (HeroAbility.isSwitchingControls()){
-                if (HeroAbility.activatedID() == this.user.getId()){
-                    System.out.println("ACTIVATED");
-                    if (!this.isKeyDown) {
-                        switchOnKeyDown(key, true);
-                    } else {
-                        switchOnKeyUp(key);
-                    }
-                }else {
-                    timerAbility --;
-
-                    if (timerAbility == 0){
-                        HeroAbility.setActivatedHero(-1);
-                        HeroAbility.setSwitchingControls(false);
-                        timerAbility = 30;
-                    }
-
-                    System.out.println("Mixed");
-                    mixedControls(key);
-
-                }
-            }else {
-                System.out.println("NOT ACTIVATED");
-                if (!this.isKeyDown) {
-                    switchOnKeyDown(key, false);
-                } else {
-                    switchOnKeyUp(key);
-                }
-            }*/
 
             this.isKeyDown = isKeyDown;
         } catch (Exception e) {
@@ -339,12 +299,6 @@ public class Player {
                     System.out.println("I want to kill Mario");
                     HeroAbility.setHeroAbilityIsActivated(true);
                     HeroAbility.setHeroAttack(hero);
-
-                    //TODO activeer sonic modus
-                    //TODO uitschakelen stopSonic modus
-                    //TODO genereer 2 random blokken => doet hij automatisch
-                    //TODO kan alleen naar links en rechts gaan.
-                    //TODO mss constant laten rotaten.
                     break;
 
                 default :
@@ -437,9 +391,28 @@ public class Player {
             }
         } else {
             fallingBlock.fall();
+
+            countTimerPikachu();
         }
 
         return isNew;
+    }
+
+    private void countTimerPikachu() {
+        if (HeroAbility.isHeroAbilityIsActivated()){
+            if (HeroAbility.getHeroAttack().equals("Pikachu")){
+                System.out.println("TIMER " + timerAbility);
+
+                if (timerAbility == 0) {
+                    HeroAbility.setActivatedHero(-1);
+                    HeroAbility.setHeroAbilityIsActivated(false);
+                    timerAbility = 30;
+                }
+
+                timerAbility--;
+
+            }
+        }
     }
 
     private void countNumberOfBlocksDK() {
