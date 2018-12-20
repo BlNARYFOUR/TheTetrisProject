@@ -53,6 +53,7 @@ public class Player {
     private int score;
     private int amountOfScoredLines;
     private int level;
+    private int maxScore = 500;
 
     private double normalMovementTime;
     private long periodicID;
@@ -278,11 +279,11 @@ public class Player {
         System.out.println("pressed on R");
         System.out.println(score);
 
-        if (score < 500){
+        if (score < maxScore){
             System.out.println("Not enough points to use hero ability");
         }else {
             System.out.println("Hero ability is activated");
-            score = score - 500;
+            score = score - maxScore;
 
             HeroAbility.setActivatedHero(this.user.getId());
             hero = user.getHeroName();
