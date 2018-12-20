@@ -103,7 +103,7 @@ a {
 }
 
 .userInfo {
-    margin-top: 30px;
+    margin-top: -5%;
 }
 
 .userInfo div {
@@ -126,6 +126,7 @@ a {
 .logOut {
     width: 300px;
     margin-left: auto;
+    margin-top: -5%;
 }
 
 .mainMenu li input[type=submit], .logOut-submit, .option-back-submit, .back-submit, .save-submit, .next-submit {
@@ -219,6 +220,7 @@ ul{
 .chooseHeroTitle {
     color: white;
     text-align: center;
+    margin-top: 5%;
 }
 
 .choose-hero-container {
@@ -230,8 +232,8 @@ ul{
 }
 
 .choose-hero {
-    width: 1200px;
-    height: 300px;
+    width: 100%;
+    height: 100%;
     margin-left: auto;
     margin-right: auto;
     display: inline-flex;
@@ -239,9 +241,9 @@ ul{
     list-style-type: none;
 }
 
-.hero-donkeykong, .hero-pacman, .hero-pikachu, .hero-sony {
-    width: 200px;
-    height: 260px;
+.hero-donkeykong, .hero-pacman, .hero-pikachu, .hero-sonic {
+    width: 60%;
+    height: 100%;
     padding: 20px;
     display: inline-block;
     text-align: center;
@@ -253,8 +255,9 @@ ul{
     color: yellow;
 }
 
-.donkeykong, .pikachu {
-    width: 80%;
+.donkeykong, .pikachu, .sonic {
+    width: 60%;
+    height: 80%;
     margin-top: 15px;
     margin-bottom: 5px;
 }
@@ -568,7 +571,7 @@ section input{
     margin-right: auto;
 }
 
-#leaveMatch, #playGame {
+#leaveMatch {
     border-radius: 20px;
     padding: 5px 10px 5px 10px;
 }
