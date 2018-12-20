@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Reinbert Van Acker"/>
+    <title>Tetris</title>
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/mainCSS.css">
+
+</head>
+<body>
+<header class="retroBlocks-header">
+    <img src="../assets/media/retroBlocks.png" alt="retroBlocks" title="retroBlocks">
+</header>
+<div class="login-container">
+    <form id="register" method="post"> <!--action="javascript:sendMessage()"-->
+        <span id="error"></span>
+        <input id="username" type="text" name="user" placeholder="Username" required="required">
+        <input id="password" type="password" name="password" placeholder="Password" required="required">
+        <input id="confirmPass" type="password" name="confirmPass" placeholder="Confirm password" required="required">
+        <input type="submit" name="register" class="login register-submit" value="register">
+    </form>
+    <div class="login-help">
+        <a href="/static/">Login</a>
+    </div>
+</div>
+
+<script src="../assets/js/register.js"></script>
+</body>
+</html>
