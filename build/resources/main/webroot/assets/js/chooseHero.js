@@ -34,12 +34,12 @@ function loadHeroes() {
 
     let location = document.getElementById("choose-hero");
     let imgList = "";
-    let heroes = ["donkeykong", "pikachu"];
+    let heroes = ["donkeykong", "pikachu", "sonic"];
 
     let firstSelected = " selected";
 
     for (let i = 0; i < heroes.length; i++) {
-        imgList += "<li id='heroes' class='selectable hero-" + heroes[i] + firstSelected + "' data-heroname='" + heroes[i] + "'>" +
+        imgList += "<li class='selectable hero-" + heroes[i] + firstSelected + "' data-heroname='" + heroes[i] + "'>" +
             "<img data-heroname='" + heroes[i] + "' src= ../assets/media/" + heroes[i] + ".gif class='"+ heroes[i] +"' title='"+ heroes[i] +"' alt='"+ heroes[i] +"'>" +
             "<p data-heroname='" + heroes[i] + "'>"+ heroes[i] +"</p>" +
             "</li>";

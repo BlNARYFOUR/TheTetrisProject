@@ -103,7 +103,7 @@ a {
 }
 
 .userInfo {
-    margin-top: 30px;
+    margin-top: -5%;
 }
 
 .userInfo div {
@@ -126,6 +126,7 @@ a {
 .logOut {
     width: 300px;
     margin-left: auto;
+    margin-top: -5%;
 }
 
 .mainMenu li input[type=submit], .logOut-submit, .option-back-submit, .back-submit, .save-submit, .next-submit {
@@ -149,7 +150,7 @@ a {
 
 
 
-.chooseGameMode-submit, .clan-submit, .shop-submit, .highScore-submit, .logOut-submit, .back-submit, .save-submit, .playGame-submit, #no, #yes, #leaveMatch, #playGame, .sendMessage  {
+.chooseGameMode-submit, .clan-submit, .shop-submit, .highScore-submit, .logOut-submit, .back-submit, .next-submit, .save-submit, .playGame-submit, #no, #yes, #leaveMatch, #playGame, .sendMessage  {
 
     border: 2px solid #9C35FF;
     color: #000000;
@@ -157,7 +158,7 @@ a {
     background: linear-gradient(to right, #9584FF , #FFA1E2);
 }
 
-.chooseGameMode-submit:hover, .clan-submit:hover, .shop-submit:hover, .highScore-submit:hover, .logOut-submit:hover, .back-submit:hover, .playGame-submit:hover, .option-back-submit:hover, .playFriends-submit:hover, .findOpp-submit:hover, .save-submit:hover, #no:hover, #yes:hover, .multiplayer-footer ul li:hover, #leaveMatch:hover, #playGame:hover, .sendMessage:hover {
+.chooseGameMode-submit:hover, .clan-submit:hover, .shop-submit:hover, .highScore-submit:hover, .logOut-submit:hover, .back-submit:hover, .next-submit:hover, .playGame-submit:hover, .option-back-submit:hover, .playFriends-submit:hover, .findOpp-submit:hover, .save-submit:hover, #no:hover, #yes:hover, .multiplayer-footer ul li:hover, #leaveMatch:hover, #playGame:hover, .sendMessage:hover {
 
     border: 2px solid #9C35FF;
     color: #000000;
@@ -219,6 +220,7 @@ ul{
 .chooseHeroTitle {
     color: white;
     text-align: center;
+    margin-top: 5%;
 }
 
 .choose-hero-container {
@@ -230,8 +232,8 @@ ul{
 }
 
 .choose-hero {
-    width: 1200px;
-    height: 300px;
+    width: 100%;
+    height: 100%;
     margin-left: auto;
     margin-right: auto;
     display: inline-flex;
@@ -239,9 +241,9 @@ ul{
     list-style-type: none;
 }
 
-.hero-donkeykong, .hero-pacman, .hero-pikachu, .hero-sony {
-    width: 200px;
-    height: 260px;
+.hero-donkeykong, .hero-pacman, .hero-pikachu, .hero-sonic {
+    width: 60%;
+    height: 100%;
     padding: 20px;
     display: inline-block;
     text-align: center;
@@ -253,8 +255,9 @@ ul{
     color: yellow;
 }
 
-.donkeykong, .pikachu {
-    width: 80%;
+.donkeykong, .pikachu, .sonic {
+    width: 60%;
+    height: 80%;
     margin-top: 15px;
     margin-bottom: 5px;
 }
@@ -283,6 +286,7 @@ ul{
 /*----------------- Choose a gamemode -------------------*/
 .title{
     color: white;
+    margin-top: 10px;
     margin-left: auto;
     margin-right: auto;
     width: 450px;
@@ -311,13 +315,20 @@ figcaption{
 }
 
 #showAllGamemodes{
-    margin-top: -15px;
+    margin-top: -45px;
+    margin-bottom: -50px;
+    width: 100%;
+    height: 100%;
 }
 
 #showAllGamemodes figure{
     float: left;
     width: 40%;
-    padding-top: 15px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .back{
@@ -568,7 +579,7 @@ section input{
     margin-right: auto;
 }
 
-#leaveMatch, #playGame {
+#leaveMatch {
     border-radius: 20px;
     padding: 5px 10px 5px 10px;
 }

@@ -62,6 +62,7 @@ public class Player {
     private MessageConsumer<Object> consumer;
 
     private EventHandler eventHandler;
+    private int arrowUps;
 
     private String hero;
     HeroAbility heroAbility = new HeroAbility();
@@ -117,6 +118,7 @@ public class Player {
             case "KeyW":
             case "ArrowUp":
                 rotate();
+                onArrowUpEvent();
                 break;
             case KEY_S:
             case ARROW_DOWN:
@@ -134,6 +136,18 @@ public class Player {
                     default:
                 break;
         }
+    }
+
+    private void onArrowUpEvent() {
+        arrowUps++;
+        if (arrowUps == 4) {
+            dropFaster();
+            arrowUps = 0;
+        }
+    }
+
+    private void dropFaster() {
+        System.out.println("You did a 360°!!");
     }
 
     private void switchOnKeyUp(String key) {
@@ -155,7 +169,8 @@ public class Player {
         Map<String, Object> data = null;
 
         try {
-            data = objectMapper.readValue(message.body().toString(), new TypeReference<Map<String, Object>>() { });
+            data = objectMapper.readValue(message.body().toString(), new TypeReference<Map<String, Object>>() {
+            });
         } catch (IOException e) {
             throw new MatchableException("json in readyHandler not valid!");
         }
