@@ -29,6 +29,8 @@ function init() {
     xmlhttp.open("POST", url, true);
     xmlhttp.send();
 
+   //loadHeroes();
+
 
 }
 

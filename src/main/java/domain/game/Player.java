@@ -157,13 +157,9 @@ public class Player {
             final String key = (String) data.get("key");
             final Boolean isKeyDown = (Boolean) data.get("state");
 
-            if (!this.isKeyDown) {
-                switchOnKeyDown(key, true);
-            } else {
-                switchOnKeyUp(key);
-            }
+            System.out.println(score);
 
-           /* if (HeroAbility.isSwitchingControls()){
+            if (HeroAbility.isSwitchingControls()){
                 if (HeroAbility.activatedID() == this.user.getId()){
                     System.out.println("ACTIVATED");
                     if (!this.isKeyDown) {
@@ -191,7 +187,7 @@ public class Player {
                 } else {
                     switchOnKeyUp(key);
                 }
-            }*/
+            }
 
             this.isKeyDown = isKeyDown;
         } catch (Exception e) {
