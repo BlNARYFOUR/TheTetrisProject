@@ -60,7 +60,7 @@ public class Player {
     private MessageConsumer<Object> consumer;
 
     private EventHandler eventHandler;
-    private int arrowUps = 0;
+    private int arrowUps;
 
     public Player(int playerID, User user, String sessionID, String gameAddress, EventHandler eventHandler) {
         setUser(user);
@@ -110,11 +110,7 @@ public class Player {
             case "KeyW":
             case "ArrowUp":
                 rotate();
-                arrowUps++;
-                if (arrowUps == 4) {
-                    dropFaster();
-                    arrowUps = 0;
-                }
+                onArrowUpEvent();
                 break;
             case KEY_S:
             case ARROW_DOWN:
@@ -125,6 +121,14 @@ public class Player {
                 break;
             default:
                 break;
+        }
+    }
+
+    private void onArrowUpEvent() {
+        arrowUps++;
+        if (arrowUps == 4) {
+            dropFaster();
+            arrowUps = 0;
         }
     }
 
