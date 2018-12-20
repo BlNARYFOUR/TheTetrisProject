@@ -5,6 +5,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import domain.User;
 import domain.game.events.EventHandler;
+import domain.hero.Hero;
 import io.vertx.core.Context;
 import io.vertx.core.Vertx;
 import io.vertx.core.eventbus.EventBus;
@@ -52,6 +53,7 @@ public class Player {
     private int score;
     private int amountOfScoredLines;
     private int level;
+    private int maxScore = 500;
 
     private double normalMovementTime;
     private long periodicID;
@@ -61,6 +63,12 @@ public class Player {
 
     private EventHandler eventHandler;
     private int arrowUps;
+
+    private String hero;
+    HeroAbility heroAbility = new HeroAbility();
+    private int timerAbility = heroAbility.getTimerAbility();
+    private int countAmountBlocksDonkeyKong = 0;
+
 
     public Player(int playerID, User user, String sessionID, String gameAddress, EventHandler eventHandler) {
         setUser(user);
@@ -97,7 +105,7 @@ public class Player {
         consumer = eb.consumer(address, this::gameHandler);
     }
 
-    private void switchOnKeyDown(String key) {
+    private void switchOnKeyDown(String key, boolean heroActivated) {
         switch (key) {
             case "ArrowLeft":
             case "KeyA":
@@ -119,7 +127,13 @@ public class Player {
             case "Space":
                 goSuperSonic();
                 break;
-            default:
+            case "KeyR":
+                if (!heroActivated) {
+                    System.out.println("CAN");
+                    controleIfHeroCanBeActivated();
+                    break;
+                }
+                    default:
                 break;
         }
     }
@@ -165,10 +179,50 @@ public class Player {
             final String key = (String) data.get("key");
             final Boolean isKeyDown = (Boolean) data.get("state");
 
-            if (!this.isKeyDown) {
-                switchOnKeyDown(key);
-            } else {
-                switchOnKeyUp(key);
+            hero = user.getHeroName();
+
+            System.out.println(score);
+
+            if (heroAbility.isHeroAbilityIsActivated()) {
+                switch (heroAbility.getHeroAttack()) {
+                    case "Pikachu":
+                        //pikachuAbility();
+                        if (heroAbility.activatedID() == this.user.getId()) {
+                            System.out.println("ACTIVATED");
+                            if (!this.isKeyDown) {
+                                switchOnKeyDown(key, true);
+                            } else {
+                                switchOnKeyUp(key);
+                            }
+                        } else {
+                            System.out.println("Mixed");
+                            mixedControls(key);
+
+                        }
+                        break;
+                    case "Donkey_Kong":
+                        //donkeyKongAbility();
+                        if (heroAbility.activatedID() == this.user.getId()) {
+                            System.out.println("ACTIVATED");
+                            if (!this.isKeyDown) {
+                                switchOnKeyDown(key, true);
+                            } else {
+                                switchOnKeyUp(key);
+                            }
+                        } else {
+                            System.out.println("Donkey Kill");
+                            donkeyKongControls(key);
+                        }
+                        break;
+
+                }
+            }else {
+                System.out.println("NOT ACTIVATED");
+                if (!this.isKeyDown) {
+                    switchOnKeyDown(key, false);
+                } else {
+                    switchOnKeyUp(key);
+                }
             }
 
             this.isKeyDown = isKeyDown;
@@ -179,6 +233,98 @@ public class Player {
         message.reply("GOT IT");
         sendUpdate();
     }
+
+    private void donkeyKongControls(String key) {
+        goSonic();
+
+        if(!this.isKeyDown) {
+            switch (key) {
+                case "ArrowLeft":
+                case "KeyA":
+                    goRight();
+                    break;
+                case "ArrowRight":
+                case "KeyD":
+                    goLeft();
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    private void mixedControls(String key) {
+        if(!this.isKeyDown) {
+            switch (key) {
+                case "ArrowLeft":
+                case "KeyA":
+                    goRight();
+                    break;
+                case "ArrowRight":
+                case "KeyD":
+                    goLeft();
+                    break;
+                case "KeyW":
+                case "ArrowUp":
+                    goSuperSonic();
+                    break;
+                case "KeyS":
+                case "ArrowDown":
+                    rotate();
+                    break;
+                case "Space":
+                    stopSonic();
+                    break;
+                default:
+                    break;
+            }
+        } else {
+            switch (key) {
+                case "KeyS":
+                case "ArrowDown":
+                    goSonic();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+    }
+
+    private void controleIfHeroCanBeActivated() {
+        System.out.println("pressed on R");
+        System.out.println(score);
+
+        if (score < maxScore){
+            System.out.println("Not enough points to use hero ability");
+        }else {
+            System.out.println("Hero ability is activated");
+            score = score - maxScore;
+
+            heroAbility.setActivatedHero(this.user.getId());
+            hero = user.getHeroName();
+
+            switch (hero){
+                case "Pikachu":
+                    System.out.println("Pika Pika bitch");
+                    heroAbility.setHeroAbilityIsActivated(true);
+                    heroAbility.setHeroAttack(hero);
+                    //HeroAbility.setSwitchingControls(true);
+                    break;
+
+                case "Donkey_Kong":
+                    System.out.println("I want to kill Mario");
+                    heroAbility.setHeroAbilityIsActivated(true);
+                    heroAbility.setHeroAttack(hero);
+                    break;
+
+                default :
+                    break;
+            }
+
+        }
+    }
+
 
     private void goRight() {
         if (!checkCollision(fallingBlock, fallingBlock.getX() + 1, fallingBlock.getY())) {
@@ -257,12 +403,49 @@ public class Player {
                     normalMovementTime /= 1.5;
                     updateSpeed();
                 }
+
+                countNumberOfBlocksDK();
             }
         } else {
             fallingBlock.fall();
+
+            countTimerPikachu();
         }
 
         return isNew;
+    }
+
+    private void countTimerPikachu() {
+        if (heroAbility.isHeroAbilityIsActivated()){
+            if (heroAbility.getHeroAttack().equals("Pikachu")){
+                System.out.println("TIMER " + timerAbility);
+
+                if (timerAbility == 0) {
+                    heroAbility.setActivatedHero(-1);
+                    heroAbility.setHeroAbilityIsActivated(false);
+                    timerAbility = 30;
+                }
+
+                timerAbility--;
+
+            }
+        }
+    }
+
+    private void countNumberOfBlocksDK() {
+        if (heroAbility.isHeroAbilityIsActivated()){
+            if (heroAbility.getHeroAttack().equals("Donkey_Kong")){
+                System.out.println("AMOUNT " + countAmountBlocksDonkeyKong);
+
+                if (countAmountBlocksDonkeyKong == 2) {
+                    heroAbility.setActivatedHero(-1);
+                    heroAbility.setHeroAbilityIsActivated(false);
+                    countAmountBlocksDonkeyKong = 0;
+                    stopSonic();
+                }
+                countAmountBlocksDonkeyKong ++;
+            }
+        }
     }
 
     private Integer[][] getPlayingFieldWithFallingBlock() {
