@@ -103,7 +103,7 @@ a {
 }
 
 .userInfo {
-    margin-top: 30px;
+    margin-top: -5%;
 }
 
 .userInfo div {
@@ -126,6 +126,7 @@ a {
 .logOut {
     width: 300px;
     margin-left: auto;
+    margin-top: -5%;
 }
 
 .mainMenu li input[type=submit], .logOut-submit, .option-back-submit, .back-submit, .save-submit, .next-submit {
