@@ -185,7 +185,7 @@ public class Player {
 
             if (heroAbility.isHeroAbilityIsActivated()) {
                 switch (heroAbility.getHeroAttack()) {
-                    case "Pikachu":
+                    case "pikachu":
                         //pikachuAbility();
                         if (heroAbility.activatedID() == this.user.getId()) {
                             System.out.println("ACTIVATED");
@@ -200,7 +200,7 @@ public class Player {
 
                         }
                         break;
-                    case "Donkey_Kong":
+                    case "donkeykong":
                         //donkeyKongAbility();
                         if (heroAbility.activatedID() == this.user.getId()) {
                             System.out.println("ACTIVATED");
@@ -417,7 +417,7 @@ public class Player {
 
     private void countTimerPikachu() {
         if (heroAbility.isHeroAbilityIsActivated()){
-            if (heroAbility.getHeroAttack().equals("Pikachu")){
+            if (heroAbility.getHeroAttack().equals("pikachu")){
                 System.out.println("TIMER " + timerAbility);
 
                 if (timerAbility == 0) {
@@ -434,7 +434,7 @@ public class Player {
 
     private void countNumberOfBlocksDK() {
         if (heroAbility.isHeroAbilityIsActivated()){
-            if (heroAbility.getHeroAttack().equals("Donkey_Kong")){
+            if (heroAbility.getHeroAttack().equals("donkeykong")){
                 System.out.println("AMOUNT " + countAmountBlocksDonkeyKong);
 
                 if (countAmountBlocksDonkeyKong == 2) {
