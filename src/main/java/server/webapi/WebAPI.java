@@ -36,7 +36,7 @@ import java.util.Set;
  */
 public class WebAPI extends AbstractVerticle {
     private static final String SOCKET_URL_DOT = "tetris.events.";
-    private static final String REGISTER = "/pages/register.html";
+    private static final String REGISTER = "/register.html";
 
     private final ObjectMapper objectMapper = new ObjectMapper();
     // private LoginRepository loginRepo = Repositories.getInstance().getLoginRepository();
