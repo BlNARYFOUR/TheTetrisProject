@@ -15,14 +15,11 @@ eb.onopen = function () {
     // give the rewards to javascript
     //TODO CAN BE DONE WITH FETCH
     eb.registerHandler("tetris.events.rewards", function(err, message){
-        console.log("Redbull");
         rewardsAndUserInfo(message);
         showDailyRewards();
         mainmenu();
 
         let streakDays = (userInfo.streakDays) - 1;
-        console.log("sd " + streakDays);
-        console.log("reward " + rewardsInfo[streakDays].reward);
         switch (rewardsInfo[streakDays].reward){
             case "xp":
                 // do nothing;
@@ -31,7 +28,6 @@ eb.onopen = function () {
             case "scratch card":
                 console.log("scratch card");
                 eb.registerHandler("tetris.events.scratchCard", function(err, message){
-                    console.log("boe");
                     scratchCard(message);
                     showScratchCard();
                 });
@@ -57,7 +53,6 @@ function session(){
     let obj = new Object();
     obj.session = cookies.getCookie("vertx-web.session");
     let json = JSON.stringify(obj);
-    console.log(json);
 
     eb.send("tetris.events.sessionInfo", json);
 }
@@ -144,7 +139,7 @@ function xpBar(xp, neededXPForNetxtLvl) {
 }
 
 function chooseGamemode() {
-    location.href = "/static/pages/chooseGamemode.html";
+    location.href = "chooseGamemode.html";
 }
 
 function clan() {

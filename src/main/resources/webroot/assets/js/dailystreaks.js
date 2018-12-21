@@ -1,20 +1,10 @@
 "use strict";
 
-<<<<<<< HEAD
-document.addEventListener("DOMContentLoaded", showDailyRewards);
-
-let rewards = ["", "xp", "scratch_card", "xp", "scratch_card", "xp", "mystery_box", "cubes"];
-let amount = ["", 50, 1, 100, 1, 150, 1, 10];
-let photo = "assets/media/daily_streaks/retroBlocks.png";
-let days = 7;
-let severalDaysLoggedIn = 2;
-=======
 let rewards = [];
 let amount = [];
 let days = [];
 let amountDays;
 let severalDaysLoggedIn;
->>>>>>> dailyRewards2.0
 let whitchRewardYouGet;
 let alreadyLoggedIn;
 

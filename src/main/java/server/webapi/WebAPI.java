@@ -183,8 +183,6 @@ public class WebAPI extends AbstractVerticle {
             rewards();
         }catch (IOException e) {
             System.err.println("Something went wrong with");
-        } catch (ParseException e) {
-            e.printStackTrace();
         }
         message.reply("thx");
 
