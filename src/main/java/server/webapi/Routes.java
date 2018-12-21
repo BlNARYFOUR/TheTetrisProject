@@ -26,7 +26,7 @@ class Routes {
     protected static final String INDEX_REF = "webroot/index.html";
     protected static final String REGISTER_REF = "webroot/register.html";
     private static final String INFO_COOKIE = "info";
-    private static final String STATIC_REF = "/static";
+    private static final String STATIC_REF = "./";
     private static final String MAIN_REF = "/static/main_menu.html";
     private static final String LOCATION = "location";
     private static final String SESSION_COOKIE = "vertx-web.session";
@@ -168,13 +168,13 @@ class Routes {
             //System.out.println(session.id());
             final User user = loginRepo.authenticateUser(session.get(USERNAME), session.get(PASSWORD), false);
             if (!loggedInRepo.isUserLogged(session.id(), user) || user == null) {
-                response.headers().add(LOCATION, STATIC_REF + '/');
+                response.headers().add(LOCATION, STATIC_REF);
                 response.setStatusCode(302).end();
             } else {
-                response.sendFile("webroot" + filePath);
+                response.sendFile("webroot/" + filePath);
             }
         } catch (Exception ex) {
-            response.headers().add(LOCATION, STATIC_REF + '/');
+            response.headers().add(LOCATION, STATIC_REF);
             response.setStatusCode(302).end();
         }
     }
@@ -188,12 +188,12 @@ class Routes {
             final User user = loginRepo.authenticateUser(session.get(USERNAME), session.get(PASSWORD), false);
 
             if (!loggedInRepo.isUserLogged(session.id(), user) || user == null) {
-                response.headers().add(LOCATION, STATIC_REF + '/');
+                response.headers().add(LOCATION, STATIC_REF);
             } else {
                 response.headers().add(LOCATION, STATIC_REF + SecureFilePath.MAIN_MENU);
             }
         } catch (Exception ex) {
-            response.headers().add(LOCATION, STATIC_REF + '/');
+            response.headers().add(LOCATION, STATIC_REF);
         }
 
         response.setStatusCode(302).end();
@@ -225,7 +225,7 @@ class Routes {
 
         final HttpServerResponse response = routingContext.response();
         response.setChunked(true);
-        response.headers().add(LOCATION, STATIC_REF + '/');
+        response.headers().add(LOCATION, STATIC_REF);
         response.setStatusCode(302).end();
     }
 
