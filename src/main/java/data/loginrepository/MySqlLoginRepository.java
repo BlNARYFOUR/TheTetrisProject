@@ -16,10 +16,10 @@ import java.util.Objects;
  * LoginRepository implemented with MySQL database.
  */
 public class MySqlLoginRepository implements LoginRepository {
-    private static final String SQL_ADD_USER = "insert into "
-            + "user(username, password, registerDate, startStreakDate,"
-            + " lastLoggedInDate, streakDays, alreadyLoggedInToday)"
-            + "values(?, ?, ?, ?, ?, ?, ?)";
+    private static final String SQL_ADD_USER = "insert into " +
+            "user(username, password, registerDate, startStreakDate, streakDays, alreadyLoggedInToday, xp, cubes, clanPoints, hasAClan, avatar)" +
+            "values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
 
     private static final String SQL_CONTROL_USER = "select * from user where username = ?"
             + " and password = ?";
@@ -29,12 +29,7 @@ public class MySqlLoginRepository implements LoginRepository {
     private static final String USERNAME = "username";
     private static final String USER_ID_STR = "user_id";
 
-    private final Date now = new Date();
-    private final Date tomorrow = new Date(now.getTime() + (1000 * 60 * 60 * 24));
-    private final transient SimpleDateFormat dateFormat = new SimpleDateFormat(DateFormat.YODA_TIME.toString(),
-            Locale.GERMANY);
-    private final String dateToday = dateFormat.format(now);
-    private final String dateTomorrow = dateFormat.format(tomorrow);
+    private long today = System.currentTimeMillis() / 1000;
 
     /**
      * Suppress PMD: keeps crying about unclosed ResultSet.
@@ -47,11 +42,15 @@ public class MySqlLoginRepository implements LoginRepository {
             u.setPassword(Hash.md5(u.getPassword()));
             prep.setString(1, u.getUsername());
             prep.setString(2, u.getPassword());
-            prep.setString(3, dateToday);
-            prep.setString(4, dateToday);
-            prep.setString(5, dateTomorrow);
-            prep.setInt(6, 1);
-            prep.setBoolean(7, false);
+            prep.setLong(3, today);
+            prep.setLong(4, today);
+            prep.setInt(5, 1);
+            prep.setBoolean(6, false);
+            prep.setInt(7, 0);
+            prep.setInt(8, 0);
+            prep.setInt(9, 0);
+            prep.setBoolean(10, false);
+            prep.setInt(11, 1);
 
             prep.executeUpdate();
 
@@ -146,15 +145,20 @@ public class MySqlLoginRepository implements LoginRepository {
     }
 
     private User createUser(final ResultSet rs) throws SQLException {
-        final int id = rs.getInt(USER_ID_STR);
-        final String username = rs.getString(USERNAME);
-        final String registerDate = rs.getString("registerDate");
-        final String startStreakDate = rs.getString("startStreakDate");
-        final String lastLoggedInDate = rs.getString("lastLoggedInDate");
-        final int streakDays = rs.getInt("streakDays");
-        final boolean alreadyLoggedInToday = rs.getBoolean("alreadyLoggedInToday");
-        return new User(id, username, registerDate, startStreakDate,
-                lastLoggedInDate, streakDays, alreadyLoggedInToday);
+        int ID = rs.getInt("user_id");
+        String username = rs.getString("username");
+        String password = rs.getString("password");
+        String registerDate = rs.getString("registerDate");
+        String startStreakDate = rs.getString("startStreakDate");
+        int streakDays = rs.getInt("streakDays");
+        boolean alreadyLoggedInToday = rs.getBoolean("alreadyLoggedInToday");
+        int xp = rs.getInt("xp");
+        int cubes = rs.getInt("cubes");
+        int clanPoints = rs.getInt("clanPoints");
+        boolean hasAClan = rs.getBoolean("hasAClan");
+        int avatar = rs.getInt("avatar");
+        return new User(ID, username, password, registerDate, startStreakDate, streakDays, alreadyLoggedInToday, xp, cubes, clanPoints, hasAClan, avatar);
     }
+
 
 }

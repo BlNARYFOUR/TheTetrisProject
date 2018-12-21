@@ -25,15 +25,25 @@ public class User {
 
     //Daily streak stuff
     private Date registerDate;
-    private Date beginDate;
-    private Date nextDate;
-    private int dailyStreakId;
-    private boolean alreadyLoggedIn;
+    private Date startStreakDate;
+    private int streakDays;
+    private boolean alreadyLoggedInToday;
+
 
     private Map<GameMode, Integer> highScores;
     private int gameRanking;
 
+    private int xp;
+    private int cubes;
+    private int clanPoints;
+
+    private boolean hasAClan;
+
+    private int avatarID;
+
+    //TODO remove to player
     private String heroName;
+
 
     public User(final int id, final String username, final String password) {
         this.id = id;
@@ -50,36 +60,25 @@ public class User {
         this("TEST", "TESTIE");
     }
 
-    public User(final int id, final String username, final String registerDate, final String beginDate,
-                final String nextDate, final int dailyStreakId, final boolean alreadyLoggedIn) {
+    public User(int id, String username, String password, String registerDate, String beginDate, int streakDays, boolean alreadyLoggedIn, int xp, int cubes, int clanPoints, boolean hasAClan, int avatarID) {
         this.id = id;
         this.username = username;
-        this.dailyStreakId = dailyStreakId;
-        this.alreadyLoggedIn = alreadyLoggedIn;
+        this.password = password;
+        this.streakDays = streakDays;
+        this.alreadyLoggedInToday = alreadyLoggedIn;
+        this.xp = xp;
+        this.cubes = cubes;
+        this.clanPoints = clanPoints;
+        this.hasAClan = hasAClan;
+        this.avatarID = avatarID;
 
         try {
             this.registerDate = dateFormat.parse(registerDate);
-            this.beginDate = dateFormat.parse(beginDate);
-            this.nextDate = dateFormat.parse(nextDate);
+            this.startStreakDate = dateFormat.parse(beginDate);
         } catch (ParseException e) {
             throw new UserException("Unable to parse one of the dates", e);
         }
     }
-
-    /*
-    public User(int id, String username, String password, Date loginDate, Date registerDate,
-    Date beginDate, Date nextDate, int dailyStreakId, boolean alreadyLoggedIn) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.loginDate = loginDate;
-        this.registerDate = registerDate;
-        this.beginDate = beginDate;
-        this.nextDate = nextDate;
-        this.dailyStreakId = dailyStreakId;
-        this.alreadyLoggedIn = alreadyLoggedIn;
-    }
-    */
 
     public int getId() {
         return id;
@@ -89,14 +88,6 @@ public class User {
         if (this.id < 0) {
             this.id = id;
         }
-    }
-
-    public void selectHero(final String heroName) {
-        this.heroName = heroName;
-    }
-
-    public String getHeroName() {
-        return this.heroName;
     }
 
     public String getUsername() {
@@ -142,60 +133,101 @@ public class User {
         this.gameRanking = gameRanking;
     }
 
-    //BRYAN
     public String getRegisterDate() {
         return dateFormat.format(registerDate);
     }
 
-    public String getBeginDate() {
-        return dateFormat.format(beginDate);
+    public String getStartStreakDate() {
+        return dateFormat.format(startStreakDate);
     }
 
-    public String getNextDate() {
-        return dateFormat.format(nextDate);
+
+    public int getStreakDays() {
+        return streakDays;
     }
 
-    public int getDailyStreakId() {
-        return dailyStreakId;
+    public void setStreakDays(int streakDays) {
+        this.streakDays = streakDays;
     }
 
-    public void setDailyStreakId(final int dailyStreakId) {
-        this.dailyStreakId = dailyStreakId;
+    public boolean isAlreadyLoggedInToday() {
+        return alreadyLoggedInToday;
     }
 
-    public boolean isAlreadyLoggedIn() {
-        return alreadyLoggedIn;
-    }
-
-    public void setAlreadyLoggedIn(final boolean alreadyLoggedIn) {
-        this.alreadyLoggedIn = alreadyLoggedIn;
+    public void setAlreadyLoggedInToday(boolean alreadyLoggedInToday) {
+        this.alreadyLoggedInToday = alreadyLoggedInToday;
     }
 
     public Date getLoginDate() {
-        return Date.from(loginDate.toInstant());
+        return loginDate;
     }
 
-    public void setLoginDate(final Date loginDate) {
-        this.loginDate = Date.from(loginDate.toInstant());
+    public void setLoginDate(Date loginDate) {
+        this.loginDate = loginDate;
     }
+
+    public int getXp() {
+        return xp;
+    }
+
+    public void setXp(int xp) {
+        this.xp = xp;
+    }
+
+    public int getCubes() {
+        return cubes;
+    }
+
+    public void setCubes(int cubes) {
+        this.cubes = cubes;
+    }
+
+    public int getClanPoints() {
+        return clanPoints;
+    }
+
+    public void setClanPoints(int clanPoints) {
+        this.clanPoints = clanPoints;
+    }
+
+    public boolean isHasAClan() {
+        return hasAClan;
+    }
+
+    public void setHasAClan(boolean hasAClan) {
+        this.hasAClan = hasAClan;
+    }
+
+    public int getAvatarID() {
+        return avatarID;
+    }
+
+    public void setAvatarID(int avatarID) {
+        this.avatarID = avatarID;
+    }
+
+    public void selectHero(final String heroName) {
+        this.heroName = heroName;
+    }
+
+    public String getHeroName() {
+        return this.heroName;
+    }
+
 
     @Override
     public String toString() {
-        return getUsername() + " is logged in (with password: " + getPassword() + " )";
+        return getUsername() + " is logged in (with password: " + getPassword() + " ) " + getXp() + " " + getCubes();
     }
 
     @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        final User user = (User) o;
-        return id == user.id
-                && Objects.equals(username, user.username)
-                && Objects.equals(password, user.password);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id &&
+                Objects.equals(username, user.username) &&
+                Objects.equals(password, user.password);
     }
 
     @Override
@@ -203,3 +235,4 @@ public class User {
         return Objects.hash(id, username, password);
     }
 }
+
