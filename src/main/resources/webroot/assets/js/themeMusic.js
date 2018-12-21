@@ -2,7 +2,9 @@
 
 document.addEventListener("DOMContentLoaded", init);
 
-const sounds = createAudioObj("themeMusic.mp3");
+const sounds = {
+    themeMusic: createAudioObj("themeMusic.mp3")
+};
 
 function init() {
     startMusic();
@@ -10,19 +12,19 @@ function init() {
 }
 
 function startMusic() {
-        sounds.loop = true;
-        sounds.volume = 0.2;
-        sounds.currentTime = 0;
-        sounds.play();
+        sounds.themeMusic.loop = true;
+        sounds.themeMusic.volume = 0.2;
+        sounds.themeMusic.currentTime = 0;
+        sounds.themeMusic.play();
 }
 
 function toggleMusic() {
     if (document.getElementById("toggleMusic").className === "soundON"){
-        sounds.muted = true;
+        sounds.themeMusic.muted = true;
         document.getElementById("toggleMusic").className = "soundOFF";
         console.log("turned OFF");
     } else {
-        sounds.muted = false;
+        sounds.themeMusic.muted = false;
         document.getElementById("toggleMusic").className = "soundON";
         console.log("Turned ON");
     }
