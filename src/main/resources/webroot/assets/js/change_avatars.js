@@ -70,15 +70,12 @@ function showAllImagesOfASpecificPage() {
     for (let i = 0; i < allAvatars.length; i++){
         avatarArr.push(allAvatars[i].name);
 
-        console.log("boe")
         imgList += "<figure id='" + avatarArr[i] + "' class='selectable" + firstSelected + "'><img data-avatarname='" + avatarArr[i] + "' src='../assets/media/avatars/Avatar_" + avatarArr[i] + ".png' class='avatars'/></figure>";
 
         firstSelected = "";
     }
-    console.log(avatarArr)
 
     location.innerHTML = imgList;
-    console.log("bye")
     selectablesEvents();
 }
 
@@ -141,7 +138,6 @@ function confirmYes(e) {
     console.log("Avatar has been changed");
 
     location.href="main_menu.html";
-    //TODO verander de avatar naar de gekozen avatar
 
 }
 

@@ -9,8 +9,6 @@ let whitchRewardYouGet;
 let alreadyLoggedIn;
 
 function showDailyRewards() {
-
-    console.log("YOU TO");
     amountDays = rewardsInfo.length;
     severalDaysLoggedIn = userInfo.streakDays;
     alreadyLoggedIn = userInfo.alreadyLoggedInToday;
@@ -35,10 +33,7 @@ function showDailyRewards() {
                     "<figcaption>+ " + amount[i] + " " + rewards[i] + "</figcaption></a>" +
                     "</figure>";
 
-                console.log(rewards);
                 whitchRewardYouGet = rewards[severalDaysLoggedIn - 1];
-                console.log("reward i get today " + whitchRewardYouGet);
-
 
             } else if(severalDaysLoggedIn > days[i]){
                 imgList += "<figure id='day_" + days[i] + "'>" +

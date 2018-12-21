@@ -8,9 +8,7 @@ let mbSkin;
 
 function mysteryBox(message) {
     let json = message;
-    console.log(json);
     let body = JSON.parse(json.body);
-    console.log(body);
     pricesM = JSON.parse(body.prices);
     mbAvatar = JSON.parse(body.avatar);
     mbSkin = JSON.parse(body.skin);

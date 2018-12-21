@@ -39,8 +39,6 @@ public class ControlDailyStreak {
             Date dt = sdf.parse(loginRepo.getUser(username).getStartStreakDate());
             long epoch = dt.getTime();
             lStartStreak = epoch/1000;
-
-            System.out.println("long " + lStartStreak);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -52,8 +50,6 @@ public class ControlDailyStreak {
         int d = Integer.parseInt(terugOmvromen.substring(5, 6));
         int y = Integer.parseInt(terugOmvromen.substring(8, 9));
         String time = terugOmvromen.substring(10, 18);
-
-        //System.out.println(d + " sf " + m + " dsf " + y);
 
         int maxDaysInMonth;
         switch (m) {
@@ -118,7 +114,6 @@ public class ControlDailyStreak {
 
 
         String next = m + "/" + d + "/" + y + " " + time;
-        System.out.println("nextt " + next);
 
         //OMVORMEN NAAR UNIX
         long nextDay = 0;
@@ -151,19 +146,11 @@ public class ControlDailyStreak {
     //OTHER DAY
     private long otherDay = 0;
 
-    public void control() throws ParseException {
+    public void control() {
         username = loggedInRepo.getLoggedUser(sessionID).getUsername();
         alreadyClaimedReward = loginRepo.getUser(username).isAlreadyLoggedInToday();
         streakDays = loginRepo.getUser(username).getStreakDays();
-        System.out.println("Boe " + username);
-
-        System.out.println("vandaag " + today);
         otherDay = today;
-        System.out.println("unix " + dateToUnix(2));
-
-        //otherDay = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").parse(String.valueOf(today)).getTime() / 1000;
-
-        System.out.println("Hallo my friend");
 
         //OMVORMEN NAAR DATE
         String date = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new Date(today * 1000));
@@ -181,7 +168,7 @@ public class ControlDailyStreak {
                     if (alreadyClaimedReward) {
                         streakDays++;
                         dailyRepo.setDailyStreakID(username, streakDays);
-                        System.out.println("dfs " + streakDays);
+                        System.out.println(streakDays);
                         break;
                     }
                 } else {
@@ -317,10 +304,7 @@ public class ControlDailyStreak {
 
     private void resetDailyStreak(){
         dailyRepo.resetDailyStreak(username);
-
-        //begin_date veranderen
         dailyRepo.setStartStreakDate(username);
-        //dailyRepo.setNewNextDate(username);
     }
 
 }

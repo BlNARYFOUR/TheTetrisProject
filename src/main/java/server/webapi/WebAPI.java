@@ -181,7 +181,6 @@ public class WebAPI extends AbstractVerticle {
             ControlDailyStreak controlDailyStreak = new ControlDailyStreak(sessionID);
             controlDailyStreak.control();
             rewards();
-            System.out.println("boe");
         }catch (IOException e) {
             System.err.println("Something went wrong with");
         } catch (ParseException e) {
@@ -269,8 +268,6 @@ public class WebAPI extends AbstractVerticle {
             Logger.warn("Reward request received: " + mysteryBoxReceivedReward);
             String type = "MysteryBox";
 
-            System.out.println("hallo " + mysteryBoxReceivedReward.get("won"));
-
             addRewardToUser(mysteryBoxReceivedReward, type);
             userReceivedReward(mysteryBoxReceivedReward);
 
@@ -328,7 +325,6 @@ public class WebAPI extends AbstractVerticle {
         allUsersAvatars.put("avatars", new Gson().toJson(avatars));
 
         String username = loggedInRepo.getLoggedUser(sessionID).getUsername();
-        System.out.println("test " + repo.getUser(username));
         allUsersAvatars.put("user", new Gson().toJson(repo.getUser(username)));
 
         int avatarID = repo.getUser(username).getAvatarID();
@@ -361,9 +357,6 @@ public class WebAPI extends AbstractVerticle {
 
             switch (jsonMap.get("won").toString()){
                 case "xp":
-                    System.out.println("hoelikan " + jsonMap.get("won"));
-                    System.out.println("boer " + jsonMap.get("amount"));
-                    System.out.println("akak " + jsonMap.values());
                     amount = (int) jsonMap.get("amount");
                     addAmountOfXPToUser(amount);
 
@@ -443,7 +436,6 @@ public class WebAPI extends AbstractVerticle {
     }
 
     private void addAmountOfCubesToUser(int amount) {
-        System.out.println(amount);
         String user = loggedInRepo.getLoggedUser(sessionID).getUsername();
 
         int amountCubes = repoDaily.getCubes(user).getCubes();
@@ -453,7 +445,6 @@ public class WebAPI extends AbstractVerticle {
     }
 
     private void addAmountOfXPToUser(int amount) {
-        System.out.println(amount);
         String user = loggedInRepo.getLoggedUser(sessionID).getUsername();
 
         int amountXP = repoDaily.getXP(user).getXp();
@@ -498,12 +489,10 @@ public class WebAPI extends AbstractVerticle {
 
         obj.put("rewards", new Gson().toJson(repoDaily.getAllRewards()));
         String username = loggedInRepo.getLoggedUser(sessionID).getUsername();
-        System.out.println(repo.getUser(username));
 
         obj.put("user", new Gson().toJson(repo.getUser(username)));
 
         int avatarID = repo.getUser(username).getAvatarID();
-        System.out.println("avatar " + avatarID);
         obj.put("avatar", new Gson().toJson(avatarRepo.getAvatar(avatarID)));
 
         vertx.eventBus().send("tetris.events.rewards", Json.encode(obj));
@@ -511,13 +500,9 @@ public class WebAPI extends AbstractVerticle {
 
     private void scratchCard(){
         JsonObject scratchCard = new JsonObject();
-        System.out.println(repoDaily.getAllSCPrices());
 
         int count = repoDaily.getAllSCPrices().size();
         int amountScratchBoxes = 3;
-        System.out.println("count " + count); // 4 true
-
-        System.out.println(repoDaily.getSCPricesById(1));
 
         int[] randomNumber = new int[amountScratchBoxes];
         List<ScratchCard> rewards = new ArrayList<>();
@@ -531,8 +516,6 @@ public class WebAPI extends AbstractVerticle {
         scratchCard.put("skin", new Gson().toJson(repoDaily.getSkinFromSC().getName()));
         //scratchCard.put("avatar", new Gson().toJson(repoDaily.getAvatarFromSC().getName()));
         scratchCard.put("scPrices", new Gson().toJson(rewards));
-
-        System.out.println(scratchCard);
 
         vertx.eventBus().send("tetris.events.scratchCard",  Json.encode(scratchCard));
     }

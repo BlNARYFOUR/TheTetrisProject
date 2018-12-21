@@ -15,12 +15,9 @@ eb.onopen = function () {
         let json = message;
 
         let body = JSON.parse(json.body);
-        console.log(body);
         let won = JSON.parse(body.won);
         let priceMB = won.price;
         let amount = won.amount;
-
-        console.log(priceMB);
 
         mysteryBoxOpening(priceMB, amount);
     });
@@ -38,7 +35,6 @@ function mysteryBoxOpening(price, amount) {
 
     let boxOpened = false;
 
-    console.log(price);
 
     box.addEventListener('click', () => {
         if (!boxOpened) {
