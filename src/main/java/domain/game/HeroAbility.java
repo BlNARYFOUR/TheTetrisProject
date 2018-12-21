@@ -1,18 +1,21 @@
 package domain.game;
 
-import java.util.ArrayList;
-
+/**
+ * Hero ability class.
+ */
 public class HeroAbility {
-    private static boolean switchingControls = false;
+    private static boolean switchingControls;
     private static int activatedHero;
-    private static boolean heroAbilityIsActivated = false;
+    private static boolean heroAbilityIsActivated;
     private static String heroAttack;
     private static int timerAbility = 30;
     private String name;
 
-    public HeroAbility(){}
+    public HeroAbility() {
+        super();
+    }
 
-    public HeroAbility(String name) {
+    public HeroAbility(final String name) {
         this.name = name;
     }
 
@@ -20,7 +23,7 @@ public class HeroAbility {
         return heroAttack;
     }
 
-    public static void setHeroAttack(String heroAttack) {
+    public static void setHeroAttack(final String heroAttack) {
         HeroAbility.heroAttack = heroAttack;
     }
 
@@ -28,7 +31,7 @@ public class HeroAbility {
         return heroAbilityIsActivated;
     }
 
-    public static void setHeroAbilityIsActivated(boolean heroAbilityIsActivated) {
+    public static void setHeroAbilityIsActivated(final boolean heroAbilityIsActivated) {
         HeroAbility.heroAbilityIsActivated = heroAbilityIsActivated;
     }
 
@@ -36,7 +39,7 @@ public class HeroAbility {
         return name;
     }
 
-    public static void setSwitchingControls(boolean switchingControls) {
+    public static void setSwitchingControls(final boolean switchingControls) {
         HeroAbility.switchingControls = switchingControls;
     }
 
@@ -44,7 +47,7 @@ public class HeroAbility {
         return switchingControls;
     }
 
-    public static void setActivatedHero(int activatedHero) {
+    public static void setActivatedHero(final int activatedHero) {
         HeroAbility.activatedHero = activatedHero;
     }
 
@@ -53,7 +56,7 @@ public class HeroAbility {
     }
 
 
-    public static int activatedID(){
+    public static int activatedID() {
         return activatedHero;
     }
 

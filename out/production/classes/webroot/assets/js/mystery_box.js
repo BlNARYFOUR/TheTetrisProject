@@ -1,32 +1,70 @@
 "use strict";
 
-let pricesM = ["skin", "100_cubes", "100_xp", "avatar", "nothing"];
-let priceM;
+let pricesM;
+let pricesMB = [];
+let mbAmount = [];
+let mbAvatar;
+let mbSkin;
 
+function mysteryBox(message) {
+    let json = message;
+    console.log(json);
+    let body = JSON.parse(json.body);
+    console.log(body);
+    pricesM = JSON.parse(body.prices);
+    mbAvatar = JSON.parse(body.avatar);
+    mbSkin = JSON.parse(body.skin);
 
-function mysteryBox(e) {
-    e.preventDefault();
+    showMysteryBox();
 
-    closeDailyStreaks(e);
+}
+
+function showMysteryBox() {
+
+    document.querySelector(".showDailyRewards").style.left = "20%";
+
+    closeDailyStreaks();
     document.getElementById("mysteryBoxCard").classList.remove("hiddenDailyRewards");
     document.getElementById("mysteryBoxCard").classList.add("showDailyRewards");
+
+    pricesMB.length = 0;
 
     let location = document.getElementById("pricesMysteryBox");
     let imgList = "";
 
     imgList += "<p>This can be in it</p>";
 
+    let src;
+
     for (let i = 0; i < pricesM.length; i++){
-        imgList += "<figure id='" + pricesM[i] + "'>" +
-            "<img data-pricesM='" + pricesM[i] + "' src='../assets/media/daily_streaks/" + pricesM[i].substring(pricesM[i].indexOf("_") + 1) + ".png' class='pricesM' />" +
-            "<figcaption>" + pricesM[i].replace("_", " ") + "</figcaption>" +
+
+        switch (pricesM[i].price){
+            case "skin":
+                pricesMB.push(mbSkin);
+                mbAmount.push(pricesM[i].amount);
+                src = "/static/assets/media/skin/skin_";
+                break;
+            case "avatar":
+                pricesMB.push(mbAvatar);
+                mbAmount.push(pricesM[i].amount);
+                src = "/static/assets/media/avatars/Avatar_";
+                break;
+            default:
+                pricesMB.push(pricesM[i].price);
+                mbAmount.push(pricesM[i].amount);
+                src = "/static/assets/media/daily_streaks/";
+        }
+
+        imgList += "<figure id='" + pricesMB[i] + "'>" +
+            "<img data-pricesM='" + pricesMB[i] + "' src='" + src + pricesMB[i] + ".png' class='pricesM' />" +
+            "<figcaption>" + pricesMB[i] + "</figcaption>" +
             "</figure>";
     }
 
     location.innerHTML = imgList;
 
     let locationMysteryBOx = document.getElementById("mysteryBox");
-    locationMysteryBOx.innerHTML = "<img data-mysteryBox='0' src='../assets/media/daily_streaks/retroBlocks.png' class='mysteryBox'/>" +
+    locationMysteryBOx.innerHTML = "<img data-showMysteryBox='0' src='/static/assets/media/daily_streaks/mystery_box.png' class='showMysteryBox'/>" +
         "<input type='submit' value='Open' id='openMysteryBox' class='openMysteryBox-submit'>";
 
     document.getElementById("openMysteryBox").addEventListener("click", openMysteryBox);
@@ -34,15 +72,7 @@ function mysteryBox(e) {
 
 function openMysteryBox(e) {
     e.preventDefault();
-    //TODO kansberekening Backend
 
-    priceM = pricesM[Math.floor(Math.random()*pricesM.length)];
-    console.log("Price: " + priceM);
-
-    alert("Congratulations you will receive " + priceM + " :)");
-
-    document.getElementById("mysteryBoxCard").classList.remove("showDailyRewards");
-    document.getElementById("mysteryBoxCard").classList.add("hiddenDailyRewards");
-
-
+    location.href = "/static/pages/mystery_box.html";
 }
+

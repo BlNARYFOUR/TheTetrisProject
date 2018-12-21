@@ -2,11 +2,13 @@ package server.webapi;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import data.dailystreakrepository.DailyRepository;
 import data.heroesrepository.HeroesRepository;
 import data.loggedinrepository.LoggedInRepository;
 import data.Repositories;
 import data.loginrepository.LoginRepository;
 import domain.User;
+import domain.dailystreak.ControlDailyStreak;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.ext.web.Cookie;
 import io.vertx.ext.web.RoutingContext;
@@ -24,21 +26,22 @@ import java.util.Objects;
  */
 class Routes {
     protected static final String INDEX_REF = "webroot/index.html";
-    protected static final String REGISTER_REF = "webroot/pages/register.html";
+    protected static final String REGISTER_REF = "webroot/register.html";
     private static final String INFO_COOKIE = "info";
     private static final String STATIC_REF = "/static";
-    private static final String MAIN_REF = "/static/pages/main_menu.html";
+    private static final String MAIN_REF = "/static/main_menu.html";
     private static final String LOCATION = "location";
     private static final String SESSION_COOKIE = "vertx-web.session";
     //private static final String SPACE = " ";
     private static final String PASSWORD = "password";
     private static final String USERNAME = "username";
 
+
     private static ObjectMapper objectMapper = new ObjectMapper();
     private final LoginRepository loginRepo = Repositories.getInstance().getLoginRepository();
     private final HeroesRepository heroRepo = Repositories.getInstance().getHeroRepository();
     private final LoggedInRepository loggedInRepo = Repositories.getInstance().getLoggedInRepository();
-    //private final DailyRepository repo = Repositories.getInstance().getDailyRepository();
+    private final DailyRepository dailyRepo = Repositories.getInstance().getDailyRepository();
 
     public void rootHandler(final RoutingContext routingContext) {
         final HttpServerResponse response = routingContext.response();
@@ -112,6 +115,7 @@ class Routes {
             try {
                 info = tryLogin(routingContext);
                 cookieHandler(INFO_COOKIE, info, routingContext);
+
             } catch (Exception ex) {
                 info = "Something went wrong.";
                 try {
@@ -229,15 +233,15 @@ class Routes {
         response.setStatusCode(302).end();
     }
 
-    void heroHandler(final RoutingContext routingContext) {
+    protected void heroHandler(final RoutingContext routingContext) {
         final HttpServerResponse response = routingContext.response();
 
         String json = "";
         try {
             json = objectMapper.writeValueAsString(heroRepo.getAllHeroes());
-            System.out.println(objectMapper.writeValueAsString(heroRepo.getAllHeroes()));
+            Logger.info(objectMapper.writeValueAsString(heroRepo.getAllHeroes()));
         } catch (JsonProcessingException e) {
-            System.err.println("Something went wrong with");
+            Logger.warn("Something went wrong with");
         }
 
         response.setStatusCode(200).end(json);

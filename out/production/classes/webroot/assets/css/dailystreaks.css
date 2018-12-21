@@ -28,17 +28,43 @@
     width: 200px;
     height: 200px;
     box-shadow: 0 0 50px 10px rebeccapurple;
+    filter: brightness(40%);
+}
+
+
+#dailyRewards figure a{
+    text-decoration: none;
+    color: #FF00B4;
+}
+
+#dailyRewards .today{
+    box-shadow: 0 0 50px 10px #FF00B4;
+    filter: brightness(100%);
+    transition: all 0.3s;
+    color: inherit;
+    cursor: pointer;
+}
+
+#dailyRewards img{
+    cursor: pointer;
+}
+
+#dailyRewards .today:hover{
+    transform: scale(1.1);
 }
 
 .rewards, .prices {
     width: 100px;
     height: 100px;
     margin-top: -20px;
+    cursor: auto;
 }
 
 .showDailyRewards {
     visibility: visible;
     position: absolute;
+    left: 0%;
+    top: 5%;
     height: 90vh;
     width: 90vw;
     margin-left: 4%;
@@ -70,8 +96,6 @@
     margin-left: -170px;
     margin-top: -90px;
 }
-
-/*TODO volgende class en id gewoon toevoegen aan style.*/
 
 .close-submit, .openMysteryBox-submit {
     border: 2px solid #9C35FF;
@@ -253,4 +277,12 @@ canvas {
     height: 370px;
     margin-left: auto;
     margin-right: auto;
+}
+
+.hiddenBox{
+    visibility: hidden;
+}
+
+.showBox{
+    visibility: visible;
 }

@@ -1,32 +1,48 @@
 "use strict";
 
-let pricesS = ["cubes", "xp", "skin", "nothing"];
+let pricesS = [];
 let boxes = 3;
 let boxesOpen = [];
 let priceS;
 let priceInScratch = [];
+let prices;
+let scPrices;
+let skinName;
+let scAmount = [];
+
+
+function scratchCard(message) {
+    let json = message;
+    let body = JSON.parse(json.body);
+    prices = JSON.parse(body.prices);
+    skinName = JSON.parse(body.skin);
+    scPrices = JSON.parse(body.scPrices);
+
+    showScratchCard();
+}
 
 function showScratchCard() {
+    document.querySelector(".showDailyRewards").style.left = "25%";
 
-    //closeDailyStreaks();
+
+    closeDailyStreaks();
+    document.getElementById("scratchCard").classList.remove("hiddenDailyRewards");
+    document.getElementById("scratchCard").classList.add("showDailyRewards");
+
+    pricesS.length = 0;
+
     let location = document.getElementById("pricesScratch");
     let imgList = "";
 
     imgList += "<p>This can be in it</p>";
 
-    for (let j = 0; j < pricesS.length; j++){
+    for (let j = 0; j < prices.length; j++){
+        pricesS.push(prices[j].price);
+        scAmount.push(prices[j].amount);
 
-        // TODO TIJDELIJLK
-        if (pricesS[j] === "skin"){
-            imgList += "<figure id='" + pricesS[j] + "'>" +
-                "<img data-pricesS='" + pricesS[j] + "' src='../assets/media/daily_streaks/retroBlocks.png' class='pricesS' />" +
-                "</figure>";
-        } else {
-
-            imgList += "<figure id='" + pricesS[j] + "'>" +
-                "<img data-pricesS='" + pricesS[j] + "' src='../assets/media/daily_streaks/" + pricesS[j] + ".png' class='pricesS' />" +
-                "</figure>";
-        }
+        imgList += "<figure id='" + pricesS[j] + "'>" +
+            "<img data-pricesS='" + pricesS[j] + "' src='/static/assets/media/daily_streaks/" + pricesS[j] + ".png' class='pricesS' />" +
+            "</figure>";
 
     }
     location.innerHTML = imgList;
@@ -36,15 +52,13 @@ function showScratchCard() {
     let boxesList = "";
 
     for (let k = 0; k < boxes; k++){
-        priceS = pricesS[Math.floor(Math.random()*pricesS.length)];
-        console.log("p " + priceS);
-        priceInScratch.push(priceS);
-        console.log("pis " + priceInScratch);
+        let price = scPrices[k].price;
+        priceInScratch.push(scPrices[k].price);
         boxesList += '<div class="container" id="js-container' + k + '">\n' +
             '<canvas class="canvas' + k + '" id="js-canvas' + k + '"></canvas>\n' +
             '<div class="form">\n' +
             '<div id="text_price_' + k + '" class="visible">\n' +
-            '<img src="../assets/media/daily_streaks/' +  priceS + '.png">\n' +
+            '<img src="assets/media/daily_streaks/' +  priceS + '.png">\n' +
             '</div>\n' +
             '</div>\n' +
             '</div>';
@@ -77,9 +91,9 @@ function drawScratch() {
         image3       = new Image(),
         brush        = new Image();
 
-    image.src = "../assets/media/daily_streaks/scratchFields.png";
-    image2.src = "../assets/media/daily_streaks/scratchFields.png";
-    image3.src = "../assets/media/daily_streaks/scratchFields.png";
+    image.src = "assets/media/daily_streaks/scratchFields.png";
+    image2.src = "assets/media/daily_streaks/scratchFields.png";
+    image3.src = "assets/media/daily_streaks/scratchFields.png";
 
     loadImage(canvas0, image, ctx0);
     loadImage(canvas1, image2, ctx1);
@@ -156,8 +170,7 @@ function mouseAndTouchActions(canvas, ctx, width, height, lastPoint, isDrawing, 
 
     function handlePercentage(filledInPixels) {
         filledInPixels = filledInPixels || 0;
-        //console.log(filledInPixels + '%');
-        if (filledInPixels > 50) {
+        if (filledInPixels > 30) {
             canvas.parentNode.removeChild(canvas);
             boxesOpen.push(canvas);
             controleIfYouWon();
@@ -199,6 +212,9 @@ function controleIfYouWon() {
     let same = [];
     let notSame = [];
 
+    same.length = 0;
+    notSame.length = 0;
+
     if (boxesOpen.length === boxes) {
         for (let i = 0; i < priceInScratch.length; i++){
             if (priceInScratch[0] === priceInScratch[i]){
@@ -206,15 +222,47 @@ function controleIfYouWon() {
             }else {
                 notSame.push(priceInScratch[i]);
             }
-
-
         }
-        console.log("same " + same);
+        let price = new Object();
 
         if (same.length === 3){
+
             alert("You won " + same[0]);
+
+            let wonAmount;
+
+            for (let k = 0; k < scPrices.length; k++){
+                if (same[0] === "skin"){
+                    console.log("you won a skin");
+                    price.won = skinName;
+
+                } else if (same[0] === "nothing"){
+                    console.log("You won nothing");
+
+                } else if (same[0] === scPrices[k].price){
+                    let price = scPrices[k].price;
+                    wonAmount = scPrices[k].amount;
+                    price.won = same[0];
+                }
+            }
+
+            price.amount = wonAmount;
+            price.alreadyLoggedInToday = true;
+
+            let json = JSON.stringify(price);
+
+            eb.send("tetris.events.priceScratchCard", json);
+
+
         } else {
             alert("Better luck next time!");
+
+            price.lose = "Better luck next time";
+            price.alreadyLoggedInToday = true;
+            let json = JSON.stringify(price);
+
+            eb.send("tetris.events.priceScratchCard", json);
+
             document.getElementById("scratchCard").classList.remove("showDailyRewards");
             document.getElementById("scratchCard").classList.add("hiddenDailyRewards");
 

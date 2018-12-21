@@ -17,20 +17,26 @@ public final class TetrisRepository {
     //private static String dateTomorrow = dateFormat.format(tomorrow);
 
     private static final String SQL_USER_DB =
-            "CREATE TABLE IF NOT EXISTS user (\n"
-                    + "  user_id int(11) NOT NULL AUTO_INCREMENT,\n"
-                    + "  username varchar(50) NOT NULL,\n"
-                    + "  password varchar(50) NOT NULL,\n"
-                    + "  registerDate varchar(100) NOT NULL,\n"
-                    + "  startStreakDate varchar(100) DEFAULT NULL,\n"
-                    + "  lastLoggedInDate varchar(100) DEFAULT NULL,\n"
-                    + "  streakDays int(11) DEFAULT NULL,\n"
-                    + "  alreadyLoggedInToday tinyint(4) DEFAULT 0,\n"
-                    + "  xp int(11) DEFAULT 0,\n"
-                    + "  cubes int(11) DEFAULT 0,\n"
-                    + "  PRIMARY KEY (user_id),\n"
-                    + "  UNIQUE KEY user_id_UNIQUE (user_id),\n"
-                    + "  UNIQUE KEY username_UNIQUE (username))";
+            "CREATE TABLE IF NOT EXISTS user(\n" +
+                    "  user_id int(11) NOT NULL AUTO_INCREMENT,\n" +
+                    "  username varchar(50) NOT NULL,\n" +
+                    "  password varchar(50) NOT NULL,\n" +
+                    "  registerDate varchar(100) NOT NULL,\n" +
+                    "  startStreakDate varchar(100) DEFAULT NULL,\n" +
+                    "  streakDays int(11) DEFAULT NULL,\n" +
+                    "  alreadyLoggedInToday tinyint(4) DEFAULT '0',\n" +
+                    "  xp int(11) DEFAULT 0,\n" +
+                    "  cubes int(11) DEFAULT 0,\n" +
+                    "  clanPoints int(11) DEFAULT 0,\n" +
+                    "  hasAClan tinyint(4) DEFAULT 0,\n" +
+                    "  avatar int(11) DEFAULT 1,\n" +
+                    "  PRIMARY KEY (user_id),\n" +
+                    "  UNIQUE KEY user_id_UNIQUE (user_id),\n" +
+                    "  UNIQUE KEY username_UNIQUE (username),\n" +
+                    "  /*KEY streak_day_id_idx (streakDays),\n*/" +
+                    "  /*KEY avatar_idx (avatar),\n*/" +
+                    "  CONSTRAINT avatar FOREIGN KEY (avatar) REFERENCES avatar (avatarID) ON DELETE NO ACTION ON UPDATE NO ACTION,\n" +
+                    "  CONSTRAINT streak_id FOREIGN KEY (streakDays) REFERENCES rewards (rewardID) ON DELETE NO ACTION ON UPDATE NO ACTION)";
 
     private static final String SQL_REWARDS_DB =
             "CREATE TABLE IF NOT EXISTS rewards (\n"
@@ -69,12 +75,48 @@ public final class TetrisRepository {
                     + "  mbPrice varchar(50) NOT NULL,\n"
                     + "  PRIMARY KEY (mbID))";
 
+    private static final String SQL_MYSTERYBOX_AVATER_DB =
+            "CREATE TABLE IF NOT EXISTS mysterybox_avatar (\n" +
+                    "  ID int(11) NOT NULL AUTO_INCREMENT,\n" +
+                    "  mbID int(11) NOT NULL,\n" +
+                    "  avatarID int(11) NOT NULL,\n" +
+                    "  PRIMARY KEY (ID),\n" +
+                    "  /*KEY mbID (mbID),\n" +
+                    "  KEY avatarID (avatarID)*/)";
+
+    private static final String SQL_MYSTERYBOX_SKIN_DB =
+            "CREATE TABLE IF NOT EXISTS mysterybox_skin (\n" +
+                    "  ID int(11) NOT NULL AUTO_INCREMENT,\n" +
+                    "  mbID int(11) NOT NULL,\n" +
+                    "  skinID int(11) NOT NULL,\n" +
+                    "  PRIMARY KEY (ID),\n" +
+                    "  /*KEY mbID (mbID),\n" +
+                    "  KEY skinID (skinID)*/)";
+
     private static final String SQL_SCRATCHCARD_DB =
             "CREATE TABLE IF NOT EXISTS scratchcard (\n"
                     + "  scID int(11) NOT NULL AUTO_INCREMENT,\n "
                     + " amount int(11) NOT NULL,\n"
                     + "  scPrice varchar(50) NOT NULL,\n"
                     + "  PRIMARY KEY (scID))";
+
+    private static final String SQL_SCRATCHCARD_AVATAR_DB =
+            "CREATE TABLE IF NOT EXISTS scratchcard_avatar (\n" +
+                    "  ID int(11) NOT NULL AUTO_INCREMENT,\n" +
+                    "  scID int(11) NOT NULL,\n" +
+                    "  avatarID int(11) NOT NULL,\n" +
+                    "  PRIMARY KEY (ID),\n" +
+                    "  /*KEY scID (scID),\n" +
+                    "  KEY avatarID (avatarID)*/)";
+
+    private static final String SQL_SCRATCHCARD_SKIN_DB =
+            "CREATE TABLE IF NOT EXISTS scratchcard_skin (\n" +
+                    "  ID int(11) NOT NULL AUTO_INCREMENT,\n" +
+                    "  scID int(11) NOT NULL,\n" +
+                    "  skinID int(11) NOT NULL,\n" +
+                    "  PRIMARY KEY (ID),\n" +
+                    "  /*KEY scID (scID),\n" +
+                    "  KEY skinID (skinID)*/)";
 
     private static final String SQL_SKIN_DB =
             "CREATE TABLE IF NOT EXISTS skin (\n"
@@ -86,8 +128,8 @@ public final class TetrisRepository {
             "CREATE TABLE IF NOT EXISTS user_avatar (\n"
                     + "  userID int(11) NOT NULL,\n"
                     + "  avatarID int(11) NOT NULL,\n"
-                    + "  /*KEY FKuserID_idx (userID),\n"
-                    + "  KEY FKavatarID_idx (avatarID)*/)";
+                    + "  /*KEY FKuserID_idx (userID),\n" +
+                    "       KEY FKavatarID_idx (avatarID)*/)";
 
     private static final String SQL_USER_SKIN_DB =
             "CREATE TABLE IF NOT EXISTS user_skin (\n"
@@ -125,7 +167,11 @@ public final class TetrisRepository {
             stmt.executeUpdate(SQL_GAMEMODES_DB);
             stmt.executeUpdate(SQL_HEROES_DB);
             stmt.executeUpdate(SQL_MYSTERYBOX_DB);
+            stmt.executeUpdate(SQL_MYSTERYBOX_AVATER_DB);
+            stmt.executeUpdate(SQL_MYSTERYBOX_SKIN_DB);
             stmt.executeUpdate(SQL_SCRATCHCARD_DB);
+            stmt.executeUpdate(SQL_SCRATCHCARD_AVATAR_DB);
+            stmt.executeUpdate(SQL_SCRATCHCARD_SKIN_DB);
             stmt.executeUpdate(SQL_SKIN_DB);
             stmt.executeUpdate(SQL_USER_AVATAR_DB);
             stmt.executeUpdate(SQL_USER_SKIN_DB);

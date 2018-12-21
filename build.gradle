@@ -7,11 +7,8 @@ plugins {
     id "com.eriwen.gradle.css" version "2.14.0"
 }
 
-
-group 'application'
+group 'be.howest.ti'
 version '1.0-SNAPSHOT'
-
-apply plugin: 'java'
 
 sourceCompatibility = 1.8
 
@@ -29,20 +26,33 @@ javascript.source {
     }
 }
 
+
+jshint {
+    tasks.jshint.source = javascript.source.dev.js.files
+    tasks.jshint.dest = file("${buildDir}/jshint.out")
+    tasks.jshint.reporter = 'checkstyle'
+    tasks.jshint.outputToStdOut = true
+    tasks.jshint.ignoreExitCode = false
+    jshint.options = [expr: "true", unused: "true"]
+}
 mainClassName = 'io.vertx.core.Launcher'
-def mainVerticleName = 'server.Tetris'
+
 def vertxVersion = '3.5.4'
+def mainVerticleName = 'server.Tetris'
 
 configurations {
     htmlValidation
 }
 
-dependencies {
+dependencies{
     compile group: 'findbugs', name: 'findbugs', version: '1.0.0'
     //vertx
     compile "io.vertx:vertx-core:$vertxVersion"
     compile "io.vertx:vertx-web:$vertxVersion"
     compile "io.vertx:vertx-lang-js:$vertxVersion"
+
+    //GSON
+    compile 'com.google.code.gson:gson:2.8.4'
 
     //jackson json
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.4'
@@ -62,8 +72,9 @@ dependencies {
     htmlValidation group: 'nu.validator', name: 'validator', version: '18.11.5'
 }
 
+
 run {
-    args = ['run', mainVerticleName, "--launcher-class=$mainClassName", "-conf", "./conf/config.json"]
+    args = ['run', mainVerticleName, "--launcher-class=$mainClassName"]
 }
 
 shadowJar {
