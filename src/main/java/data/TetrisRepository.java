@@ -142,15 +142,77 @@ public final class TetrisRepository {
                     + "  CONSTRAINT FKuserID FOREIGN KEY (userID) REFERENCES user (user_id)"
                     + " ON DELETE NO ACTION ON UPDATE NO ACTION)";
 
+    private static final String SQL_INSERT_HEROES =
+            "replace  into  heroes ( heroID , heroName , heroAbility , heroAbilityNegative , cost ) values \n" +
+                    "(1,'pacman','Eating 2 adjacent rows',0,1000),\n" +
+                    "(2,'donkeykong','Ensures that two blocks of opponents fall down faster',1,1000),\n" +
+                    "(4,'pikachu','Reverse controls',1,1000),\n" +
+                    "(5,'sonic','The next block of opponent goes directly down',1,1000)";
 
-    /*private static final String SQL_ADD_USER = "insert into user(username, password, registerdate, " +
-            "startstreakdate, lastloggedindate, streakdays, alreadyloggedintoday)" +
-            "values (?, ?, ?, ?, ?, ?, ?)";
-    private static final String SQL_CONTROL_USER = "select * from user where username = ?" +
-            " and password = ?";
-    private static final String SQL_DELETE_USER = "delete from user where username = ?";
-    private static final String SQL_GET_USERNAME = "select * from user where username = ?";
-*/
+    private static final String SQL_INSERT_AVATARS =
+            "replace  into  avatar ( avatarID , avatarName ) values \n" +
+                    "(1,'Standard'),\n" +
+                    "(2,'Banana'),\n" +
+                    "(3,'Heart'),\n" +
+                    "(4,'TRex'),\n" +
+                    "(5,'Triforce')";
+
+    private static final String SQL_INSERT_GAMEMODES =
+            "replace  into  gamemodes ( gamemodeID , gamemodeName ) values \n" +
+                    "(1,'Single_player'),\n" +
+                    "(2,'Multi_player'),\n" +
+                    "(3,'Time_attack'),\n" +
+                    "(4,'Last_Man_Standing')";
+
+    private static final String SQL_INSERT_MYSTERYBOX_REWARDS =
+            "replace  into  mysterybox ( mbID , amount , mbPrice ) values \n" +
+                    "(1,1,'skin'),\n" +
+                    "(2,10,'cubes'),\n" +
+                    "(3,100,'xp'),\n" +
+                    "(4,1,'avatar'),\n" +
+                    "(5,1,'nothing')";
+
+    private static final String SQL_INSERT_MYSTERYBOX_AVATAR =
+            "replace into  mysterybox_avatar ( ID , mbID , avatarID ) values \n" +
+                    "(1,4,3)";
+
+    private static final String SQL_INSERT_MYSTERYBOX_SKIN =
+            "replace  into  mysterybox_skin ( ID , mbID , skinID ) values \n" +
+                    "(1,1,3)";
+
+    private static final String SQL_INSERT_REWARDS =
+            "replace  into  rewards ( rewardID , countStreakDays , amount , rewards ) values \n" +
+                    "(1,1,50,'xp'),\n" +
+                    "(2,2,1,'scratch card'),\n" +
+                    "(3,3,100,'xp'),\n" +
+                    "(4,4,1,'scratch card'),\n" +
+                    "(5,5,150,'xp'),\n" +
+                    "(6,6,1,'mystery box'),\n" +
+                    "(7,7,10,'cubes')";
+
+    private static final String SQL_INSERT_SCRATCHCARD =
+            "replace  into  scratchcard ( scID , amount , scPrice ) values \n" +
+                    "(1,10,'cubes'),\n" +
+                    "(2,100,'xp'),\n" +
+                    "(3,1,'skin'),\n" +
+                    "(4,0,'nothing'),\n" +
+                    "(5,1,'avatar')";
+
+    private static final String SQL_INSERT_SCRATCHCARD_AVATAR =
+            "replace  into  scratchcard_avatar ( ID , scID , avatarID ) values \n" +
+                    "(1,5,3)";
+
+    private static final String SQL_INSERT_SCRATCHCARD_SKIN =
+            "replace  into  scratchcard_skin ( ID , scID , skinID ) values \n" +
+                    "(1,3,4)";
+
+    private static final String SQL_INSERT_SKIN =
+            "replace  into  skin ( skinID , skinName ) values \n" +
+                    "(1,'pac-man'),\n" +
+                    "(2,'donkey kong'),\n" +
+                    "(3,'pikachu'),\n" +
+                    "(4,'sonic')";
+
 
 
 
@@ -161,6 +223,7 @@ public final class TetrisRepository {
     // DATABASE
     public static void populateDB() {
         try (Statement stmt = JdbcInteractor.getConnection().createStatement()) {
+            //CREATE TABLES
             stmt.executeUpdate(SQL_REWARDS_DB);
             stmt.executeUpdate(SQL_USER_DB);
             stmt.executeUpdate(SQL_AVATER_DB);
@@ -176,6 +239,21 @@ public final class TetrisRepository {
             stmt.executeUpdate(SQL_USER_AVATAR_DB);
             stmt.executeUpdate(SQL_USER_SKIN_DB);
 
+            //INSERT
+            stmt.executeUpdate(SQL_INSERT_AVATARS);
+            stmt.executeUpdate(SQL_INSERT_GAMEMODES);
+            stmt.executeUpdate(SQL_INSERT_HEROES);
+            stmt.executeUpdate(SQL_INSERT_MYSTERYBOX_AVATAR);
+            stmt.executeUpdate(SQL_INSERT_MYSTERYBOX_REWARDS);
+            stmt.executeUpdate(SQL_INSERT_MYSTERYBOX_SKIN);
+            stmt.executeUpdate(SQL_INSERT_REWARDS);
+            stmt.executeUpdate(SQL_INSERT_SCRATCHCARD);
+            stmt.executeUpdate(SQL_INSERT_SCRATCHCARD_AVATAR);
+            stmt.executeUpdate(SQL_INSERT_SCRATCHCARD_SKIN);
+            stmt.executeUpdate(SQL_INSERT_SKIN);
+
+
+
             stmt.close();
 
         } catch (SQLException ex) {
@@ -185,93 +263,5 @@ public final class TetrisRepository {
         }
     }
 
-    /*
-    // LOGIN
-    public static void addUser(User u) {
-        try (Connection con = JdbcInteractor.getConnection();
-             PreparedStatement prep = con.prepareStatement(SQL_ADD_USER)){
-            prep.setString(1, u.getUsername());
-            prep.setString(2, u.getPassword());
-            prep.setString(3, dateToday);
-            prep.setString(4, dateToday);
-            prep.setString(5, dateTomorrow);
-            prep.setInt(6, 1);
-            prep.setBoolean(7, false);
-
-            prep.executeUpdate();
-            System.out.println("User has been added.");
-        }catch (SQLException ex){
-            throw new DailyException("Unable to add user to DB.", ex);
-        }
-    }
-
-    public User authenticateUser(String username, String password) {
-        return authenticateUser(username, password, true);
-    }
-
-
-    public static User authenticateUser(String username, String password, boolean hashPass) {
-        User user = null;
-
-        try (Connection con = JdbcInteractor.getConnection();
-             PreparedStatement prep = con.prepareStatement(SQL_CONTROL_USER)){
-
-            String pass = hashPass ? Hash.md5(password) : password;
-
-            prep.setString(1, username);
-            prep.setString(2, pass);
-
-            ResultSet rs = prep.executeQuery();
-
-            if (rs.next()){
-                user = new User(rs.getInt("user_id"), rs.getString("username"), rs.getString("password"));
-                System.out.println("Login successful: " + user.getUsername());
-            }else {
-                System.out.println("Login failed!");
-            }
-
-
-        }catch (SQLException ex){
-            throw new LoginException("Login has been failed!");
-        }
-        return user;
-    }
-
-    public User deleteUser(String username) {
-        try (Connection con = JdbcInteractor.getConnection();
-             PreparedStatement prep = con.prepareStatement(SQL_DELETE_USER)){
-            prep.setString(1, username);
-
-            prep.executeUpdate();
-            System.out.println("User has been deleted!");
-        }catch (SQLException ex){
-            throw new LoginException("Can't delete user", ex);
-        }
-        return null;
-    }
-
-    public User getUser(String username) {
-        try (Connection con = JdbcInteractor.getConnection();
-             PreparedStatement prep = con.prepareStatement(SQL_GET_USERNAME)) {
-            prep.setString(1, username);
-
-            try (ResultSet rs = prep.executeQuery()){
-                if (rs.next()){
-                    return createUser(rs);
-                }else {
-                    return null;
-                }
-            }
-        }catch (SQLException ex){
-            throw new LoginException("Can't find the username.", ex);
-        }
-    }
-
-    private User createUser(ResultSet rs) throws SQLException {
-        int ID = rs.getInt("user_id");
-        String username = rs.getString("username");
-        String password = rs.getString("password");
-        return new User(ID, username, password);
-    }*/
 }
 

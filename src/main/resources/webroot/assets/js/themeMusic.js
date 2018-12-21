@@ -7,10 +7,10 @@ const sounds = {
 };
 
 function init() {
-    sounds.loop = true;
+    /*sounds.loop = true;
     sounds.volume = 0.2;
     sounds.currentTime = 0;
-    sounds.play();
+    sounds.play();*/
 
     document.getElementById("toggleMusic").addEventListener("click", toggleMusic);
 }
