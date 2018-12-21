@@ -21,10 +21,10 @@ import java.util.Objects;
  */
 class Routes {
     protected static final String INDEX_REF = "webroot/index.html";
-    protected static final String REGISTER_REF = "webroot/pages/register.html";
+    protected static final String REGISTER_REF = "webroot/register.html";
     private static final String INFO_COOKIE = "info";
     private static final String STATIC_REF = "/static";
-    private static final String MAIN_REF = "/static/pages/main_menu.html";
+    private static final String MAIN_REF = "/static/main_menu.html";
     private static final String LOCATION = "location";
     private static final String SESSION_COOKIE = "vertx-web.session";
     //private static final String SPACE = " ";
