@@ -36,7 +36,7 @@ function init() {
 
 function createAudioObj(fileName) {
     let audio = document.createElement("audio");
-    audio.src = "/static/assets/sounds/" + fileName;
+    audio.src = "assets/sounds/" + fileName;
     return audio;
 }
 
@@ -60,7 +60,7 @@ function loadHeroes(arr) {
         heroes.push(arr[i].heroName);
 
         imgList += "<li id='heroes' class='selectable hero-" + heroes[i] + firstSelected + "' data-heroname='" + heroes[i] + "'>" +
-            "<img data-heroname='" + heroes[i] + "' src= ../assets/media/" + heroes[i] + ".gif class='"+ heroes[i] +"' title='"+ heroes[i] +"' alt='"+ heroes[i] +"'>" +
+            "<img data-heroname='" + heroes[i] + "' src=assets/media/" + heroes[i] + ".gif class='"+ heroes[i] +"' title='"+ heroes[i] +"' alt='"+ heroes[i] +"'>" +
             "<p data-heroname='" + heroes[i] + "'>"+ heroes[i] +"</p>" +
             "</li>";
 
