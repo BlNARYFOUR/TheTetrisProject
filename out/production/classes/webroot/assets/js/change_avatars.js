@@ -1,12 +1,62 @@
 "use strict";
 
-document.addEventListener("DOMContentLoaded", showAllImagesOfASpecificPage);
+let eb = new EventBus("/tetris-16/socket/");
+
+let userInfo;
+let allAvatars;
+let avatarInfo;
+
+eb.onopen = function () {
+    console.log("Connection open");
+
+    let obj = new Object();
+    obj.request = "changeAvatar";
+    let json = JSON.stringify(obj);
+
+    eb.send("tetris.events.changeAvatarRequest", json);
+
+    eb.registerHandler("tetris.events.allAvatars", function (err, message) {
+        let json = message;
+        console.log(json);
+
+        let body = JSON.parse(json.body);
+        allAvatars = JSON.parse(body.avatars);
+        console.log(allAvatars);
+        userInfo = JSON.parse(body.user);
+        console.log(userInfo);
+        avatarInfo = JSON.parse(body.avatar);
+        console.log(avatarInfo);
+
+        setUserInfoInPage();
+        showAllImagesOfASpecificPage();
+    });
+
+
+};
+
+eb.onclose = function () {
+    console.log("Connection Closed");
+};
+
+function setUserInfoInPage() {
+    document.querySelector(".userName").innerText = userInfo.username;
+
+    document.getElementById("changeAvatar").innerHTML =
+        "<img src='../assets/media/avatars/Avatar_" + avatarInfo.name + ".png' class='user-avatar' alt='avatar' title='avatar'>";
+
+    UserInClan();
+
+    //generateLevelAndXP();
+}
+
 
 let elementSelectables;
 let selectedItem;
-let avatars = ["Banana", "Heart", "Standard", "TRex", "Triforce"];
+let avatarArr = [];
 
 function showAllImagesOfASpecificPage() {
+    console.log("show all avatars");
+
     document.getElementById("yes").disabled = true;
     document.getElementById("no").disabled = true;
 
@@ -17,13 +67,18 @@ function showAllImagesOfASpecificPage() {
     let imgList = "";
     let firstSelected = " selected";
 
-    for (let i = 0; i < avatars.length; i++){
-        imgList += "<figure id='" + avatars[i] + "' class='selectable" + firstSelected + "'><img data-avatarname='" + avatars[i] + "' src='../assets/media/avatars/Avatar_" + avatars[i] + ".png' class='avatars'/></figure>";
+    for (let i = 0; i < allAvatars.length; i++){
+        avatarArr.push(allAvatars[i].name);
+
+        console.log("boe")
+        imgList += "<figure id='" + avatarArr[i] + "' class='selectable" + firstSelected + "'><img data-avatarname='" + avatarArr[i] + "' src='../assets/media/avatars/Avatar_" + avatarArr[i] + ".png' class='avatars'/></figure>";
 
         firstSelected = "";
     }
+    console.log(avatarArr)
 
     location.innerHTML = imgList;
+    console.log("bye")
     selectablesEvents();
 }
 
@@ -46,6 +101,7 @@ function changeSelected(e) {
 
         // Hier wordt de naam van de geselecteerde avatar ingestoken
         selectedItem = e.target.dataset.avatarname;
+        console.log(selectedItem);
 
     }
     e.target.parentNode.classList.add("selected");
@@ -76,9 +132,17 @@ function saveAvatar() {
 function confirmYes(e) {
     e.preventDefault();
 
+    let obj = new Object();
+    obj.newAvatar = selectedItem;
+    let json = JSON.stringify(obj);
+
+    eb.send("tetris.events.newAvatar", json);
+
+    console.log("Avatar has been changed");
+
     location.href="main_menu.html";
     //TODO verander de avatar naar de gekozen avatar
-    
+
 }
 
 function confirmNo(e) {
@@ -97,4 +161,38 @@ function confirmNo(e) {
 
     selectedItem = null;
 
+}
+
+function UserInClan() {
+    //TODO let claninfo be generate in this function and not in html
+    if (!userInfo.hasAClan) {
+        document.querySelector(".userInfo-2").style.visibility = "hidden";
+    }
+}
+
+function generateLevelAndXP() {
+    let lvl = 1;
+    let xp = userInfo.xp;
+    let neededXPForNextLvl = 200;
+
+    if (xp < neededXPForNextLvl){
+        lvl = 1;
+
+    } else {
+        for (neededXPForNextLvl; xp >= neededXPForNextLvl; neededXPForNextLvl += 200) {
+            xp -= neededXPForNextLvl;
+            lvl += 1;
+        }
+    }
+
+    xpBar(xp, neededXPForNextLvl);
+    document.querySelector(".level").innerHTML = lvl;
+    document.querySelector(".xp-text").innerHTML = xp + " / " + neededXPForNextLvl + " xp";
+
+}
+
+function xpBar(xp, neededXPForNetxtLvl) {
+    let bar = (xp / neededXPForNetxtLvl) * 100;
+    document.querySelector(".xp_value").style.width = 0 + "%";
+    document.querySelector(".xp-value").style.width = bar + "%";
 }

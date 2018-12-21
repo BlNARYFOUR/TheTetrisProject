@@ -105,7 +105,7 @@ function mainmenu() {
     document.getElementById("shop").addEventListener("click", shop);
     document.getElementById("highScore").addEventListener("click", highScore);
     document.getElementById("buyCubes").addEventListener("click", buyCubes);
-
+    document.getElementById("changeAvatar").addEventListener("click", changeAvatar);
 }
 function UserInClan() {
     //TODO let claninfo be generate in this function and not in html
@@ -160,4 +160,8 @@ function highScore() {
 function buyCubes() {
     alert("Will be available in the future! \n" +
         "(At this moment you can not spend money, we think about your wallet)");
+}
+
+function changeAvatar() {
+    location.href = "/static/pages/change_avatar.html";
 }
