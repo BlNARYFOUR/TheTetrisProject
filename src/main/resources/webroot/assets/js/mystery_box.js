@@ -21,6 +21,8 @@ function mysteryBox(message) {
 
 function showMysteryBox() {
 
+    document.querySelector(".showDailyRewards").style.left = "20%";
+
     closeDailyStreaks();
     document.getElementById("mysteryBoxCard").classList.remove("hiddenDailyRewards");
     document.getElementById("mysteryBoxCard").classList.add("showDailyRewards");

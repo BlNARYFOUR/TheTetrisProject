@@ -24,6 +24,8 @@ function scratchCard(message) {
 }
 
 function showScratchCard() {
+    document.querySelector(".showDailyRewards").style.left = "25%";
+
 
     closeDailyStreaks();
     document.getElementById("scratchCard").classList.remove("hiddenDailyRewards");
