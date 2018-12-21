@@ -150,7 +150,6 @@ public class WebAPI extends AbstractVerticle {
 
     private void initConsumers() {
         EventBus eb = vertx.eventBus();
-
         // sessionInfo
         eb.consumer("tetris.events.sessionInfo", this::cSessionInfo);
 

@@ -3,6 +3,7 @@ package server;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Vertx;
+import io.vertx.core.eventbus.EventBus;
 import org.pmw.tinylog.Logger;
 import server.webapi.WebAPI;
 

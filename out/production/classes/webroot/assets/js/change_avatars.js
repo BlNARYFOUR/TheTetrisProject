@@ -34,11 +34,9 @@ eb.onopen = function () {
 
 };
 
-eb.onclose = function () {
-    console.log("Connection Closed");
-};
 
 function setUserInfoInPage() {
+    //document.querySelector(".xp_value").style.width = "0%";
     document.querySelector(".userName").innerText = userInfo.username;
 
     document.getElementById("changeAvatar").innerHTML =
@@ -46,7 +44,7 @@ function setUserInfoInPage() {
 
     UserInClan();
 
-    //generateLevelAndXP();
+    generateLevelAndXP();
 }
 
 
@@ -110,6 +108,10 @@ function changeSelected(e) {
 }
 
 function goBack() {
+    eb.onclose = function () {
+        console.log("Connection Closed");
+    };
+
     location.href="main_menu.html";
 }
 
@@ -136,6 +138,10 @@ function confirmYes(e) {
     eb.send("tetris.events.newAvatar", json);
 
     console.log("Avatar has been changed");
+
+    eb.onclose = function () {
+        console.log("Connection Closed");
+    };
 
     location.href="main_menu.html";
 
@@ -188,7 +194,9 @@ function generateLevelAndXP() {
 }
 
 function xpBar(xp, neededXPForNetxtLvl) {
+    console.log("xp " + xp + " needed " + neededXPForNetxtLvl);
     let bar = (xp / neededXPForNetxtLvl) * 100;
-    document.querySelector(".xp_value").style.width = 0 + "%";
+
+    console.log("bar " + bar);
     document.querySelector(".xp-value").style.width = bar + "%";
 }
