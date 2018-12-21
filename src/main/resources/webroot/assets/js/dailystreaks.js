@@ -1,80 +1,77 @@
 "use strict";
-//let eb = new EventBus("http://localhost:8081/static/pages/main_menu.html");
 
-document.addEventListener("DOMContentLoaded", showDailyRewards);
-
-let rewards = ["", "xp", "scratch_card", "xp", "scratch_card", "xp", "mystery_box", "cubes"];
-let amount = ["", 50, 1, 100, 1, 150, 1, 10];
-let photo = "../assets/media/daily_streaks/retroBlocks.png";
-let days = 7;
-let severalDaysLoggedIn = 2;
+let rewards = [];
+let amount = [];
+let days = [];
+let amountDays;
+let severalDaysLoggedIn;
 let whitchRewardYouGet;
+let alreadyLoggedIn;
 
-let alreadyLoggedIn = false;
+function showDailyRewards() {
 
-function showDailyRewards(e) {
-    e.preventDefault();
-
+    amountDays = rewardsInfo.length;
+    severalDaysLoggedIn = userInfo.streakDays;
+    alreadyLoggedIn = userInfo.alreadyLoggedInToday;
 
     if (alreadyLoggedIn === false){
         disabledButtons();
 
         document.getElementById("close").addEventListener("click", closeDailyStreaks);
-
         let location = document.getElementById("dailyRewards");
         let imgList = "";
-        // todo bijhouden van elke hij al heeft ontvangen => Backend
 
-        for (let i = 1; i < (days + 1); i++){
+        for (let i = 0; i < amountDays; i++){
 
-            // TODO dit is momenteel totdat ik alle foto's heb dan maak ik 1 path
-            if (rewards[i] === "cubes"){
-                photo = "/static/assets/media/daily_streaks/cubes.png";
-            } else if (rewards[i] === "xp"){
-                photo = "/static/assets/media/daily_streaks/xp.png";
-            } else if (rewards[i] === "scratch_card"){
-                photo = "/static/assets/media/daily_streaks/retroBlocks.png";
-            } else if (rewards[i] === "mystery_box"){
-                photo = "/static/assets/media/daily_streaks/retroBlocks.png";
-            }
+            days.push(rewardsInfo[i].day);
+            amount.push(rewardsInfo[i].amount);
+            rewards.push(rewardsInfo[i].reward);
 
-            if (severalDaysLoggedIn >= i){
-                imgList += "<figure id='day_" + i + "'>" +
-                    "<a href='#' id='click_" + rewards[i] + "_day_" + i + "'><h2>Day " + i + "</h2>" +
-                    "<img data-dailysteak='day_" + i + "_" + rewards[i] + "' src='" + photo + "' class='rewards'>" +
-                    "<i class='material-icons' id='doneMark'>done</i>" +
-                    "<figcaption>+ " + amount[i] + " " + rewards[i].replace("_", " ") + "</figcaption></a>" +
+            if (severalDaysLoggedIn === days[i]){
+                imgList += "<figure id='day_" + days[i] + "' class='today'>" +
+                    "<a href='#' id='click_" + rewards[i].replace(' ', '_') + "_day_" + days[i] + "'><h2>Day " + days[i] + "</h2>" +
+                    "<img data-dailysteak='day_" + days[i] + "_" + rewards[i].replace(' ', '_') + "' src='/static/assets/media/daily_streaks/" + rewards[i].replace(" ", "_") + ".png' class='rewards'>" +
+                    "<figcaption>+ " + amount[i] + " " + rewards[i] + "</figcaption></a>" +
                     "</figure>";
 
-                    whitchRewardYouGet = rewards[severalDaysLoggedIn];
-                    console.log("wryg " + whitchRewardYouGet);
+                console.log(rewards);
+                whitchRewardYouGet = rewards[severalDaysLoggedIn - 1];
+                console.log("reward i get today " + whitchRewardYouGet);
 
+
+            } else if(severalDaysLoggedIn > days[i]){
+                imgList += "<figure id='day_" + days[i] + "'>" +
+                    "<a href='#' id='click_" + rewards[i].replace(' ', '_') + "_day_" + days[i] + "'><h2>Day " + days[i] + "</h2>" +
+                    "<img data-dailysteak='day_" + days[i] + "_" + rewards[i].replace(' ', '_') + "' src='/static/assets/media/daily_streaks/" + rewards[i].replace(" ", "_") + ".png' class='rewards'>" +
+                    "<i class='material-icons' id='doneMark'>done</i>" +
+                    "<figcaption>+ " + amount[i] + " " + rewards[i] + "</figcaption></a>" +
+                    "</figure>";
 
             } else {
-                imgList += "<figure id=day_'" + i + "'>" +
-                    "<a href='#' id='click_" + rewards[i] + "'><h2>Day " + i + "</h2>" +
-                    "<img data-dailysteak=day_'" + i + "_" + rewards[i] + "' src='" + photo + "' class='rewards'>" +
-                    "<figcaption>+ " + amount[i] + " " + rewards[i].replace("_", " ") + "</figcaption></a>" +
+                imgList += "<figure id=day_'" + days[i] + "'>" +
+                    "<a href='#' id='click_" + rewards[i].replace(' ', '_') + "_day_" + days[i] + "'><h2>Day " + days[i] + "</h2>" +
+                    "<img data-dailysteak=day_'" + days[i] + "_" + rewards[i].replace(' ', '_') + "' src='/static/assets/media/daily_streaks/" + rewards[i].replace(" ", "_") + ".png' class='rewards'>" +
+                    "<figcaption>+ " + amount[i] + " " + rewards[i] + "</figcaption></a>" +
                     "</figure>";
             }
         }
 
         location.innerHTML = imgList;
-
         alreadyLoggedIn = true;
     }else {
-        closeDailyStreaks(e);
+        closeDailyStreaks();
     }
 
+
     switch (whitchRewardYouGet){
-        case "scratch_card":
-            document.getElementById("click_scratch_card_day_" + severalDaysLoggedIn).addEventListener("click", scratchCard);
+        case "scratch card":
+            document.getElementById("click_scratch_card_day_" + severalDaysLoggedIn).addEventListener("click", sendScratchCard);
             break;
         case "xp":
             document.getElementById("click_xp_day_" + severalDaysLoggedIn).addEventListener("click", receiveXPOrCubes);
             break;
-        case "mystery_box":
-            document.getElementById("click_mystery_box_day_" + severalDaysLoggedIn).addEventListener("click", mysteryBox);
+        case "mystery box":
+            document.getElementById("click_mystery_box_day_" + severalDaysLoggedIn).addEventListener("click", sendMysteryBox);
             break;
         case "cubes":
             document.getElementById("click_cubes_day_" + severalDaysLoggedIn).addEventListener("click", receiveXPOrCubes);
@@ -82,26 +79,48 @@ function showDailyRewards(e) {
 
 
         default:
-            //TODO;
+        break;
     }
+}
 
+function sendMysteryBox(e) {
+    e.preventDefault();
 
+    let obj = new Object();
+    obj.reward = rewards[severalDaysLoggedIn - 1];
+    let json = JSON.stringify(obj);
+
+    eb.send("tetris.events.reward", json);
 
 }
 
-function scratchCard(e) {
+function sendScratchCard(e) {
     e.preventDefault();
 
-    showScratchCard();
-    document.getElementById("scratchCard").classList.remove("hiddenDailyRewards");
-    document.getElementById("scratchCard").classList.add("showDailyRewards");
-    closeDailyStreaks(e);
+    let obj = new Object();
+    obj.reward = rewards[severalDaysLoggedIn - 1];
+    let json = JSON.stringify(obj);
+
+    eb.send("tetris.events.reward", json);
+
 }
 
 function receiveXPOrCubes(e) {
     e.preventDefault();
+    let obj = new Object();
+    obj.reward = rewards[severalDaysLoggedIn - 1];
+    obj.amount = amount[severalDaysLoggedIn - 1];
+    obj.alreadyLoggedInToday = true;
 
-    alert("You reveive " + amount[severalDaysLoggedIn] + " " + rewards[severalDaysLoggedIn]);
+    let json = JSON.stringify(obj);
+
+    alert("You reveive " + amount[severalDaysLoggedIn - 1] + " " + rewards[severalDaysLoggedIn - 1]);
+    eb.send("tetris.events.reward", json);
+
+    document.getElementById("dailystreaks").classList.remove("showDailyRewards");
+    document.getElementById("dailystreaks").classList.add("hiddenDailyRewards");
+
+    enabledButtons();
 
 }
 
@@ -116,8 +135,7 @@ function disabledButtons() {
 }
 
 
-function closeDailyStreaks(e) {
-    e.preventDefault();
+function closeDailyStreaks() {
 
     enabledButtons();
 
@@ -135,4 +153,3 @@ function enabledButtons() {
     document.getElementById("buyCubes").disabled = false;
     document.getElementById("close").disabled = true;
 }
-

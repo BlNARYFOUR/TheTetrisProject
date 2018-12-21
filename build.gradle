@@ -44,6 +44,9 @@ dependencies {
     compile "io.vertx:vertx-web:$vertxVersion"
     compile "io.vertx:vertx-lang-js:$vertxVersion"
 
+    //GSON
+    compile 'com.google.code.gson:gson:2.8.4'
+
     //jackson json
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.4'
 

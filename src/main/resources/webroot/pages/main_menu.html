@@ -49,8 +49,7 @@
 
 <div class="userInfo">
     <div class="userInfo-1">
-        <a href="change_avatar.html">
-            <img src="/static/assets/media/avatars/Avatar_Banana.png" class="user-avatar" alt="avatar" title="avatar">
+        <a href="change_avatar.html" id="changeAvatar">
         </a>
         <p>Welcome <span class="userName">userName</span></p>
         <p>LVL: <span class="level">5</span></p><span class="xp"><span class="xp-value"></span><span class="xp-text">200/500 XP</span></span>
@@ -80,6 +79,10 @@
     <input type="submit" id="logOut" name="logOut" class="main logOut-submit" value="Log out">
 </form>
 
+<script src="/static/assets/js/sockjs.min.js"></script>
+<script src="/static/assets/js/vertx-eventbus.min.js"></script>
+
+<script src="/static/assets/js/eventbusDailyStreaks.js"></script>
 <script src="/static/assets/js/main_menu.js"></script>
 <script src="/static/assets/js/dailystreaks.js"></script>
 <script src="/static/assets/js/scratch_card.js"></script>
