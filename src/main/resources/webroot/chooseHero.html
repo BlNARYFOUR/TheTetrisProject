@@ -5,6 +5,7 @@
     <title>Choose_hero</title>
     <link rel="stylesheet" type="text/css" href="assets/css/mainCSS.css">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/loadingCube.css">
 </head>
 <body>
 
@@ -27,6 +28,21 @@
 
     <div class="playGame">
         <input type="submit" value="Play Game" id="playGame" class="playGame-submit">
+    </div>
+</div>
+
+<div class="loadingCube hidden">
+    <div class="scene">
+        <div class="cube">
+            <div class="cubeFace cubeFaceFront"></div>
+            <div class="cubeFace cubeFaceBack"></div>
+            <div class="cubeFace cubeFaceRight"></div>
+            <div class="cubeFace cubeFaceLeft"></div>
+            <div class="cubeFace cubeFaceTop"></div>
+            <div class="cubeFace cubeFaceBottom"></div>
+        </div>
+
+        <p><span id="waiting">Waiting for opponent...</span><span id="time"></span></p>
     </div>
 </div>
 
