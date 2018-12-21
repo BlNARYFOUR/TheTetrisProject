@@ -4,6 +4,9 @@ document.addEventListener("DOMContentLoaded", init);
 
 let elementSelectables;
 let selectedHero;
+let pointInterval;
+let amountOfPoints = 0;
+const MAX_POINTS = 3;
 
 const SOUNDS = {
     pikachu: createAudioObj("pikachu.mp3"),
@@ -109,8 +112,30 @@ function goBack(e) {
     location.href = "chooseGamemode.html"; //Go to gamemode
 }
 
+function points() {
+    console.log("gets here in points");
+
+    let txt = "Waiting for opponent";
+
+    for (let i=0; i<amountOfPoints; i++) {
+        txt += ".";
+    }
+
+    for (let i=amountOfPoints; i<MAX_POINTS; i++) {
+        txt += "&nbsp;";
+    }
+
+    amountOfPoints = (amountOfPoints+1) % (MAX_POINTS+1);
+
+    document.getElementById("waiting").innerHTML = txt;
+}
+
 function play(e) {
     console.log("Waiting for matchmaking...");
+    document.querySelector(".loadingCube").classList.remove("hidden");
+
+    pointInterval = setInterval(points, 1000);
+
     matching.sendMatchRequest();
 }
 
