@@ -24,12 +24,18 @@ public class MySqlLoginRepository implements LoginRepository {
     private static final String SQL_CONTROL_USER = "select * from user where username = ?"
             + " and password = ?";
     private static final String SQL_DELETE_USER = "delete from user where username = ?";
-    private static final String SQL_GET_USERNAME = SQL_CONTROL_USER;
+    private static final String SQL_GET_USERNAME = "select * from user where username = ?";
 
     private static final String USERNAME = "username";
     private static final String USER_ID_STR = "user_id";
 
-    private long today = System.currentTimeMillis() / 1000;
+
+    private final Date now = new Date();
+    private final Date tomorrow = new Date(now.getTime() + (1000 * 60 * 60 * 24));
+    private final transient SimpleDateFormat dateFormat = new SimpleDateFormat(DateFormat.YODA_TIME.toString(),
+            Locale.GERMANY);
+    private final String dateToday = dateFormat.format(now);
+    private final String dateTomorrow = dateFormat.format(tomorrow);
 
     /**
      * Suppress PMD: keeps crying about unclosed ResultSet.
@@ -42,8 +48,8 @@ public class MySqlLoginRepository implements LoginRepository {
             u.setPassword(Hash.md5(u.getPassword()));
             prep.setString(1, u.getUsername());
             prep.setString(2, u.getPassword());
-            prep.setLong(3, today);
-            prep.setLong(4, today);
+            prep.setString(3, dateToday);
+            prep.setString(4, dateToday);
             prep.setInt(5, 1);
             prep.setBoolean(6, false);
             prep.setInt(7, 0);

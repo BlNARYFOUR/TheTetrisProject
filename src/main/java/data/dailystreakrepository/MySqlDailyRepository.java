@@ -1,7 +1,9 @@
 package data.dailystreakrepository;
 
 import com.mysql.cj.MysqlConnection;
-import data.MySqlConnection;
+import data.JdbcInteractor;
+import data.JdbcInteractor;
+import data.TetrisRepository;
 import data.dailystreakrepository.DailyRepository;
 import domain.Avatar;
 import domain.Skin;
@@ -78,12 +80,15 @@ public class MySqlDailyRepository implements DailyRepository {
     private static final String SQL_GET_AVATARID_FROM_AVATAR =
             "select * from avatar where avatarName like ?";
 
-    private long today = System.currentTimeMillis() / 1000;
+    private final Date now = new Date();
+    private final transient  SimpleDateFormat dateFormat = new SimpleDateFormat(DateFormat.YODA_TIME.toString());
+    private final String dateToday = dateFormat.format(now);
+
 
     // user heeft al ingelogd wordt in databank opgeslagen als true
     @Override
     public void updateAlreaddyLoggedIn(Boolean alreadyLoggedInToday, String username) {
-        try (Connection con = MySqlConnection.getConnection();
+        try (Connection con = JdbcInteractor.getConnection();
              PreparedStatement prep = con.prepareStatement(SQL_SET_USER_ALREADY_LOGGED_IN_TODAY)){
 
             prep.setBoolean(1,alreadyLoggedInToday);
@@ -99,7 +104,7 @@ public class MySqlDailyRepository implements DailyRepository {
     // zet daily_streakID back to 1
     @Override
     public void resetDailyStreak(String username) {
-        try (Connection con = MySqlConnection.getConnection();
+        try (Connection con = JdbcInteractor.getConnection();
              PreparedStatement prep = con.prepareStatement(SQL_RESET_DAILY_STREAK)){
 
             prep.setString(1, username);
@@ -115,12 +120,12 @@ public class MySqlDailyRepository implements DailyRepository {
     // wijzigen van begin_date
     @Override
     public void setStartStreakDate(String username) {
-        try (Connection con = MySqlConnection.getConnection();
+        try (Connection con = JdbcInteractor.getConnection();
              PreparedStatement prep = con.prepareStatement(SQL_SET_START_STREAK_DATE)){
 
-            prep.setLong(1, today);
+            prep.setString(1, dateToday);
             prep.setString(2, username);
-            System.out.println("begin: " + today);
+            System.out.println("begin: " + dateToday);
 
             prep.executeUpdate();
 
@@ -132,7 +137,7 @@ public class MySqlDailyRepository implements DailyRepository {
     // wijzigen van daily_streakID
     @Override
     public void setDailyStreakID(String username, int streakDays) {
-        try (Connection con = MySqlConnection.getConnection();
+        try (Connection con = JdbcInteractor.getConnection();
              PreparedStatement prep = con.prepareStatement(SQL_SET_DAILY_STREAK)){
 
             prep.setInt(1, streakDays);
@@ -155,7 +160,7 @@ public class MySqlDailyRepository implements DailyRepository {
     // show reward
     @Override
     public Streak getStreak(int rewardID) {
-        try (Connection con = MySqlConnection.getConnection();
+        try (Connection con = JdbcInteractor.getConnection();
              PreparedStatement prep = con.prepareStatement(SQL_GET_REWARD)) {
             prep.setInt(1, rewardID);
 
@@ -182,7 +187,7 @@ public class MySqlDailyRepository implements DailyRepository {
 
     @Override
     public void updateXP(int xp, String username) {
-        try (Connection con = MySqlConnection.getConnection();
+        try (Connection con = JdbcInteractor.getConnection();
              PreparedStatement prep = con.prepareStatement(SQL_UPDATE_XP_TO_USER)){
             prep.setInt( 1, xp);
             prep.setString(2, username);
@@ -196,7 +201,7 @@ public class MySqlDailyRepository implements DailyRepository {
 
     @Override
     public User getCubes(String username) {
-        try (Connection con = MySqlConnection.getConnection();
+        try (Connection con = JdbcInteractor.getConnection();
              PreparedStatement prep = con.prepareStatement(SQL_GET_CUBES)) {
             prep.setString(1, username);
 
@@ -214,7 +219,7 @@ public class MySqlDailyRepository implements DailyRepository {
 
     @Override
     public User getXP(String username) {
-        try (Connection con = MySqlConnection.getConnection();
+        try (Connection con = JdbcInteractor.getConnection();
              PreparedStatement prep = con.prepareStatement(SQL_GET_XP)) {
             prep.setString(1, username);
 
@@ -232,7 +237,7 @@ public class MySqlDailyRepository implements DailyRepository {
 
     @Override
     public void updateCubes(int cubes, String username) {
-        try (Connection con = MySqlConnection.getConnection();
+        try (Connection con = JdbcInteractor.getConnection();
              PreparedStatement prep = con.prepareStatement(SQL_UPDATE_CUBES_TO_USER)){
             prep.setInt( 1, cubes);
             prep.setString(2, username);
@@ -246,7 +251,7 @@ public class MySqlDailyRepository implements DailyRepository {
 
     @Override
     public Skin getSkinID(String name) {
-        try (Connection conn = MySqlConnection.getConnection();
+        try (Connection conn = JdbcInteractor.getConnection();
              PreparedStatement prep = conn.prepareStatement(SQL_GET_SKINID_FROM_SKIN)){
             prep.setString(1, name);
 
@@ -264,7 +269,7 @@ public class MySqlDailyRepository implements DailyRepository {
 
     @Override
     public Avatar getAvatarID(String name) {
-        try (Connection conn = MySqlConnection.getConnection();
+        try (Connection conn = JdbcInteractor.getConnection();
              PreparedStatement prep = conn.prepareStatement(SQL_GET_AVATARID_FROM_AVATAR)){
             prep.setString(1, name);
 
@@ -284,7 +289,7 @@ public class MySqlDailyRepository implements DailyRepository {
     public List<Streak> getAllRewards() {
         List<Streak> rewards = new ArrayList<>();
 
-        try (Connection conn = MySqlConnection.getConnection();
+        try (Connection conn = JdbcInteractor.getConnection();
              PreparedStatement prep = conn.prepareStatement(SQL_GET_ALL_REWARDS)){
 
             try (ResultSet rs = prep.executeQuery()){
@@ -308,7 +313,7 @@ public class MySqlDailyRepository implements DailyRepository {
     public List<ScratchCard> getAllSCPrices() {
         List<ScratchCard> prices = new ArrayList<>();
 
-        try (Connection conn = MySqlConnection.getConnection();
+        try (Connection conn = JdbcInteractor.getConnection();
              PreparedStatement prep = conn.prepareStatement(SQL_GET_SCRATCH_CARD_PRICES)){
 
             try (ResultSet rs = prep.executeQuery()){
@@ -329,7 +334,7 @@ public class MySqlDailyRepository implements DailyRepository {
 
     @Override
     public ScratchCard getSCPricesById(int id) {
-        try (Connection con = MySqlConnection.getConnection();
+        try (Connection con = JdbcInteractor.getConnection();
              PreparedStatement prep = con.prepareStatement(SQL_GET_SCRATCH_CARD_PRICES_BY_ID)) {
             prep.setInt(1, id);
 
@@ -347,7 +352,7 @@ public class MySqlDailyRepository implements DailyRepository {
 
     @Override
     public Skin getSkinFromSC() {
-        try (Connection con = MySqlConnection.getConnection();
+        try (Connection con = JdbcInteractor.getConnection();
              PreparedStatement prep = con.prepareStatement(SQL_GET_SCRATCH_CARD_SKIN)) {
 
             try (ResultSet rs = prep.executeQuery()){
@@ -370,7 +375,7 @@ public class MySqlDailyRepository implements DailyRepository {
 
     @Override
     public MysteryBox getMBPricesById(int id) {
-        try (Connection con = MySqlConnection.getConnection();
+        try (Connection con = JdbcInteractor.getConnection();
              PreparedStatement prep = con.prepareStatement(SQL_GET_MYSTERY_BOX_PRICES_BY_ID)) {
             prep.setInt(1, id);
 
@@ -388,7 +393,7 @@ public class MySqlDailyRepository implements DailyRepository {
 
     @Override
     public Skin getSkinFromMB() {
-        try (Connection con = MySqlConnection.getConnection();
+        try (Connection con = JdbcInteractor.getConnection();
              PreparedStatement prep = con.prepareStatement(SQL_GET_MYSTERY_BOX_SKIN)) {
 
             try (ResultSet rs = prep.executeQuery()){
@@ -405,7 +410,7 @@ public class MySqlDailyRepository implements DailyRepository {
 
     @Override
     public Avatar getAvatarFromMB() {
-        try (Connection con = MySqlConnection.getConnection();
+        try (Connection con = JdbcInteractor.getConnection();
              PreparedStatement prep = con.prepareStatement(SQL_GET_MYSTERY_BOX_AVATAR)) {
 
             try (ResultSet rs = prep.executeQuery()){
@@ -452,7 +457,7 @@ public class MySqlDailyRepository implements DailyRepository {
     public List<MysteryBox> getAllMBPrices() {
         List<MysteryBox> prices = new ArrayList<>();
 
-        try (Connection conn = MySqlConnection.getConnection();
+        try (Connection conn = JdbcInteractor.getConnection();
              PreparedStatement prep = conn.prepareStatement(SQL_GET_MYSTERY_BOX_PRICES)){
 
             try (ResultSet rs = prep.executeQuery()){
@@ -473,7 +478,7 @@ public class MySqlDailyRepository implements DailyRepository {
 
     @Override
     public User getUserInfoForDailyStreak(String username) {
-        try (Connection conn = MySqlConnection.getConnection();
+        try (Connection conn = JdbcInteractor.getConnection();
              PreparedStatement prep = conn.prepareStatement(SQL_GET_USER_INFO_FOR_DAILY_STREAK)){
             prep.setString(1, username);
 
@@ -522,7 +527,7 @@ public class MySqlDailyRepository implements DailyRepository {
 
     @Override
     public void addAvatarToUser(int userID, int avatarID) {
-        try (Connection conn = MySqlConnection.getConnection();
+        try (Connection conn = JdbcInteractor.getConnection();
              PreparedStatement prep = conn.prepareStatement(SQL_ADD_AVATAR_TO_USER)){
             prep.setInt(1, userID);
             prep.setInt(2, avatarID);
@@ -536,7 +541,7 @@ public class MySqlDailyRepository implements DailyRepository {
 
     @Override
     public void addSkinToUser(int userID, int skinID) {
-        try (Connection conn = MySqlConnection.getConnection();
+        try (Connection conn = JdbcInteractor.getConnection();
              PreparedStatement prep = conn.prepareStatement(SQL_ADD_SKIN_TO_USER)){
             prep.setInt(1, userID);
             prep.setInt(2, skinID);

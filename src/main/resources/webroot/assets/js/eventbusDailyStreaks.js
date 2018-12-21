@@ -51,7 +51,7 @@ eb.onopen = function () {
 
 function session(){
     let obj = new Object();
-    obj.session = getCookie("vertx-web.session");
+    obj.session = cookies.getCookie("vertx-web.session");
     let json = JSON.stringify(obj);
     console.log(json);
 

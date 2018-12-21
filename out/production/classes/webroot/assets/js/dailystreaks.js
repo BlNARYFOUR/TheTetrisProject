@@ -10,6 +10,7 @@ let alreadyLoggedIn;
 
 function showDailyRewards() {
 
+    console.log("YOU TO");
     amountDays = rewardsInfo.length;
     severalDaysLoggedIn = userInfo.streakDays;
     alreadyLoggedIn = userInfo.alreadyLoggedInToday;

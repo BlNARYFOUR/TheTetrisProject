@@ -14,7 +14,7 @@ import java.util.*;
  */
 public class User {
     //private final Date now = new Date();
-    private final SimpleDateFormat dateFormat = new SimpleDateFormat(DateFormat.YODA_TIME.toString(), Locale.GERMANY);
+    private final transient  SimpleDateFormat dateFormat = new SimpleDateFormat(DateFormat.YODA_TIME.toString(), Locale.GERMANY);
 
     private int id;
     private String username;

@@ -1,6 +1,6 @@
 package data.avatarRepository;
 
-import data.MySqlConnection;
+import data.JdbcInteractor;
 import domain.Avatar;
 
 import java.sql.Connection;
@@ -30,7 +30,7 @@ public class MySqlAvatarRepository implements AvatarRepository {
     public List<Avatar> getAllAvatarsFromUser(int userID) {
         List<Avatar> avatars = new ArrayList<>();
 
-        try(Connection conn = MySqlConnection.getConnection();
+        try(Connection conn = JdbcInteractor.getConnection();
             PreparedStatement prep = conn.prepareStatement(SQL_GET_ALL_AVATARS_FROM_USER)){
             prep.setInt(1, userID);
 
@@ -50,7 +50,7 @@ public class MySqlAvatarRepository implements AvatarRepository {
 
     @Override
     public Avatar getAvatar(int avatarID) {
-        try (Connection conn = MySqlConnection.getConnection();
+        try (Connection conn = JdbcInteractor.getConnection();
              PreparedStatement prep = conn.prepareStatement(SQL_GET_AVATAR_FROM_USER)){
             prep.setInt(1, avatarID);
 
@@ -69,7 +69,7 @@ public class MySqlAvatarRepository implements AvatarRepository {
 
     @Override
     public Avatar getAvatarID(String name) {
-        try (Connection conn = MySqlConnection.getConnection();
+        try (Connection conn = JdbcInteractor.getConnection();
              PreparedStatement prep = conn.prepareStatement(SQL_GET_AVATARID_FROM_AVATAR)){
             prep.setString(1, name);
 
@@ -95,7 +95,7 @@ public class MySqlAvatarRepository implements AvatarRepository {
 
     @Override
     public void changeAvatar(int avatarID, int userID) {
-        try (Connection con = MySqlConnection.getConnection();
+        try (Connection con = JdbcInteractor.getConnection();
              PreparedStatement prep = con.prepareStatement(SQL_SET_USER_AVATAR)) {
             prep.setInt(1, avatarID);
             prep.setInt(2, userID);
