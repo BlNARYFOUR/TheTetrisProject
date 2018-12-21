@@ -18,7 +18,7 @@ function mysteryBox(e) {
 
     for (let i = 0; i < pricesM.length; i++){
         imgList += "<figure id='" + pricesM[i] + "'>" +
-            "<img data-pricesM='" + pricesM[i] + "' src='../assets/media/daily_streaks/" + pricesM[i].substring(pricesM[i].indexOf("_") + 1) + ".png' class='pricesM' />" +
+            "<img data-pricesM='" + pricesM[i] + "' src='assets/media/daily_streaks/" + pricesM[i].substring(pricesM[i].indexOf("_") + 1) + ".png' class='pricesM' />" +
             "<figcaption>" + pricesM[i].replace("_", " ") + "</figcaption>" +
             "</figure>";
     }
@@ -26,7 +26,7 @@ function mysteryBox(e) {
     location.innerHTML = imgList;
 
     let locationMysteryBOx = document.getElementById("mysteryBox");
-    locationMysteryBOx.innerHTML = "<img data-mysteryBox='0' src='../assets/media/daily_streaks/retroBlocks.png' class='mysteryBox'/>" +
+    locationMysteryBOx.innerHTML = "<img data-mysteryBox='0' src='assets/media/daily_streaks/retroBlocks.png' class='mysteryBox'/>" +
         "<input type='submit' value='Open' id='openMysteryBox' class='openMysteryBox-submit'>";
 
     document.getElementById("openMysteryBox").addEventListener("click", openMysteryBox);

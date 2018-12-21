@@ -19,12 +19,12 @@ function showScratchCard() {
         // TODO TIJDELIJLK
         if (pricesS[j] === "skin"){
             imgList += "<figure id='" + pricesS[j] + "'>" +
-                "<img data-pricesS='" + pricesS[j] + "' src='../assets/media/daily_streaks/retroBlocks.png' class='pricesS' />" +
+                "<img data-pricesS='" + pricesS[j] + "' src='assets/media/daily_streaks/retroBlocks.png' class='pricesS' />" +
                 "</figure>";
         } else {
 
             imgList += "<figure id='" + pricesS[j] + "'>" +
-                "<img data-pricesS='" + pricesS[j] + "' src='../assets/media/daily_streaks/" + pricesS[j] + ".png' class='pricesS' />" +
+                "<img data-pricesS='" + pricesS[j] + "' src='assets/media/daily_streaks/" + pricesS[j] + ".png' class='pricesS' />" +
                 "</figure>";
         }
 
@@ -44,7 +44,7 @@ function showScratchCard() {
             '<canvas class="canvas' + k + '" id="js-canvas' + k + '"></canvas>\n' +
             '<div class="form">\n' +
             '<div id="text_price_' + k + '" class="visible">\n' +
-            '<img src="../assets/media/daily_streaks/' +  priceS + '.png">\n' +
+            '<img src="assets/media/daily_streaks/' +  priceS + '.png">\n' +
             '</div>\n' +
             '</div>\n' +
             '</div>';
@@ -77,9 +77,9 @@ function drawScratch() {
         image3       = new Image(),
         brush        = new Image();
 
-    image.src = "../assets/media/daily_streaks/scratchFields.png";
-    image2.src = "../assets/media/daily_streaks/scratchFields.png";
-    image3.src = "../assets/media/daily_streaks/scratchFields.png";
+    image.src = "assets/media/daily_streaks/scratchFields.png";
+    image2.src = "assets/media/daily_streaks/scratchFields.png";
+    image3.src = "assets/media/daily_streaks/scratchFields.png";
 
     loadImage(canvas0, image, ctx0);
     loadImage(canvas1, image2, ctx1);

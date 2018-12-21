@@ -18,7 +18,7 @@ function showAllImagesOfASpecificPage() {
     let firstSelected = " selected";
 
     for (let i = 0; i < avatars.length; i++){
-        imgList += "<figure id='" + avatars[i] + "' class='selectable" + firstSelected + "'><img data-avatarname='" + avatars[i] + "' src='../assets/media/avatars/Avatar_" + avatars[i] + ".png' class='avatars'/></figure>";
+        imgList += "<figure id='" + avatars[i] + "' class='selectable" + firstSelected + "'><img data-avatarname='" + avatars[i] + "' src='assets/media/avatars/Avatar_" + avatars[i] + ".png' class='avatars'/></figure>";
 
         firstSelected = "";
     }

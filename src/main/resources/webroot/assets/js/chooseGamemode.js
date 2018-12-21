@@ -28,7 +28,7 @@ function showAllGamemodes() {
     let firstSelected = " selected";
 
     for (let i = 0; i < GAME_MODES.length; i++){
-        imgList += "<figure class='selectable" + firstSelected + "'><img data-gamemodename='" + GAME_MODES[i] + "' src='../assets/media/gamemodes/" + GAME_MODES[i] + ".png' alt='" + GAME_MODES[i] + "' title='" + GAME_MODES[i] + "' class='gamemodes'/></figure>";
+        imgList += "<figure class='selectable" + firstSelected + "'><img data-gamemodename='" + GAME_MODES[i] + "' src='assets/media/gamemodes/" + GAME_MODES[i] + ".png' alt='" + GAME_MODES[i] + "' title='" + GAME_MODES[i] + "' class='gamemodes'/></figure>";
 
         if(i===0) {
             localStorage.setItem("gameMode", GAME_MODES[i]);

@@ -11,7 +11,7 @@ function init() {
 }
 
 function chooseGamemode() {
-    location.href = "/static/pages/chooseGamemode.html";
+    location.href = "chooseGamemode.html";
 }
 
 function clan() {

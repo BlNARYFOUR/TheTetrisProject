@@ -299,13 +299,13 @@ function showScore() {
 
 function createAudioObj(fileName) {
     let audio = document.createElement("audio");
-    audio.src = "../assets/sounds/" + fileName;
+    audio.src = "assets/sounds/" + fileName;
     return audio;
 }
 
 function createImageObj(fileName) {
     let img = new Image();
-    img.src = "../assets/media/" + fileName;
+    img.src = "assets/media/" + fileName;
     return img;
 }
 

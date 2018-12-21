@@ -244,7 +244,7 @@ function createValue(ctx, number, x_co, y_co, block) {
 
 function createImageObj(fileName) {
     let img = new Image();
-    img.src = "../assets/media/" + fileName;
+    img.src = "assets/media/" + fileName;
     return img;
 }
 

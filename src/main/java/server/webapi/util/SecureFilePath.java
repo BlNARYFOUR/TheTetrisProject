@@ -5,10 +5,10 @@ package server.webapi.util;
  */
 public enum SecureFilePath {
 
-    MAIN_MENU("/pages/main_menu.html"),
-    GAME_MODE("/pages/chooseGamemode.html"),
-    HERO("/pages/chooseHero.html"),
-    GAME_MULTI("/pages/tetrisMultiplayerField.html");
+    MAIN_MENU("/main_menu.html"),
+    GAME_MODE("/chooseGamemode.html"),
+    HERO("/chooseHero.html"),
+    GAME_MULTI("/tetrisMultiplayerField.html");
 
     private final String path;
 

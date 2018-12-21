@@ -36,7 +36,7 @@ function init() {
 
 function createAudioObj(fileName) {
     let audio = document.createElement("audio");
-    audio.src = "../assets/sounds/" + fileName;
+    audio.src = "assets/sounds/" + fileName;
     return audio;
 }
 
