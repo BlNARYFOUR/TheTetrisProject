@@ -1,5 +1,6 @@
 package data.heroesrepository;
 
+import data.JdbcInteractor;
 import data.MySqlConnection;
 import domain.hero.Hero;
 import org.pmw.tinylog.Logger;
@@ -24,7 +25,7 @@ public class MySqlHeroesRepository implements HeroesRepository {
 
     @Override
     public void addHero(final Hero h) {
-        try (Connection con = MySqlConnection.getConnection();
+        try (Connection con = JdbcInteractor.getConnection();
              PreparedStatement prep = con.prepareStatement(SQL_ADD_HERO)) {
 
             prep.setString(1, h.getHeroName());
@@ -42,7 +43,7 @@ public class MySqlHeroesRepository implements HeroesRepository {
 
     @Override
     public Hero getHero(final String name) {
-        try (Connection con = MySqlConnection.getConnection();
+        try (Connection con = JdbcInteractor.getConnection();
              PreparedStatement prep = con.prepareStatement(SQL_GET_HERO)) {
             prep.setString(1, name);
 
@@ -69,7 +70,7 @@ public class MySqlHeroesRepository implements HeroesRepository {
 
     @Override
     public Hero deleteHero(final String name) {
-        try (Connection con = MySqlConnection.getConnection();
+        try (Connection con = JdbcInteractor.getConnection();
              PreparedStatement prep = con.prepareStatement(SQL_DELETE_HERO)) {
             prep.setString(1, name);
 
@@ -83,7 +84,7 @@ public class MySqlHeroesRepository implements HeroesRepository {
 
     @Override
     public List<Hero> getAllHeroes() {
-        try (Connection con = MySqlConnection.getConnection();
+        try (Connection con = JdbcInteractor.getConnection();
              PreparedStatement prep = con.prepareStatement(SQL_GET_ALL_HEROES)) {
             try (ResultSet rs = prep.executeQuery()) {
                 final List<Hero> heroes = new ArrayList<>();

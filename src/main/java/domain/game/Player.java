@@ -487,6 +487,10 @@ public class Player {
         final Map<String, Object> data = new HashMap<>();
         data.put("playingField", getPlayingFieldWithFallingBlock());
         data.put("playerId", playerID);
+        data.put("score", score);
+        data.put("abilityCost", 500);
+        data.put("isDead", isDead);
+
 
         String json = "<ERROR>";
 
