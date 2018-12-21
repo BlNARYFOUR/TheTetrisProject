@@ -75,6 +75,7 @@ let gameCommunication = function () {
         if (GAME.YOU_IS_DEAD) {
             console.log("You are dead!");
             document.getElementById("container-gameOver").style.display = 'flex';
+            document.getElementById("gameOverScore").innerHTML = GAME.YOUR_SCORE;
             if (!gameOverPlayed) {
                 SOUNDS.gameOver.loop = false;
                 gameOverPlayed = true;
