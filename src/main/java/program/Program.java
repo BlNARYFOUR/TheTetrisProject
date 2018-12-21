@@ -1,15 +1,33 @@
 package program;
 
 
+import data.Repositories;
+import data.loginrepository.LoginRepository;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * program.Program.
  */
 public class Program {
-    public static void main(final String[] args) {
+    public static void main(final String[] args) throws ParseException {
         new Program().run();
     }
 
-    private void run() {
+    private void run() throws ParseException {
+
+        LoginRepository loginRepo = Repositories.getInstance().getLoginRepository();
+        String date = loginRepo.getUser("boe").getStartStreakDate();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date dt = sdf.parse(date);
+        long epoch = dt.getTime();
+        long lStartStreak = epoch/1000;
+
+        System.out.println(lStartStreak);
+
         //final HeroesRepository repo = Repositories.getInstance().getHeroRepository();
 
 

@@ -7,15 +7,12 @@ const sounds = {
 };
 
 function init() {
-    startMusic();
-    document.getElementById("toggleMusic").addEventListener("click", toggleMusic);
-}
+    sounds.loop = true;
+    sounds.volume = 0.2;
+    sounds.currentTime = 0;
+    sounds.play();
 
-function startMusic() {
-        sounds.themeMusic.loop = true;
-        sounds.themeMusic.volume = 0.2;
-        sounds.themeMusic.currentTime = 0;
-        sounds.themeMusic.play();
+    document.getElementById("toggleMusic").addEventListener("click", toggleMusic);
 }
 
 function toggleMusic() {

@@ -8,7 +8,9 @@ let mbSkin;
 
 function mysteryBox(message) {
     let json = message;
+    console.log(json);
     let body = JSON.parse(json.body);
+    console.log(body);
     pricesM = JSON.parse(body.prices);
     mbAvatar = JSON.parse(body.avatar);
     mbSkin = JSON.parse(body.skin);
@@ -35,6 +37,7 @@ function showMysteryBox() {
     let src;
 
     for (let i = 0; i < pricesM.length; i++){
+
         switch (pricesM[i].price){
             case "skin":
                 pricesMB.push(mbSkin);
@@ -61,8 +64,7 @@ function showMysteryBox() {
     location.innerHTML = imgList;
 
     let locationMysteryBOx = document.getElementById("mysteryBox");
-
-    locationMysteryBOx.innerHTML = "<img data-mysteryBox='0' src='assets/media/daily_streaks/retroBlocks.png' class='mysteryBox'/>" +
+    locationMysteryBOx.innerHTML = "<img data-showMysteryBox='0' src='/static/assets/media/daily_streaks/mystery_box.png' class='showMysteryBox'/>" +
         "<input type='submit' value='Open' id='openMysteryBox' class='openMysteryBox-submit'>";
 
     document.getElementById("openMysteryBox").addEventListener("click", openMysteryBox);

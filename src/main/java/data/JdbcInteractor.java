@@ -47,7 +47,6 @@ public class JdbcInteractor {
             Server.createTcpServer().start();
 
             // start een web interface
-            //TODO [RULE]: Web client poort MOET 90xx zijn (xx is groepsnummer met leading zero)
             Server.createWebServer("-webPort", Integer.toString(Config.DB_WEBCLIENT_PORT)).start();
         } catch (SQLException e) {
             Logger.warn("Error starting database: {}", e.getLocalizedMessage());

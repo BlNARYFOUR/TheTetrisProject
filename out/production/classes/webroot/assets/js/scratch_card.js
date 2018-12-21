@@ -14,9 +14,11 @@ let scAmount = [];
 function scratchCard(message) {
     let json = message;
     let body = JSON.parse(json.body);
+    console.log(body);
     prices = JSON.parse(body.prices);
     skinName = JSON.parse(body.skin);
     scPrices = JSON.parse(body.scPrices);
+    console.log(scPrices);
 
     showScratchCard();
 }
@@ -35,6 +37,7 @@ function showScratchCard() {
     let imgList = "";
 
     imgList += "<p>This can be in it</p>";
+    console.log("halloa");
 
     for (let j = 0; j < prices.length; j++){
         pricesS.push(prices[j].price);
@@ -53,12 +56,14 @@ function showScratchCard() {
 
     for (let k = 0; k < boxes; k++){
         let price = scPrices[k].price;
+        //priceS = pricesS[Math.floor(Math.random()*pricesS.length)];
+        console.log("in box " + scPrices[k].price);
         priceInScratch.push(scPrices[k].price);
         boxesList += '<div class="container" id="js-container' + k + '">\n' +
             '<canvas class="canvas' + k + '" id="js-canvas' + k + '"></canvas>\n' +
             '<div class="form">\n' +
             '<div id="text_price_' + k + '" class="visible">\n' +
-            '<img src="assets/media/daily_streaks/' +  priceS + '.png">\n' +
+            '<img src="/static/assets/media/daily_streaks/' +  price + '.png">\n' +
             '</div>\n' +
             '</div>\n' +
             '</div>';
@@ -91,9 +96,9 @@ function drawScratch() {
         image3       = new Image(),
         brush        = new Image();
 
-    image.src = "assets/media/daily_streaks/scratchFields.png";
-    image2.src = "assets/media/daily_streaks/scratchFields.png";
-    image3.src = "assets/media/daily_streaks/scratchFields.png";
+    image.src = "/static/assets/media/daily_streaks/scratchFields.png";
+    image2.src = "/static/assets/media/daily_streaks/scratchFields.png";
+    image3.src = "/static/assets/media/daily_streaks/scratchFields.png";
 
     loadImage(canvas0, image, ctx0);
     loadImage(canvas1, image2, ctx1);
@@ -170,6 +175,7 @@ function mouseAndTouchActions(canvas, ctx, width, height, lastPoint, isDrawing, 
 
     function handlePercentage(filledInPixels) {
         filledInPixels = filledInPixels || 0;
+        //console.log(filledInPixels + '%');
         if (filledInPixels > 30) {
             canvas.parentNode.removeChild(canvas);
             boxesOpen.push(canvas);
@@ -217,20 +223,25 @@ function controleIfYouWon() {
 
     if (boxesOpen.length === boxes) {
         for (let i = 0; i < priceInScratch.length; i++){
+            console.log("0 " + priceInScratch[0]);
             if (priceInScratch[0] === priceInScratch[i]){
                 same.push(priceInScratch[i]);
             }else {
                 notSame.push(priceInScratch[i]);
             }
         }
+        console.log("same " + same);
         let price = new Object();
 
         if (same.length === 3){
 
             alert("You won " + same[0]);
 
+            console.log(scAmount);
+            console.log(pricesS);
             let wonAmount;
 
+            console.log(scPrices.length);
             for (let k = 0; k < scPrices.length; k++){
                 if (same[0] === "skin"){
                     console.log("you won a skin");
@@ -241,7 +252,9 @@ function controleIfYouWon() {
 
                 } else if (same[0] === scPrices[k].price){
                     let price = scPrices[k].price;
+                    console.log("sc " + price);
                     wonAmount = scPrices[k].amount;
+                    console.log("a " + wonAmount);
                     price.won = same[0];
                 }
             }
