@@ -5,7 +5,8 @@ document.addEventListener("DOMContentLoaded", init);
 const SOUNDS = {
     lineScored: createAudioObj("lineScored.mp3"),
     rotate: createAudioObj("rotate.mp3"),
-    hardHit: createAudioObj("hardHit.mp3")
+    hardHit: createAudioObj("hardHit.mp3"),
+    gameOver: createAudioObj("gameOver.mp3")
 };
 
 function init() {
