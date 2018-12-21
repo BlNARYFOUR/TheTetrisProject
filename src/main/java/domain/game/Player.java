@@ -33,6 +33,16 @@ public class Player {
 
     private static final String ARROW_DOWN = "ArrowDown";
     private static final String KEY_S = "KeyS";
+    private static final String ARROW_UP = "ArrowUp";
+    private static final String KEY_W = "KeyW";
+    private static final String KEY_D = "KeyD";
+    private static final String ARROW_RIGHT = "ArrowRight";
+    private static final String KEY_A = "KeyA";
+    private static final String ARROW_LEFT = "ArrowLeft";
+
+    private static final String DONKEY_KONG = "donkeykong";
+    private static final String ACTIVATED = "ACTIVATED";
+    private static final String PIKACHU = "pikachu";
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
@@ -52,6 +62,7 @@ public class Player {
     private int score;
     private int amountOfScoredLines;
     private int level;
+    private int maxScore = 500;
 
     private double normalMovementTime;
     private long periodicID;
@@ -61,6 +72,12 @@ public class Player {
 
     private EventHandler eventHandler;
     private int arrowUps;
+
+    private String hero;
+    private HeroAbility heroAbility = new HeroAbility();
+    private int timerAbility = heroAbility.getTimerAbility();
+    private int countAmountBlocksDonkeyKong;
+
 
     public Player(int playerID, User user, String sessionID, String gameAddress, EventHandler eventHandler) {
         setUser(user);
@@ -97,20 +114,24 @@ public class Player {
         consumer = eb.consumer(address, this::gameHandler);
     }
 
-    private void switchOnKeyDown(String key) {
+    private void onArrowUp() {
+        rotate();
+        onArrowUpEvent();
+    }
+
+    private void switchOnKeyDown(String key, boolean heroActivated) {
         switch (key) {
-            case "ArrowLeft":
-            case "KeyA":
+            case ARROW_LEFT:
+            case KEY_A:
                 goLeft();
                 break;
-            case "ArrowRight":
-            case "KeyD":
+            case ARROW_RIGHT:
+            case KEY_D:
                 goRight();
                 break;
-            case "KeyW":
-            case "ArrowUp":
-                rotate();
-                onArrowUpEvent();
+            case KEY_W:
+            case ARROW_UP:
+                onArrowUp();
                 break;
             case KEY_S:
             case ARROW_DOWN:
@@ -118,6 +139,18 @@ public class Player {
                 break;
             case "Space":
                 goSuperSonic();
+                break;
+            default:
+                break;
+        }
+
+        switchKeyR(key, heroActivated);
+    }
+
+    private void switchKeyR(String key, boolean heroActivated) {
+        switch (key) {
+            case "KeyR":
+                controleIfHeroCanBeActivated(heroActivated);
                 break;
             default:
                 break;
@@ -147,6 +180,51 @@ public class Player {
         }
     }
 
+    private void testHeroAbility(String key) {
+        if (heroAbility.isHeroAbilityIsActivated()) {
+            switch (heroAbility.getHeroAttack()) {
+                case PIKACHU:
+                    //pikachuAbility();
+                    if (heroAbility.activatedID() == this.user.getId()) {
+                        System.out.println(ACTIVATED);
+                        if (!this.isKeyDown) {
+                            switchOnKeyDown(key, true);
+                        } else {
+                            switchOnKeyUp(key);
+                        }
+                    } else {
+                        System.out.println("Mixed");
+                        mixedControls(key);
+
+                    }
+                    break;
+                case DONKEY_KONG:
+                    //donkeyKongAbility();
+                    if (heroAbility.activatedID() == this.user.getId()) {
+                        System.out.println(ACTIVATED);
+                        if (!this.isKeyDown) {
+                            switchOnKeyDown(key, true);
+                        } else {
+                            switchOnKeyUp(key);
+                        }
+                    } else {
+                        System.out.println("Donkey Kill");
+                        donkeyKongControls(key);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        } else {
+            System.out.println("NOT ACTIVATED");
+            if (!this.isKeyDown) {
+                switchOnKeyDown(key, false);
+            } else {
+                switchOnKeyUp(key);
+            }
+        }
+    }
+
     private void gameHandler(Message message) {
         //Logger.info(this.session + " got a message!");
 
@@ -165,11 +243,11 @@ public class Player {
             final String key = (String) data.get("key");
             final Boolean isKeyDown = (Boolean) data.get("state");
 
-            if (!this.isKeyDown) {
-                switchOnKeyDown(key);
-            } else {
-                switchOnKeyUp(key);
-            }
+            hero = user.getHeroName();
+
+            System.out.println(score);
+
+            testHeroAbility(key);
 
             this.isKeyDown = isKeyDown;
         } catch (Exception e) {
@@ -179,6 +257,87 @@ public class Player {
         message.reply("GOT IT");
         sendUpdate();
     }
+
+    private void donkeyKongControls(String key) {
+        goSonic();
+
+        if (!this.isKeyDown) {
+            switch (key) {
+                case ARROW_LEFT:
+                case KEY_A:
+                    goRight();
+                    break;
+                case ARROW_RIGHT:
+                case KEY_D:
+                    goLeft();
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    private void mixedControls(String key) {
+        if (!this.isKeyDown) {
+            switch (key) {
+                case ARROW_LEFT:
+                case KEY_A:
+                    goRight();
+                    break;
+                case ARROW_RIGHT:
+                case KEY_D:
+                    goLeft();
+                    break;
+                case KEY_W:
+                case ARROW_UP:
+                    goSuperSonic();
+                    break;
+                case KEY_S:
+                case ARROW_DOWN:
+                    rotate();
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    private void controleIfHeroCanBeActivated(boolean heroActivated) {
+        //System.out.println("pressed on R");
+        //System.out.println(score);
+
+        if (!heroActivated) {
+            if (score < maxScore) {
+                System.out.println("Not enough points to use hero ability");
+            } else {
+                System.out.println("Hero ability is activated");
+                score = score - maxScore;
+
+                heroAbility.setActivatedHero(this.user.getId());
+                hero = user.getHeroName();
+
+                switch (hero) {
+                    case PIKACHU:
+                        System.out.println("Pika Pika bitch");
+                        heroAbility.setHeroAbilityIsActivated(true);
+                        heroAbility.setHeroAttack(hero);
+                        //HeroAbility.setSwitchingControls(true);
+                        break;
+
+                    case "Donkey_Kong":
+                        System.out.println("I want to kill Mario");
+                        heroAbility.setHeroAbilityIsActivated(true);
+                        heroAbility.setHeroAttack(hero);
+                        break;
+
+                    default:
+                        break;
+                }
+
+            }
+        }
+    }
+
 
     private void goRight() {
         if (!checkCollision(fallingBlock, fallingBlock.getX() + 1, fallingBlock.getY())) {
@@ -257,12 +416,49 @@ public class Player {
                     normalMovementTime /= 1.5;
                     updateSpeed();
                 }
+
+                countNumberOfBlocksDK();
             }
         } else {
             fallingBlock.fall();
+
+            countTimerPikachu();
         }
 
         return isNew;
+    }
+
+    private void countTimerPikachu() {
+        if (heroAbility.isHeroAbilityIsActivated()) {
+            if (heroAbility.getHeroAttack().equals(PIKACHU)) {
+                System.out.println("TIMER " + timerAbility);
+
+                if (timerAbility == 0) {
+                    heroAbility.setActivatedHero(-1);
+                    heroAbility.setHeroAbilityIsActivated(false);
+                    timerAbility = 30;
+                }
+
+                timerAbility--;
+
+            }
+        }
+    }
+
+    private void countNumberOfBlocksDK() {
+        if (heroAbility.isHeroAbilityIsActivated()) {
+            if (heroAbility.getHeroAttack().equals(DONKEY_KONG)) {
+                System.out.println("AMOUNT " + countAmountBlocksDonkeyKong);
+
+                if (countAmountBlocksDonkeyKong == 2) {
+                    heroAbility.setActivatedHero(-1);
+                    heroAbility.setHeroAbilityIsActivated(false);
+                    countAmountBlocksDonkeyKong = 0;
+                    stopSonic();
+                }
+                countAmountBlocksDonkeyKong++;
+            }
+        }
     }
 
     private Integer[][] getPlayingFieldWithFallingBlock() {
@@ -304,6 +500,10 @@ public class Player {
         final Map<String, Object> data = new HashMap<>();
         data.put("playingField", getPlayingFieldWithFallingBlock());
         data.put("playerId", playerID);
+        data.put("score", score);
+        data.put("abilityCost", 500);
+        data.put("isDead", isDead);
+
 
         String json = "<ERROR>";
 

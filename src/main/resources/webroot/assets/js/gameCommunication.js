@@ -4,7 +4,12 @@ const GAME = {
     PLAYER_ID: -1,
     AMOUNT_OF_PLAYERS: 0,
     YOUR_GAME_BOARD: [],
-    ENEMY_GAME_BOARDS: new Map()
+    ENEMY_GAME_BOARDS: new Map(),
+    YOUR_SCORE: 0,
+    ENEMY_SCORES: new Map(),
+    YOU_IS_DEAD: false,
+    ENEMY_ARE_DEAD: new Map(),
+    ABILITY_COST: 1000
 };
 
 let gameCommunication = function () {
@@ -32,6 +37,24 @@ let gameCommunication = function () {
         return GAME_BOARDS;
     }
 
+    function getScores() {
+        let SCORES = [];
+
+        SCORES.push(GAME.YOUR_SCORE);
+
+        let enemyScores = Array.from(GAME.ENEMY_SCORES);
+
+        for(let key in enemyScores) {
+            SCORES.push(enemyScores[key][1]);
+        }
+
+        return SCORES;
+    }
+
+    function getAbilityCost() {
+        return GAME.ABILITY_COST;
+    }
+
     let gameHandler = function (err, message) {
         //console.log("GameHandler: " + JSON.stringify(message));
 
@@ -39,9 +62,15 @@ let gameCommunication = function () {
 
         if(data["playerId"] === GAME.PLAYER_ID) {
             GAME.YOUR_GAME_BOARD = data["playingField"];
+            GAME.YOUR_SCORE = data["score"];
+            GAME.YOU_IS_DEAD = data["isDead"];
         } else {
             GAME.ENEMY_GAME_BOARDS.set(data["playerId"], data["playingField"]);
+            GAME.ENEMY_SCORES.set(data["playerId"], data["score"]);
+            GAME.ENEMY_ARE_DEAD.set(data["playerId"], data["isDead"]);
         }
+
+        GAME.ABILITY_COST = data["abilityCost"];
     };
 
     function resolveOnOpenState() {
@@ -99,6 +128,6 @@ let gameCommunication = function () {
         console.log("Connection Closed");
     };
 
-    return {"sendReadyStatus": sendReady, "getGameBoards": getGameBoards, "sendKey": sendKey};
+    return {"sendReadyStatus": sendReady, "getGameBoards": getGameBoards, "getScores": getScores, "getAbilityCost": getAbilityCost,"sendKey": sendKey};
 }();
 

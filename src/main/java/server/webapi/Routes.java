@@ -1,5 +1,8 @@
 package server.webapi;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import data.heroesrepository.HeroesRepository;
 import data.loggedinrepository.LoggedInRepository;
 import data.Repositories;
 import data.loginrepository.LoginRepository;
@@ -31,8 +34,9 @@ class Routes {
     private static final String PASSWORD = "password";
     private static final String USERNAME = "username";
 
-    //private static ObjectMapper objectMapper = new ObjectMapper();
+    private static ObjectMapper objectMapper = new ObjectMapper();
     private final LoginRepository loginRepo = Repositories.getInstance().getLoginRepository();
+    private final HeroesRepository heroRepo = Repositories.getInstance().getHeroRepository();
     private final LoggedInRepository loggedInRepo = Repositories.getInstance().getLoggedInRepository();
     //private final DailyRepository repo = Repositories.getInstance().getDailyRepository();
 
@@ -224,6 +228,21 @@ class Routes {
         response.headers().add(LOCATION, STATIC_REF + '/');
         response.setStatusCode(302).end();
     }
+
+    protected void heroHandler(final RoutingContext routingContext) {
+        final HttpServerResponse response = routingContext.response();
+
+        String json = "";
+        try {
+            json = objectMapper.writeValueAsString(heroRepo.getAllHeroes());
+            Logger.info(objectMapper.writeValueAsString(heroRepo.getAllHeroes()));
+        } catch (JsonProcessingException e) {
+            Logger.warn("Something went wrong with");
+        }
+
+        response.setStatusCode(200).end(json);
+    }
+
 }
 
 
