@@ -17,7 +17,8 @@ eb.onopen = function () {
     eb.registerHandler("tetris.events.rewards", function(err, message){
         console.log("Redbull");
         rewardsAndUserInfo(message);
-        showDailyRewards()
+        showDailyRewards();
+        mainmenu();
 
         let streakDays = (userInfo.streakDays) - 1;
         console.log("sd " + streakDays);
@@ -83,11 +84,11 @@ function rewardsAndUserInfo(message) {
 
     //avatar
     avatarInfo = JSON.parse(body.avatar);
-
-    init();
+    mainmenu();
 }
 
-function init() {
+function mainmenu() {
+    console.log("Hier ben ik");
     document.getElementById("userName").innerText = userInfo.username;
     document.querySelector(".numberOfCubes").innerHTML = userInfo.cubes;
     document.querySelector(".clanpoints").innerHTML = userInfo.clanPoints;
@@ -105,7 +106,6 @@ function init() {
     document.getElementById("highScore").addEventListener("click", highScore);
     document.getElementById("buyCubes").addEventListener("click", buyCubes);
 
-    console.log("HAMOMEOJMFLD");
 }
 function UserInClan() {
     //TODO let claninfo be generate in this function and not in html
@@ -115,6 +115,7 @@ function UserInClan() {
 }
 
 function generateLevelAndXP() {
+    console.log("xp bitch");
     let lvl = 1;
     let xp = userInfo.xp;
     let neededXPForNextLvl = 200;
