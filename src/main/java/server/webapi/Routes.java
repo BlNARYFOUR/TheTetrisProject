@@ -8,6 +8,7 @@ import data.loggedinrepository.LoggedInRepository;
 import data.Repositories;
 import data.loginrepository.LoginRepository;
 import domain.User;
+import domain.dailystreak.ControlDailyStreak;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.ext.web.Cookie;
 import io.vertx.ext.web.RoutingContext;
@@ -34,6 +35,7 @@ class Routes {
     //private static final String SPACE = " ";
     private static final String PASSWORD = "password";
     private static final String USERNAME = "username";
+
 
     private static ObjectMapper objectMapper = new ObjectMapper();
     private final LoginRepository loginRepo = Repositories.getInstance().getLoginRepository();
@@ -113,6 +115,7 @@ class Routes {
             try {
                 info = tryLogin(routingContext);
                 cookieHandler(INFO_COOKIE, info, routingContext);
+
             } catch (Exception ex) {
                 info = "Something went wrong.";
                 try {

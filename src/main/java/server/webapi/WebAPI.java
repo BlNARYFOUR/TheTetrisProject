@@ -14,6 +14,7 @@ import data.Repositories;
 import data.loginrepository.LoginRepository;
 import domain.Avatar;
 import domain.User;
+import domain.dailystreak.ControlDailyStreak;
 import domain.dailystreak.ScratchCard;
 import domain.game.Game;
 import domain.game.matchmaking.Match;
@@ -35,6 +36,7 @@ import server.webapi.util.SecureFilePath;
 import util.MatchableException;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.*;
 
 /**
@@ -149,7 +151,6 @@ public class WebAPI extends AbstractVerticle {
     private void initConsumers() {
         EventBus eb = vertx.eventBus();
 
-        //TODO CHANGE EVERY GSON TO OBJECTMAPPER !!!!
         // sessionInfo
         eb.consumer("tetris.events.sessionInfo", this::cSessionInfo);
 
@@ -177,10 +178,14 @@ public class WebAPI extends AbstractVerticle {
             Logger.warn("Session request received: " + jsonMap);
 
             sessionID(jsonMap);
+            ControlDailyStreak controlDailyStreak = new ControlDailyStreak(sessionID);
+            controlDailyStreak.control();
             rewards();
             System.out.println("boe");
         }catch (IOException e) {
             System.err.println("Something went wrong with");
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
         message.reply("thx");
 

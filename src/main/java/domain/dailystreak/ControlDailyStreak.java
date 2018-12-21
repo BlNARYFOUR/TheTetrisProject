@@ -3,36 +3,55 @@ package domain.dailystreak;
 
 import data.Repositories;
 import data.dailystreakrepository.DailyRepository;
+import data.loggedinrepository.LoggedInRepository;
 import data.loginrepository.LoginRepository;
 import domain.User;
+import org.pmw.tinylog.Logger;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class ControlDailyStreak {
     private DailyRepository dailyRepo = Repositories.getInstance().getDailyRepository();
     private LoginRepository loginRepo = Repositories.getInstance().getLoginRepository();
+    private LoggedInRepository loggedInRepo = Repositories.getInstance().getLoggedInRepository();
 
-    User user;
-    private String username = user.getUsername();
+    public String sessionID;
+    public String username;
+    public long lStartStreak;
+
+    public ControlDailyStreak(String sessionID) {
+        this.sessionID = sessionID;
+    }
+
+    public String getUsername() {
+        return username;
+    }
 
     private long dateToUnix(int addDay) {
         // STARTSTREAK
-        long startStreak = Long.parseLong(loginRepo.getUser(username).getStartStreakDate());
+
+
         try {
-            startStreak = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").parse(String.valueOf(startStreak)).getTime() / 1000;
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Date dt = sdf.parse(loginRepo.getUser(username).getStartStreakDate());
+            long epoch = dt.getTime();
+            lStartStreak = epoch/1000;
+
+            System.out.println("long " + lStartStreak);
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
         //TERUG OMVORMEN
-        String terugOmvromen = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new Date(startStreak * 1000));
-        //System.out.println("transform " + terugOmvromen);
-        int m = Integer.parseInt(terugOmvromen.substring(0, 2));
-        int d = Integer.parseInt(terugOmvromen.substring(3, 5));
-        int y = Integer.parseInt(terugOmvromen.substring(6, 10));
-        String time = terugOmvromen.substring(11, 19);
+        String terugOmvromen = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(lStartStreak * 1000));
+        System.out.println("transform " + terugOmvromen);
+        int m = Integer.parseInt(terugOmvromen.substring(0, 3));
+        int d = Integer.parseInt(terugOmvromen.substring(5, 6));
+        int y = Integer.parseInt(terugOmvromen.substring(8, 9));
+        String time = terugOmvromen.substring(10, 18);
 
         //System.out.println(d + " sf " + m + " dsf " + y);
 
@@ -123,8 +142,8 @@ public class ControlDailyStreak {
     }
 
 
-    private boolean alreadyClaimedReward = loginRepo.getUser(username).isAlreadyLoggedInToday();
-    private int streakDays = loginRepo.getUser(username).getStreakDays();
+    private boolean alreadyClaimedReward;
+    private int streakDays;
 
     // UNIX TODAY
     private long today = System.currentTimeMillis() / 1000;
@@ -133,8 +152,16 @@ public class ControlDailyStreak {
     private long otherDay = 0;
 
     public void control() throws ParseException {
+        username = loggedInRepo.getLoggedUser(sessionID).getUsername();
+        alreadyClaimedReward = loginRepo.getUser(username).isAlreadyLoggedInToday();
+        streakDays = loginRepo.getUser(username).getStreakDays();
+        System.out.println("Boe " + username);
 
-        otherDay = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").parse(String.valueOf(today)).getTime() / 1000;
+        System.out.println("vandaag " + today);
+        otherDay = today;
+        System.out.println("unix " + dateToUnix(2));
+
+        //otherDay = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").parse(String.valueOf(today)).getTime() / 1000;
 
         System.out.println("Hallo my friend");
 

@@ -5,15 +5,12 @@ document.addEventListener("DOMContentLoaded", init);
 const sounds = createAudioObj("themeMusic.mp3");
 
 function init() {
-    startMusic();
-    document.getElementById("toggleMusic").addEventListener("click", toggleMusic);
-}
+    sounds.loop = true;
+    sounds.volume = 0.2;
+    sounds.currentTime = 0;
+    sounds.play();
 
-function startMusic() {
-        sounds.loop = true;
-        sounds.volume = 0.2;
-        sounds.currentTime = 0;
-        sounds.play();
+    document.getElementById("toggleMusic").addEventListener("click", toggleMusic);
 }
 
 function toggleMusic() {
