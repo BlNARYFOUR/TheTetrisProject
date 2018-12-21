@@ -229,15 +229,15 @@ class Routes {
         response.setStatusCode(302).end();
     }
 
-    void heroHandler(final RoutingContext routingContext) {
+    protected void heroHandler(final RoutingContext routingContext) {
         final HttpServerResponse response = routingContext.response();
 
         String json = "";
         try {
             json = objectMapper.writeValueAsString(heroRepo.getAllHeroes());
-            System.out.println(objectMapper.writeValueAsString(heroRepo.getAllHeroes()));
+            Logger.info(objectMapper.writeValueAsString(heroRepo.getAllHeroes()));
         } catch (JsonProcessingException e) {
-            System.err.println("Something went wrong with");
+            Logger.warn("Something went wrong with");
         }
 
         response.setStatusCode(200).end(json);

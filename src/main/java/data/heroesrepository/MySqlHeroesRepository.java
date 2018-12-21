@@ -1,7 +1,6 @@
 package data.heroesrepository;
 
 import data.JdbcInteractor;
-import data.MySqlConnection;
 import domain.hero.Hero;
 import org.pmw.tinylog.Logger;
 import util.HeroException;
