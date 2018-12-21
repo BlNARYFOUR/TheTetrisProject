@@ -12,6 +12,8 @@ const GAME = {
     ABILITY_COST: 1000
 };
 
+let gameOverPlayed = false;
+
 let gameCommunication = function () {
     let eb = new EventBus("/tetris-16/socket/");
 
@@ -25,12 +27,12 @@ let gameCommunication = function () {
     function getGameBoards() {
         let GAME_BOARDS = [];
 
-        if(0 < GAME.YOUR_GAME_BOARD.length)
+        if (0 < GAME.YOUR_GAME_BOARD.length)
             GAME_BOARDS.push(GAME.YOUR_GAME_BOARD.slice());
 
         let enemyGameBoards = Array.from(GAME.ENEMY_GAME_BOARDS);
 
-        for(let key in enemyGameBoards) {
+        for (let key in enemyGameBoards) {
             GAME_BOARDS.push(enemyGameBoards[key][1]);
         }
 
@@ -44,7 +46,7 @@ let gameCommunication = function () {
 
         let enemyScores = Array.from(GAME.ENEMY_SCORES);
 
-        for(let key in enemyScores) {
+        for (let key in enemyScores) {
             SCORES.push(enemyScores[key][1]);
         }
 
@@ -60,7 +62,7 @@ let gameCommunication = function () {
 
         let data = JSON.parse(message.body);
 
-        if(data["playerId"] === GAME.PLAYER_ID) {
+        if (data["playerId"] === GAME.PLAYER_ID) {
             GAME.YOUR_GAME_BOARD = data["playingField"];
             GAME.YOUR_SCORE = data["score"];
             GAME.YOU_IS_DEAD = data["isDead"];
@@ -68,6 +70,17 @@ let gameCommunication = function () {
             GAME.ENEMY_GAME_BOARDS.set(data["playerId"], data["playingField"]);
             GAME.ENEMY_SCORES.set(data["playerId"], data["score"]);
             GAME.ENEMY_ARE_DEAD.set(data["playerId"], data["isDead"]);
+        }
+
+        if (GAME.YOU_IS_DEAD) {
+            console.log("You are dead!");
+            document.getElementById("container-gameOver").style.display = 'flex';
+            if (!gameOverPlayed) {
+                SOUNDS.gameOver.loop = false;
+                gameOverPlayed = true;
+                sounds.themeMusic.pause();
+                SOUNDS.gameOver.play();
+            }
         }
 
         GAME.ABILITY_COST = data["abilityCost"];
@@ -95,7 +108,7 @@ let gameCommunication = function () {
             "session": cookies.getCookie("vertx-web.session")
         };
 
-        const DONE_FUNC = function(err, reply) {
+        const DONE_FUNC = function (err, reply) {
             console.warn("Ready: reply: " + JSON.stringify(reply));
             let data = JSON.parse(reply.body);
 
@@ -116,7 +129,7 @@ let gameCommunication = function () {
             "state": isKeyDownState
         };
 
-        const DONE_FUNC = function(err, reply) {
+        const DONE_FUNC = function (err, reply) {
             //console.warn("Ready: reply: " + JSON.stringify(reply));
         };
 
@@ -128,6 +141,12 @@ let gameCommunication = function () {
         console.log("Connection Closed");
     };
 
-    return {"sendReadyStatus": sendReady, "getGameBoards": getGameBoards, "getScores": getScores, "getAbilityCost": getAbilityCost,"sendKey": sendKey};
+    return {
+        "sendReadyStatus": sendReady,
+        "getGameBoards": getGameBoards,
+        "getScores": getScores,
+        "getAbilityCost": getAbilityCost,
+        "sendKey": sendKey
+    };
 }();
 
