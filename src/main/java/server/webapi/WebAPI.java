@@ -356,6 +356,9 @@ public class WebAPI extends AbstractVerticle {
 
             switch (jsonMap.get("won").toString()){
                 case "xp":
+                    System.out.println("hoelikan " + jsonMap.get("won"));
+                    System.out.println("boer " + jsonMap.get("amount"));
+                    System.out.println("akak " + jsonMap.values());
                     amount = (int) jsonMap.get("amount");
                     addAmountOfXPToUser(amount);
 
@@ -521,7 +524,7 @@ public class WebAPI extends AbstractVerticle {
 
         scratchCard.put("prices", new Gson().toJson(repoDaily.getAllSCPrices()));
         scratchCard.put("skin", new Gson().toJson(repoDaily.getSkinFromSC().getName()));
-        scratchCard.put("avatar", new Gson().toJson(repoDaily.getAvatarFromSC().getName()));
+        //scratchCard.put("avatar", new Gson().toJson(repoDaily.getAvatarFromSC().getName()));
         scratchCard.put("scPrices", new Gson().toJson(rewards));
 
         System.out.println(scratchCard);

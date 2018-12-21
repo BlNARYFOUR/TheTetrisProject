@@ -10,7 +10,8 @@ let scPrices;
 let skinName;
 let scAmount = [];
 
-function scratchCard(message){
+
+function scratchCard(message) {
     let json = message;
     let body = JSON.parse(json.body);
     console.log(body);
@@ -21,7 +22,6 @@ function scratchCard(message){
 
     showScratchCard();
 }
-
 
 function showScratchCard() {
 

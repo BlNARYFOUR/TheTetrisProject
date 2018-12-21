@@ -33,12 +33,14 @@ eb.onopen = function () {
                 eb.registerHandler("tetris.events.scratchCard", function(err, message){
                     console.log("boe");
                     scratchCard(message);
+                    showScratchCard();
                 });
                 break;
             case "mystery box":
                 console.log("mystery box");
                 eb.registerHandler("tetris.events.showMysteryBox", function (err, message) {
                     mysteryBox(message);
+                    showMysteryBox();
                 });
                 break;
             default:

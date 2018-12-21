@@ -1,6 +1,6 @@
 "use strict";
 
-let eb = new EventBus("http://localhost:8016/tetris/events");
+let eb = new EventBus("/tetris-16/socket");
 
 eb.onopen = function () {
     console.log("Connection open");
@@ -18,14 +18,15 @@ eb.onopen = function () {
         console.log(body);
         let won = JSON.parse(body.won);
         let priceMB = won.price;
+        let amount = won.amount;
 
         console.log(priceMB);
 
-        mysteryBoxOpening(priceMB);
+        mysteryBoxOpening(priceMB, amount);
     });
 };
 
-function mysteryBoxOpening(price) {
+function mysteryBoxOpening(price, amount) {
     console.log("Open the mystery box");
 
     document.querySelector(".box").classList.remove("hiddenBox");
@@ -51,6 +52,7 @@ function mysteryBoxOpening(price) {
 
             let obj = new Object();
             obj.won = price;
+            obj.amount = amount;
             obj.alreadyLoggedInToday = true;
 
             let json = JSON.stringify(obj);
