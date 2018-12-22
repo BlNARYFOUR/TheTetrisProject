@@ -16,7 +16,7 @@ function showDailyRewards() {
     if (alreadyLoggedIn === false){
         disabledButtons();
 
-        document.getElementById("close").addEventListener("click", closeDailyStreaks);
+        //document.getElementById("close").addEventListener("click", closeDailyStreaks);
         let location = document.getElementById("dailyRewards");
         let imgList = "";
 
@@ -127,7 +127,7 @@ function disabledButtons() {
     document.getElementById("shop").disabled = true;
     document.getElementById("highScore").disabled = true;
     document.getElementById("buyCubes").disabled = true;
-    document.getElementById("close").disabled = false;
+    //document.getElementById("close").disabled = false;
 }
 
 
@@ -147,5 +147,5 @@ function enabledButtons() {
     document.getElementById("shop").disabled = false;
     document.getElementById("highScore").disabled = false;
     document.getElementById("buyCubes").disabled = false;
-    document.getElementById("close").disabled = true;
+    //document.getElementById("close").disabled = true;
 }
