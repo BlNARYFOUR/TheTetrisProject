@@ -31,7 +31,7 @@ function showDailyRewards() {
             if (severalDaysLoggedIn === days[i]){
                 imgList += "<figure id='day_" + days[i] + "' class='today'>" +
                     "<a href='#' id='click_" + rewards[i].replace(' ', '_') + "_day_" + days[i] + "'><h2>Day " + days[i] + "</h2>" +
-                    "<img data-dailysteak='day_" + days[i] + "_" + rewards[i].replace(' ', '_') + "' src='/static/assets/media/daily_streaks/" + rewards[i].replace(" ", "_") + ".png' class='rewards'>" +
+                    "<img data-dailysteak='day_" + days[i] + "_" + rewards[i].replace(' ', '_') + "' src='assets/media/daily_streaks/" + rewards[i].replace(" ", "_") + ".png' class='rewards'>" +
                     "<figcaption>+ " + amount[i] + " " + rewards[i] + "</figcaption></a>" +
                     "</figure>";
 
@@ -40,7 +40,7 @@ function showDailyRewards() {
             } else if(severalDaysLoggedIn > days[i]){
                 imgList += "<figure id='day_" + days[i] + "'>" +
                     "<a href='#' id='click_" + rewards[i].replace(' ', '_') + "_day_" + days[i] + "'><h2>Day " + days[i] + "</h2>" +
-                    "<img data-dailysteak='day_" + days[i] + "_" + rewards[i].replace(' ', '_') + "' src='/static/assets/media/daily_streaks/" + rewards[i].replace(" ", "_") + ".png' class='rewards'>" +
+                    "<img data-dailysteak='day_" + days[i] + "_" + rewards[i].replace(' ', '_') + "' src='assets/media/daily_streaks/" + rewards[i].replace(" ", "_") + ".png' class='rewards'>" +
                     "<i class='material-icons' id='doneMark'>done</i>" +
                     "<figcaption>+ " + amount[i] + " " + rewards[i] + "</figcaption></a>" +
                     "</figure>";
@@ -48,7 +48,7 @@ function showDailyRewards() {
             } else {
                 imgList += "<figure id=day_'" + days[i] + "'>" +
                     "<a href='#' id='click_" + rewards[i].replace(' ', '_') + "_day_" + days[i] + "'><h2>Day " + days[i] + "</h2>" +
-                    "<img data-dailysteak=day_'" + days[i] + "_" + rewards[i].replace(' ', '_') + "' src='/static/assets/media/daily_streaks/" + rewards[i].replace(" ", "_") + ".png' class='rewards'>" +
+                    "<img data-dailysteak=day_'" + days[i] + "_" + rewards[i].replace(' ', '_') + "' src='assets/media/daily_streaks/" + rewards[i].replace(" ", "_") + ".png' class='rewards'>" +
                     "<figcaption>+ " + amount[i] + " " + rewards[i] + "</figcaption></a>" +
                     "</figure>";
             }

@@ -41,7 +41,7 @@ function showScratchCard() {
         scAmount.push(prices[j].amount);
 
         imgList += "<figure id='" + pricesS[j] + "'>" +
-            "<img data-pricesS='" + pricesS[j] + "' src='/static/assets/media/daily_streaks/" + pricesS[j] + ".png' class='pricesS' />" +
+            "<img data-pricesS='" + pricesS[j] + "' src='assets/media/daily_streaks/" + pricesS[j] + ".png' class='pricesS' />" +
             "</figure>";
 
     }

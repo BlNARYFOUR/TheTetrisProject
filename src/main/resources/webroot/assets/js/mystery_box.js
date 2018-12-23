@@ -39,17 +39,17 @@ function showMysteryBox() {
             case "skin":
                 pricesMB.push(mbSkin);
                 mbAmount.push(pricesM[i].amount);
-                src = "/static/assets/media/skin/skin_";
+                src = "assets/media/skin/skin_";
                 break;
             case "avatar":
                 pricesMB.push(mbAvatar);
                 mbAmount.push(pricesM[i].amount);
-                src = "/static/assets/media/avatars/Avatar_";
+                src = "assets/media/avatars/Avatar_";
                 break;
             default:
                 pricesMB.push(pricesM[i].price);
                 mbAmount.push(pricesM[i].amount);
-                src = "/static/assets/media/daily_streaks/";
+                src = "assets/media/daily_streaks/";
         }
 
         imgList += "<figure id='" + pricesMB[i] + "'>" +
@@ -71,6 +71,6 @@ function showMysteryBox() {
 function openMysteryBox(e) {
     e.preventDefault();
 
-    location.href = "/static/pages/mystery_box.html";
+    location.href = "mystery_box.html";
 }
 

@@ -43,7 +43,7 @@ function mysteryBoxOpening(price, amount) {
             boxOpened = true;
             box.classList.add('box-open');
 
-            priceLocation.innerHTML = "<img class='price' src='/static/assets/media/daily_streaks/" + price + ".png'>";
+            priceLocation.innerHTML = "<img class='price' src='assets/media/daily_streaks/" + price + ".png'>";
             box.style.setProperty('--boxInnerText', `'You won'`);
 
             let obj = new Object();
@@ -66,5 +66,5 @@ function goBackToDailyStreakMenu() {
         console.log("Connection closed");
     };
 
-    window.location.href = "/static/pages/main_menu.html";
+    window.location.href = "main_menu.html";
 }

@@ -84,7 +84,7 @@ function mainmenu() {
     document.querySelector(".clanpoints").innerHTML = userInfo.clanPoints;
 
     document.getElementById("changeAvatar").innerHTML =
-        "<img src='/static/assets/media/avatars/Avatar_" + avatarInfo.name + ".png' class='user-avatar' alt='avatar' title='avatar'>";
+        "<img src='assets/media/avatars/Avatar_" + avatarInfo.name + ".png' class='user-avatar' alt='avatar' title='avatar'>";
 
     UserInClan();
 
@@ -157,5 +157,5 @@ function changeAvatar() {
         console.log("Connection Closed");
     };
 
-    location.href = "/static/pages/change_avatar.html";
+    location.href = "change_avatar.html";
 }
