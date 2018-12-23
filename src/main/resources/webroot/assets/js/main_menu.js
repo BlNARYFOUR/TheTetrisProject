@@ -9,7 +9,6 @@ let eb = new EventBus("/tetris-16/socket/");
 eb.onopen = function () {
     console.log("Connection Open");
 
-    location.reload(true);
     // give the rewards to javascript
     eb.registerHandler("tetris.events.rewards", function(err, message){
         rewardsAndUserInfo(message);
