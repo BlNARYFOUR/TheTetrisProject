@@ -6,20 +6,23 @@ package domain.dailystreak;
 public class Streak {
     private int id;
     private int day;
+    private int amount;
     private String reward;
 
     public Streak(final int id) {
         this.id = id;
     }
 
-    public Streak(final int id, final int day, final String reward) {
+    public Streak(final int id, final int day, final int amount, final String reward) {
         this.id = id;
         this.day = day;
+        this.amount = amount;
         this.reward = reward;
     }
 
-    public Streak(final int day, final String reward) {
+    public Streak(final int day, final int amount, final String reward) {
         this.day = day;
+        this.amount = amount;
         this.reward = reward;
     }
 
@@ -39,6 +42,14 @@ public class Streak {
         this.day = day;
     }
 
+    public int getAmount() {
+        return amount;
+    }
+
+    public void setAmount(final int amount) {
+        this.amount = amount;
+    }
+
     public String getReward() {
         return reward;
     }
@@ -49,7 +60,8 @@ public class Streak {
 
     @Override
     public String toString() {
-        final char space = ' ';
-        return "Streaks : " + getId() + space + getDay() + space + getReward();
+        final String spaceStr = " ";
+        return "Streaks : " + getId() + spaceStr + getDay() + spaceStr
+                + getAmount() + spaceStr + getReward();
     }
 }

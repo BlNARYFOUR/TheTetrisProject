@@ -7,15 +7,18 @@ const sounds = {
 };
 
 function init() {
-    startMusic();
+    sounds.themeMusic.loop = true;
+    sounds.themeMusic.volume = 0.2;
+    sounds.themeMusic.currentTime = 0;
+    playMusic();
     document.getElementById("toggleMusic").addEventListener("click", toggleMusic);
 }
 
-function startMusic() {
-        sounds.themeMusic.loop = true;
-        sounds.themeMusic.volume = 0.2;
-        sounds.themeMusic.currentTime = 0;
-        sounds.themeMusic.play();
+function playMusic() {
+    sounds.themeMusic.play().catch(function() {
+        console.log("<MUSIC ERROR> You need to interact with the DOM first.");
+        setTimeout(playMusic, 500);
+    });
 }
 
 function toggleMusic() {

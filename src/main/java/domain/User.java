@@ -1,6 +1,7 @@
 package domain;
 
 import domain.game.modes.GameMode;
+import edu.umd.cs.findbugs.annotations.SuppressWarnings;
 import util.DateFormat;
 import util.HighScoreException;
 import util.UserException;
@@ -12,9 +13,11 @@ import java.util.*;
 /**
  * User class.
  */
+@SuppressWarnings("PMD")
 public class User {
     //private final Date now = new Date();
-    private final SimpleDateFormat dateFormat = new SimpleDateFormat(DateFormat.YODA_TIME.toString(), Locale.GERMANY);
+    private final transient SimpleDateFormat dateFormat = new SimpleDateFormat(DateFormat.YODA_TIME.toString(),
+        Locale.GERMANY);
 
     private int id;
     private String username;
@@ -25,15 +28,25 @@ public class User {
 
     //Daily streak stuff
     private Date registerDate;
-    private Date beginDate;
-    private Date nextDate;
-    private int dailyStreakId;
-    private boolean alreadyLoggedIn;
+    private Date startStreakDate;
+    private int streakDays;
+    private boolean alreadyLoggedInToday;
+
 
     private Map<GameMode, Integer> highScores;
     private int gameRanking;
 
+    private int xp;
+    private int cubes;
+    private int clanPoints;
+
+    private boolean hasAClan;
+
+    private int avatarID;
+
+    //TODO remove to player
     private String heroName;
+
 
     public User(final int id, final String username, final String password) {
         this.id = id;
@@ -50,36 +63,28 @@ public class User {
         this("TEST", "TESTIE");
     }
 
-    public User(final int id, final String username, final String registerDate, final String beginDate,
-                final String nextDate, final int dailyStreakId, final boolean alreadyLoggedIn) {
+    @SuppressWarnings({"ParameterNumber", "PMD"})
+    public User(final int id, final String username, final String password, final String registerDate,
+                final String beginDate, final int streakDays, final boolean alreadyLoggedIn, final int xp,
+                final int cubes, final int clanPoints, final boolean hasAClan, final int avatarID) {
         this.id = id;
         this.username = username;
-        this.dailyStreakId = dailyStreakId;
-        this.alreadyLoggedIn = alreadyLoggedIn;
+        this.password = password;
+        this.streakDays = streakDays;
+        this.alreadyLoggedInToday = alreadyLoggedIn;
+        this.xp = xp;
+        this.cubes = cubes;
+        this.clanPoints = clanPoints;
+        this.hasAClan = hasAClan;
+        this.avatarID = avatarID;
 
         try {
             this.registerDate = dateFormat.parse(registerDate);
-            this.beginDate = dateFormat.parse(beginDate);
-            this.nextDate = dateFormat.parse(nextDate);
+            this.startStreakDate = dateFormat.parse(beginDate);
         } catch (ParseException e) {
             throw new UserException("Unable to parse one of the dates", e);
         }
     }
-
-    /*
-    public User(int id, String username, String password, Date loginDate, Date registerDate,
-    Date beginDate, Date nextDate, int dailyStreakId, boolean alreadyLoggedIn) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.loginDate = loginDate;
-        this.registerDate = registerDate;
-        this.beginDate = beginDate;
-        this.nextDate = nextDate;
-        this.dailyStreakId = dailyStreakId;
-        this.alreadyLoggedIn = alreadyLoggedIn;
-    }
-    */
 
     public int getId() {
         return id;
@@ -89,14 +94,6 @@ public class User {
         if (this.id < 0) {
             this.id = id;
         }
-    }
-
-    public void selectHero(final String heroName) {
-        this.heroName = heroName;
-    }
-
-    public String getHeroName() {
-        return this.heroName;
     }
 
     public String getUsername() {
@@ -142,33 +139,29 @@ public class User {
         this.gameRanking = gameRanking;
     }
 
-    //BRYAN
     public String getRegisterDate() {
         return dateFormat.format(registerDate);
     }
 
-    public String getBeginDate() {
-        return dateFormat.format(beginDate);
+    public String getStartStreakDate() {
+        return dateFormat.format(startStreakDate);
     }
 
-    public String getNextDate() {
-        return dateFormat.format(nextDate);
+
+    public int getStreakDays() {
+        return streakDays;
     }
 
-    public int getDailyStreakId() {
-        return dailyStreakId;
+    public void setStreakDays(final int streakDays) {
+        this.streakDays = streakDays;
     }
 
-    public void setDailyStreakId(final int dailyStreakId) {
-        this.dailyStreakId = dailyStreakId;
+    public boolean isAlreadyLoggedInToday() {
+        return alreadyLoggedInToday;
     }
 
-    public boolean isAlreadyLoggedIn() {
-        return alreadyLoggedIn;
-    }
-
-    public void setAlreadyLoggedIn(final boolean alreadyLoggedIn) {
-        this.alreadyLoggedIn = alreadyLoggedIn;
+    public void setAlreadyLoggedInToday(final boolean alreadyLoggedInToday) {
+        this.alreadyLoggedInToday = alreadyLoggedInToday;
     }
 
     public Date getLoginDate() {
@@ -179,9 +172,58 @@ public class User {
         this.loginDate = Date.from(loginDate.toInstant());
     }
 
+    public int getXp() {
+        return xp;
+    }
+
+    public void setXp(final int xp) {
+        this.xp = xp;
+    }
+
+    public int getCubes() {
+        return cubes;
+    }
+
+    public void setCubes(final int cubes) {
+        this.cubes = cubes;
+    }
+
+    public int getClanPoints() {
+        return clanPoints;
+    }
+
+    public void setClanPoints(final int clanPoints) {
+        this.clanPoints = clanPoints;
+    }
+
+    public boolean isHasAClan() {
+        return hasAClan;
+    }
+
+    public void setHasAClan(final boolean hasAClan) {
+        this.hasAClan = hasAClan;
+    }
+
+    public int getAvatarID() {
+        return avatarID;
+    }
+
+    public void setAvatarID(final int avatarID) {
+        this.avatarID = avatarID;
+    }
+
+    public void selectHero(final String heroName) {
+        this.heroName = heroName;
+    }
+
+    public String getHeroName() {
+        return this.heroName;
+    }
+
+
     @Override
     public String toString() {
-        return getUsername() + " is logged in (with password: " + getPassword() + " )";
+        return getUsername() + " is logged in (with password: " + getPassword() + " ) " + getXp() + " " + getCubes();
     }
 
     @Override
@@ -203,3 +245,4 @@ public class User {
         return Objects.hash(id, username, password);
     }
 }
+

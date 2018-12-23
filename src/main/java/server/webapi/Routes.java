@@ -34,11 +34,11 @@ class Routes {
     private static final String PASSWORD = "password";
     private static final String USERNAME = "username";
 
+
     private static ObjectMapper objectMapper = new ObjectMapper();
     private final LoginRepository loginRepo = Repositories.getInstance().getLoginRepository();
     private final HeroesRepository heroRepo = Repositories.getInstance().getHeroRepository();
     private final LoggedInRepository loggedInRepo = Repositories.getInstance().getLoggedInRepository();
-    //private final DailyRepository repo = Repositories.getInstance().getDailyRepository();
 
     public void rootHandler(final RoutingContext routingContext) {
         final HttpServerResponse response = routingContext.response();
@@ -112,6 +112,7 @@ class Routes {
             try {
                 info = tryLogin(routingContext);
                 cookieHandler(INFO_COOKIE, info, routingContext);
+
             } catch (Exception ex) {
                 info = "Something went wrong.";
                 try {

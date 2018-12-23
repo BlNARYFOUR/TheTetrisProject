@@ -1,5 +1,7 @@
 package data;
 
+import data.avatarrepository.AvatarRepository;
+import data.avatarrepository.MySqlAvatarRepository;
 import data.blockrepository.BlockRepository;
 import data.blockrepository.HcBlockRepository;
 import data.gamerepository.GameRepository;
@@ -44,4 +46,8 @@ public final class Repositories {
     public GameRepository getGameRepository() {
         return new HcGameRepository();
     }
+    public AvatarRepository getAvatarRepository() {
+        return new MySqlAvatarRepository();
+    }
+
 }

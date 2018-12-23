@@ -324,7 +324,7 @@ public class Player {
                         //HeroAbility.setSwitchingControls(true);
                         break;
 
-                    case "Donkey_Kong":
+                    case DONKEY_KONG:
                         System.out.println("I want to kill Mario");
                         heroAbility.setHeroAbilityIsActivated(true);
                         heroAbility.setHeroAttack(hero);
