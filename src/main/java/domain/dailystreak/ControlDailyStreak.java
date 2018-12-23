@@ -5,24 +5,37 @@ import data.Repositories;
 import data.dailystreakrepository.DailyRepository;
 import data.loggedinrepository.LoggedInRepository;
 import data.loginrepository.LoginRepository;
-import domain.User;
 import org.pmw.tinylog.Logger;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.Locale;
 
+/**
+ * SuppressWarnings: not enough time to fix.
+ */
+@SuppressWarnings({"MultipleStringLiterals", "PMD"})
 public class ControlDailyStreak {
-    private DailyRepository dailyRepo = Repositories.getInstance().getDailyRepository();
-    private LoginRepository loginRepo = Repositories.getInstance().getLoginRepository();
-    private LoggedInRepository loggedInRepo = Repositories.getInstance().getLoggedInRepository();
+    private static final String MAX_DAYS_STR = "max days ";
+    private final String sessionID;
+    private String username;
+    private long lStartStreak;
 
-    public String sessionID;
-    public String username;
-    public long lStartStreak;
+    private final DailyRepository dailyRepo = Repositories.getInstance().getDailyRepository();
+    private final LoginRepository loginRepo = Repositories.getInstance().getLoginRepository();
+    private final LoggedInRepository loggedInRepo = Repositories.getInstance().getLoggedInRepository();
 
-    public ControlDailyStreak(String sessionID) {
+    private boolean alreadyClaimedReward;
+    private int streakDays;
+
+    // UNIX TODAY
+    private final long today = System.currentTimeMillis() / 1000;
+
+    //OTHER DAY
+    private long otherDay;
+
+    public ControlDailyStreak(final String sessionID) {
         this.sessionID = sessionID;
     }
 
@@ -30,44 +43,47 @@ public class ControlDailyStreak {
         return username;
     }
 
-    private long dateToUnix(int addDay) {
+    /**
+     * Not enough time to fix Warnings.
+     * @param addDay : addDay.
+     * @return : void.
+     */
+    @SuppressWarnings({"JavaNCSS", "ExecutableStatementCount", "CyclomaticComplexity", "PMD"})
+    private long dateToUnix(final int addDay) {
         // STARTSTREAK
-
-
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Date dt = sdf.parse(loginRepo.getUser(username).getStartStreakDate());
-            long epoch = dt.getTime();
-            lStartStreak = epoch/1000;
+            final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.GERMANY);
+            final Date dt = sdf.parse(loginRepo.getUser(username).getStartStreakDate());
+            final long epoch = dt.getTime();
+            lStartStreak = epoch / 1000;
         } catch (ParseException e) {
-            e.printStackTrace();
+            Logger.warn(e.getMessage());
         }
 
         //TERUG OMVORMEN
-        String terugOmvromen = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(lStartStreak * 1000));
-        System.out.println("transform " + terugOmvromen);
-        int m = Integer.parseInt(terugOmvromen.substring(0, 3));
-        int d = Integer.parseInt(terugOmvromen.substring(5, 6));
-        int y = Integer.parseInt(terugOmvromen.substring(8, 9));
-        String time = terugOmvromen.substring(10, 18);
+        final String reFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.GERMANY)
+                .format(new Date(lStartStreak * 1000));
+        Logger.info("transform " + reFormat);
+        int m = Integer.parseInt(reFormat.substring(0, 3));
+        int d = Integer.parseInt(reFormat.substring(5, 6));
+        int y = Integer.parseInt(reFormat.substring(8, 9));
+        final String time = reFormat.substring(10, 18);
 
-        int maxDaysInMonth;
+        final int maxDaysInMonth;
         switch (m) {
             case 4:
             case 6:
             case 9:
             case 11:
                 maxDaysInMonth = 30;
-                System.out.println("max days " + maxDaysInMonth);
+                Logger.info(MAX_DAYS_STR + maxDaysInMonth);
                 if ((d + addDay) > maxDaysInMonth) {
                     d = (d + addDay) - maxDaysInMonth;
                     m += 1;
-                    break;
                 } else {
                     d = d + addDay;
-                    break;
                 }
-
+                break;
             case 1:
             case 3:
             case 5:
@@ -75,7 +91,7 @@ public class ControlDailyStreak {
             case 8:
             case 10:
                 maxDaysInMonth = 31;
-                System.out.println("max days " + maxDaysInMonth);
+                Logger.info(MAX_DAYS_STR + maxDaysInMonth);
                 if ((d + addDay) > maxDaysInMonth) {
                     d = (d + addDay) - maxDaysInMonth;
                     m += 1;
@@ -88,7 +104,7 @@ public class ControlDailyStreak {
 
             case 12:
                 maxDaysInMonth = 31;
-                System.out.println("max days " + maxDaysInMonth);
+                Logger.info(MAX_DAYS_STR + maxDaysInMonth);
                 if ((d + addDay) > maxDaysInMonth) {
                     d = (d + addDay) - maxDaysInMonth;
                     m = 1;
@@ -101,7 +117,7 @@ public class ControlDailyStreak {
 
             case 2:
                 maxDaysInMonth = schikkelJaarOfGewoonJaar(y);
-                System.out.println("max days " + maxDaysInMonth);
+                Logger.info(MAX_DAYS_STR + maxDaysInMonth);
                 if ((d + addDay) > maxDaysInMonth) {
                     d = (d + addDay) - maxDaysInMonth;
                     m += 1;
@@ -110,199 +126,192 @@ public class ControlDailyStreak {
                     d = d + addDay;
                     break;
                 }
+            default:
+                break;
         }
 
 
-        String next = m + "/" + d + "/" + y + " " + time;
+        final String next = m + "/" + d + "/" + y + " " + time;
 
         //OMVORMEN NAAR UNIX
         long nextDay = 0;
         try {
-            nextDay = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").parse(next).getTime() / 1000;
+            nextDay = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss", Locale.GERMANY).parse(next).getTime() / 1000;
         } catch (ParseException e) {
-            e.printStackTrace();
+            Logger.warn(e.getMessage());
         }
 
         return nextDay;
     }
 
-    private int schikkelJaarOfGewoonJaar(int year) {
+    private int schikkelJaarOfGewoonJaar(final int year) {
         if ((year % 4) == 0) {
-            System.out.println("Schikkeljaar");
+            Logger.info("Schikkeljaar");
             return 29;
         } else {
-            System.out.println("Gewoon jaar");
+            Logger.info("Gewoon jaar");
             return 28;
         }
     }
 
-
-    private boolean alreadyClaimedReward;
-    private int streakDays;
-
-    // UNIX TODAY
-    private long today = System.currentTimeMillis() / 1000;
-
-    //OTHER DAY
-    private long otherDay = 0;
-
+    /**
+     * SuppressWarnings: Not enough time to fix.
+     */
+    @SuppressWarnings({"JavaNCSS", "MethodLength", "ExecutableStatementCount", "CyclomaticComplexity", "PMD"})
     public void control() {
         username = loggedInRepo.getLoggedUser(sessionID).getUsername();
         alreadyClaimedReward = loginRepo.getUser(username).isAlreadyLoggedInToday();
         streakDays = loginRepo.getUser(username).getStreakDays();
         otherDay = today;
 
-        //OMVORMEN NAAR DATE
-        String date = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new Date(today * 1000));
-
         switch (streakDays) {
             case 1:
-                if (streakDays == 1 && (dateToUnix(0)) <= otherDay && (dateToUnix(1) >= otherDay)) {
+                if (dateToUnix(0) <= otherDay && dateToUnix(1) >= otherDay) {
                     if (alreadyClaimedReward) {
                         //streakDays = 1;
                         dailyRepo.setDailyStreakID(username, streakDays);
-                        System.out.println(streakDays);
+                        Logger.info(streakDays);
                         break;
                     }
-                } else if (streakDays == 1 && (dateToUnix(1)) < otherDay && (dateToUnix(2)) >= otherDay) {
+                } else if (dateToUnix(1) < otherDay && dateToUnix(2) >= otherDay) {
                     if (alreadyClaimedReward) {
                         streakDays++;
                         dailyRepo.setDailyStreakID(username, streakDays);
-                        System.out.println(streakDays);
+                        Logger.info(streakDays);
                         break;
                     }
                 } else {
                     resetDailyStreak();
-                    System.out.println("reset " + streakDays);
+                    Logger.info("reset " + streakDays);
                 }
                 break;
 
             case 2:
-                if (streakDays == 2 && (dateToUnix(1)) < otherDay && (dateToUnix(2)) >= otherDay) {
+                if (dateToUnix(1) < otherDay && dateToUnix(2) >= otherDay) {
                     if (alreadyClaimedReward) {
                         dailyRepo.setDailyStreakID(username, streakDays);
-                        System.out.println(streakDays);
+                        Logger.info(streakDays);
                         break;
                     }
-                } else if (streakDays == 2 && dateToUnix(2) < otherDay && dateToUnix(3) >= otherDay) {
+                } else if (dateToUnix(2) < otherDay && dateToUnix(3) >= otherDay) {
                     if (alreadyClaimedReward) {
                         streakDays++;
                         dailyRepo.setDailyStreakID(username, streakDays);
-                        System.out.println(streakDays);
+                        Logger.info(streakDays);
                         break;
                     }
                 } else {
                     resetDailyStreak();
-                    System.out.println(streakDays);
+                    Logger.info(streakDays);
                 }
                 break;
 
             case 3:
-                if (streakDays == 3 && (dateToUnix(2)) < otherDay && (dateToUnix(3)) >= otherDay) {
+                if (dateToUnix(2) < otherDay && dateToUnix(3) >= otherDay) {
                     if (alreadyClaimedReward) {
                         dailyRepo.setDailyStreakID(username, streakDays);
-                        System.out.println(streakDays);
+                        Logger.info(streakDays);
                         break;
                     }
-                } else if (streakDays == 3 && dateToUnix(3) < otherDay && dateToUnix(4) >= otherDay) {
+                } else if (dateToUnix(3) < otherDay && dateToUnix(4) >= otherDay) {
                     if (alreadyClaimedReward) {
                         streakDays++;
                         dailyRepo.setDailyStreakID(username, streakDays);
-                        System.out.println(streakDays);
+                        Logger.info(streakDays);
                         break;
                     }
                 } else {
                     resetDailyStreak();
-                    System.out.println(streakDays);
+                    Logger.info(streakDays);
                 }
                 break;
             case 4:
-                if (streakDays == 4 && (dateToUnix(3)) < otherDay && (dateToUnix(4)) >= otherDay) {
+                if (dateToUnix(3) < otherDay && dateToUnix(4) >= otherDay) {
                     if (alreadyClaimedReward) {
                         dailyRepo.setDailyStreakID(username, streakDays);
-                        System.out.println(streakDays);
+                        Logger.info(streakDays);
                         break;
                     }
-                } else if (streakDays == 4 && dateToUnix(4) < otherDay && dateToUnix(5) >= otherDay) {
+                } else if (dateToUnix(4) < otherDay && dateToUnix(5) >= otherDay) {
                     if (alreadyClaimedReward) {
                         streakDays++;
                         dailyRepo.setDailyStreakID(username, streakDays);
-                        System.out.println(streakDays);
+                        Logger.info(streakDays);
                         break;
                     }
                 } else {
                     resetDailyStreak();
-                    System.out.println(streakDays);
+                    Logger.info(streakDays);
                 }
                 break;
 
             case 5:
-                if (streakDays == 5 && (dateToUnix(4)) < otherDay && (dateToUnix(5)) >= otherDay) {
+                if (dateToUnix(4) < otherDay && dateToUnix(5) >= otherDay) {
                     if (alreadyClaimedReward) {
                         dailyRepo.setDailyStreakID(username, streakDays);
-                        System.out.println(streakDays);
+                        Logger.info(streakDays);
                         break;
                     }
-                } else if (streakDays == 5 && dateToUnix(5) < otherDay && dateToUnix(6) >= otherDay) {
+                } else if (dateToUnix(5) < otherDay && dateToUnix(6) >= otherDay) {
                     if (alreadyClaimedReward) {
                         streakDays++;
                         dailyRepo.setDailyStreakID(username, streakDays);
-                        System.out.println(streakDays);
+                        Logger.info(streakDays);
                         break;
                     }
                 } else {
                     resetDailyStreak();
-                    System.out.println(streakDays);
+                    Logger.info(streakDays);
                 }
                 break;
 
             case 6:
-                if (streakDays == 6 && (dateToUnix(5)) < otherDay && (dateToUnix(6)) >= otherDay) {
+                if (dateToUnix(5) < otherDay && dateToUnix(6) >= otherDay) {
                     if (alreadyClaimedReward) {
                         dailyRepo.setDailyStreakID(username, streakDays);
-                        System.out.println(streakDays);
+                        Logger.info(streakDays);
                         break;
                     }
-                } else if (streakDays == 6 && dateToUnix(6) < otherDay && dateToUnix(7) >= otherDay) {
+                } else if (dateToUnix(6) < otherDay && dateToUnix(7) >= otherDay) {
                     if (alreadyClaimedReward) {
                         streakDays++;
                         dailyRepo.setDailyStreakID(username, streakDays);
-                        System.out.println(streakDays);
+                        Logger.info(streakDays);
                         break;
                     }
                 } else {
                     resetDailyStreak();
-                    System.out.println(streakDays);
+                    Logger.info(streakDays);
                 }
                 break;
 
             case 7:
-                if (streakDays == 7 && (dateToUnix(6)) < otherDay && (dateToUnix(7)) >= otherDay) {
+                if (dateToUnix(6) < otherDay && dateToUnix(7) >= otherDay) {
                     if (alreadyClaimedReward) {
                         dailyRepo.setDailyStreakID(username, streakDays);
-                        System.out.println(streakDays);
+                        Logger.info(streakDays);
                         break;
                     }
-                } else if (streakDays == 7 && dateToUnix(7) < otherDay && dateToUnix(8) >= otherDay) {
+                } else if (dateToUnix(7) < otherDay && dateToUnix(8) >= otherDay) {
                     if (alreadyClaimedReward) {
                         resetDailyStreak();
-                        System.out.println(streakDays);
+                        Logger.info(streakDays);
                         break;
                     }
                 } else {
                     resetDailyStreak();
-                    System.out.println(streakDays);
+                    Logger.info(streakDays);
                 }
                 break;
 
             default:
                 resetDailyStreak();
-                System.out.println(streakDays);
+                Logger.info(streakDays);
 
         }
     }
 
-    private void resetDailyStreak(){
+    private void resetDailyStreak() {
         dailyRepo.resetDailyStreak(username);
         dailyRepo.setStartStreakDate(username);
     }

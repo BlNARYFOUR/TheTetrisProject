@@ -2,13 +2,11 @@ package server.webapi;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import data.dailystreakrepository.DailyRepository;
 import data.heroesrepository.HeroesRepository;
 import data.loggedinrepository.LoggedInRepository;
 import data.Repositories;
 import data.loginrepository.LoginRepository;
 import domain.User;
-import domain.dailystreak.ControlDailyStreak;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.ext.web.Cookie;
 import io.vertx.ext.web.RoutingContext;
@@ -41,7 +39,6 @@ class Routes {
     private final LoginRepository loginRepo = Repositories.getInstance().getLoginRepository();
     private final HeroesRepository heroRepo = Repositories.getInstance().getHeroRepository();
     private final LoggedInRepository loggedInRepo = Repositories.getInstance().getLoggedInRepository();
-    private final DailyRepository dailyRepo = Repositories.getInstance().getDailyRepository();
 
     public void rootHandler(final RoutingContext routingContext) {
         final HttpServerResponse response = routingContext.response();

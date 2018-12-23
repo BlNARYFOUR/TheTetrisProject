@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-import data.avatarRepository.AvatarRepository;
+import data.avatarrepository.AvatarRepository;
 import data.dailystreakrepository.DailyRepository;
 import data.gamerepository.GameRepository;
 import data.JdbcInteractor;
@@ -36,24 +36,43 @@ import server.webapi.util.SecureFilePath;
 import util.MatchableException;
 
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.*;
 
 /**
  * All the communication setup and basic handlers.
  */
+@SuppressWarnings({"ClassFanOutComplexity", "ClassDataAbstractionCoupling", "PMD"})
 public class WebAPI extends AbstractVerticle {
     private static final String SOCKET_URL_DOT = "tetris.events.";
     private static final String REGISTER = "/register.html";
+    private static final String PRICES = "prices";
+    private static final String SESSION_STR = "session";
+    private static final String USER_ID_STR = " userID ";
+    private static final String SKIN_ID_STR = "skin ID ";
+    private static final String SKIN_NAME_STR = "skinName ";
+    private static final String SKIN_STR = "skin";
+    private static final String AMOUNT_STR = "amount";
+    private static final String WON_STR = "won";
+    private static final String AVATAR_STR = "avatar";
+    private static final String USER_STR = "user";
+    private static final String MYSTERYBOX_STR = "MysteryBox";
+    private static final String SCRATCHCARD_STR = "ScratchCard";
+    private static final String CUBES_STR = "cubes";
+    private static final String XP_STR = "xp";
+    private static final String REWARD_STR = "reward";
+    private static final String REWARD_REQ_REC_STR = "Reward request received: ";
+    private static final String THX_STR = "thx";
+    private static final String SOMETHING_WENT_WRONG_STR = "Something went wrong with";
+    private static final String SPACE_STR = " ";
 
     private final ObjectMapper objectMapper = new ObjectMapper();
-    private LoginRepository repo = Repositories.getInstance().getLoginRepository();
+    private final LoginRepository repo = Repositories.getInstance().getLoginRepository();
     private final LoggedInRepository loggedInRepo = Repositories.getInstance().getLoggedInRepository();
     private final GameRepository gameRepo = Repositories.getInstance().getGameRepository();
-    private AvatarRepository avatarRepo = Repositories.getInstance().getAvatarRepository();
-    private DailyRepository repoDaily = Repositories.getInstance().getDailyRepository();
+    private final AvatarRepository avatarRepo = Repositories.getInstance().getAvatarRepository();
+    private final DailyRepository repoDaily = Repositories.getInstance().getDailyRepository();
 
-    private String sessionID = null;
+    private String sessionID;
 
     @Override
     public void start() {
@@ -138,7 +157,8 @@ public class WebAPI extends AbstractVerticle {
 
             match.getUsers().forEach(user -> {
                 final String clientMatch = "client.match.";
-                Logger.warn(user.getUsername() + " " + SOCKET_URL_DOT + clientMatch + loggedInRepo.getSessionID(user));
+                Logger.warn(user.getUsername() + SPACE_STR + SOCKET_URL_DOT + clientMatch
+                        + loggedInRepo.getSessionID(user));
                 vertx.eventBus().publish(SOCKET_URL_DOT + clientMatch + loggedInRepo.getSessionID(user), json);
             });
 
@@ -149,8 +169,7 @@ public class WebAPI extends AbstractVerticle {
     }
 
     private void initConsumers() {
-        EventBus eb = vertx.eventBus();
-
+        final EventBus eb = vertx.eventBus();
         // sessionInfo
         eb.consumer("tetris.events.sessionInfo", this::cSessionInfo);
 
@@ -172,363 +191,383 @@ public class WebAPI extends AbstractVerticle {
 
     }
 
-    private void cSessionInfo(Message message) {
-        try{
-            Map<String, Object> jsonMap = objectMapper.readValue(message.body().toString(), new TypeReference<Map<String, Object>>(){});
+    private void cSessionInfo(final Message message) {
+        try {
+            final Map<String, Object> jsonMap = objectMapper.readValue(
+                message.body().toString(),
+                new TypeReference<Map<String, Object>>() { }
+            );
             Logger.warn("Session request received: " + jsonMap);
 
-            sessionID(jsonMap);
-            ControlDailyStreak controlDailyStreak = new ControlDailyStreak(sessionID);
+            setSessionID(jsonMap);
+            final ControlDailyStreak controlDailyStreak = new ControlDailyStreak(sessionID);
             controlDailyStreak.control();
             rewards();
-        }catch (IOException e) {
-            System.err.println("Something went wrong with");
+        } catch (IOException e) {
+            Logger.warn(SOMETHING_WENT_WRONG_STR);
         }
-        message.reply("thx");
+        message.reply(THX_STR);
 
     }
 
-    private void cReward(Message message) {
+    private void cReward(final Message message) {
         try {
-            Map<String, Object> jsonMap = objectMapper.readValue(message.body().toString(), new TypeReference<Map<String, Object>>(){});
-            Logger.warn("Reward request received: " + jsonMap);
+            final Map<String, Object> jsonMap = objectMapper.readValue(
+                message.body().toString(),
+                new TypeReference<Map<String, Object>>() { }
+            );
+            Logger.warn(REWARD_REQ_REC_STR + jsonMap.toString());
 
-            String reward = String.valueOf(jsonMap.get("reward"));
-            System.out.println("reward" + reward);
+            final String reward = String.valueOf(jsonMap.get(REWARD_STR));
+            Logger.info(REWARD_STR + reward);
 
-            switch (reward){
-                case "xp":
+            switch (reward) {
+                case XP_STR:
                     addRewardXPToUsersAccount(jsonMap);
                     userReceivedReward(jsonMap);
                     break;
                 case "scratch card":
                     scratchCard();
                     break;
-                case "cubes":
+                case CUBES_STR:
                     addRewardCubesToUsersAccount(jsonMap);
                     userReceivedReward(jsonMap);
                     break;
                 case "mystery box":
                     mysterybox();
                     break;
+                default:
+                    break;
             }
-        }catch (IOException e) {
-            System.err.println("Something went wrong with");
+        } catch (IOException e) {
+            Logger.info(SOMETHING_WENT_WRONG_STR);
         }
-        message.reply("thx");
+        message.reply(THX_STR);
     }
 
 
-    private void cScratchCard(Message message) {
-        try {
-            Map<String, Object> jsonMap = objectMapper.readValue(message.body().toString(), new TypeReference<Map<String, Object>>(){});
-            Logger.warn("Reward request received: " + jsonMap);
-            String type = "ScratchCard";
-
-            addRewardToUser(jsonMap, type);
-
-        }catch (IOException e) {
-            System.err.println("Something went wrong with");
-        }
-        message.reply("thx");
+    private void cScratchCard(final Message message) {
+        onMysteryOrScratch(message, SCRATCHCARD_STR);
+        message.reply(THX_STR);
     }
 
-    private void cMysteryBox(Message message) {
+    private void onMysteryOrScratch(final Message message, final String name) {
         try {
-            Map<String, Object> jsonMap = objectMapper.readValue(message.body().toString(), new TypeReference<Map<String, Object>>(){});
-            Logger.warn("Reward request received: " + jsonMap);
-            String type = "MysteryBox";
+            final Map<String, Object> jsonMap = objectMapper.readValue(
+                message.body().toString(),
+                new TypeReference<Map<String, Object>>() { }
+            );
+            Logger.warn(REWARD_REQ_REC_STR + jsonMap.toString());
 
-            addRewardToUser(jsonMap, type);
+            addRewardToUser(jsonMap, name);
 
-        }catch (IOException e) {
-            System.err.println("Something went wrong with");
+        } catch (IOException e) {
+            Logger.info(SOMETHING_WENT_WRONG_STR);
         }
-        message.reply("thx");
     }
 
-    private void cMysteryBoxWon(Message message) {
+    private void cMysteryBox(final Message message) {
+        onMysteryOrScratch(message, MYSTERYBOX_STR);
+        message.reply(THX_STR);
+    }
+
+    private void cMysteryBoxWon(final Message message) {
         try {
-            Map<String, Object> mysteryBoxPriceRequest = objectMapper.readValue(message.body().toString(), new TypeReference<Map<String, Object>>(){});
-            Logger.warn("Reward request received: " + mysteryBoxPriceRequest);
+            final Map<String, Object> mysteryBoxPriceRequest = objectMapper.readValue(
+                message.body().toString(),
+                new TypeReference<Map<String, Object>>() { }
+            );
+            Logger.warn(REWARD_REQ_REC_STR + mysteryBoxPriceRequest.toString());
 
             mysteryBoxSendPrice();
 
         } catch (IOException e) {
-            System.err.println("Something went wrong with");
+            Logger.info(SOMETHING_WENT_WRONG_STR);
         }
-        message.reply("thx");
+        message.reply(THX_STR);
     }
 
-    private void cMysteryBoxReceived(Message message) {
+    private void cMysteryBoxReceived(final Message message) {
         try {
-            Map<String, Object> mysteryBoxReceivedReward = objectMapper.readValue(message.body().toString(), new TypeReference<Map<String, Object>>(){});
-            Logger.warn("Reward request received: " + mysteryBoxReceivedReward);
-            String type = "MysteryBox";
+            final Map<String, Object> mysteryBoxReceivedReward = objectMapper.readValue(
+                message.body().toString(),
+                new TypeReference<Map<String, Object>>() { }
+            );
+            Logger.warn(REWARD_REQ_REC_STR + mysteryBoxReceivedReward.toString());
 
-            addRewardToUser(mysteryBoxReceivedReward, type);
+            addRewardToUser(mysteryBoxReceivedReward, MYSTERYBOX_STR);
             userReceivedReward(mysteryBoxReceivedReward);
 
         } catch (IOException e) {
-            System.err.println("Something went wrong with");
+            Logger.info(SOMETHING_WENT_WRONG_STR);
         }
-        message.reply("thx");
+        message.reply(THX_STR);
     }
 
-    private void cChangeAvatar(Message message) {
-        try{
-            Map<String, Object> jsonMap = objectMapper.readValue(message.body().toString(), new TypeReference<Map<String, Object>>(){});
+    private void cChangeAvatar(final Message message) {
+        try {
+            final Map<String, Object> jsonMap = objectMapper.readValue(
+                message.body().toString(),
+                new TypeReference<Map<String, Object>>() { }
+            );
             Logger.warn("Change avatar request received: " + jsonMap);
 
             sendAllUsersAvatars();
-            System.out.println("change avatar page");
-        }catch (IOException e) {
-            System.err.println("Something went wrong with");
+            Logger.info("change avatar page");
+        } catch (IOException e) {
+            Logger.info(SOMETHING_WENT_WRONG_STR);
         }
-        message.reply("thx");
+        message.reply(THX_STR);
     }
 
-    private void cNewAvatar(Message message) {
-        try{
-            Map<String, Object> jsonMap = objectMapper.readValue(message.body().toString(), new TypeReference<Map<String, Object>>(){});
+    private void cNewAvatar(final Message message) {
+        try {
+            final Map<String, Object> jsonMap = objectMapper.readValue(
+                message.body().toString(),
+                new TypeReference<Map<String, Object>>() { }
+            );
             Logger.warn("Received new avatar: " + jsonMap);
 
             setNewAvatarToUsersAccount(jsonMap);
-            System.out.println("change avatar");
-        }catch (IOException e) {
-            System.err.println("Something went wrong with");
+            Logger.info("change avatar");
+        } catch (IOException e) {
+            Logger.info(SOMETHING_WENT_WRONG_STR);
         }
-        message.reply("thx");
+        message.reply(THX_STR);
     }
 
-    private void setNewAvatarToUsersAccount(Map<String,Object> jsonMap) {
-        String newAvatar = jsonMap.get("newAvatar").toString();
-        System.out.println("newAvatar " + newAvatar);
+    private void setNewAvatarToUsersAccount(final Map<String, Object> jsonMap) {
+        final String newAvatar = jsonMap.get("newAvatar").toString();
+        Logger.info("newAvatar " + newAvatar);
 
-        int avatarID = avatarRepo.getAvatarID(newAvatar).getID();
-        System.out.println("newAvatar ID " + avatarID);
+        final int avatarID = avatarRepo.getAvatarID(newAvatar).getId();
+        Logger.info("newAvatar ID " + avatarID);
 
-        int userID = loggedInRepo.getLoggedUser(sessionID).getId();
-        System.out.println("user ID " + userID);
+        final int userID = loggedInRepo.getLoggedUser(sessionID).getId();
+        Logger.info("user ID " + userID);
 
         avatarRepo.changeAvatar(avatarID, userID);
     }
 
 
     private void sendAllUsersAvatars() {
-        JsonObject allUsersAvatars = new JsonObject();
+        final JsonObject allUsersAvatars = new JsonObject();
 
-        int userID = loggedInRepo.getLoggedUser(sessionID).getId();
-        List<Avatar> avatars = avatarRepo.getAllAvatarsFromUser(userID);
+        final int userID = loggedInRepo.getLoggedUser(sessionID).getId();
+        final List<Avatar> avatars = avatarRepo.getAllAvatarsFromUser(userID);
         allUsersAvatars.put("avatars", new Gson().toJson(avatars));
 
-        String username = loggedInRepo.getLoggedUser(sessionID).getUsername();
-        allUsersAvatars.put("user", new Gson().toJson(repo.getUser(username)));
+        final String username = loggedInRepo.getLoggedUser(sessionID).getUsername();
+        allUsersAvatars.put(USER_STR, new Gson().toJson(repo.getUser(username)));
 
-        int avatarID = repo.getUser(username).getAvatarID();
-        System.out.println("avatar " + avatarID);
-        allUsersAvatars.put("avatar", new Gson().toJson(avatarRepo.getAvatar(avatarID)));
+        final int avatarID = repo.getUser(username).getAvatarID();
+        Logger.info("avatar " + avatarID);
+        allUsersAvatars.put(AVATAR_STR, new Gson().toJson(avatarRepo.getAvatar(avatarID)));
 
         vertx.eventBus().send("tetris.events.allAvatars", Json.encode(allUsersAvatars));
     }
 
 
     private void mysteryBoxSendPrice() {
-        JsonObject mysteryboxWon = new JsonObject();
+        final JsonObject mysteryboxWon = new JsonObject();
 
-        int count = repoDaily.getAllMBPrices().size();
-        int randomNumber = generateRandomNumber(count);
+        final int count = repoDaily.getAllMBPrices().size();
+        final int randomNumber = generateRandomNumber(count);
 
-        mysteryboxWon.put("won", new Gson().toJson(repoDaily.getMBPricesById(randomNumber)));
-        System.out.println("price " + Json.encode(mysteryboxWon));
+        mysteryboxWon.put(WON_STR, new Gson().toJson(repoDaily.getMBPricesById(randomNumber)));
+        Logger.info("price " + Json.encode(mysteryboxWon));
 
         vertx.eventBus().send("tetris.events.mysteryBoxWon", Json.encode(mysteryboxWon));
     }
 
-
+    @SuppressWarnings("PMD")
     private void addRewardToUser(Map<String, Object> jsonMap, String type) {
         // TODO if you won something add to DB.
-        int userID = loggedInRepo.getLoggedUser(sessionID).getId();
+        final int userID = loggedInRepo.getLoggedUser(sessionID).getId();
 
-        if (jsonMap.containsKey("won")){
-            int amount;
+        if (jsonMap.containsKey(WON_STR)) {
+            final int amount;
 
-            switch (jsonMap.get("won").toString()){
-                case "xp":
-                    amount = (int) jsonMap.get("amount");
+            switch (jsonMap.get(WON_STR).toString()) {
+                case XP_STR:
+                    amount = (int) jsonMap.get(AMOUNT_STR);
                     addAmountOfXPToUser(amount);
 
                     break;
-                case "cubes":
-                    amount = (int) jsonMap.get("amount");
+                case CUBES_STR:
+                    amount = (int) jsonMap.get(AMOUNT_STR);
                     addAmountOfCubesToUser(amount);
 
                     break;
-                case "skin":
-                    System.out.println("SKIN");
-                    String skinName;
-                    int skinID;
+                case SKIN_STR:
+                    Logger.info(SKIN_STR);
+                    final String skinName;
+                    final int skinID;
 
-                    if (type.equals("ScratchCard")){
+                    if (SCRATCHCARD_STR.equals(type)) {
                         skinName = repoDaily.getSkinFromSC().getName();
-                        System.out.println("skinName " + skinName);
-                        skinID = repoDaily.getSkinID(skinName).getID();
+                        Logger.info(SKIN_NAME_STR + skinName);
+                        skinID = repoDaily.getSkinID(skinName).getId();
 
-                        System.out.println("skin ID " + skinID + " userID " + userID);
+                        Logger.info(SKIN_ID_STR + skinID + USER_ID_STR + userID);
 
                         repoDaily.addSkinToUser(userID, skinID);
                         userReceivedReward(jsonMap);
                         break;
 
-                    }else {
+                    } else {
                         skinName = repoDaily.getSkinFromMB().getName();
-                        System.out.println("skinName " + skinName);
-                        skinID = repoDaily.getSkinID(skinName).getID();
+                        Logger.info(SKIN_NAME_STR + skinName);
+                        skinID = repoDaily.getSkinID(skinName).getId();
 
-                        System.out.println("skin ID " + skinID + " userID " + userID);
+                        Logger.info(SKIN_ID_STR + skinID + USER_ID_STR + userID);
 
                         repoDaily.addSkinToUser(userID, skinID);
                         userReceivedReward(jsonMap);
                         break;
                     }
 
-                case "avatar":
-                    System.out.println("AVATAR");
-                    String avatarName;
-                    int avatarID;
-
-                    if (type.equals("ScratchCard")){
-                        skinName = repoDaily.getAvatarFromSC().getName();
-                        System.out.println("skinName " + skinName);
-                        skinID = repoDaily.getAvatarID(skinName).getID();
-
-                        System.out.println("skin ID " + skinID + " userID " + userID);
-
-                        repoDaily.addAvatarToUser(userID, skinID);
-                        userReceivedReward(jsonMap);
-                        break;
-
-                    }else {
-                        avatarName = repoDaily.getAvatarFromMB().getName();
-                        System.out.println("avatarName " + avatarName);
-                        avatarID = repoDaily.getAvatarID(avatarName).getID();
-
-                        System.out.println("skin ID " + avatarID + " userID " + userID);
-
-                        repoDaily.addAvatarToUser(userID, avatarID);
-                        userReceivedReward(jsonMap);
-                        break;
-                    }
-
+                case AVATAR_STR:
+                    doAvatarStuff(type, userID, jsonMap);
+                    break;
                 case "nothing":
-                    System.out.println("NOTHING");
+                    Logger.info("NOTHING");
+                    break;
+                default:
+                    Logger.info("DEFAULT");
                     break;
             }
         }
         userReceivedReward(jsonMap);
     }
 
+    private void doAvatarStuff(final String type, final int userID, final Map<String, Object> jsonMap) {
+        Logger.info(AVATAR_STR);
+        final String avatarName;
+        final int avatarID;
 
-    private void sessionID(Map<String, Object> obj) {
-        sessionID = String.valueOf(obj.get("session"));
+        if (SCRATCHCARD_STR.equals(type)) {
+            final String skinName = repoDaily.getAvatarFromSC().getName();
+            Logger.info(SKIN_NAME_STR + skinName);
+            final int skinID = repoDaily.getAvatarID(skinName).getId();
+
+            Logger.info(SKIN_ID_STR + skinID + USER_ID_STR + userID);
+
+            repoDaily.addAvatarToUser(userID, skinID);
+            userReceivedReward(jsonMap);
+
+        } else {
+            avatarName = repoDaily.getAvatarFromMB().getName();
+            Logger.info("avatarName " + avatarName);
+            avatarID = repoDaily.getAvatarID(avatarName).getId();
+
+            Logger.info(SKIN_ID_STR + avatarID + USER_ID_STR + userID);
+
+            repoDaily.addAvatarToUser(userID, avatarID);
+            userReceivedReward(jsonMap);
+        }
     }
 
-    private void addAmountOfCubesToUser(int amount) {
-        String user = loggedInRepo.getLoggedUser(sessionID).getUsername();
-
-        int amountCubes = repoDaily.getCubes(user).getCubes();
-        amount = amountCubes + amount;
-
-        repoDaily.updateCubes(amount, user);
+    private void setSessionID(final Map<String, Object> obj) {
+        sessionID = String.valueOf(obj.get(SESSION_STR));
     }
 
-    private void addAmountOfXPToUser(int amount) {
-        String user = loggedInRepo.getLoggedUser(sessionID).getUsername();
+    private void addAmountOfCubesToUser(final int amount) {
+        final String user = loggedInRepo.getLoggedUser(sessionID).getUsername();
 
-        int amountXP = repoDaily.getXP(user).getXp();
+        final int amountCubes = repoDaily.getCubes(user).getCubes();
+        final int amountBuf = amountCubes + amount;
+
+        repoDaily.updateCubes(amountBuf, user);
+    }
+
+    private void addAmountOfXPToUser(final int amount) {
+        final String user = loggedInRepo.getLoggedUser(sessionID).getUsername();
+
+        final int amountXP = repoDaily.getXP(user).getXp();
+        final int amountBuf = amountXP + amount;
+
+        repoDaily.updateXP(amountBuf, user);
+    }
+
+    private void userReceivedReward(final Map<String, Object> obj) {
+        final Boolean alreadyLoggedInToday = (Boolean) obj.get("alreadyLoggedInToday");
+
+        repoDaily.updateAlreadyLoggedIn(alreadyLoggedInToday, loggedInRepo.getLoggedUser(sessionID).getUsername());
+    }
+
+    private void addRewardXPToUsersAccount(final Map<String, Object> obj) {
+        final String reward = String.valueOf(obj.get(REWARD_STR));
+        int amount = (int) obj.get(AMOUNT_STR);
+        final String user = loggedInRepo.getLoggedUser(sessionID).getUsername();
+
+        final int amountXP = repoDaily.getXP(user).getXp();
         amount = amountXP + amount;
 
         repoDaily.updateXP(amount, user);
+        Logger.info(amount + SPACE_STR + reward);
     }
 
-    private void userReceivedReward(Map<String, Object> obj) {
-        Boolean alreadyLoggedInToday = (Boolean) obj.get("alreadyLoggedInToday");
+    private void addRewardCubesToUsersAccount(final Map<String, Object> obj) {
+        final String reward = String.valueOf(obj.get(REWARD_STR));
+        int amount = (int) obj.get(AMOUNT_STR);
+        final String user = loggedInRepo.getLoggedUser(sessionID).getUsername();
 
-        repoDaily.updateAlreaddyLoggedIn(alreadyLoggedInToday, loggedInRepo.getLoggedUser(sessionID).getUsername());
-    }
-
-    private void addRewardXPToUsersAccount(Map<String, Object> obj) {
-        String reward = String.valueOf(obj.get("reward"));
-        int amount = (int) obj.get("amount");
-        String user = loggedInRepo.getLoggedUser(sessionID).getUsername();
-
-        int amountXP = repoDaily.getXP(user).getXp();
-        amount = amountXP + amount;
-
-        repoDaily.updateXP(amount, user);
-        System.out.println(amount + " " + reward);
-    }
-
-    private void addRewardCubesToUsersAccount(Map<String, Object> obj) {
-        String reward = String.valueOf(obj.get("reward"));
-        int amount = (int) obj.get("amount");
-        String user = loggedInRepo.getLoggedUser(sessionID).getUsername();
-
-        int amountCubes = repoDaily.getCubes(user).getCubes();
+        final int amountCubes = repoDaily.getCubes(user).getCubes();
         amount = amountCubes + amount;
 
         repoDaily.updateCubes(amount, user);
-        System.out.println(amount + " " + reward);
+        Logger.info(amount + SPACE_STR + reward);
     }
 
 
     private void rewards() {
-        JsonObject obj = new JsonObject();
+        final JsonObject obj = new JsonObject();
 
         obj.put("rewards", new Gson().toJson(repoDaily.getAllRewards()));
-        String username = loggedInRepo.getLoggedUser(sessionID).getUsername();
+        final String username = loggedInRepo.getLoggedUser(sessionID).getUsername();
 
-        obj.put("user", new Gson().toJson(repo.getUser(username)));
+        obj.put(USER_STR, new Gson().toJson(repo.getUser(username)));
 
-        int avatarID = repo.getUser(username).getAvatarID();
-        obj.put("avatar", new Gson().toJson(avatarRepo.getAvatar(avatarID)));
+        final int avatarID = repo.getUser(username).getAvatarID();
+        obj.put(AVATAR_STR, new Gson().toJson(avatarRepo.getAvatar(avatarID)));
 
         vertx.eventBus().send("tetris.events.rewards", Json.encode(obj));
     }
 
-    private void scratchCard(){
-        JsonObject scratchCard = new JsonObject();
+    private void scratchCard() {
+        final JsonObject scratchCard = new JsonObject();
 
-        int count = repoDaily.getAllSCPrices().size();
-        int amountScratchBoxes = 3;
+        final int count = repoDaily.getAllSCPrices().size();
+        final int amountScratchBoxes = 3;
 
-        int[] randomNumber = new int[amountScratchBoxes];
-        List<ScratchCard> rewards = new ArrayList<>();
+        final int[] randomNumber = new int[amountScratchBoxes];
+        final List<ScratchCard> rewards = new ArrayList<>();
 
-        for (int i = 0; i < amountScratchBoxes ; i++){
+        for (int i = 0; i < amountScratchBoxes; i++) {
             randomNumber[i] = generateRandomNumber(count);
             rewards.add(repoDaily.getSCPricesById(randomNumber[i]));
         }
 
-        scratchCard.put("prices", new Gson().toJson(repoDaily.getAllSCPrices()));
-        scratchCard.put("skin", new Gson().toJson(repoDaily.getSkinFromSC().getName()));
-        //scratchCard.put("avatar", new Gson().toJson(repoDaily.getAvatarFromSC().getName()));
+        scratchCard.put(PRICES, new Gson().toJson(repoDaily.getAllSCPrices()));
+        scratchCard.put(SKIN_STR, new Gson().toJson(repoDaily.getSkinFromSC().getName()));
+        //scratchCard.put(AVATAR_STR, new Gson().toJson(repoDaily.getAvatarFromSC().getName()));
         scratchCard.put("scPrices", new Gson().toJson(rewards));
 
-        vertx.eventBus().send("tetris.events.scratchCard",  Json.encode(scratchCard));
+        vertx.eventBus().send("tetris.events.scratchCard", Json.encode(scratchCard));
     }
 
-    private int generateRandomNumber(int max) {
+    private int generateRandomNumber(final int max) {
         return (int) (Math.random() * max + 1);
     }
 
     private void mysterybox() {
-        JsonObject mysterybox = new JsonObject();
+        final JsonObject mysterybox = new JsonObject();
 
-        mysterybox.put("prices", new Gson().toJson(repoDaily.getAllMBPrices()));
+        mysterybox.put(PRICES, new Gson().toJson(repoDaily.getAllMBPrices()));
 
-        mysterybox.put("skin", new Gson().toJson(repoDaily.getSkinFromMB().getName()));
-        mysterybox.put("avatar", new Gson().toJson(repoDaily.getAvatarFromMB().getName()));
+        mysterybox.put(SKIN_STR, new Gson().toJson(repoDaily.getSkinFromMB().getName()));
+        mysterybox.put(AVATAR_STR, new Gson().toJson(repoDaily.getAvatarFromMB().getName()));
 
         vertx.eventBus().send("tetris.events.showMysteryBox", Json.encode(mysterybox));
     }
@@ -548,7 +587,7 @@ public class WebAPI extends AbstractVerticle {
                     );
             Logger.warn("Match request received: " + jsonMap);
 
-            final User user = loggedInRepo.getLoggedUser((String) jsonMap.get("session"));
+            final User user = loggedInRepo.getLoggedUser((String) jsonMap.get(SESSION_STR));
             user.selectHero((String) jsonMap.get("hero"));
             final GameMode gameMode = GameMode.getGameModeByValue((String) jsonMap.get("gameMode"));
             MatchHandler.getInstance().addMatchable(user, gameMode);

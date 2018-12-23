@@ -14,7 +14,7 @@ import java.util.List;
  * Contract for DailyRepository.
  */
 public interface DailyRepository {
-    void updateAlreaddyLoggedIn(Boolean alreadyLoggedIn, String username);
+    void updateAlreadyLoggedIn(Boolean alreadyLoggedIn, String username);
     //void updateDailyStreak(String name);
     void resetDailyStreak(String username);
     void setStartStreakDate(String username);
@@ -38,9 +38,9 @@ public interface DailyRepository {
     Skin getSkinFromMB();
     Avatar getAvatarFromMB();
 
-    User getXP (String username);
+    User getXP(String username);
     void updateXP(int xp, String username);
-    User getCubes (String username);
+    User getCubes(String username);
     void updateCubes(int cubes, String username);
 
     Skin getSkinID(String name);

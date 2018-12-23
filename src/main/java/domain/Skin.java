@@ -1,35 +1,38 @@
 package domain;
 
+/**
+ * Skin.
+ */
 public class Skin {
-    private int ID;
+    private int id;
     private String name;
 
-    public Skin(int ID, String name) {
-        this.ID = ID;
+    public Skin(final int id, final String name) {
+        this.id = id;
         this.name = name;
     }
 
-    public int getID() {
-        return ID;
+    public int getId() {
+        return id;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setId(final int id) {
+        this.id = id;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
     @Override
     public String toString() {
-        return "Skin{" +
-                "ID='" + ID + '\'' +
-                ", name='" + name + '\'' +
-                '}';
+        return "Skin{"
+                + "id='" + id + '\''
+                + ", name='" + name + '\''
+                + '}';
     }
 }

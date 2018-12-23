@@ -102,9 +102,9 @@ a {
     margin-right: auto;
 }
 
-.userInfo {
-    margin-top: -5%;
-}
+/*.userInfo {*/
+    /*margin-top: -5%;*/
+/*}*/
 
 .userInfo div {
     display: inline-block;
@@ -186,7 +186,6 @@ a {
     border-radius: 20px;
     background-color: #FF02B4;
     height: 100%;
-    width: 40%;
 
 }
 
