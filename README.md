@@ -53,9 +53,9 @@ Open het project als volgt: open -> de locatie waar u het heeft opgeslagen -> gr
 
 Nadat u dat gedaan hebt, ga je naar -> View -> Tool window -> gradle. Dan komt er een nieuw kolom tevoorschijn, daar zie je linksboven een **refresh knop** daar klik u op. Dit zorgt ervoor dat al uw gradle projecten worden vernieuwd.
 
-Als volgt gaat u naar groep-16 -> application -> src -> main -> java -> server -> Tetris en drukt u op "run" of rechtermuisknop en klik op "run Tetris.main()".
+Als volgt gaat u naar View -> Tool window -> gradle. Daar gaat u naar Tasks -> application -> run. Zo wordt de server gestart.
 
-Open daarna uw brower en surft u naar de website <http://localhost:8016/static>.
+Open daarna uw brower en surft u naar de website <http://localhost:8016/static/>.
 Je kunt niet direct naar het spel gaan als u nog niet bent ingelogd. Als u eenmaal bent ingelogd, zal het spel je cookies opslaan zodat je de volgende keer direct naar het hoofdmenu kunt gaan.
 
 _Op dit moment moet u 2 browsers openen en inloggen met 2 verschillende users om een game te spelen!_
@@ -65,7 +65,7 @@ Have fun!
 
 ## 3. Speel instructies
 ### 3.1 Inloggen
-Als u naar de website <http://localhost:8016/static>surft komt u op een inlogscherm.
+Als u naar de website <http://localhost:8016/static/>surft komt u op een inlogscherm.
 
 Hier kunt u uw username en wachtwoord ingeven. Bij het klikken op de knop "login", controleert het programma of uw username en wachtwoord overeenkomen. Als deze overeenkomen wordt u naar de main_menu pagina gebracht, komt uw username en wachtwoord niet overeen krijgt u een foutmelding en kunt u opnieuw proberen of een nieuw account aanmaken.
 
