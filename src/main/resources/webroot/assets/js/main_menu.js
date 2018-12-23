@@ -3,7 +3,6 @@
 let userInfo;
 let rewardsInfo;
 let avatarInfo;
-let loaded = false;
 
 let eb = new EventBus("/tetris-16/socket/");
 
@@ -11,17 +10,8 @@ eb.onopen = function () {
     console.log("Connection Open");
 
     //send sessionInfo to backend
-    eb.registerHandler("tetris.events.sessionInfo", session());
+    session();
 
-    testid();
-
-
-    if (!loaded){
-        location.reload();
-    }
-};
-
-function testid() {
     // give the rewards to javascript
     eb.registerHandler("tetris.events.rewards", function(err, message){
         rewardsAndUserInfo(message);
@@ -57,14 +47,10 @@ function testid() {
         }
     });
 
-    loaded = true;
-}
+};
 
 function session(){
-    let obj = new Object();
-    obj.session = cookies.getCookie("vertx-web.session");
-    let json = JSON.stringify(obj);
-
+    let json = { session: cookies.getCookie("vertx-web.session")};
     eb.send("tetris.events.sessionInfo", json);
 }
 
@@ -92,6 +78,7 @@ function rewardsAndUserInfo(message) {
 }
 
 function mainmenu() {
+
     console.log("Hier ben ik");
     document.getElementById("userName").innerText = userInfo.username;
     document.querySelector(".numberOfCubes").innerHTML = userInfo.cubes;
@@ -170,7 +157,6 @@ function changeAvatar() {
     eb.onclose = function () {
         console.log("Connection Closed");
     };
-
 
     location.href = "/static/pages/change_avatar.html";
 }

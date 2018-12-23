@@ -36,7 +36,6 @@ eb.onopen = function () {
 
 
 function setUserInfoInPage() {
-    //document.querySelector(".xp_value").style.width = "0%";
     document.querySelector(".userName").innerText = userInfo.username;
 
     document.getElementById("changeAvatar").innerHTML =

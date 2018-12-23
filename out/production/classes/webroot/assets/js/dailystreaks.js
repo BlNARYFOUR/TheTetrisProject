@@ -116,6 +116,8 @@ function receiveXPOrCubes(e) {
     document.getElementById("dailystreaks").classList.remove("showDailyRewards");
     document.getElementById("dailystreaks").classList.add("hiddenDailyRewards");
 
+    location.reload(true);
+
     enabledButtons();
 
 }
