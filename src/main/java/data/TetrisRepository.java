@@ -92,9 +92,7 @@ public final class TetrisRepository {
                     + "  ID int(11) NOT NULL AUTO_INCREMENT,\n"
                     + "  mbID int(11) NOT NULL,\n"
                     + "  skinID int(11) NOT NULL,\n"
-                    + "  PRIMARY KEY (ID),\n"
-                    + "  /*KEY mbID (mbID),\n"
-                    + "  KEY skinID (skinID)*/)";
+                    + "  PRIMARY KEY (ID))";
 
     private static final String SQL_SCRATCHCARD_DB =
             "CREATE TABLE IF NOT EXISTS scratchcard (\n"
