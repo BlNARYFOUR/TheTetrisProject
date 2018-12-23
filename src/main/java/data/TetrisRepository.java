@@ -108,14 +108,14 @@ public final class TetrisRepository {
                     + "  ID int(11) NOT NULL AUTO_INCREMENT,\n"
                     + "  scID int(11) NOT NULL,\n"
                     + "  avatarID int(11) NOT NULL,\n"
-                    + "  PRIMARY KEY (ID),\n";
+                    + "  PRIMARY KEY (ID))";
 
     private static final String SQL_SCRATCHCARD_SKIN_DB =
             "CREATE TABLE IF NOT EXISTS scratchcard_skin (\n"
                     + "  ID int(11) NOT NULL AUTO_INCREMENT,\n"
                     + "  scID int(11) NOT NULL,\n"
                     + "  skinID int(11) NOT NULL,\n"
-                    + "  PRIMARY KEY (ID),\n";
+                    + "  PRIMARY KEY (ID))";
 
     private static final String SQL_SKIN_DB =
             "CREATE TABLE IF NOT EXISTS skin (\n"
@@ -126,7 +126,7 @@ public final class TetrisRepository {
     private static final String SQL_USER_AVATAR_DB =
             "CREATE TABLE IF NOT EXISTS user_avatar (\n"
                     + "  userID int(11) NOT NULL,\n"
-                    + "  avatarID int(11) NOT NULL,\n";
+                    + "  avatarID int(11) NOT NULL)";
 
     private static final String SQL_USER_SKIN_DB =
             "CREATE TABLE IF NOT EXISTS user_skin (\n"
