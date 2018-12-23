@@ -10,9 +10,15 @@ function init() {
     sounds.themeMusic.loop = true;
     sounds.themeMusic.volume = 0.2;
     sounds.themeMusic.currentTime = 0;
-    sounds.themeMusic.play();
-
+    playMusic();
     document.getElementById("toggleMusic").addEventListener("click", toggleMusic);
+}
+
+function playMusic() {
+    sounds.themeMusic.play().catch(function() {
+        console.log("<MUSIC ERROR> You need to interact with the DOM first.");
+        setTimeout(playMusic, 500);
+    });
 }
 
 function toggleMusic() {

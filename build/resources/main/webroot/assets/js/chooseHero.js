@@ -44,9 +44,11 @@ function createAudioObj(fileName) {
 }
 
 function playSounds(hero) {
+    console.warn(hero);
+
     if (hero === "pikachu") {
         SOUNDS.pikachu.play();
-    } else if (hero === "Donkey_Kong") {
+    } else if (hero === "donkeykong") {
         SOUNDS.donkeyKong.play();
     }
 }

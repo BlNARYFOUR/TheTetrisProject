@@ -16,6 +16,8 @@ function showDailyRewards() {
     if (alreadyLoggedIn === false){
         disabledButtons();
 
+        document.getElementById("dailystreaks").classList.remove("hiddenDailyRewards");
+        document.getElementById("dailystreaks").classList.add("showDailyRewards");
         document.getElementById("close").addEventListener("click", closeDailyStreaks);
         let location = document.getElementById("dailyRewards");
         let imgList = "";

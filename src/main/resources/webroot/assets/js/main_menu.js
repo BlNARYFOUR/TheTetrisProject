@@ -9,9 +9,6 @@ let eb = new EventBus("/tetris-16/socket/");
 eb.onopen = function () {
     console.log("Connection Open");
 
-    //send sessionInfo to backend
-    session();
-
     // give the rewards to javascript
     eb.registerHandler("tetris.events.rewards", function(err, message){
         rewardsAndUserInfo(message);
@@ -47,6 +44,8 @@ eb.onopen = function () {
         }
     });
 
+    //send sessionInfo to backend
+    session();
 };
 
 function session(){
