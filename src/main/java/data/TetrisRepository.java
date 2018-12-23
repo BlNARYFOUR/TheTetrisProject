@@ -36,10 +36,10 @@ public final class TetrisRepository {
                     + "  UNIQUE KEY username_UNIQUE (username),\n"
                     + "  /*KEY streak_day_id_idx (streakDays),\n*/"
                     + "  /*KEY avatar_idx (avatar),\n*/"
-                    + "  CONSTRAINT avatar FOREIGN KEY (avatar) REFERENCES avatar (avatarID) ON DELETE NO ACTION "
-                    + "ON UPDATE NO ACTION,\n"
-                    + "  CONSTRAINT streak_id FOREIGN KEY (streakDays) REFERENCES rewards (rewardID) "
-                    + "ON DELETE NO ACTION ON UPDATE NO ACTION)";
+                    + "  CONSTRAINT avatar FOREIGN KEY (avatar) REFERENCES avatar (avatarID)"
+                    + " ON DELETE NO ACTION ON UPDATE NO ACTION,\n"
+                    + "  CONSTRAINT streak_id FOREIGN KEY (streakDays) REFERENCES rewards (rewardID)"
+                    + " ON DELETE NO ACTION ON UPDATE NO ACTION)";
 
     private static final String SQL_REWARDS_DB =
             "CREATE TABLE IF NOT EXISTS rewards (\n"
@@ -216,7 +216,6 @@ public final class TetrisRepository {
 
 
     // DATABASE
-    @SuppressWarnings("PMD")
     public static void populateDB() {
         try (Statement stmt = JdbcInteractor.getConnection().createStatement()) {
             //CREATE TABLES
