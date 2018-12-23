@@ -65,6 +65,7 @@ public class MySqlLoginRepository implements LoginRepository {
             u.setId(rs.getInt(1));
             Logger.info("User has been added.");
         } catch (SQLException ex) {
+            Logger.warn(ex.getMessage());
             throw new LoginException("Unable to add user to DB.", ex);
         }
     }
