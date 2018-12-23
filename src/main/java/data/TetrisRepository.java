@@ -137,7 +137,7 @@ public final class TetrisRepository {
 
     private static final String SQL_INSERT_HEROES =
             "replace  into  heroes ( heroID , heroName , heroAbility , heroAbilityNegative , cost ) values \n"
-                    + "(1,'pacman','Eating 2 adjacent rows',0,1000),\n"
+                    + "/*(1,'pacman','Eating 2 adjacent rows',0,1000),*/\n"
                     + "(2,'donkeykong','Ensures that two blocks of opponents fall down faster',1,1000),\n"
                     + "(4,'pikachu','Reverse controls',1,1000),\n"
                     + "(5,'sonic','The next block of opponent goes directly down',1,1000)";
@@ -201,7 +201,7 @@ public final class TetrisRepository {
 
     private static final String SQL_INSERT_SKIN =
             "replace  into  skin ( skinID , skinName ) values \n"
-                    + "(1,'pac-man'),\n"
+                    + "/*(1,'pac-man'),*/\n"
                     + "(2,'donkey kong'),\n"
                     + "(3,'pikachu'),\n"
                     + "(4,'sonic')";
