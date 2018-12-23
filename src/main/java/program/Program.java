@@ -18,13 +18,13 @@ public class Program {
 
     private void run() throws ParseException {
 
-        LoginRepository loginRepo = Repositories.getInstance().getLoginRepository();
-        String date = loginRepo.getUser("boe").getStartStreakDate();
+        final LoginRepository loginRepo = Repositories.getInstance().getLoginRepository();
+        final String date = loginRepo.getUser("boe").getStartStreakDate();
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date dt = sdf.parse(date);
-        long epoch = dt.getTime();
-        long lStartStreak = epoch/1000;
+        final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        final Date dt = sdf.parse(date);
+        final long epoch = dt.getTime();
+        final long lStartStreak = epoch / 1000;
 
         System.out.println(lStartStreak);
 

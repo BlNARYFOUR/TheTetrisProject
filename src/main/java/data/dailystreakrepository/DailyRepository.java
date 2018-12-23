@@ -38,9 +38,9 @@ public interface DailyRepository {
     Skin getSkinFromMB();
     Avatar getAvatarFromMB();
 
-    User getXP (String username);
+    User getXP(String username);
     void updateXP(int xp, String username);
-    User getCubes (String username);
+    User getCubes(String username);
     void updateCubes(int cubes, String username);
 
     Skin getSkinID(String name);

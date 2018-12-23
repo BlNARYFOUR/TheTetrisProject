@@ -14,7 +14,8 @@ import java.util.*;
  */
 public class User {
     //private final Date now = new Date();
-    private final transient  SimpleDateFormat dateFormat = new SimpleDateFormat(DateFormat.YODA_TIME.toString(), Locale.GERMANY);
+    private final transient SimpleDateFormat dateFormat = new SimpleDateFormat(DateFormat.YODA_TIME.toString(),
+        Locale.GERMANY);
 
     private int id;
     private String username;
@@ -60,7 +61,9 @@ public class User {
         this("TEST", "TESTIE");
     }
 
-    public User(int id, String username, String password, String registerDate, String beginDate, int streakDays, boolean alreadyLoggedIn, int xp, int cubes, int clanPoints, boolean hasAClan, int avatarID) {
+    @SuppressWarnings("ParameterNumber")
+    public User(int id, String username, String password, String registerDate, String beginDate, int streakDays,
+            boolean alreadyLoggedIn, int xp, int cubes, int clanPoints, boolean hasAClan, int avatarID) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -222,12 +225,16 @@ public class User {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return id == user.id &&
-                Objects.equals(username, user.username) &&
-                Objects.equals(password, user.password);
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        final User user = (User) o;
+        return id == user.id
+                && Objects.equals(username, user.username)
+                && Objects.equals(password, user.password);
     }
 
     @Override

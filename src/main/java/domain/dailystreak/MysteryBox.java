@@ -4,39 +4,42 @@ import domain.Avatar;
 import domain.Skin;
 
 
+/**
+ * MysteryBox.
+ */
 public class MysteryBox {
-    private int ID;
+    private int id;
     private int amount;
     private String price;
     private Skin skin;
     private Avatar avatar;
 
-    public MysteryBox(int ID, int amount, String price) {
-        this.ID = ID;
+    public MysteryBox(int id, int amount, String price) {
+        this.id = id;
         this.amount = amount;
         this.price = price;
     }
 
-    public MysteryBox(int ID, int amount, String price, Skin skin) {
-        this.ID = ID;
+    public MysteryBox(int id, int amount, String price, Skin skin) {
+        this.id = id;
         this.amount = amount;
         this.price = price;
         this.skin = skin;
     }
 
-    public MysteryBox(int ID, int amount, String price, Avatar avatar) {
-        this.ID = ID;
+    public MysteryBox(int id, int amount, String price, Avatar avatar) {
+        this.id = id;
         this.amount = amount;
         this.price = price;
         this.avatar = avatar;
     }
 
-    public int getID() {
-        return ID;
+    public int getId() {
+        return id;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getAmount() {
@@ -73,6 +76,7 @@ public class MysteryBox {
 
     @Override
     public String toString() {
-        return "MysteryBox " + getID() + " " + getPrice() + " " + getAmount();
+        final String spaceStr = " ";
+        return "MysteryBox " + getId() + spaceStr + getPrice() + spaceStr + getAmount();
     }
 }

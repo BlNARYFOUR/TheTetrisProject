@@ -8,6 +8,7 @@ import java.sql.*;
 /**
  * A TetrisRepo.
  */
+@SuppressWarnings("MultipleStringLiterals")
 public final class TetrisRepository {
     //private static Date now = new Date();
     //private static Date tomorrow = new Date(now.getTime() + (1000 * 60 * 60 * 24));
@@ -17,26 +18,28 @@ public final class TetrisRepository {
     //private static String dateTomorrow = dateFormat.format(tomorrow);
 
     private static final String SQL_USER_DB =
-            "CREATE TABLE IF NOT EXISTS user(\n" +
-                    "  user_id int(11) NOT NULL AUTO_INCREMENT,\n" +
-                    "  username varchar(50) NOT NULL,\n" +
-                    "  password varchar(50) NOT NULL,\n" +
-                    "  registerDate varchar(100) NOT NULL,\n" +
-                    "  startStreakDate varchar(100) DEFAULT NULL,\n" +
-                    "  streakDays int(11) DEFAULT NULL,\n" +
-                    "  alreadyLoggedInToday tinyint(4) DEFAULT '0',\n" +
-                    "  xp int(11) DEFAULT 0,\n" +
-                    "  cubes int(11) DEFAULT 0,\n" +
-                    "  clanPoints int(11) DEFAULT 0,\n" +
-                    "  hasAClan tinyint(4) DEFAULT 0,\n" +
-                    "  avatar int(11) DEFAULT 1,\n" +
-                    "  PRIMARY KEY (user_id),\n" +
-                    "  UNIQUE KEY user_id_UNIQUE (user_id),\n" +
-                    "  UNIQUE KEY username_UNIQUE (username),\n" +
-                    "  /*KEY streak_day_id_idx (streakDays),\n*/" +
-                    "  /*KEY avatar_idx (avatar),\n*/" +
-                    "  CONSTRAINT avatar FOREIGN KEY (avatar) REFERENCES avatar (avatarID) ON DELETE NO ACTION ON UPDATE NO ACTION,\n" +
-                    "  CONSTRAINT streak_id FOREIGN KEY (streakDays) REFERENCES rewards (rewardID) ON DELETE NO ACTION ON UPDATE NO ACTION)";
+            "CREATE TABLE IF NOT EXISTS user(\n"
+                    + "  user_id int(11) NOT NULL AUTO_INCREMENT,\n"
+                    + "  username varchar(50) NOT NULL,\n"
+                    + "  password varchar(50) NOT NULL,\n"
+                    + "  registerDate varchar(100) NOT NULL,\n"
+                    + "  startStreakDate varchar(100) DEFAULT NULL,\n"
+                    + "  streakDays int(11) DEFAULT NULL,\n"
+                    + "  alreadyLoggedInToday tinyint(4) DEFAULT '0',\n"
+                    + "  xp int(11) DEFAULT 0,\n"
+                    + "  cubes int(11) DEFAULT 0,\n"
+                    + "  clanPoints int(11) DEFAULT 0,\n"
+                    + "  hasAClan tinyint(4) DEFAULT 0,\n"
+                    + "  avatar int(11) DEFAULT 1,\n"
+                    + "  PRIMARY KEY (user_id),\n"
+                    + "  UNIQUE KEY user_id_UNIQUE (user_id),\n"
+                    + "  UNIQUE KEY username_UNIQUE (username),\n"
+                    + "  /*KEY streak_day_id_idx (streakDays),\n*/"
+                    + "  /*KEY avatar_idx (avatar),\n*/"
+                    + "  CONSTRAINT avatar FOREIGN KEY (avatar) REFERENCES avatar (avatarID) ON DELETE NO ACTION "
+                    + "ON UPDATE NO ACTION,\n"
+                    + "  CONSTRAINT streak_id FOREIGN KEY (streakDays) REFERENCES rewards (rewardID) "
+                    + "ON DELETE NO ACTION ON UPDATE NO ACTION)";
 
     private static final String SQL_REWARDS_DB =
             "CREATE TABLE IF NOT EXISTS rewards (\n"
@@ -76,22 +79,22 @@ public final class TetrisRepository {
                     + "  PRIMARY KEY (mbID))";
 
     private static final String SQL_MYSTERYBOX_AVATER_DB =
-            "CREATE TABLE IF NOT EXISTS mysterybox_avatar (\n" +
-                    "  ID int(11) NOT NULL AUTO_INCREMENT,\n" +
-                    "  mbID int(11) NOT NULL,\n" +
-                    "  avatarID int(11) NOT NULL,\n" +
-                    "  PRIMARY KEY (ID),\n" +
-                    "  /*KEY mbID (mbID),\n" +
-                    "  KEY avatarID (avatarID)*/)";
+            "CREATE TABLE IF NOT EXISTS mysterybox_avatar (\n"
+                    + "  ID int(11) NOT NULL AUTO_INCREMENT,\n"
+                    + "  mbID int(11) NOT NULL,\n"
+                    + "  avatarID int(11) NOT NULL,\n"
+                    + "  PRIMARY KEY (ID),\n"
+                    + "  /*KEY mbID (mbID),\n"
+                    + "  KEY avatarID (avatarID)*/)";
 
     private static final String SQL_MYSTERYBOX_SKIN_DB =
-            "CREATE TABLE IF NOT EXISTS mysterybox_skin (\n" +
-                    "  ID int(11) NOT NULL AUTO_INCREMENT,\n" +
-                    "  mbID int(11) NOT NULL,\n" +
-                    "  skinID int(11) NOT NULL,\n" +
-                    "  PRIMARY KEY (ID),\n" +
-                    "  /*KEY mbID (mbID),\n" +
-                    "  KEY skinID (skinID)*/)";
+            "CREATE TABLE IF NOT EXISTS mysterybox_skin (\n"
+                    + "  ID int(11) NOT NULL AUTO_INCREMENT,\n"
+                    + "  mbID int(11) NOT NULL,\n"
+                    + "  skinID int(11) NOT NULL,\n"
+                    + "  PRIMARY KEY (ID),\n"
+                    + "  /*KEY mbID (mbID),\n"
+                    + "  KEY skinID (skinID)*/)";
 
     private static final String SQL_SCRATCHCARD_DB =
             "CREATE TABLE IF NOT EXISTS scratchcard (\n"
@@ -101,22 +104,18 @@ public final class TetrisRepository {
                     + "  PRIMARY KEY (scID))";
 
     private static final String SQL_SCRATCHCARD_AVATAR_DB =
-            "CREATE TABLE IF NOT EXISTS scratchcard_avatar (\n" +
-                    "  ID int(11) NOT NULL AUTO_INCREMENT,\n" +
-                    "  scID int(11) NOT NULL,\n" +
-                    "  avatarID int(11) NOT NULL,\n" +
-                    "  PRIMARY KEY (ID),\n" +
-                    "  /*KEY scID (scID),\n" +
-                    "  KEY avatarID (avatarID)*/)";
+            "CREATE TABLE IF NOT EXISTS scratchcard_avatar (\n"
+                    + "  ID int(11) NOT NULL AUTO_INCREMENT,\n"
+                    + "  scID int(11) NOT NULL,\n"
+                    + "  avatarID int(11) NOT NULL,\n"
+                    + "  PRIMARY KEY (ID),\n";
 
     private static final String SQL_SCRATCHCARD_SKIN_DB =
-            "CREATE TABLE IF NOT EXISTS scratchcard_skin (\n" +
-                    "  ID int(11) NOT NULL AUTO_INCREMENT,\n" +
-                    "  scID int(11) NOT NULL,\n" +
-                    "  skinID int(11) NOT NULL,\n" +
-                    "  PRIMARY KEY (ID),\n" +
-                    "  /*KEY scID (scID),\n" +
-                    "  KEY skinID (skinID)*/)";
+            "CREATE TABLE IF NOT EXISTS scratchcard_skin (\n"
+                    + "  ID int(11) NOT NULL AUTO_INCREMENT,\n"
+                    + "  scID int(11) NOT NULL,\n"
+                    + "  skinID int(11) NOT NULL,\n"
+                    + "  PRIMARY KEY (ID),\n";
 
     private static final String SQL_SKIN_DB =
             "CREATE TABLE IF NOT EXISTS skin (\n"
@@ -127,91 +126,87 @@ public final class TetrisRepository {
     private static final String SQL_USER_AVATAR_DB =
             "CREATE TABLE IF NOT EXISTS user_avatar (\n"
                     + "  userID int(11) NOT NULL,\n"
-                    + "  avatarID int(11) NOT NULL,\n"
-                    + "  /*KEY FKuserID_idx (userID),\n" +
-                    "       KEY FKavatarID_idx (avatarID)*/)";
+                    + "  avatarID int(11) NOT NULL,\n";
 
     private static final String SQL_USER_SKIN_DB =
             "CREATE TABLE IF NOT EXISTS user_skin (\n"
                     + "  userID int(10) NOT NULL,\n"
                     + "  skinID int(10) NOT NULL,\n"
-                    + " /* KEY FKuserID_idx (userID),\n"
-                    + "  KEY FKskinID_idx (skinID),\n*/"
                     + "  CONSTRAINT FKskinID FOREIGN KEY (skinID) REFERENCES skin (skinID) "
                     + "ON DELETE NO ACTION ON UPDATE NO ACTION,\n"
                     + "  CONSTRAINT FKuserID FOREIGN KEY (userID) REFERENCES user (user_id)"
                     + " ON DELETE NO ACTION ON UPDATE NO ACTION)";
 
     private static final String SQL_INSERT_HEROES =
-            "replace  into  heroes ( heroID , heroName , heroAbility , heroAbilityNegative , cost ) values \n" +
-                    "(1,'pacman','Eating 2 adjacent rows',0,1000),\n" +
-                    "(2,'donkeykong','Ensures that two blocks of opponents fall down faster',1,1000),\n" +
-                    "(4,'pikachu','Reverse controls',1,1000),\n" +
-                    "(5,'sonic','The next block of opponent goes directly down',1,1000)";
+            "replace  into  heroes ( heroID , heroName , heroAbility , heroAbilityNegative , cost ) values \n"
+                    + "(1,'pacman','Eating 2 adjacent rows',0,1000),\n"
+                    + "(2,'donkeykong','Ensures that two blocks of opponents fall down faster',1,1000),\n"
+                    + "(4,'pikachu','Reverse controls',1,1000),\n"
+                    + "(5,'sonic','The next block of opponent goes directly down',1,1000)";
 
     private static final String SQL_INSERT_AVATARS =
-            "replace  into  avatar ( avatarID , avatarName ) values \n" +
-                    "(1,'Standard'),\n" +
-                    "(2,'Banana'),\n" +
-                    "(3,'Heart'),\n" +
-                    "(4,'TRex'),\n" +
-                    "(5,'Triforce')";
+            "replace  into  avatar ( avatarID , avatarName ) values \n"
+                    + "(1,'Standard'),\n"
+                    + "(2,'Banana'),\n"
+                    + "(3,'Heart'),\n"
+                    + "(4,'TRex'),\n"
+                    + "(5,'Triforce')";
 
     private static final String SQL_INSERT_GAMEMODES =
-            "replace  into  gamemodes ( gamemodeID , gamemodeName ) values \n" +
-                    "(1,'Single_player'),\n" +
-                    "(2,'Multi_player'),\n" +
-                    "(3,'Time_attack'),\n" +
-                    "(4,'Last_Man_Standing')";
+            "replace  into  gamemodes ( gamemodeID , gamemodeName ) values \n"
+                    + "(1,'Single_player'),\n"
+                    + "(2,'Multi_player'),\n"
+                    + "(3,'Time_attack'),\n"
+                    + "(4,'Last_Man_Standing')";
 
     private static final String SQL_INSERT_MYSTERYBOX_REWARDS =
-            "replace  into  mysterybox ( mbID , amount , mbPrice ) values \n" +
-                    "(1,1,'skin'),\n" +
-                    "(2,10,'cubes'),\n" +
-                    "(3,100,'xp'),\n" +
-                    "(4,1,'avatar'),\n" +
-                    "(5,1,'nothing')";
+            "replace  into  mysterybox ( mbID , amount , mbPrice ) values \n"
+                    + "(1,1,'skin'),\n"
+                    + "(2,10,'cubes'),\n"
+                    + "(3,100,'xp'),\n"
+                    + "(4,1,'avatar'),\n"
+                    + "(5,1,'nothing')";
 
     private static final String SQL_INSERT_MYSTERYBOX_AVATAR =
-            "replace into  mysterybox_avatar ( ID , mbID , avatarID ) values \n" +
-                    "(1,4,3)";
+            "replace into  mysterybox_avatar ( ID , mbID , avatarID ) values \n"
+                    + "(1,4,3)";
 
     private static final String SQL_INSERT_MYSTERYBOX_SKIN =
-            "replace  into  mysterybox_skin ( ID , mbID , skinID ) values \n" +
-                    "(1,1,3)";
+            "replace  into  mysterybox_skin ( ID , mbID , skinID ) values \n"
+                    + "(1,1,3)";
 
     private static final String SQL_INSERT_REWARDS =
-            "replace  into  rewards ( rewardID , countStreakDays , amount , rewards ) values \n" +
-                    "(1,1,50,'xp'),\n" +
-                    "(2,2,1,'scratch card'),\n" +
-                    "(3,3,100,'xp'),\n" +
-                    "(4,4,1,'scratch card'),\n" +
-                    "(5,5,150,'xp'),\n" +
-                    "(6,6,1,'mystery box'),\n" +
-                    "(7,7,10,'cubes')";
+            "replace  into  rewards ( rewardID , countStreakDays , amount , rewards ) values \n"
+                    + "(1,1,50,'xp'),\n"
+                    + "(2,2,1,'scratch card'),\n"
+                    + "(3,3,100,'xp'),\n"
+                    + "(4,4,1,'scratch card'),\n"
+                    + "(5,5,150,'xp'),\n"
+                    + "(6,6,1,'mystery box'),\n"
+                    + "(7,7,10,'cubes')";
 
     private static final String SQL_INSERT_SCRATCHCARD =
-            "replace  into  scratchcard ( scID , amount , scPrice ) values \n" +
-                    "(1,10,'cubes'),\n" +
-                    "(2,100,'xp'),\n" +
-                    "(3,1,'skin'),\n" +
-                    "(4,0,'nothing'),\n" +
-                    "(5,1,'avatar')";
+            "replace  into  scratchcard ( scID , amount , scPrice ) values \n"
+                    + "(1,10,'cubes'),\n"
+                    + "(2,100,'xp'),\n"
+                    + "(3,1,'skin'),\n"
+                    + "(4,0,'nothing'),\n"
+                    + "(5,1,'avatar')";
 
     private static final String SQL_INSERT_SCRATCHCARD_AVATAR =
-            "replace  into  scratchcard_avatar ( ID , scID , avatarID ) values \n" +
-                    "(1,5,3)";
+            "replace  into  scratchcard_avatar ( ID , scID , avatarID ) values \n"
+                    + "(1,5,3)";
 
     private static final String SQL_INSERT_SCRATCHCARD_SKIN =
-            "replace  into  scratchcard_skin ( ID , scID , skinID ) values \n" +
-                    "(1,3,4)";
+            "replace  into  scratchcard_skin ( ID , scID , skinID ) values \n"
+                    + "(1,3,4)";
 
     private static final String SQL_INSERT_SKIN =
-            "replace  into  skin ( skinID , skinName ) values \n" +
-                    "(1,'pac-man'),\n" +
-                    "(2,'donkey kong'),\n" +
-                    "(3,'pikachu'),\n" +
-                    "(4,'sonic')";
+            "replace  into  skin ( skinID , skinName ) values \n"
+                    + "(1,'pac-man'),\n"
+                    + "(2,'donkey kong'),\n"
+                    + "(3,'pikachu'),\n"
+                    + "(4,'sonic')";
 
 
 

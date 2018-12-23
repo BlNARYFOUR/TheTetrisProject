@@ -1,10 +1,6 @@
 package data.dailystreakrepository;
 
-import com.mysql.cj.MysqlConnection;
 import data.JdbcInteractor;
-import data.JdbcInteractor;
-import data.TetrisRepository;
-import data.dailystreakrepository.DailyRepository;
 import domain.Avatar;
 import domain.Skin;
 import domain.User;
@@ -23,6 +19,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import static data.loginrepository.MySqlLoginRepository.onCreateUser;
+
+/**
+ * SuppressWarnings: Not enough time to fix.
+ */
+@SuppressWarnings("ClassDataAbstractionCoupling")
 public class MySqlDailyRepository implements DailyRepository {
     private static final String SQL_GET_REWARD =
             "select * from rewards where rewardID = ?";
@@ -35,8 +37,8 @@ public class MySqlDailyRepository implements DailyRepository {
     private static final String SQL_GET_SCRATCH_CARD_PRICES_BY_ID =
             "select scID, amount, scPrice from scratchCard where scID = ?";
     private static final String SQL_GET_SCRATCH_CARD_SKIN =
-            "select * from scratchcard sc inner join scratchcard_skin ss on sc.scID = ss.scID inner join skin s on ss.skinID = s.skinID";
-
+            "select * from scratchcard sc inner join scratchcard_skin ss on sc.scID = ss.scID inner join skin s "
+                    + "on ss.skinID = s.skinID";
 
 
     private static final String SQL_GET_MYSTERY_BOX_PRICES =
@@ -44,14 +46,16 @@ public class MySqlDailyRepository implements DailyRepository {
     private static final String SQL_GET_MYSTERY_BOX_PRICES_BY_ID =
             "select mbID, amount, mbPrice from mysterybox where mbID = ?";
     private static final String SQL_GET_MYSTERY_BOX_SKIN =
-            "select * from mysterybox m inner join mysterybox_skin ms on m.mbID = ms.ID inner join skin s on ms.skinID = s.skinID";
+            "select * from mysterybox m inner join mysterybox_skin ms on m.mbID = ms.ID inner join skin s "
+                    + "on ms.skinID = s.skinID";
     private static final String SQL_GET_MYSTERY_BOX_AVATAR =
-            "select * from mysterybox m inner join mysterybox_avatar ma on m.mbID = ma.ID inner join avatar a on ma.avatarID = a.avatarID";
+            "select * from mysterybox m inner join mysterybox_avatar ma on m.mbID = ma.ID inner join avatar a "
+                    + "on ma.avatarID = a.avatarID";
 
     private static final String SQL_GET_XP =
-            "select * from user where username = ?";
+            SQL_GET_USER_INFO_FOR_DAILY_STREAK;
     private static final String SQL_GET_CUBES =
-            "select * from user where username = ?";
+            SQL_GET_USER_INFO_FOR_DAILY_STREAK;
 
     private static final String SQL_SET_USER_ALREADY_LOGGED_IN_TODAY =
             "update user set alreadyLoggedInToday = ? where username = ?";
@@ -79,9 +83,20 @@ public class MySqlDailyRepository implements DailyRepository {
             "select * from skin where skinName like ?";
     private static final String SQL_GET_AVATARID_FROM_AVATAR =
             "select * from avatar where avatarName like ?";
+    private static final String MB_PRICE_STR = "mbPrice";
+    private static final String MB_ID_STR = "mbID";
+    private static final String UNABLE_GET_ALL_PRICES_STR = "Unable to get all prices.";
+    private static final String SC_PRICE_STR = "scPrice";
+    private static final String SC_ID_STR = "scID";
+    private static final String UNABLE_GET_ALL_REWARDS_STR = "Unable to get all rewards";
+    private static final String REWARDS_STR = "rewards";
+    private static final String AMOUNT_STR = "amount";
+    private static final String COUNT_STREAK_DAYS_STR = "countStreakDays";
+    private static final String REWARD_ID_STR = "rewardID";
+    private static final String CANT_FIND_REWARD_ID_STR = "Can't find the rewardID.";
 
     private final Date now = new Date();
-    private final transient  SimpleDateFormat dateFormat = new SimpleDateFormat(DateFormat.YODA_TIME.toString());
+    private final transient SimpleDateFormat dateFormat = new SimpleDateFormat(DateFormat.YODA_TIME.toString());
     private final String dateToday = dateFormat.format(now);
 
 
@@ -89,14 +104,14 @@ public class MySqlDailyRepository implements DailyRepository {
     @Override
     public void updateAlreaddyLoggedIn(Boolean alreadyLoggedInToday, String username) {
         try (Connection con = JdbcInteractor.getConnection();
-             PreparedStatement prep = con.prepareStatement(SQL_SET_USER_ALREADY_LOGGED_IN_TODAY)){
+             PreparedStatement prep = con.prepareStatement(SQL_SET_USER_ALREADY_LOGGED_IN_TODAY)) {
 
-            prep.setBoolean(1,alreadyLoggedInToday);
+            prep.setBoolean(1, alreadyLoggedInToday);
             prep.setString(2, username);
 
             prep.executeUpdate();
 
-        }catch (SQLException ex){
+        } catch (SQLException ex) {
             throw new DailyExeption("Unable to update alreadyLoggedInToday from DB.", ex);
         }
     }
@@ -105,14 +120,14 @@ public class MySqlDailyRepository implements DailyRepository {
     @Override
     public void resetDailyStreak(String username) {
         try (Connection con = JdbcInteractor.getConnection();
-             PreparedStatement prep = con.prepareStatement(SQL_RESET_DAILY_STREAK)){
+             PreparedStatement prep = con.prepareStatement(SQL_RESET_DAILY_STREAK)) {
 
             prep.setString(1, username);
 
             prep.executeUpdate();
             System.out.println("reset");
 
-        }catch (SQLException ex){
+        } catch (SQLException ex) {
             throw new DailyExeption("Unable to update streakDays to 1 from DB.", ex);
         }
     }
@@ -121,7 +136,7 @@ public class MySqlDailyRepository implements DailyRepository {
     @Override
     public void setStartStreakDate(String username) {
         try (Connection con = JdbcInteractor.getConnection();
-             PreparedStatement prep = con.prepareStatement(SQL_SET_START_STREAK_DATE)){
+             PreparedStatement prep = con.prepareStatement(SQL_SET_START_STREAK_DATE)) {
 
             prep.setString(1, dateToday);
             prep.setString(2, username);
@@ -129,7 +144,7 @@ public class MySqlDailyRepository implements DailyRepository {
 
             prep.executeUpdate();
 
-        }catch (SQLException ex){
+        } catch (SQLException ex) {
             throw new DailyExeption("Unable to update start streak date from DB.", ex);
         }
     }
@@ -138,14 +153,14 @@ public class MySqlDailyRepository implements DailyRepository {
     @Override
     public void setDailyStreakID(String username, int streakDays) {
         try (Connection con = JdbcInteractor.getConnection();
-             PreparedStatement prep = con.prepareStatement(SQL_SET_DAILY_STREAK)){
+             PreparedStatement prep = con.prepareStatement(SQL_SET_DAILY_STREAK)) {
 
             prep.setInt(1, streakDays);
             prep.setString(2, username);
 
             prep.executeUpdate();
 
-        }catch (SQLException ex){
+        } catch (SQLException ex) {
             throw new DailyExeption("Unable to update streakDays from DB.", ex);
         }
     }
@@ -164,23 +179,23 @@ public class MySqlDailyRepository implements DailyRepository {
              PreparedStatement prep = con.prepareStatement(SQL_GET_REWARD)) {
             prep.setInt(1, rewardID);
 
-            try (ResultSet rs = prep.executeQuery()){
-                if (rs.next()){
+            try (ResultSet rs = prep.executeQuery()) {
+                if (rs.next()) {
                     return createStreak(rs);
-                }else {
+                } else {
                     return null;
                 }
             }
-        }catch (SQLException ex){
-            throw new DailyExeption("Can't find the rewardID.", ex);
+        } catch (SQLException ex) {
+            throw new DailyExeption(CANT_FIND_REWARD_ID_STR, ex);
         }
     }
 
     private Streak createStreak(ResultSet rs) throws SQLException {
-        int rewardID = rs.getInt("rewardID");
-        int countStreakDays = rs.getInt("countStreakDays");
-        int amount = rs.getInt("amount");
-        String rewards = rs.getString("rewards");
+        final int rewardID = rs.getInt(REWARD_ID_STR);
+        final int countStreakDays = rs.getInt(COUNT_STREAK_DAYS_STR);
+        final int amount = rs.getInt(AMOUNT_STR);
+        final String rewards = rs.getString(REWARDS_STR);
         return new Streak(rewardID, countStreakDays, amount, rewards);
     }
 
@@ -188,13 +203,13 @@ public class MySqlDailyRepository implements DailyRepository {
     @Override
     public void updateXP(int xp, String username) {
         try (Connection con = JdbcInteractor.getConnection();
-             PreparedStatement prep = con.prepareStatement(SQL_UPDATE_XP_TO_USER)){
-            prep.setInt( 1, xp);
+             PreparedStatement prep = con.prepareStatement(SQL_UPDATE_XP_TO_USER)) {
+            prep.setInt(1, xp);
             prep.setString(2, username);
 
             prep.executeUpdate();
 
-        }catch (SQLException ex){
+        } catch (SQLException ex) {
             throw new DailyExeption("Unable to update XP", ex);
         }
     }
@@ -205,14 +220,14 @@ public class MySqlDailyRepository implements DailyRepository {
              PreparedStatement prep = con.prepareStatement(SQL_GET_CUBES)) {
             prep.setString(1, username);
 
-            try (ResultSet rs = prep.executeQuery()){
-                if (rs.next()){
+            try (ResultSet rs = prep.executeQuery()) {
+                if (rs.next()) {
                     return createUser(rs);
-                }else {
+                } else {
                     return null;
                 }
             }
-        }catch (SQLException ex){
+        } catch (SQLException ex) {
             throw new DailyExeption("Can't find the cubes.", ex);
         }
     }
@@ -223,14 +238,14 @@ public class MySqlDailyRepository implements DailyRepository {
              PreparedStatement prep = con.prepareStatement(SQL_GET_XP)) {
             prep.setString(1, username);
 
-            try (ResultSet rs = prep.executeQuery()){
-                if (rs.next()){
+            try (ResultSet rs = prep.executeQuery()) {
+                if (rs.next()) {
                     return createUser(rs);
-                }else {
+                } else {
                     return null;
                 }
             }
-        }catch (SQLException ex){
+        } catch (SQLException ex) {
             throw new DailyExeption("Can't find the xp.", ex);
         }
     }
@@ -238,13 +253,13 @@ public class MySqlDailyRepository implements DailyRepository {
     @Override
     public void updateCubes(int cubes, String username) {
         try (Connection con = JdbcInteractor.getConnection();
-             PreparedStatement prep = con.prepareStatement(SQL_UPDATE_CUBES_TO_USER)){
-            prep.setInt( 1, cubes);
+             PreparedStatement prep = con.prepareStatement(SQL_UPDATE_CUBES_TO_USER)) {
+            prep.setInt(1, cubes);
             prep.setString(2, username);
 
             prep.executeUpdate();
 
-        }catch (SQLException ex){
+        } catch (SQLException ex) {
             throw new DailyExeption("Unable to update cubes", ex);
         }
     }
@@ -252,13 +267,13 @@ public class MySqlDailyRepository implements DailyRepository {
     @Override
     public Skin getSkinID(String name) {
         try (Connection conn = JdbcInteractor.getConnection();
-             PreparedStatement prep = conn.prepareStatement(SQL_GET_SKINID_FROM_SKIN)){
+             PreparedStatement prep = conn.prepareStatement(SQL_GET_SKINID_FROM_SKIN)) {
             prep.setString(1, name);
 
-            try (ResultSet rs = prep.executeQuery()){
-                if (rs.next()){
+            try (ResultSet rs = prep.executeQuery()) {
+                if (rs.next()) {
                     return createSkin(rs);
-                }else {
+                } else {
                     return null;
                 }
             }
@@ -270,13 +285,13 @@ public class MySqlDailyRepository implements DailyRepository {
     @Override
     public Avatar getAvatarID(String name) {
         try (Connection conn = JdbcInteractor.getConnection();
-             PreparedStatement prep = conn.prepareStatement(SQL_GET_AVATARID_FROM_AVATAR)){
+             PreparedStatement prep = conn.prepareStatement(SQL_GET_AVATARID_FROM_AVATAR)) {
             prep.setString(1, name);
 
-            try (ResultSet rs = prep.executeQuery()){
-                if (rs.next()){
+            try (ResultSet rs = prep.executeQuery()) {
+                if (rs.next()) {
                     return createAvatar(rs);
-                }else {
+                } else {
                     return null;
                 }
             }
@@ -287,47 +302,47 @@ public class MySqlDailyRepository implements DailyRepository {
 
     @Override
     public List<Streak> getAllRewards() {
-        List<Streak> rewards = new ArrayList<>();
+        final List<Streak> rewards = new ArrayList<>();
 
         try (Connection conn = JdbcInteractor.getConnection();
-             PreparedStatement prep = conn.prepareStatement(SQL_GET_ALL_REWARDS)){
+             PreparedStatement prep = conn.prepareStatement(SQL_GET_ALL_REWARDS)) {
 
-            try (ResultSet rs = prep.executeQuery()){
-                while (rs.next()){
-                    Streak reward = new Streak(
-                            rs.getInt("rewardID"),
-                            rs.getInt("countStreakDays"),
-                            rs.getInt("amount"),
-                            rs.getString("rewards"));
+            try (ResultSet rs = prep.executeQuery()) {
+                while (rs.next()) {
+                    final Streak reward = new Streak(
+                            rs.getInt(REWARD_ID_STR),
+                            rs.getInt(COUNT_STREAK_DAYS_STR),
+                            rs.getInt(AMOUNT_STR),
+                            rs.getString(REWARDS_STR));
                     rewards.add(reward);
                 }
             }
 
-        }catch (SQLException ex){
-            throw new DailyExeption("Unable to get all rewards", ex);
+        } catch (SQLException ex) {
+            throw new DailyExeption(UNABLE_GET_ALL_REWARDS_STR, ex);
         }
         return rewards;
     }
 
     @Override
     public List<ScratchCard> getAllSCPrices() {
-        List<ScratchCard> prices = new ArrayList<>();
+        final List<ScratchCard> prices = new ArrayList<>();
 
         try (Connection conn = JdbcInteractor.getConnection();
-             PreparedStatement prep = conn.prepareStatement(SQL_GET_SCRATCH_CARD_PRICES)){
+             PreparedStatement prep = conn.prepareStatement(SQL_GET_SCRATCH_CARD_PRICES)) {
 
-            try (ResultSet rs = prep.executeQuery()){
-                while (rs.next()){
-                    ScratchCard sc = new ScratchCard(
-                            rs.getInt("scID"),
-                            rs.getInt("amount"),
-                            rs.getString("scPrice"));
+            try (ResultSet rs = prep.executeQuery()) {
+                while (rs.next()) {
+                    final ScratchCard sc = new ScratchCard(
+                            rs.getInt(SC_ID_STR),
+                            rs.getInt(AMOUNT_STR),
+                            rs.getString(SC_PRICE_STR));
                     prices.add(sc);
                 }
             }
 
-        }catch (SQLException ex){
-            throw new DailyExeption("Unabled to get all prices.", ex);
+        } catch (SQLException ex) {
+            throw new DailyExeption(UNABLE_GET_ALL_PRICES_STR, ex);
         }
         return prices;
     }
@@ -338,15 +353,15 @@ public class MySqlDailyRepository implements DailyRepository {
              PreparedStatement prep = con.prepareStatement(SQL_GET_SCRATCH_CARD_PRICES_BY_ID)) {
             prep.setInt(1, id);
 
-            try (ResultSet rs = prep.executeQuery()){
-                if (rs.next()){
+            try (ResultSet rs = prep.executeQuery()) {
+                if (rs.next()) {
                     return creatScratchCard(rs);
-                }else {
+                } else {
                     return null;
                 }
             }
-        }catch (SQLException ex){
-            throw new DailyExeption("Can't find the rewardID.", ex);
+        } catch (SQLException ex) {
+            throw new DailyExeption(CANT_FIND_REWARD_ID_STR, ex);
         }
     }
 
@@ -355,10 +370,10 @@ public class MySqlDailyRepository implements DailyRepository {
         try (Connection con = JdbcInteractor.getConnection();
              PreparedStatement prep = con.prepareStatement(SQL_GET_SCRATCH_CARD_SKIN)) {
 
-            try (ResultSet rs = prep.executeQuery()){
-                if (rs.next()){
+            try (ResultSet rs = prep.executeQuery()) {
+                if (rs.next()) {
                     return createSkin(rs);
-                }else {
+                } else {
                     return null;
                 }
             }
@@ -379,15 +394,15 @@ public class MySqlDailyRepository implements DailyRepository {
              PreparedStatement prep = con.prepareStatement(SQL_GET_MYSTERY_BOX_PRICES_BY_ID)) {
             prep.setInt(1, id);
 
-            try (ResultSet rs = prep.executeQuery()){
-                if (rs.next()){
+            try (ResultSet rs = prep.executeQuery()) {
+                if (rs.next()) {
                     return creatMysteryBox(rs);
-                }else {
+                } else {
                     return null;
                 }
             }
-        }catch (SQLException ex){
-            throw new DailyExeption("Can't find the rewardID.", ex);
+        } catch (SQLException ex) {
+            throw new DailyExeption(CANT_FIND_REWARD_ID_STR, ex);
         }
     }
 
@@ -396,14 +411,14 @@ public class MySqlDailyRepository implements DailyRepository {
         try (Connection con = JdbcInteractor.getConnection();
              PreparedStatement prep = con.prepareStatement(SQL_GET_MYSTERY_BOX_SKIN)) {
 
-            try (ResultSet rs = prep.executeQuery()){
-                if (rs.next()){
+            try (ResultSet rs = prep.executeQuery()) {
+                if (rs.next()) {
                     return createSkin(rs);
-                }else {
+                } else {
                     return null;
                 }
             }
-        }catch (SQLException ex){
+        } catch (SQLException ex) {
             throw new DailyExeption("Can't find the skin from MB.", ex);
         }
     }
@@ -413,65 +428,65 @@ public class MySqlDailyRepository implements DailyRepository {
         try (Connection con = JdbcInteractor.getConnection();
              PreparedStatement prep = con.prepareStatement(SQL_GET_MYSTERY_BOX_AVATAR)) {
 
-            try (ResultSet rs = prep.executeQuery()){
-                if (rs.next()){
+            try (ResultSet rs = prep.executeQuery()) {
+                if (rs.next()) {
                     return createAvatar(rs);
-                }else {
+                } else {
                     return null;
                 }
             }
-        }catch (SQLException ex){
+        } catch (SQLException ex) {
             throw new DailyExeption("Can't find the avatar from MB.", ex);
         }
     }
 
     private Avatar createAvatar(ResultSet rs) throws SQLException {
-        int id = rs.getInt("avatarID");
-        String name = rs.getString("avatarName");
+        final int id = rs.getInt("avatarID");
+        final String name = rs.getString("avatarName");
         return new Avatar(id, name);
     }
 
     private Skin createSkin(ResultSet rs) throws SQLException {
-        int id = rs.getInt("skinID");
-        String name = rs.getString("skinName");
+        final int id = rs.getInt("skinID");
+        final String name = rs.getString("skinName");
         return new Skin(id, name);
     }
 
     private MysteryBox creatMysteryBox(ResultSet rs) throws SQLException {
-        int id = rs.getInt("mbID");
-        int amount = rs.getInt("amount");
-        String price = rs.getString("mbPrice");
+        final int id = rs.getInt(MB_ID_STR);
+        final int amount = rs.getInt(AMOUNT_STR);
+        final String price = rs.getString(MB_PRICE_STR);
 
         return new MysteryBox(id, amount, price);
     }
 
     private ScratchCard creatScratchCard(ResultSet rs) throws SQLException {
-        int id = rs.getInt("scID");
-        int amount = rs.getInt("amount");
-        String price = rs.getString("scPrice");
+        final int id = rs.getInt(SC_ID_STR);
+        final int amount = rs.getInt(AMOUNT_STR);
+        final String price = rs.getString(SC_PRICE_STR);
 
         return new ScratchCard(id, amount, price);
     }
 
     @Override
     public List<MysteryBox> getAllMBPrices() {
-        List<MysteryBox> prices = new ArrayList<>();
+        final List<MysteryBox> prices = new ArrayList<>();
 
         try (Connection conn = JdbcInteractor.getConnection();
-             PreparedStatement prep = conn.prepareStatement(SQL_GET_MYSTERY_BOX_PRICES)){
+             PreparedStatement prep = conn.prepareStatement(SQL_GET_MYSTERY_BOX_PRICES)) {
 
-            try (ResultSet rs = prep.executeQuery()){
-                while (rs.next()){
-                    MysteryBox mb = new MysteryBox(
-                            rs.getInt("mbID"),
-                            rs.getInt("amount"),
-                            rs.getString("mbPrice"));
+            try (ResultSet rs = prep.executeQuery()) {
+                while (rs.next()) {
+                    final MysteryBox mb = new MysteryBox(
+                            rs.getInt(MB_ID_STR),
+                            rs.getInt(AMOUNT_STR),
+                            rs.getString(MB_PRICE_STR));
                     prices.add(mb);
                 }
             }
 
-        }catch (SQLException ex){
-            throw new DailyExeption("Unabled to get all prices.", ex);
+        } catch (SQLException ex) {
+            throw new DailyExeption(UNABLE_GET_ALL_PRICES_STR, ex);
         }
         return prices;
     }
@@ -479,12 +494,12 @@ public class MySqlDailyRepository implements DailyRepository {
     @Override
     public User getUserInfoForDailyStreak(String username) {
         try (Connection conn = JdbcInteractor.getConnection();
-             PreparedStatement prep = conn.prepareStatement(SQL_GET_USER_INFO_FOR_DAILY_STREAK)){
+             PreparedStatement prep = conn.prepareStatement(SQL_GET_USER_INFO_FOR_DAILY_STREAK)) {
             prep.setString(1, username);
 
-            try (ResultSet rs = prep.executeQuery()){
-                if (rs.next()){
-                    User user = new User(
+            try (ResultSet rs = prep.executeQuery()) {
+                if (rs.next()) {
+                    return new User(
                             rs.getInt("user_id"),
                             rs.getString("username"),
                             rs.getString("password"),
@@ -497,38 +512,25 @@ public class MySqlDailyRepository implements DailyRepository {
                             rs.getInt("clanPoints"),
                             rs.getBoolean("hasAClan"),
                             rs.getInt("avatar"));
-                    return user;
                 }
             }
 
-        }catch (SQLException ex){
-            throw new DailyExeption("Unable to get all rewards", ex);
+        } catch (SQLException ex) {
+            throw new DailyExeption(UNABLE_GET_ALL_REWARDS_STR, ex);
         }
         return null;
     }
 
 
     private User createUser(ResultSet rs) throws SQLException {
-        int ID = rs.getInt("user_id");
-        String username = rs.getString("username");
-        String password = rs.getString("password");
-        String registerDate = rs.getString("registerDate");
-        String startStreakDate = rs.getString("startStreakDate");
-        int streakDays = rs.getInt("streakDays");
-        boolean alreadyLoggedInToday = rs.getBoolean("alreadyLoggedInToday");
-        int xp = rs.getInt("xp");
-        int cubes = rs.getInt("cubes");
-        int clanPoints = rs.getInt("clanPoints");
-        boolean hasAClan = rs.getBoolean("hasAClan");
-        int avatarID = rs.getInt("avatar");
-        return new User(ID, username, password, registerDate, startStreakDate, streakDays, alreadyLoggedInToday, xp, cubes, clanPoints, hasAClan, avatarID);
+        return onCreateUser(rs);
     }
 
 
     @Override
     public void addAvatarToUser(int userID, int avatarID) {
         try (Connection conn = JdbcInteractor.getConnection();
-             PreparedStatement prep = conn.prepareStatement(SQL_ADD_AVATAR_TO_USER)){
+             PreparedStatement prep = conn.prepareStatement(SQL_ADD_AVATAR_TO_USER)) {
             prep.setInt(1, userID);
             prep.setInt(2, avatarID);
 
@@ -542,7 +544,7 @@ public class MySqlDailyRepository implements DailyRepository {
     @Override
     public void addSkinToUser(int userID, int skinID) {
         try (Connection conn = JdbcInteractor.getConnection();
-             PreparedStatement prep = conn.prepareStatement(SQL_ADD_SKIN_TO_USER)){
+             PreparedStatement prep = conn.prepareStatement(SQL_ADD_SKIN_TO_USER)) {
             prep.setInt(1, userID);
             prep.setInt(2, skinID);
 

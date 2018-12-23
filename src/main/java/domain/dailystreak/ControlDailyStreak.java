@@ -5,22 +5,32 @@ import data.Repositories;
 import data.dailystreakrepository.DailyRepository;
 import data.loggedinrepository.LoggedInRepository;
 import data.loginrepository.LoginRepository;
-import domain.User;
-import org.pmw.tinylog.Logger;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.Date;
 
+/**
+ * SuppressWarnings: not enough time to fix.
+ */
+@SuppressWarnings("MultipleStringLiterals")
 public class ControlDailyStreak {
+    private String sessionID;
+    private String username;
+    private long lStartStreak;
+
     private DailyRepository dailyRepo = Repositories.getInstance().getDailyRepository();
     private LoginRepository loginRepo = Repositories.getInstance().getLoginRepository();
     private LoggedInRepository loggedInRepo = Repositories.getInstance().getLoggedInRepository();
 
-    public String sessionID;
-    public String username;
-    public long lStartStreak;
+    private boolean alreadyClaimedReward;
+    private int streakDays;
+
+    // UNIX TODAY
+    private long today = System.currentTimeMillis() / 1000;
+
+    //OTHER DAY
+    private long otherDay;
 
     public ControlDailyStreak(String sessionID) {
         this.sessionID = sessionID;
@@ -30,28 +40,32 @@ public class ControlDailyStreak {
         return username;
     }
 
+    /**
+     * Not enough time to fix Warnings.
+     * @param addDay : addDay.
+     * @return : void.
+     */
+    @SuppressWarnings({"JavaNCSS", "ExecutableStatementCount", "CyclomaticComplexity"})
     private long dateToUnix(int addDay) {
         // STARTSTREAK
-
-
         try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Date dt = sdf.parse(loginRepo.getUser(username).getStartStreakDate());
-            long epoch = dt.getTime();
-            lStartStreak = epoch/1000;
+            final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            final Date dt = sdf.parse(loginRepo.getUser(username).getStartStreakDate());
+            final long epoch = dt.getTime();
+            lStartStreak = epoch / 1000;
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
         //TERUG OMVORMEN
-        String terugOmvromen = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(lStartStreak * 1000));
-        System.out.println("transform " + terugOmvromen);
-        int m = Integer.parseInt(terugOmvromen.substring(0, 3));
-        int d = Integer.parseInt(terugOmvromen.substring(5, 6));
-        int y = Integer.parseInt(terugOmvromen.substring(8, 9));
-        String time = terugOmvromen.substring(10, 18);
+        final String reFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date(lStartStreak * 1000));
+        System.out.println("transform " + reFormat);
+        int m = Integer.parseInt(reFormat.substring(0, 3));
+        int d = Integer.parseInt(reFormat.substring(5, 6));
+        int y = Integer.parseInt(reFormat.substring(8, 9));
+        final String time = reFormat.substring(10, 18);
 
-        int maxDaysInMonth;
+        final int maxDaysInMonth;
         switch (m) {
             case 4:
             case 6:
@@ -62,12 +76,10 @@ public class ControlDailyStreak {
                 if ((d + addDay) > maxDaysInMonth) {
                     d = (d + addDay) - maxDaysInMonth;
                     m += 1;
-                    break;
                 } else {
                     d = d + addDay;
-                    break;
                 }
-
+                break;
             case 1:
             case 3:
             case 5:
@@ -110,10 +122,12 @@ public class ControlDailyStreak {
                     d = d + addDay;
                     break;
                 }
+            default:
+                break;
         }
 
 
-        String next = m + "/" + d + "/" + y + " " + time;
+        final String next = m + "/" + d + "/" + y + " " + time;
 
         //OMVORMEN NAAR UNIX
         long nextDay = 0;
@@ -136,16 +150,10 @@ public class ControlDailyStreak {
         }
     }
 
-
-    private boolean alreadyClaimedReward;
-    private int streakDays;
-
-    // UNIX TODAY
-    private long today = System.currentTimeMillis() / 1000;
-
-    //OTHER DAY
-    private long otherDay = 0;
-
+    /**
+     * SuppressWarnings: Not enough time to fix.
+     */
+    @SuppressWarnings({"JavaNCSS", "MethodLength", "ExecutableStatementCount", "CyclomaticComplexity"})
     public void control() {
         username = loggedInRepo.getLoggedUser(sessionID).getUsername();
         alreadyClaimedReward = loginRepo.getUser(username).isAlreadyLoggedInToday();
@@ -153,11 +161,11 @@ public class ControlDailyStreak {
         otherDay = today;
 
         //OMVORMEN NAAR DATE
-        String date = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new Date(today * 1000));
+        final String date = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new Date(today * 1000));
 
         switch (streakDays) {
             case 1:
-                if (streakDays == 1 && (dateToUnix(0)) <= otherDay && (dateToUnix(1) >= otherDay)) {
+                if (dateToUnix(0) <= otherDay && dateToUnix(1) >= otherDay) {
                     if (alreadyClaimedReward) {
                         //streakDays = 1;
                         dailyRepo.setDailyStreakID(username, streakDays);
@@ -302,7 +310,7 @@ public class ControlDailyStreak {
         }
     }
 
-    private void resetDailyStreak(){
+    private void resetDailyStreak() {
         dailyRepo.resetDailyStreak(username);
         dailyRepo.setStartStreakDate(username);
     }

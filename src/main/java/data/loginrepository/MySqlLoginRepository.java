@@ -16,18 +16,19 @@ import java.util.Objects;
  * LoginRepository implemented with MySQL database.
  */
 public class MySqlLoginRepository implements LoginRepository {
-    private static final String SQL_ADD_USER = "insert into " +
-            "user(username, password, registerDate, startStreakDate, streakDays, alreadyLoggedInToday, xp, cubes, clanPoints, hasAClan, avatar)" +
-            "values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String SQL_ADD_USER = "insert into "
+            + "user(username, password, registerDate, startStreakDate, streakDays, alreadyLoggedInToday, xp, cubes,"
+            + " clanPoints, hasAClan, avatar)"
+            + "values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-
-    private static final String SQL_CONTROL_USER = "select * from user where username = ?"
+    private static final String SQL_GET_USERNAME = "select * from user where username = ?";
+    private static final String SQL_CONTROL_USER = SQL_GET_USERNAME
             + " and password = ?";
     private static final String SQL_DELETE_USER = "delete from user where username = ?";
-    private static final String SQL_GET_USERNAME = "select * from user where username = ?";
 
     private static final String USERNAME = "username";
     private static final String USER_ID_STR = "user_id";
+    private static final String PASSWORD_STR = "password";
 
 
     private final Date now = new Date();
@@ -101,7 +102,7 @@ public class MySqlLoginRepository implements LoginRepository {
             rs = prep.executeQuery();
 
             if (rs.next()) {
-                user = new User(rs.getInt(USER_ID_STR), rs.getString(USERNAME), rs.getString("password"));
+                user = new User(rs.getInt(USER_ID_STR), rs.getString(USERNAME), rs.getString(PASSWORD_STR));
                 Logger.info("Login successful: " + user.getUsername());
             } else {
                 Logger.warn("Login failed!");
@@ -151,19 +152,24 @@ public class MySqlLoginRepository implements LoginRepository {
     }
 
     private User createUser(final ResultSet rs) throws SQLException {
-        int ID = rs.getInt("user_id");
-        String username = rs.getString("username");
-        String password = rs.getString("password");
-        String registerDate = rs.getString("registerDate");
-        String startStreakDate = rs.getString("startStreakDate");
-        int streakDays = rs.getInt("streakDays");
-        boolean alreadyLoggedInToday = rs.getBoolean("alreadyLoggedInToday");
-        int xp = rs.getInt("xp");
-        int cubes = rs.getInt("cubes");
-        int clanPoints = rs.getInt("clanPoints");
-        boolean hasAClan = rs.getBoolean("hasAClan");
-        int avatar = rs.getInt("avatar");
-        return new User(ID, username, password, registerDate, startStreakDate, streakDays, alreadyLoggedInToday, xp, cubes, clanPoints, hasAClan, avatar);
+        return onCreateUser(rs);
+    }
+
+    public static User onCreateUser(final ResultSet rs) throws SQLException {
+        final int id = rs.getInt(USER_ID_STR);
+        final String username = rs.getString(USERNAME);
+        final String password = rs.getString(PASSWORD_STR);
+        final String registerDate = rs.getString("registerDate");
+        final String startStreakDate = rs.getString("startStreakDate");
+        final int streakDays = rs.getInt("streakDays");
+        final boolean alreadyLoggedInToday = rs.getBoolean("alreadyLoggedInToday");
+        final int xp = rs.getInt("xp");
+        final int cubes = rs.getInt("cubes");
+        final int clanPoints = rs.getInt("clanPoints");
+        final boolean hasAClan = rs.getBoolean("hasAClan");
+        final int avatar = rs.getInt("avatar");
+        return new User(id, username, password, registerDate, startStreakDate, streakDays, alreadyLoggedInToday, xp,
+                cubes, clanPoints, hasAClan, avatar);
     }
 
 

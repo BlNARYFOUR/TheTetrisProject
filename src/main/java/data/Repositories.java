@@ -46,7 +46,7 @@ public final class Repositories {
     public GameRepository getGameRepository() {
         return new HcGameRepository();
     }
-    public AvatarRepository getAvatarRepository(){
+    public AvatarRepository getAvatarRepository() {
         return new MySqlAvatarRepository();
     }
 

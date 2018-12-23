@@ -1,5 +1,8 @@
 package domain.dailystreak;
 
+/**
+ * Streak.
+ */
 public class Streak {
     private int id;
     private int day;
@@ -57,7 +60,8 @@ public class Streak {
 
     @Override
     public String toString() {
-        return "Streaks : " + getId() + " " + getDay() + " "
-                + getAmount() + " " + getReward();
+        final String spaceStr = " ";
+        return "Streaks : " + getId() + spaceStr + getDay() + spaceStr
+                + getAmount() + spaceStr + getReward();
     }
 }

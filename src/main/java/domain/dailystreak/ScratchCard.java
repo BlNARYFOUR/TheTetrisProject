@@ -1,5 +1,8 @@
 package domain.dailystreak;
 
+/**
+ * ScratchCard.
+ */
 public class ScratchCard {
     private int id;
     private int amount;

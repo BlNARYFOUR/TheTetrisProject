@@ -1,7 +1,10 @@
 package util;
 
+/**
+ * javadoc.
+ */
 public class DailyExeption extends RuntimeException {
-    public DailyExeption(String msg, Exception innerException){
+    public DailyExeption(final String msg, final Exception innerException) {
         super(msg, innerException);
     }
 }

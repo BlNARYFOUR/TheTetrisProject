@@ -8,7 +8,6 @@ import data.loggedinrepository.LoggedInRepository;
 import data.Repositories;
 import data.loginrepository.LoginRepository;
 import domain.User;
-import domain.dailystreak.ControlDailyStreak;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.ext.web.Cookie;
 import io.vertx.ext.web.RoutingContext;
