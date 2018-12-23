@@ -1,7 +1,7 @@
 package data;
 
-import data.avatarRepository.AvatarRepository;
-import data.avatarRepository.MySqlAvatarRepository;
+import data.avatarrepository.AvatarRepository;
+import data.avatarrepository.MySqlAvatarRepository;
 import data.blockrepository.BlockRepository;
 import data.blockrepository.HcBlockRepository;
 import data.gamerepository.GameRepository;

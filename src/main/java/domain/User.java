@@ -1,6 +1,7 @@
 package domain;
 
 import domain.game.modes.GameMode;
+import edu.umd.cs.findbugs.annotations.SuppressWarnings;
 import util.DateFormat;
 import util.HighScoreException;
 import util.UserException;
@@ -12,6 +13,7 @@ import java.util.*;
 /**
  * User class.
  */
+@SuppressWarnings("PMD")
 public class User {
     //private final Date now = new Date();
     private final transient SimpleDateFormat dateFormat = new SimpleDateFormat(DateFormat.YODA_TIME.toString(),
@@ -61,9 +63,10 @@ public class User {
         this("TEST", "TESTIE");
     }
 
-    @SuppressWarnings("ParameterNumber")
-    public User(int id, String username, String password, String registerDate, String beginDate, int streakDays,
-            boolean alreadyLoggedIn, int xp, int cubes, int clanPoints, boolean hasAClan, int avatarID) {
+    @SuppressWarnings({"ParameterNumber", "PMD"})
+    public User(final int id, final String username, final String password, final String registerDate,
+                final String beginDate, final int streakDays, final boolean alreadyLoggedIn, final int xp,
+                final int cubes, final int clanPoints, final boolean hasAClan, final int avatarID) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -149,7 +152,7 @@ public class User {
         return streakDays;
     }
 
-    public void setStreakDays(int streakDays) {
+    public void setStreakDays(final int streakDays) {
         this.streakDays = streakDays;
     }
 
@@ -157,23 +160,23 @@ public class User {
         return alreadyLoggedInToday;
     }
 
-    public void setAlreadyLoggedInToday(boolean alreadyLoggedInToday) {
+    public void setAlreadyLoggedInToday(final boolean alreadyLoggedInToday) {
         this.alreadyLoggedInToday = alreadyLoggedInToday;
     }
 
     public Date getLoginDate() {
-        return loginDate;
+        return Date.from(loginDate.toInstant());
     }
 
-    public void setLoginDate(Date loginDate) {
-        this.loginDate = loginDate;
+    public void setLoginDate(final Date loginDate) {
+        this.loginDate = Date.from(loginDate.toInstant());
     }
 
     public int getXp() {
         return xp;
     }
 
-    public void setXp(int xp) {
+    public void setXp(final int xp) {
         this.xp = xp;
     }
 
@@ -181,7 +184,7 @@ public class User {
         return cubes;
     }
 
-    public void setCubes(int cubes) {
+    public void setCubes(final int cubes) {
         this.cubes = cubes;
     }
 
@@ -189,7 +192,7 @@ public class User {
         return clanPoints;
     }
 
-    public void setClanPoints(int clanPoints) {
+    public void setClanPoints(final int clanPoints) {
         this.clanPoints = clanPoints;
     }
 
@@ -197,7 +200,7 @@ public class User {
         return hasAClan;
     }
 
-    public void setHasAClan(boolean hasAClan) {
+    public void setHasAClan(final boolean hasAClan) {
         this.hasAClan = hasAClan;
     }
 
@@ -205,7 +208,7 @@ public class User {
         return avatarID;
     }
 
-    public void setAvatarID(int avatarID) {
+    public void setAvatarID(final int avatarID) {
         this.avatarID = avatarID;
     }
 
@@ -224,7 +227,7 @@ public class User {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) {
             return true;
         }

@@ -32,11 +32,9 @@ public class MySqlLoginRepository implements LoginRepository {
 
 
     private final Date now = new Date();
-    private final Date tomorrow = new Date(now.getTime() + (1000 * 60 * 60 * 24));
     private final transient SimpleDateFormat dateFormat = new SimpleDateFormat(DateFormat.YODA_TIME.toString(),
             Locale.GERMANY);
     private final String dateToday = dateFormat.format(now);
-    private final String dateTomorrow = dateFormat.format(tomorrow);
 
     /**
      * Suppress PMD: keeps crying about unclosed ResultSet.

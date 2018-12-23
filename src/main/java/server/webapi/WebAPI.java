@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
-import data.avatarRepository.AvatarRepository;
+import data.avatarrepository.AvatarRepository;
 import data.dailystreakrepository.DailyRepository;
 import data.gamerepository.GameRepository;
 import data.JdbcInteractor;
@@ -33,7 +33,6 @@ import io.vertx.ext.web.sstore.SessionStore;
 import org.pmw.tinylog.Logger;
 import server.Config;
 import server.webapi.util.SecureFilePath;
-import sun.rmi.runtime.Log;
 import util.MatchableException;
 
 import java.io.IOException;
@@ -42,7 +41,7 @@ import java.util.*;
 /**
  * All the communication setup and basic handlers.
  */
-@SuppressWarnings({"ClassFanOutComplexity", "ClassDataAbstractionCoupling"})
+@SuppressWarnings({"ClassFanOutComplexity", "ClassDataAbstractionCoupling", "PMD"})
 public class WebAPI extends AbstractVerticle {
     private static final String SOCKET_URL_DOT = "tetris.events.";
     private static final String REGISTER = "/register.html";
@@ -67,11 +66,11 @@ public class WebAPI extends AbstractVerticle {
     private static final String SPACE_STR = " ";
 
     private final ObjectMapper objectMapper = new ObjectMapper();
-    private LoginRepository repo = Repositories.getInstance().getLoginRepository();
+    private final LoginRepository repo = Repositories.getInstance().getLoginRepository();
     private final LoggedInRepository loggedInRepo = Repositories.getInstance().getLoggedInRepository();
     private final GameRepository gameRepo = Repositories.getInstance().getGameRepository();
-    private AvatarRepository avatarRepo = Repositories.getInstance().getAvatarRepository();
-    private DailyRepository repoDaily = Repositories.getInstance().getDailyRepository();
+    private final AvatarRepository avatarRepo = Repositories.getInstance().getAvatarRepository();
+    private final DailyRepository repoDaily = Repositories.getInstance().getDailyRepository();
 
     private String sessionID;
 
@@ -192,7 +191,7 @@ public class WebAPI extends AbstractVerticle {
 
     }
 
-    private void cSessionInfo(Message message) {
+    private void cSessionInfo(final Message message) {
         try {
             final Map<String, Object> jsonMap = objectMapper.readValue(
                 message.body().toString(),
@@ -200,7 +199,7 @@ public class WebAPI extends AbstractVerticle {
             );
             Logger.warn("Session request received: " + jsonMap);
 
-            sessionID(jsonMap);
+            setSessionID(jsonMap);
             final ControlDailyStreak controlDailyStreak = new ControlDailyStreak(sessionID);
             controlDailyStreak.control();
             rewards();
@@ -469,7 +468,7 @@ public class WebAPI extends AbstractVerticle {
         }
     }
 
-    private void sessionID(final Map<String, Object> obj) {
+    private void setSessionID(final Map<String, Object> obj) {
         sessionID = String.valueOf(obj.get(SESSION_STR));
     }
 
@@ -494,7 +493,7 @@ public class WebAPI extends AbstractVerticle {
     private void userReceivedReward(final Map<String, Object> obj) {
         final Boolean alreadyLoggedInToday = (Boolean) obj.get("alreadyLoggedInToday");
 
-        repoDaily.updateAlreaddyLoggedIn(alreadyLoggedInToday, loggedInRepo.getLoggedUser(sessionID).getUsername());
+        repoDaily.updateAlreadyLoggedIn(alreadyLoggedInToday, loggedInRepo.getLoggedUser(sessionID).getUsername());
     }
 
     private void addRewardXPToUsersAccount(final Map<String, Object> obj) {

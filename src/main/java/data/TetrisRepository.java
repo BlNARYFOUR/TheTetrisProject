@@ -8,7 +8,7 @@ import java.sql.*;
 /**
  * A TetrisRepo.
  */
-@SuppressWarnings("MultipleStringLiterals")
+@SuppressWarnings({"MultipleStringLiterals", "PMD"})
 public final class TetrisRepository {
     //private static Date now = new Date();
     //private static Date tomorrow = new Date(now.getTime() + (1000 * 60 * 60 * 24));
@@ -216,6 +216,7 @@ public final class TetrisRepository {
 
 
     // DATABASE
+    @SuppressWarnings("PMD")
     public static void populateDB() {
         try (Statement stmt = JdbcInteractor.getConnection().createStatement()) {
             //CREATE TABLES

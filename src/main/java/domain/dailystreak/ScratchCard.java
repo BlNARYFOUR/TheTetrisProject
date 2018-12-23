@@ -8,7 +8,7 @@ public class ScratchCard {
     private int amount;
     private String price;
 
-    public ScratchCard(int id, int amount, String price) {
+    public ScratchCard(final int id, final int amount, final String price) {
         this.id = id;
         this.amount = amount;
         this.price = price;
@@ -18,7 +18,7 @@ public class ScratchCard {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(final int id) {
         this.id = id;
     }
 
@@ -26,7 +26,7 @@ public class ScratchCard {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(final int amount) {
         this.amount = amount;
     }
 
@@ -34,7 +34,7 @@ public class ScratchCard {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(final String price) {
         this.price = price;
     }
 

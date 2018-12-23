@@ -14,7 +14,7 @@ import java.util.List;
  * Contract for DailyRepository.
  */
 public interface DailyRepository {
-    void updateAlreaddyLoggedIn(Boolean alreadyLoggedIn, String username);
+    void updateAlreadyLoggedIn(Boolean alreadyLoggedIn, String username);
     //void updateDailyStreak(String name);
     void resetDailyStreak(String username);
     void setStartStreakDate(String username);

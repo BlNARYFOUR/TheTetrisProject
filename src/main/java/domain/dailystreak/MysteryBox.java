@@ -14,20 +14,20 @@ public class MysteryBox {
     private Skin skin;
     private Avatar avatar;
 
-    public MysteryBox(int id, int amount, String price) {
+    public MysteryBox(final int id, final int amount, final String price) {
         this.id = id;
         this.amount = amount;
         this.price = price;
     }
 
-    public MysteryBox(int id, int amount, String price, Skin skin) {
+    public MysteryBox(final int id, final int amount, final String price, final Skin skin) {
         this.id = id;
         this.amount = amount;
         this.price = price;
         this.skin = skin;
     }
 
-    public MysteryBox(int id, int amount, String price, Avatar avatar) {
+    public MysteryBox(final int id, final int amount, final String price, final Avatar avatar) {
         this.id = id;
         this.amount = amount;
         this.price = price;
@@ -38,7 +38,7 @@ public class MysteryBox {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(final int id) {
         this.id = id;
     }
 
@@ -46,7 +46,7 @@ public class MysteryBox {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(final int amount) {
         this.amount = amount;
     }
 
@@ -54,7 +54,7 @@ public class MysteryBox {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(final String price) {
         this.price = price;
     }
 
@@ -62,7 +62,7 @@ public class MysteryBox {
         return skin;
     }
 
-    public void setSkin(Skin skin) {
+    public void setSkin(final Skin skin) {
         this.skin = skin;
     }
 
@@ -70,7 +70,7 @@ public class MysteryBox {
         return avatar;
     }
 
-    public void setAvatar(Avatar avatar) {
+    public void setAvatar(final Avatar avatar) {
         this.avatar = avatar;
     }
 

@@ -1,7 +1,8 @@
-package data.avatarRepository;
+package data.avatarrepository;
 
 import data.JdbcInteractor;
 import domain.Avatar;
+import org.pmw.tinylog.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -31,7 +32,8 @@ public class MySqlAvatarRepository implements AvatarRepository {
 
 
     @Override
-    public List<Avatar> getAllAvatarsFromUser(int userID) {
+    @SuppressWarnings("PMD")
+    public List<Avatar> getAllAvatarsFromUser(final int userID) {
         final List<Avatar> avatars = new ArrayList<>();
 
         try (Connection conn = JdbcInteractor.getConnection();
@@ -47,14 +49,14 @@ public class MySqlAvatarRepository implements AvatarRepository {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.warn(e.getMessage());
         }
         return avatars;
     }
 
     @Override
     @SuppressWarnings("ReturnCount")
-    public Avatar getAvatar(int avatarID) {
+    public Avatar getAvatar(final int avatarID) {
         try (Connection conn = JdbcInteractor.getConnection();
              PreparedStatement prep = conn.prepareStatement(SQL_GET_AVATAR_FROM_USER)) {
             prep.setInt(1, avatarID);
@@ -67,7 +69,7 @@ public class MySqlAvatarRepository implements AvatarRepository {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.warn(e.getMessage());
         }
         return null;
     }
@@ -79,7 +81,7 @@ public class MySqlAvatarRepository implements AvatarRepository {
      */
     @Override
     @SuppressWarnings("ReturnCount")
-    public Avatar getAvatarID(String name) {
+    public Avatar getAvatarID(final String name) {
         try (Connection conn = JdbcInteractor.getConnection();
              PreparedStatement prep = conn.prepareStatement(SQL_GET_AVATARID_FROM_AVATAR)) {
             prep.setString(1, name);
@@ -92,12 +94,12 @@ public class MySqlAvatarRepository implements AvatarRepository {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            Logger.warn(e.getMessage());
         }
         return null;
     }
 
-    private Avatar createAvatar(ResultSet rs) throws SQLException {
+    private Avatar createAvatar(final ResultSet rs) throws SQLException {
         final int avatarID = rs.getInt(AVATAR_ID_STR);
         final String avatarName = rs.getString(AVATAR_NAME_STR);
 
@@ -105,7 +107,7 @@ public class MySqlAvatarRepository implements AvatarRepository {
     }
 
     @Override
-    public void changeAvatar(int avatarID, int userID) {
+    public void changeAvatar(final int avatarID, final int userID) {
         try (Connection con = JdbcInteractor.getConnection();
              PreparedStatement prep = con.prepareStatement(SQL_SET_USER_AVATAR)) {
             prep.setInt(1, avatarID);
@@ -113,7 +115,7 @@ public class MySqlAvatarRepository implements AvatarRepository {
 
             prep.executeUpdate();
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            Logger.warn(ex.getMessage());
         }
     }
 

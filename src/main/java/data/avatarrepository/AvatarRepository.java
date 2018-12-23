@@ -1,4 +1,4 @@
-package data.avatarRepository;
+package data.avatarrepository;
 
 import domain.Avatar;
 
