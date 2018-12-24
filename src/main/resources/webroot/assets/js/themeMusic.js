@@ -35,6 +35,6 @@ function toggleMusic() {
 
 function createAudioObj(fileName) {
     let audio = document.createElement("audio");
-    audio.src = "/static/assets/sounds/" + fileName;
+    audio.src = "assets/sounds/" + fileName;
     return audio;
 }
