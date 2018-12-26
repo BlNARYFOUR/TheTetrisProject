@@ -218,8 +218,8 @@ public final class TetrisRepository {
         try (Statement stmt = JdbcInteractor.getConnection().createStatement()) {
             //CREATE TABLES
             stmt.executeUpdate(SQL_REWARDS_DB);
-            stmt.executeUpdate(SQL_USER_DB);
             stmt.executeUpdate(SQL_AVATER_DB);
+            stmt.executeUpdate(SQL_USER_DB);
             stmt.executeUpdate(SQL_GAMEMODES_DB);
             stmt.executeUpdate(SQL_HEROES_DB);
             stmt.executeUpdate(SQL_MYSTERYBOX_DB);
